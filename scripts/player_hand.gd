@@ -1,1 +1,1 @@
-static var CardList = ["Carrot", "Blueberry"]
+static var CardList = ["Carrot", "Blueberry", "Blueberry", "Pumpkin"]

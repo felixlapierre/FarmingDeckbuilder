@@ -11,6 +11,7 @@ default_font_size = 30
 [node name="CardBase" type="MarginContainer"]
 offset_right = 250.0
 offset_bottom = 350.0
+pivot_offset = Vector2(125, 175)
 script = ExtResource("1_ohx6w")
 
 [node name="CardBorder" type="Sprite2D" parent="."]
