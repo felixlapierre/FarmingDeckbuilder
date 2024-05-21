@@ -5,6 +5,23 @@ var Cardname = "Blueberry"
 var CardInfo;
 var CardImg = "res://assets/1616tinygarden/objects.png"
 
+var startpos = 0
+var targetpos = 0
+var t = 0
+var DRAWTIME = 0.5
+var startrot = 0
+var targetrot = 0
+
+enum {
+	InHand,
+	InPlay,
+	InMouse,
+	FocusInHand,
+	MoveDrawnCardToHand,
+	ReOrganiseHand
+}
+var state = InHand
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	CardDatabase = preload("res://scripts/cards_database.gd")
@@ -26,8 +43,34 @@ func _ready() -> void:
 	$HBoxContainer/VBoxContainer/BottomBar/TimeLabel.text = str(CardInfo[4]) + " Wks"
 	$HBoxContainer/VBoxContainer/DescriptionLabel.text = CardInfo[7]
 	
-
-
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	pass
+	match state:
+		InHand:
+			pass
+		InPlay:
+			pass
+		InMouse:
+			pass
+		FocusInHand:
+			pass
+		MoveDrawnCardToHand:
+			if t <= 1: # Interpolate uses a scale from 0 to 1, so this is always 1
+				position = startpos.lerp(targetpos, t)
+				rotation = startrot * (1-t) + targetrot * t
+				t += delta/float(DRAWTIME) # DRAWTIME is in seconds
+			else:
+				position = targetpos # In case we need to correct
+				rotation = targetrot
+				state = InHand
+				t = 0 # Reset to 0 so we can reuse this later
+		ReOrganiseHand:
+			if t <= 1: # Interpolate uses a scale from 0 to 1, so this is always 1
+				position = startpos.lerp(targetpos, t)
+				rotation = startrot * (1-t) + targetrot * t
+				t += delta/float(DRAWTIME/2) # DRAWTIME is in seconds
+			else:
+				position = targetpos # In case we need to correct
+				rotation = targetrot
+				state = InHand
+				t = 0 # Reset to 0 so we can reuse this later

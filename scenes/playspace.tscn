@@ -136,12 +136,11 @@ layer_2/name = "Props 2"
 layer_2/tile_data = PackedInt32Array(720906, 917504, 3, 589834, 917504, 1, 327695, 917504, 0, 327698, 1048576, 0)
 
 [node name="Deck" type="Node2D" parent="."]
+position = Vector2(922, 318)
 
 [node name="DeckDraw" type="TextureButton" parent="Deck"]
-offset_left = 922.0
-offset_top = 318.0
-offset_right = 1172.0
-offset_bottom = 669.0
+offset_right = 250.0
+offset_bottom = 351.0
 texture_normal = ExtResource("3_ej1xc")
 texture_disabled = ExtResource("4_6s8vj")
 script = ExtResource("4_jb073")
