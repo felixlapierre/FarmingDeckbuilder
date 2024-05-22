@@ -49,20 +49,23 @@ func drawcard():
 	OvalAngleVector = Vector2(HorizontalRadius * cos(Angle), -VerticalRadius * sin(Angle))
 	new_card.startpos = $Deck.position - CardSize / 2
 	new_card.targetpos = CenterCardOval + OvalAngleVector - new_card.size / 2
+	new_card.Cardpos = new_card.targetpos
 	new_card.startrot = 0
 	new_card.targetrot = -Angle/4 + PI/8
 
 	new_card.state = MoveDrawnCardToHand
 	new_card.scale *= CardSize / new_card.size
 	Card_Number = 0
+	new_card.CardNumber = NumberCardsHand
 	for HandCard in $Cards.get_children(): #reorganize hand
 		Angle = PI/2 + CardSpread*(float(NumberCardsHand)/2 - Card_Number)
 		OvalAngleVector = Vector2(HorizontalRadius * cos(Angle), -VerticalRadius * sin(Angle))
 
 		HandCard.targetpos = CenterCardOval + OvalAngleVector - HandCard.size / 2
+		HandCard.Cardpos = HandCard.targetpos
 		HandCard.startrot = HandCard.rotation
 		HandCard.targetrot = -Angle/4 + PI/8
-
+		HandCard.CardNumber = Card_Number
 		Card_Number += 1
 		if HandCard.state == InHand:
 			HandCard.state = ReOrganiseHand
