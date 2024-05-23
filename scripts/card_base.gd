@@ -1,28 +1,33 @@
 extends MarginContainer
 
-var CardDatabase 
-var Cardname = "Blueberry"
-var CardInfo;
-var CardImg = "res://assets/1616tinygarden/objects.png"
-const CardSize = Vector2(125, 175)
+var card_name = "Blueberry"
+var card_info;
+var card_image = "res://assets/1616tinygarden/objects.png"
+var card_database
+var card_size = Vector2(125, 175)
 
-var startpos = 0
-var targetpos = 0
-var startscale: Vector2
-var Cardpos: Vector2
-var orig_scale = CardSize / size
+var starting_position # For animating movement, start position of the card
+var target_position # For animating movement, position card should end up at
+var resting_position: Vector2 # Card comes back to rest at this position when we need to unfocus etc
+
+var starting_scale: Vector2 # For animating scale, start scale
+var resting_scale = card_size / size
+var target_scale;
+
+var starting_rotation = 0
+var target_rotation = 0
+var resting_rotation = 0
+
 var ZoomInSize = 2
 var t = 0
-var startrot = 0
-var targetrot = 0
+
 var tween
-var tweening = false
-var setup = true
-var reorganize_neighbors = true
-var NumberCardsHand = 0
-var CardNumber = 0;
-var NeighborCard;
-var Move_Neighbor_Card_Check = false
+
+var number_of_cards_in_hand = 0
+var card_number_in_hand = 0;
+var neighbor_card;
+
+var card_selected = true
 
 var DRAWTIME = 0.5
 var ZOOMTIME = 0.3
@@ -39,25 +44,24 @@ var state = InHand
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	CardDatabase = preload("res://scripts/cards_database.gd")
-	CardInfo = CardDatabase.DATA[CardDatabase.get(Cardname)]
-	print(CardInfo)
+	card_database = preload("res://scripts/cards_database.gd")
+	card_info = card_database.DATA[card_database.get(card_name)]
 	
-	var CardSize = size
-	$CardBorder.scale *= CardSize / $CardBorder.texture.get_size()
-	$CardIcon.texture = load(CardImg)
+	var card_size = size
+	$CardBorder.scale *= card_size / $CardBorder.texture.get_size()
+	$CardIcon.texture = load(card_image)
 	$CardIcon.region_enabled = true
-	$CardIcon.set_region_rect(Rect2(CardInfo[8] * 16, 0, 16, 16))
+	$CardIcon.set_region_rect(Rect2(card_info[8] * 16, 0, 16, 16))
 	$CardIcon.position = $CardBorder.texture.get_size() / 2
 	$CardIcon.position.y /= 2
-	$Focus.scale *= CardSize / $Focus.size
+	$Focus.scale *= card_size / $Focus.size
 	
-	$HBoxContainer/VBoxContainer/BottomBar/TypeLabel.text = CardInfo[0]
-	$HBoxContainer/VBoxContainer/TopBar/CardNameLabel.text = CardInfo[1]
-	$HBoxContainer/VBoxContainer/TopBar/CardCostLabel.text = str(CardInfo[2])
-	$HBoxContainer/VBoxContainer/BottomBar/YieldLabel.text = str(CardInfo[3]) + " Yld / "
-	$HBoxContainer/VBoxContainer/BottomBar/TimeLabel.text = str(CardInfo[4]) + " Wks"
-	$HBoxContainer/VBoxContainer/DescriptionLabel.text = CardInfo[7]
+	$HBoxContainer/VBoxContainer/BottomBar/TypeLabel.text = card_info[0]
+	$HBoxContainer/VBoxContainer/TopBar/CardNameLabel.text = card_info[1]
+	$HBoxContainer/VBoxContainer/TopBar/CardCostLabel.text = str(card_info[2])
+	$HBoxContainer/VBoxContainer/BottomBar/YieldLabel.text = str(card_info[3]) + " Yld / "
+	$HBoxContainer/VBoxContainer/BottomBar/TimeLabel.text = str(card_info[4]) + " Wks"
+	$HBoxContainer/VBoxContainer/DescriptionLabel.text = card_info[7]
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -67,112 +71,126 @@ func _process(delta: float) -> void:
 		InPlay:
 			pass
 		InMouse:
-			pass
+			target_position = get_global_mouse_position() - card_size
+			process_move_linear(delta, 0.1)
 		FocusInHand:
-			if setup:
-				Setup()
-			if t <= 1: # Interpolate uses a scale from 0 to 1, so this is always 1
-				position = startpos.lerp(targetpos, t)
-				rotation = startrot * (1-t) + 0 * t
-				t += delta/float(ZOOMTIME/2)
-				scale = startscale * (1-t) + orig_scale*2*t
-				if reorganize_neighbors:
-					reorganize_neighbors = false
-					NumberCardsHand = $'../../'.NumberCardsHand - 1
-					if CardNumber - 1 >= 0:
-						Move_Neighbor_Card(CardNumber - 1, true, 1) #true is left
-					if CardNumber - 2 >= 0:
-						Move_Neighbor_Card(CardNumber - 2, true, 0.25) #true is left
-					if CardNumber + 1 <= NumberCardsHand:
-						Move_Neighbor_Card(CardNumber + 1, false, 1)
-					if CardNumber + 2 <= NumberCardsHand:
-						Move_Neighbor_Card(CardNumber + 2, false, 0.25)
-			else:
-				position = targetpos # In case we need to correct
-				rotation = 0
-				scale = orig_scale*2
+			process_move_linear(delta, ZOOMTIME/2)
 		MoveDrawnCardToHand:
-			if t <= 1: # Interpolate uses a scale from 0 to 1, so this is always 1
-				if !tween:
-					tween = get_tree().create_tween()
-					position = startpos
-					tween.tween_property(self, "position", targetpos, DRAWTIME).set_trans(Tween.TRANS_CUBIC)
-					
-				#position = startpos.lerp(targetpos, t)
-				rotation = startrot * (1-t) + targetrot * t
-				t += delta/float(DRAWTIME) # DRAWTIME is in seconds
-			else:
-				position = targetpos # In case we need to correct
-				rotation = targetrot
-				scale = orig_scale
+			if t > 1:
 				state = InHand
-				t = 0 # Reset to 0 so we can reuse this later
+			process_move_linear(delta, DRAWTIME)
 		ReOrganiseHand:
-			if setup:
-				Setup()
-			if t <= 1: # Interpolate uses a scale from 0 to 1, so this is always 1
-				if Move_Neighbor_Card_Check:
-					Move_Neighbor_Card_Check = false
-				position = startpos.lerp(targetpos, t)
-				rotation = startrot * (1-t) + targetrot * t
-				t += delta/float(DRAWTIME/2) # DRAWTIME is in seconds
-				scale = startscale * (1-t) + orig_scale*t
-				if reorganize_neighbors == false:
-					reorganize_neighbors = true
-					if CardNumber - 1 >= 0:
-						Reset_Card(CardNumber - 1) #true is left
-					if CardNumber - 2 >= 0:
-						Reset_Card(CardNumber - 2) #true is left
-					if CardNumber + 1 <= NumberCardsHand:
-						Reset_Card(CardNumber + 1)
-					if CardNumber + 2 <= NumberCardsHand:
-						Reset_Card(CardNumber + 2)
-			else:
-				position = targetpos # In case we need to correct
-				rotation = targetrot
-				scale = orig_scale
+			if t > 1:
 				state = InHand
-				t = 0 # Reset to 0 so we can reuse this later
+			process_move_linear(delta, 0.3)
 
-func Setup():
-	startpos = position
-	startrot = rotation
-	startscale = orig_scale
+func reset_starting_position():
+	starting_position = position
+	starting_rotation = rotation
+	starting_scale = scale
 	t = 0
-	setup = false
 	
-func Reset_Card(CardNumber):
-	if Move_Neighbor_Card_Check == false:
-		NeighborCard = $'../'.get_child(CardNumber)
-		# Allows mousing directly from one card to another
-		if NeighborCard.state != FocusInHand:
-			NeighborCard.state = ReOrganiseHand
-			NeighborCard.targetpos = NeighborCard.Cardpos
-			NeighborCard.setup = true
+func Reset_Card(card_number_in_hand):
+	neighbor_card = $'../'.get_child(card_number_in_hand)
+	neighbor_card = $'../'.get_child(card_number_in_hand)
+	# Allows mousing directly from one card to another
+	if neighbor_card.state != FocusInHand:
+		neighbor_card.state = ReOrganiseHand
+		neighbor_card.target_position = neighbor_card.resting_position
+		neighbor_card.reset_starting_position()
 
 func _on_focus_mouse_entered() -> void:
 	match state:
 		InHand, ReOrganiseHand:
-			setup = true
-			targetpos = Cardpos
-			targetpos.y = get_viewport_rect().size.y - CardSize.y*ZoomInSize
-			state = FocusInHand
+			var new_position = resting_position
+			new_position.y = get_viewport_rect().size.y - card_size.y*ZoomInSize
+			set_state(FocusInHand, new_position, 0, resting_scale * 2)
+			move_neighbors()
 
 
 func _on_focus_mouse_exited() -> void:
 	match state:
 		FocusInHand:
-			setup = true
-			targetpos = Cardpos
-			state = ReOrganiseHand
+			set_state(ReOrganiseHand, resting_position, resting_rotation, resting_scale)
+			reset_neighbors()
 
-func Move_Neighbor_Card(CardNumber, Left, SpreadFactor):
-	print(CardNumber)
-	NeighborCard = $'../'.get_child(CardNumber)
+func move_neighbors():
+	number_of_cards_in_hand = $'../../'.number_of_cards_in_hand - 1
+	if card_number_in_hand - 1 >= 0:
+		move_neighbor_card(card_number_in_hand - 1, true, 1) #true is left
+	if card_number_in_hand - 2 >= 0:
+		move_neighbor_card(card_number_in_hand - 2, true, 0.25) #true is left
+	if card_number_in_hand + 1 <= number_of_cards_in_hand:
+		move_neighbor_card(card_number_in_hand + 1, false, 1)
+	if card_number_in_hand + 2 <= number_of_cards_in_hand:
+		move_neighbor_card(card_number_in_hand + 2, false, 0.25)
+		
+func reset_neighbors():
+	if card_number_in_hand - 1 >= 0:
+		Reset_Card(card_number_in_hand - 1) #true is left
+	if card_number_in_hand - 2 >= 0:
+		Reset_Card(card_number_in_hand - 2) #true is left
+	if card_number_in_hand + 1 <= number_of_cards_in_hand:
+		Reset_Card(card_number_in_hand + 1)
+	if card_number_in_hand + 2 <= number_of_cards_in_hand:
+		Reset_Card(card_number_in_hand + 2)
+
+func move_neighbor_card(card_number_in_hand, Left, SpreadFactor):
+	neighbor_card = $'../'.get_child(card_number_in_hand)
+	var new_position;
 	if Left:
-		NeighborCard.targetpos = NeighborCard.Cardpos - SpreadFactor*Vector2(65,0)
+		new_position = neighbor_card.resting_position - SpreadFactor*Vector2(65,0)
 	else:
-		NeighborCard.targetpos = NeighborCard.Cardpos + SpreadFactor*Vector2(65,0)
-	NeighborCard.setup = true
-	NeighborCard.state = ReOrganiseHand
-	Move_Neighbor_Card_Check = true
+		new_position = neighbor_card.resting_position + SpreadFactor*Vector2(65,0)
+	neighbor_card.set_state(ReOrganiseHand, new_position, null, null)
+
+func _input(event):
+	match state:
+		FocusInHand, InMouse:
+			if event.is_action_pressed("leftclick") and card_selected:
+				set_state(InMouse, null, null, resting_scale)
+				state = InMouse
+				card_selected = false
+
+func set_state(new_state, new_position, new_rotation, new_scale):
+	starting_position = position
+	starting_rotation = rotation
+	starting_scale = scale
+	t = 0
+	if new_position != null:
+		target_position = new_position
+	if new_scale != null:
+		target_scale = new_scale
+	if new_rotation != null:
+		target_rotation = new_rotation
+	state = new_state
+	
+func set_new_resting_position(new_position, new_rotation):
+	resting_position = new_position
+	resting_rotation = new_rotation
+	
+func move_using_tween(time):
+	var trans = Tween.TRANS_CUBIC
+	if tween:
+		tween.kill()
+		trans = Tween.EASE_OUT
+		print("replace tween")
+	tween = get_tree().create_tween()
+	print("tween with " + str(trans))
+	tween.tween_property(self, "position", target_position, time).set_trans(trans)
+	
+
+func process_move_linear(delta, totaltime):
+	if t <= 1: # Interpolate uses a scale from 0 to 1, so this is always 1
+		if !tween:
+			position = starting_position.lerp(target_position, t)
+		rotation = starting_rotation * (1-t) + target_rotation * t
+		t += delta/float(totaltime) # DRAWTIME is in seconds
+		scale = starting_scale * (1-t) + target_scale*t
+	else:
+		position = target_position
+		rotation = target_rotation
+		scale = target_scale
+		if tween:
+			tween.kill()
+			tween = null

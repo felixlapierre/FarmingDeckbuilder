@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://ccnobfjaguoie"]
+
+[ext_resource type="Texture2D" uid="uid://bofm5pndld7ww" path="res://assets/custom/FarmTile2.png" id="1_xq08c"]
+[ext_resource type="Texture2D" uid="uid://bqjj7hkpne0ln" path="res://assets/custom/SelectTile.png" id="2_gjns5"]
+
+[node name="FarmTile" type="Node2D"]
+
+[node name="TileSprite" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("1_xq08c")
+
+[node name="SelectSprite" type="Sprite2D" parent="."]
+visible = false
+texture_filter = 1
+texture = ExtResource("2_gjns5")
