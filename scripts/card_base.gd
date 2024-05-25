@@ -27,10 +27,9 @@ var number_of_cards_in_hand = 0
 var card_number_in_hand = 0;
 var neighbor_card;
 
-var card_selected = true
-
 var DRAWTIME = 0.5
 var ZOOMTIME = 0.3
+var HAND_TOP_Y
 
 enum {
 	InHand,
@@ -48,20 +47,21 @@ func _ready() -> void:
 	card_info = card_database.DATA[card_database.get(card_name)]
 	
 	var card_size = size
+	HAND_TOP_Y = get_viewport_rect().size.y - card_size.y
 	$CardBorder.scale *= card_size / $CardBorder.texture.get_size()
 	$CardIcon.texture = load(card_image)
 	$CardIcon.region_enabled = true
-	$CardIcon.set_region_rect(Rect2(card_info[8] * 16, 0, 16, 16))
+	$CardIcon.set_region_rect(Rect2(card_info.texture * 16, 0, 16, 16))
 	$CardIcon.position = $CardBorder.texture.get_size() / 2
 	$CardIcon.position.y /= 2
 	$Focus.scale *= card_size / $Focus.size
 	
-	$HBoxContainer/VBoxContainer/BottomBar/TypeLabel.text = card_info[0]
-	$HBoxContainer/VBoxContainer/TopBar/CardNameLabel.text = card_info[1]
-	$HBoxContainer/VBoxContainer/TopBar/CardCostLabel.text = str(card_info[2])
-	$HBoxContainer/VBoxContainer/BottomBar/YieldLabel.text = str(card_info[3]) + " Yld / "
-	$HBoxContainer/VBoxContainer/BottomBar/TimeLabel.text = str(card_info[4]) + " Wks"
-	$HBoxContainer/VBoxContainer/DescriptionLabel.text = card_info[7]
+	$HBoxContainer/VBoxContainer/BottomBar/TypeLabel.text = card_info.type
+	$HBoxContainer/VBoxContainer/TopBar/CardNameLabel.text = card_info.name
+	$HBoxContainer/VBoxContainer/TopBar/CardCostLabel.text = str(card_info.cost)
+	$HBoxContainer/VBoxContainer/BottomBar/YieldLabel.text = str(card_info.yield) + " Yld / "
+	$HBoxContainer/VBoxContainer/BottomBar/TimeLabel.text = str(card_info.time) + " Wks"
+	$HBoxContainer/VBoxContainer/DescriptionLabel.text = card_info.text
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -71,7 +71,15 @@ func _process(delta: float) -> void:
 		InPlay:
 			pass
 		InMouse:
-			target_position = get_global_mouse_position() - card_size
+			var mouse_position = get_global_mouse_position() - card_size
+			if mouse_position.y < HAND_TOP_Y:
+				target_position = get_viewport_rect().size / Vector2(16, 4)
+				scale = resting_scale * 1.7
+				target_scale = scale
+			else:
+				target_position = mouse_position
+				scale = resting_scale
+				target_scale = scale
 			process_move_linear(delta, 0.1)
 		FocusInHand:
 			process_move_linear(delta, ZOOMTIME/2)
@@ -106,6 +114,7 @@ func _on_focus_mouse_entered() -> void:
 			new_position.y = get_viewport_rect().size.y - card_size.y*ZoomInSize
 			set_state(FocusInHand, new_position, 0, resting_scale * 2)
 			move_neighbors()
+			Global.selected_card = Global.NO_CARD
 
 
 func _on_focus_mouse_exited() -> void:
@@ -144,14 +153,6 @@ func move_neighbor_card(card_number_in_hand, Left, SpreadFactor):
 		new_position = neighbor_card.resting_position + SpreadFactor*Vector2(65,0)
 	neighbor_card.set_state(ReOrganiseHand, new_position, null, null)
 
-func _input(event):
-	match state:
-		FocusInHand, InMouse:
-			if event.is_action_pressed("leftclick") and card_selected:
-				set_state(InMouse, null, null, resting_scale)
-				state = InMouse
-				card_selected = false
-
 func set_state(new_state, new_position, new_rotation, new_scale):
 	starting_position = position
 	starting_rotation = rotation
@@ -174,9 +175,7 @@ func move_using_tween(time):
 	if tween:
 		tween.kill()
 		trans = Tween.EASE_OUT
-		print("replace tween")
 	tween = get_tree().create_tween()
-	print("tween with " + str(trans))
 	tween.tween_property(self, "position", target_position, time).set_trans(trans)
 	
 
@@ -194,3 +193,17 @@ func process_move_linear(delta, totaltime):
 		if tween:
 			tween.kill()
 			tween = null
+
+
+func _on_focus_gui_input(event: InputEvent) -> void:
+	match state:
+		FocusInHand:
+			if event.is_action_pressed("leftclick"):
+				set_state(InMouse, null, null, resting_scale)
+				Global.selected_card = card_info
+		InMouse:
+			if event.is_action_pressed("leftclick"):
+				var new_position = resting_position
+				new_position.y = get_viewport_rect().size.y - card_size.y*ZoomInSize
+				set_state(FocusInHand, new_position, 0, resting_scale * 2)
+				Global.selected_card = Global.NO_CARD

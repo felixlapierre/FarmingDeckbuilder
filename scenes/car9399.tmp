@@ -92,6 +92,5 @@ layout_mode = 2
 [node name="Focus" type="TextureButton" parent="."]
 layout_mode = 2
 
-[connection signal="gui_input" from="Focus" to="." method="_on_focus_gui_input"]
 [connection signal="mouse_entered" from="Focus" to="." method="_on_focus_mouse_entered"]
 [connection signal="mouse_exited" from="Focus" to="." method="_on_focus_mouse_exited"]

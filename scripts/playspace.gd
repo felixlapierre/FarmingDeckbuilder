@@ -49,7 +49,7 @@ func drawcard():
 	OvalAngleVector = Vector2(HorizontalRadius * cos(Angle), -VerticalRadius * sin(Angle))
 	new_card.position = $Deck.position - CardSize / 2
 	new_card.starting_position = new_card.position
-	new_card.target_position = CenterCardOval + OvalAngleVector - new_card.size / 2
+	new_card.target_position = CenterCardOval + OvalAngleVector - new_card.size * 0.4
 	new_card.resting_position = new_card.target_position
 	new_card.target_scale = new_card.resting_scale
 	new_card.scale = new_card.resting_scale
@@ -65,7 +65,7 @@ func drawcard():
 		Angle = PI/2 + CardSpread*(float(number_of_cards_in_hand)/2 - Card_Number)
 		OvalAngleVector = Vector2(HorizontalRadius * cos(Angle), -VerticalRadius * sin(Angle))
 
-		var newPosition = CenterCardOval + OvalAngleVector - HandCard.size / 2
+		var newPosition = CenterCardOval + OvalAngleVector - HandCard.size * 0.4
 		var newRotation = -Angle/4 + PI/8
 		HandCard.set_new_resting_position(newPosition, newRotation)
 		HandCard.card_number_in_hand = Card_Number
