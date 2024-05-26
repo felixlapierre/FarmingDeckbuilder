@@ -41,9 +41,12 @@ func _ready() -> void:
 	var card_size = size
 	HAND_TOP_Y = get_viewport_rect().size.y - card_size.y
 	$CardBorder.scale *= card_size / $CardBorder.texture.get_size()
-	$CardIcon.texture = load(card_image)
-	$CardIcon.region_enabled = true
-	$CardIcon.set_region_rect(Rect2(card_info.texture * 16, 0, 16, 16))
+	if card_info.type == "SEED":
+		$CardIcon.texture = load(card_image)
+		$CardIcon.region_enabled = true
+		$CardIcon.set_region_rect(Rect2(card_info.texture * 16, 0, 16, 16))
+	elif card_info.type == "ACTION":
+		$CardIcon.texture = load(card_info.texture)
 	$CardIcon.position = $CardBorder.texture.get_size() / 2
 	$CardIcon.position.y /= 2
 	$Focus.scale *= card_size / $Focus.size
@@ -51,8 +54,9 @@ func _ready() -> void:
 	$HBoxContainer/VBoxContainer/BottomBar/TypeLabel.text = card_info.type
 	$HBoxContainer/VBoxContainer/TopBar/CardNameLabel.text = card_info.name
 	$HBoxContainer/VBoxContainer/TopBar/CardCostLabel.text = str(card_info.cost)
-	$HBoxContainer/VBoxContainer/BottomBar/YieldLabel.text = str(card_info.yield) + " Yld / "
-	$HBoxContainer/VBoxContainer/BottomBar/TimeLabel.text = str(card_info.time) + " Wks"
+	if card_info.type == "SEED":
+		$HBoxContainer/VBoxContainer/BottomBar/YieldLabel.text = str(card_info.yield) + " Yld / "
+		$HBoxContainer/VBoxContainer/BottomBar/TimeLabel.text = str(card_info.time) + " Wks"
 	$HBoxContainer/VBoxContainer/DescriptionLabel.text = card_info.text
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.

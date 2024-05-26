@@ -1,8 +1,8 @@
 extends Node2D
 
+var total_yield = 0.0
 func _ready() -> void:
-
-	pass # Replace with function body.
+	$Stats/YieldLabel.text = "Total Yield: " + str(int(total_yield))
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -20,3 +20,8 @@ func _on_end_turn_button_pressed() -> void:
 	$FarmTiles.process_one_week()
 	await get_tree().create_timer(0.3).timeout
 	$Cards.draw_hand()
+
+
+func _on_farm_tiles_on_yield_gained(yield_amount) -> void:
+	total_yield += yield_amount
+	$Stats/YieldLabel.text = "Total Yield: " + str(int(total_yield))

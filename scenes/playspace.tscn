@@ -161,5 +161,13 @@ texture_normal = ExtResource("8_dei73")
 texture_pressed = ExtResource("9_14chp")
 texture_hover = ExtResource("10_gqrn0")
 
+[node name="Stats" type="MarginContainer" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="YieldLabel" type="Label" parent="Stats"]
+layout_mode = 2
+
 [connection signal="card_played" from="FarmTiles" to="." method="_on_farm_tiles_card_played"]
+[connection signal="on_yield_gained" from="FarmTiles" to="." method="_on_farm_tiles_on_yield_gained"]
 [connection signal="pressed" from="EndTurnButton" to="." method="_on_end_turn_button_pressed"]

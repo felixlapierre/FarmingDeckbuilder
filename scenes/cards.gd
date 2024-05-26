@@ -13,7 +13,7 @@ var Angle = 0
 var CardSpread = 0.25
 var number_of_cards_in_hand = 0
 
-var starting_deck = ["Blueberry", "Carrot", "Carrot", "Pumpkin", "Carrot", "Blueberry"]
+var starting_deck = ["Blueberry", "Carrot", "Carrot", "Pumpkin", "Carrot", "Blueberry", "Scythe", "Scythe"]
 var card_database
 var deck_cards = []
 var discard_pile_cards = []

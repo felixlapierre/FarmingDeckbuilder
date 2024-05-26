@@ -3,7 +3,7 @@
 const DATA = {
 	"Carrot" :
 		{
-			"type": "Seed",
+			"type": "SEED",
 			"name": "Carrot",
 			"cost": 1,
 			"yield": 3,
@@ -14,7 +14,7 @@ const DATA = {
 		},
 	"Pumpkin" :
 		{ 
-			"type": "Seed",
+			"type": "SEED",
 			"name": "Pumpkin",
 			"cost": 1,
 			"yield": 15,
@@ -25,7 +25,7 @@ const DATA = {
 		},
 	"Blueberry" :
 		{
-			"type": "Seed", 
+			"type": "SEED", 
 			"name": "Blueberry",
 			"cost": 1,
 			"yield": 3,
@@ -33,5 +33,20 @@ const DATA = {
 			"size": 3, 
 			"text": "Recurring",
 			"texture": 3
+		},
+	"Scythe": 
+		{
+			"type": "ACTION",
+			"name": "Scythe",
+			"cost": 1,
+			"size": 9,
+			"text": "Harvest 9 tiles",
+			"texture": "res://assets/custom/Scythe.png",
+			"targets": ["Mature"],
+			"actions": [
+				{
+					"name": "harvest"
+				}
+			]
 		}
 }

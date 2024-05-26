@@ -7,6 +7,7 @@ var TOP_LEFT
 var tiles = []
 
 signal card_played
+signal on_yield_gained
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -28,8 +29,10 @@ func use_card(card, grid_position):
 		var target = grid_position + tile
 		if not Helper.in_bounds(target):
 			continue
-		if card.type == "Seed":
+		if card.type == "SEED":
 			tiles[target.x][target.y].plant_seed(card)
+		elif card.type == "ACTION":
+			perform_action(card, tiles[target.x][target.y])
 	clear_overlay()
 	card_played.emit()
 
@@ -38,17 +41,23 @@ func _process(delta: float) -> void:
 	pass
 	
 func on_tile_hover(grid_position: Vector2):
-	if Global.selected_card.type == "NONE":
+	var card = Global.selected_card
+	if card.type == "NONE":
 		return
 	clear_overlay()
 	var shape = Helper.get_tile_shape(Global.selected_card.size)
-	
 	for item in shape:
-		if not Helper.in_bounds(item + grid_position):
+		var target_grid_position = item + grid_position
+		if not Helper.in_bounds(target_grid_position):
+			continue
+		var targeted_tile = tiles[target_grid_position.x][target_grid_position.y]
+		if card.type == "SEED" and targeted_tile.state != Constants.TileState.Empty:
+			continue
+		elif card.type == "ACTION" and !card.targets.has(Constants.TileState.keys()[targeted_tile.state]):
 			continue
 		var sprite = Sprite2D.new()
 		sprite.texture = load("res://assets/custom/SelectTile.png")
-		sprite.position = TOP_LEFT + (item + grid_position) * TILE_SIZE + TILE_SIZE / 2
+		sprite.position = TOP_LEFT + (target_grid_position) * TILE_SIZE + TILE_SIZE / 2
 		sprite.scale *= TILE_SIZE / sprite.texture.get_size()
 		sprite.z_index = 1
 		$SelectOverlay.add_child(sprite)
@@ -61,3 +70,12 @@ func clear_overlay():
 func process_one_week():
 	for tile in $Tiles.get_children():
 		tile.grow_one_week()
+
+func perform_action(card, tile):
+	for action in card.actions:
+		match action.name:
+			"harvest":
+				tile.harvest()
+
+func gain_yield(yield_amount):
+	on_yield_gained.emit(yield_amount)

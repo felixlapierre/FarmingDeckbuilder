@@ -12,6 +12,7 @@ layout_mode = 2
 texture_normal = ExtResource("1_xq08c")
 
 [node name="PlantSprite" type="Sprite2D" parent="."]
+visible = false
 texture_filter = 1
 offset = Vector2(8, 8)
 
