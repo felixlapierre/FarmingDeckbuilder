@@ -7,5 +7,6 @@ enum {
 	FocusInHand,
 	MoveDrawnCardToHand,
 	ReOrganiseHand,
-	MoveToDiscard
+	MoveToDiscard,
+	InShop
 }

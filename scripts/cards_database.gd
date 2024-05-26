@@ -10,7 +10,8 @@ const DATA = {
 			"time": 3,
 			"size": 9,
 			"text": "",
-			"texture": 1
+			"texture": 1,
+			"effects": {}
 		},
 	"Pumpkin" :
 		{ 
@@ -21,7 +22,8 @@ const DATA = {
 			"time": 3,
 			"size": 1,
 			"text": "",
-			"texture": 4
+			"texture": 4,
+			"effects": {}
 		},
 	"Blueberry" :
 		{
@@ -32,7 +34,13 @@ const DATA = {
 			"time": 3,
 			"size": 3, 
 			"text": "Recurring",
-			"texture": 3
+			"texture": 3,
+			"effects": {
+				"recurring": {
+					"progress": 1.0
+				}
+			}
+			
 		},
 	"Scythe": 
 		{

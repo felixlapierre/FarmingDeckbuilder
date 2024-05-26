@@ -32,6 +32,12 @@ func _on_tile_button_gui_input(event: InputEvent) -> void:
 	if event.is_action_pressed("leftclick"):
 		$"../../".use_card(Global.selected_card, grid_location)
 
+func plant_seed_animate(planted_seed):
+	plant_seed(planted_seed)
+	$PlantSprite.scale = Vector2(0, 0)
+	var tween = get_tree().create_tween()
+	tween.tween_property($PlantSprite, "scale", Vector2(1, 1), 0.1);
+
 func plant_seed(planted_seed):
 	if state != Constants.TileState.Empty:
 		return
@@ -45,17 +51,17 @@ func plant_seed(planted_seed):
 	$PlantSprite.texture = load(objects_image)
 	$PlantSprite.region_enabled = true
 	update_plant_sprite()
-	$PlantSprite.scale = Vector2(0, 0)
-	var tween = get_tree().create_tween()
-	tween.tween_property($PlantSprite, "scale", Vector2(1, 1), 0.1);
 	
 func grow_one_week():
 	if state == Constants.TileState.Growing:
 		current_grow_progress += 1.0
 		current_yield += seed_base_yield / seed_grow_time
 		update_plant_sprite()
+		grow_animation()
 		if current_grow_progress == seed_grow_time:
 			state = Constants.TileState.Mature
+
+func grow_animation():
 	var tween = get_tree().create_tween()
 	tween.tween_property($PlantSprite, "scale", Vector2(0.8, 1.2), 0.1)
 	tween.tween_property($PlantSprite, "scale", Vector2(1, 1), 0.1)
@@ -90,3 +96,10 @@ func harvest():
 		current_grow_progress = 0.0
 		current_yield = 0.0
 		$PlantSprite.visible = false
+		print(seed.effects)
+		if seed.effects.has("recurring"):
+			plant_seed(seed)
+			current_grow_progress = seed.effects.recurring.progress
+			current_yield = current_grow_progress * seed_base_yield / seed_grow_time
+			update_plant_sprite()
+			grow_animation()

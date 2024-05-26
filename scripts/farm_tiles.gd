@@ -32,7 +32,7 @@ func use_card(card, grid_position):
 		if not Helper.in_bounds(target):
 			continue
 		if card.type == "SEED":
-			tiles[target.x][target.y].plant_seed(card)
+			tiles[target.x][target.y].plant_seed_animate(card)
 		elif card.type == "ACTION":
 			perform_action(card, tiles[target.x][target.y])
 	clear_overlay()

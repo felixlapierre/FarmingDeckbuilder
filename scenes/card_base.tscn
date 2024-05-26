@@ -12,6 +12,8 @@ default_font_size = 30
 offset_right = 250.0
 offset_bottom = 350.0
 pivot_offset = Vector2(125, 175)
+size_flags_horizontal = 3
+size_flags_vertical = 3
 script = ExtResource("1_ohx6w")
 
 [node name="CardBorder" type="Sprite2D" parent="."]
@@ -59,6 +61,7 @@ custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 
 [node name="DescriptionLabel" type="Label" parent="HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 160)
 layout_mode = 2
 text = "Description
 "

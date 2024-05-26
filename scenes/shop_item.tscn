@@ -1,0 +1,37 @@
+[gd_scene load_steps=3 format=3 uid="uid://c2fvlh6wyx84i"]
+
+[ext_resource type="Script" path="res://scenes/shop_item.gd" id="1_ckfe1"]
+[ext_resource type="Texture2D" uid="uid://bhrfn6apm1h4q" path="res://assets/custom/BuyButton.png" id="1_tluyb"]
+
+[node name="ShopItem" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_ckfe1")
+
+[node name="ItemContainer" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Header" type="HBoxContainer" parent="ItemContainer"]
+layout_mode = 2
+
+[node name="TypeLabel" type="Label" parent="ItemContainer/Header"]
+layout_mode = 2
+text = "Card"
+
+[node name="CostLabel" type="Label" parent="ItemContainer/Header"]
+layout_mode = 2
+text = "14"
+
+[node name="BuyButton" type="TextureButton" parent="ItemContainer"]
+layout_mode = 2
+texture_normal = ExtResource("1_tluyb")
+
+[connection signal="button_up" from="ItemContainer/BuyButton" to="." method="_on_buy_button_button_up"]
