@@ -210,7 +210,6 @@ func _on_focus_gui_input(event: InputEvent) -> void:
 
 func _input(event: InputEvent) -> void:
 	if state == CardState.InMouse and event.is_action_pressed("rightclick"):
-		var new_position = resting_position
-		new_position.y = get_viewport_rect().size.y - card_size.y*ZoomInSize
-		set_state(CardState.FocusInHand, new_position, 0, resting_scale * 2)
+		set_state(CardState.ReOrganiseHand, resting_position, resting_rotation, resting_scale)
+		reset_neighbors()
 		Global.selected_card = Global.NO_CARD

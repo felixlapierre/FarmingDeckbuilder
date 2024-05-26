@@ -45,6 +45,9 @@ func plant_seed(planted_seed):
 	$PlantSprite.texture = load(objects_image)
 	$PlantSprite.region_enabled = true
 	update_plant_sprite()
+	$PlantSprite.scale = Vector2(0, 0)
+	var tween = get_tree().create_tween()
+	tween.tween_property($PlantSprite, "scale", Vector2(1, 1), 0.1);
 	
 func grow_one_week():
 	if state == Constants.TileState.Growing:
@@ -53,6 +56,9 @@ func grow_one_week():
 		update_plant_sprite()
 		if current_grow_progress == seed_grow_time:
 			state = Constants.TileState.Mature
+	var tween = get_tree().create_tween()
+	tween.tween_property($PlantSprite, "scale", Vector2(0.8, 1.2), 0.1)
+	tween.tween_property($PlantSprite, "scale", Vector2(1, 1), 0.1)
 
 func update_plant_sprite():
 	var stage = int(current_grow_progress / seed_grow_time * 3)
@@ -73,7 +79,7 @@ func update_plant_sprite():
 			h = 32
 		
 	$PlantSprite.set_region_rect(Rect2(seed.texture * 16, y, 16, h))
-	$PlantSprite.offset = Vector2(8, 8 if h == 16 else 3)
+	$PlantSprite.offset = Vector2(0, -8 if h == 16 else -12)
 
 func harvest():
 	if state == Constants.TileState.Mature:

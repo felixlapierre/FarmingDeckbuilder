@@ -39,7 +39,6 @@ func draw_hand():
 func drawcard():
 	# Refill the draw pile if necessary
 	if deck_cards.size() == 0:
-		print("Refill draw pile from discard of size " + str(discard_pile_cards.size()))
 		for card in discard_pile_cards:
 			deck_cards.append(card)
 		discard_pile_cards.clear()

@@ -24,6 +24,8 @@ func _ready() -> void:
 			$Tiles.add_child(tile)
 
 func use_card(card, grid_position):
+	if card == Global.NO_CARD or card.cost > $"../".energy:
+		return
 	var shape = Helper.get_tile_shape(card.size)
 	for tile in shape:
 		var target = grid_position + tile
@@ -34,7 +36,7 @@ func use_card(card, grid_position):
 		elif card.type == "ACTION":
 			perform_action(card, tiles[target.x][target.y])
 	clear_overlay()
-	card_played.emit()
+	card_played.emit(card)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -48,19 +50,28 @@ func on_tile_hover(grid_position: Vector2):
 	var shape = Helper.get_tile_shape(Global.selected_card.size)
 	for item in shape:
 		var target_grid_position = item + grid_position
+		var error = false
 		if not Helper.in_bounds(target_grid_position):
-			continue
-		var targeted_tile = tiles[target_grid_position.x][target_grid_position.y]
-		if card.type == "SEED" and targeted_tile.state != Constants.TileState.Empty:
-			continue
-		elif card.type == "ACTION" and !card.targets.has(Constants.TileState.keys()[targeted_tile.state]):
-			continue
+			error = true
+		else:
+			var targeted_tile = tiles[target_grid_position.x][target_grid_position.y]
+			if card.type == "SEED" and targeted_tile.state != Constants.TileState.Empty:
+				error = true
+			elif card.type == "ACTION" and !card.targets.has(Constants.TileState.keys()[targeted_tile.state]):
+				error = true
 		var sprite = Sprite2D.new()
 		sprite.texture = load("res://assets/custom/SelectTile.png")
 		sprite.position = TOP_LEFT + (target_grid_position) * TILE_SIZE + TILE_SIZE / 2
 		sprite.scale *= TILE_SIZE / sprite.texture.get_size()
 		sprite.z_index = 1
+		if error:
+			sprite.modulate = Color(191.0/256.0, 44.0/256.0, 44.0/256.0)
+		else:
+			sprite.modulate = Color(98.0/256.0, 240.0/256.0, 70.0/256.0)
 		$SelectOverlay.add_child(sprite)
+
+func pct(num):
+	return float(num)/100.0
 
 func clear_overlay():
 	for node in $SelectOverlay.get_children():
@@ -68,8 +79,14 @@ func clear_overlay():
 		node.queue_free()
 
 func process_one_week():
+	var all_tiles = []
 	for tile in $Tiles.get_children():
+		if tile.state == Constants.TileState.Growing:
+			all_tiles.append(tile)
+	all_tiles.shuffle()
+	for tile in all_tiles:
 		tile.grow_one_week()
+		await get_tree().create_timer(0.01).timeout
 
 func perform_action(card, tile):
 	for action in card.actions:

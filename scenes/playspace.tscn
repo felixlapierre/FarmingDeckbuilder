@@ -165,7 +165,16 @@ texture_hover = ExtResource("10_gqrn0")
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="YieldLabel" type="Label" parent="Stats"]
+[node name="VBox" type="VBoxContainer" parent="Stats"]
+layout_mode = 2
+
+[node name="TurnLabel" type="Label" parent="Stats/VBox"]
+layout_mode = 2
+
+[node name="YieldLabel" type="Label" parent="Stats/VBox"]
+layout_mode = 2
+
+[node name="EnergyLabel" type="Label" parent="Stats/VBox"]
 layout_mode = 2
 
 [connection signal="card_played" from="FarmTiles" to="." method="_on_farm_tiles_card_played"]
