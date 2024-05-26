@@ -1,7 +1,7 @@
 extends Control
 
-@export var card_name: String = "Blueberry"
-@export var card_cost: int = 15
+@export var card_name: String
+@export var card_cost: int
 
 signal on_card_bought
 
@@ -15,8 +15,8 @@ func _ready() -> void:
 		$ItemContainer/Header/TypeLabel.text = "Type: Card"
 		$ItemContainer/Header/CostLabel.text = "Cost: " + str(card_cost)
 		var display_card = CardBase.instantiate()
-		var card = card_database.DATA[card_name]
 		display_card.state = CardState.InShop
+		display_card.card_name = card_name
 		$ItemContainer.add_child(display_card)
 		$ItemContainer.move_child(display_card, 1)
 

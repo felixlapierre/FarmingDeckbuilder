@@ -109,3 +109,6 @@ func discard_card(card):
 
 func finish_discard(card):
 	$Discarding.remove_child(card)
+
+func add_card_from_shop(card_name):
+	discard_pile_cards.append(card_database.DATA.get(card_name))

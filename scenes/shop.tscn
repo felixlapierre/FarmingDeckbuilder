@@ -1,55 +1,65 @@
 [gd_scene load_steps=5 format=3 uid="uid://ch1l0jofkrynh"]
 
 [ext_resource type="Script" path="res://scripts/shop.gd" id="1_qv16a"]
-[ext_resource type="PackedScene" uid="uid://c2fvlh6wyx84i" path="res://scenes/shop_item.tscn" id="2_jtlo3"]
 [ext_resource type="Texture2D" uid="uid://dui58egqhltqa" path="res://assets/custom/ResetShopButton.png" id="3_xixe3"]
 [ext_resource type="Texture2D" uid="uid://c4om8tdou1m2q" path="res://assets/custom/RemoveCardButton.png" id="4_reuma"]
 
+[sub_resource type="Theme" id="Theme_55f4u"]
+
 [node name="Shop" type="Node2D"]
+z_index = 2
 script = ExtResource("1_qv16a")
 
-[node name="ShopContainer" type="VBoxContainer" parent="."]
-custom_minimum_size = Vector2(1000, 500)
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="PanelContainer" type="PanelContainer" parent="."]
+offset_right = 1000.0
+offset_bottom = 500.0
 
-[node name="ShopTitle" type="Label" parent="ShopContainer"]
+[node name="ShopContainer" type="VBoxContainer" parent="PanelContainer"]
+custom_minimum_size = Vector2(1000, 500)
+layout_mode = 2
+theme = SubResource("Theme_55f4u")
+
+[node name="Header" type="HBoxContainer" parent="PanelContainer/ShopContainer"]
+layout_mode = 2
+
+[node name="ShopTitle" type="Label" parent="PanelContainer/ShopContainer/Header"]
 layout_mode = 2
 text = "Shop"
 
-[node name="ShopContent" type="HBoxContainer" parent="ShopContainer"]
+[node name="CloseButton" type="Button" parent="PanelContainer/ShopContainer/Header"]
+layout_mode = 2
+text = "Close"
+
+[node name="ShopContent" type="HBoxContainer" parent="PanelContainer/ShopContainer"]
 layout_mode = 2
 
-[node name="StockContainer" type="HBoxContainer" parent="ShopContainer/ShopContent"]
+[node name="StockContainer" type="HBoxContainer" parent="PanelContainer/ShopContainer/ShopContent"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="ShopItem" parent="ShopContainer/ShopContent/StockContainer" instance=ExtResource("2_jtlo3")]
+[node name="SideActions" type="VBoxContainer" parent="PanelContainer/ShopContainer/ShopContent"]
 layout_mode = 2
 
-[node name="SideActions" type="VBoxContainer" parent="ShopContainer/ShopContent"]
+[node name="ResetShopContainer" type="HBoxContainer" parent="PanelContainer/ShopContainer/ShopContent/SideActions"]
 layout_mode = 2
 
-[node name="ResetShopContainer" type="HBoxContainer" parent="ShopContainer/ShopContent/SideActions"]
-layout_mode = 2
-
-[node name="ResetShopButton" type="TextureButton" parent="ShopContainer/ShopContent/SideActions/ResetShopContainer"]
+[node name="ResetShopButton" type="TextureButton" parent="PanelContainer/ShopContainer/ShopContent/SideActions/ResetShopContainer"]
 layout_mode = 2
 texture_normal = ExtResource("3_xixe3")
 
-[node name="ResetCostLabel" type="Label" parent="ShopContainer/ShopContent/SideActions/ResetShopContainer"]
+[node name="ResetCostLabel" type="Label" parent="PanelContainer/ShopContainer/ShopContent/SideActions/ResetShopContainer"]
 layout_mode = 2
 text = "Cost"
 
-[node name="RemoveCardContainer" type="HBoxContainer" parent="ShopContainer/ShopContent/SideActions"]
+[node name="RemoveCardContainer" type="HBoxContainer" parent="PanelContainer/ShopContainer/ShopContent/SideActions"]
 layout_mode = 2
 
-[node name="RemoveCardButton" type="TextureButton" parent="ShopContainer/ShopContent/SideActions/RemoveCardContainer"]
+[node name="RemoveCardButton" type="TextureButton" parent="PanelContainer/ShopContainer/ShopContent/SideActions/RemoveCardContainer"]
 layout_mode = 2
 texture_normal = ExtResource("4_reuma")
 
-[node name="RemoveCardCost" type="Label" parent="ShopContainer/ShopContent/SideActions/RemoveCardContainer"]
+[node name="RemoveCardCost" type="Label" parent="PanelContainer/ShopContainer/ShopContent/SideActions/RemoveCardContainer"]
 layout_mode = 2
 text = "Cost"
 
-[connection signal="on_card_bought" from="ShopContainer/ShopContent/StockContainer/ShopItem" to="." method="_on_shop_item_on_card_bought"]
+[connection signal="pressed" from="PanelContainer/ShopContainer/Header/CloseButton" to="." method="_on_close_button_pressed"]
