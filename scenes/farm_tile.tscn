@@ -6,14 +6,14 @@
 [node name="FarmTile" type="MarginContainer"]
 script = ExtResource("1_03w60")
 
-[node name="PlantSprite" type="Sprite2D" parent="."]
-texture_filter = 1
-offset = Vector2(8, 8)
-
 [node name="TileButton" type="TextureButton" parent="."]
 texture_filter = 1
 layout_mode = 2
 texture_normal = ExtResource("1_xq08c")
+
+[node name="PlantSprite" type="Sprite2D" parent="."]
+texture_filter = 1
+offset = Vector2(8, 8)
 
 [connection signal="gui_input" from="TileButton" to="." method="_on_tile_button_gui_input"]
 [connection signal="mouse_entered" from="TileButton" to="." method="_on_tile_button_mouse_entered"]

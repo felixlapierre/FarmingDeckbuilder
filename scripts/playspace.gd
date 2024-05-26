@@ -16,5 +16,7 @@ func _on_farm_tiles_card_played() -> void:
 
 func _on_end_turn_button_pressed() -> void:
 	$Cards.discard_hand()
-	await get_tree().create_timer(0.5).timeout
+	await get_tree().create_timer(0.3).timeout
+	$FarmTiles.process_one_week()
+	await get_tree().create_timer(0.3).timeout
 	$Cards.draw_hand()

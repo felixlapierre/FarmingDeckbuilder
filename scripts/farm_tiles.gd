@@ -57,3 +57,7 @@ func clear_overlay():
 	for node in $SelectOverlay.get_children():
 		$SelectOverlay.remove_child(node)
 		node.queue_free()
+
+func process_one_week():
+	for tile in $Tiles.get_children():
+		tile.grow_one_week()

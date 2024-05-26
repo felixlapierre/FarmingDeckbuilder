@@ -26,7 +26,7 @@ func _ready() -> void:
 	HorizontalRadius = get_viewport_rect().size.x * 0.45
 	VerticalRadius = get_viewport_rect().size.y * 0.40
 	for cardname in starting_deck:
-		deck_cards.append(card_database.DATA.get(card_database.get(cardname)))
+		deck_cards.append(card_database.DATA.get(cardname))
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -106,7 +106,7 @@ func discard_card(card):
 	card.set_state(CardState.MoveToDiscard, get_viewport_rect().size, PI/4, card.resting_scale * 0.1)
 	card.move_using_tween(0.5)
 	number_of_cards_in_hand -= 1
-	discard_pile_cards.append(card_database.DATA.get(card_database.get(card.card_name)))
+	discard_pile_cards.append(card_database.DATA.get(card.card_name))
 
 func finish_discard(card):
 	$Discarding.remove_child(card)

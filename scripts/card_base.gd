@@ -36,7 +36,7 @@ var state = CardState.InHand
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	card_database = preload("res://scripts/cards_database.gd")
-	card_info = card_database.DATA[card_database.get(card_name)]
+	card_info = card_database.DATA[card_name]
 	
 	var card_size = size
 	HAND_TOP_Y = get_viewport_rect().size.y - card_size.y

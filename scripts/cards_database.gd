@@ -1,8 +1,7 @@
-enum {Carrot, Pumpkin, Blueberry}
 
 #Seed: [Type, Name, Cost, Yield, Time, Size, Text, Texture]
 const DATA = {
-	Carrot :
+	"Carrot" :
 		{
 			"type": "Seed",
 			"name": "Carrot",
@@ -13,7 +12,7 @@ const DATA = {
 			"text": "",
 			"texture": 1
 		},
-	Pumpkin :
+	"Pumpkin" :
 		{ 
 			"type": "Seed",
 			"name": "Pumpkin",
@@ -24,7 +23,7 @@ const DATA = {
 			"text": "",
 			"texture": 4
 		},
-	Blueberry :
+	"Blueberry" :
 		{
 			"type": "Seed", 
 			"name": "Blueberry",
