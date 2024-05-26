@@ -1,53 +1,52 @@
 [gd_scene load_steps=5 format=3 uid="uid://2yu7drphx7ur"]
 
 [ext_resource type="Script" path="res://scripts/card_base.gd" id="1_ohx6w"]
-[ext_resource type="Texture2D" uid="uid://c446mynw3jgpo" path="res://assets/CardBorder.png" id="2_oqg3a"]
+[ext_resource type="Texture2D" uid="uid://by5wpf5vbkrw1" path="res://assets/custom/Card.png" id="2_2dibt"]
 [ext_resource type="FontFile" uid="uid://drlkmr7jve2ep" path="res://assets/m5x7.ttf" id="3_inew6"]
 
-[sub_resource type="Theme" id="Theme_xkhll"]
+[sub_resource type="Theme" id="Theme_xgb3r"]
 default_font = ExtResource("3_inew6")
-default_font_size = 30
 
 [node name="CardBase" type="MarginContainer"]
-offset_right = 250.0
-offset_bottom = 350.0
-pivot_offset = Vector2(125, 175)
+texture_filter = 1
+offset_right = 125.0
+offset_bottom = 182.0
+pivot_offset = Vector2(62.5, 87.5)
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("1_ohx6w")
 
 [node name="CardBorder" type="Sprite2D" parent="."]
-texture = ExtResource("2_oqg3a")
+texture = ExtResource("2_2dibt")
 centered = false
 
 [node name="CardIcon" type="Sprite2D" parent="."]
 texture_filter = 1
-scale = Vector2(4, 4)
+scale = Vector2(2, 2)
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
+texture_filter = 1
+custom_minimum_size = Vector2(125, 175)
 layout_mode = 2
 
 [node name="LeftMargin" type="MarginContainer" parent="HBoxContainer"]
-custom_minimum_size = Vector2(10, 10)
+custom_minimum_size = Vector2(5, 5)
 layout_mode = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme = SubResource("Theme_xkhll")
+theme = SubResource("Theme_xgb3r")
 
 [node name="TopMargin" type="MarginContainer" parent="HBoxContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 10)
+custom_minimum_size = Vector2(0, 5)
 layout_mode = 2
 
 [node name="TopBar" type="HBoxContainer" parent="HBoxContainer/VBoxContainer"]
 layout_mode = 2
 
 [node name="CardNameLabel" type="Label" parent="HBoxContainer/VBoxContainer/TopBar"]
-texture_filter = 1
 layout_mode = 2
-theme_override_fonts/font = ExtResource("3_inew6")
-theme_override_font_sizes/font_size = 30
 text = "CARD NAME"
 
 [node name="CardCostLabel" type="Label" parent="HBoxContainer/VBoxContainer/TopBar"]
@@ -57,18 +56,18 @@ text = "1
 "
 
 [node name="ImageGap" type="MarginContainer" parent="HBoxContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 100)
+custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 
 [node name="DescriptionLabel" type="Label" parent="HBoxContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 160)
+custom_minimum_size = Vector2(0, 70)
 layout_mode = 2
 text = "Description
 "
 
 [node name="BottomBar" type="HBoxContainer" parent="HBoxContainer/VBoxContainer"]
 layout_mode = 2
-size_flags_vertical = 10
+size_flags_vertical = 8
 
 [node name="TypeLabel" type="Label" parent="HBoxContainer/VBoxContainer/BottomBar"]
 layout_mode = 2
@@ -85,11 +84,11 @@ layout_mode = 2
 text = " 3"
 
 [node name="BottomMargin" type="MarginContainer" parent="HBoxContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 10)
+custom_minimum_size = Vector2(0, 5)
 layout_mode = 2
 
 [node name="RightMargin" type="MarginContainer" parent="HBoxContainer"]
-custom_minimum_size = Vector2(10, 0)
+custom_minimum_size = Vector2(5, 0)
 layout_mode = 2
 
 [node name="Focus" type="TextureButton" parent="."]

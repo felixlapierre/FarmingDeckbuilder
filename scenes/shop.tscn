@@ -1,8 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://ch1l0jofkrynh"]
+[gd_scene load_steps=3 format=3 uid="uid://ch1l0jofkrynh"]
 
 [ext_resource type="Script" path="res://scripts/shop.gd" id="1_qv16a"]
-[ext_resource type="Texture2D" uid="uid://dui58egqhltqa" path="res://assets/custom/ResetShopButton.png" id="3_xixe3"]
-[ext_resource type="Texture2D" uid="uid://c4om8tdou1m2q" path="res://assets/custom/RemoveCardButton.png" id="4_reuma"]
 
 [sub_resource type="Theme" id="Theme_55f4u"]
 
@@ -28,6 +26,7 @@ text = "Shop"
 
 [node name="CloseButton" type="Button" parent="PanelContainer/ShopContainer/Header"]
 layout_mode = 2
+size_flags_horizontal = 10
 text = "Close"
 
 [node name="ShopContent" type="HBoxContainer" parent="PanelContainer/ShopContainer"]
@@ -36,6 +35,7 @@ layout_mode = 2
 [node name="StockContainer" type="HBoxContainer" parent="PanelContainer/ShopContainer/ShopContent"]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 0
 
 [node name="SideActions" type="VBoxContainer" parent="PanelContainer/ShopContainer/ShopContent"]
 layout_mode = 2
@@ -43,9 +43,10 @@ layout_mode = 2
 [node name="ResetShopContainer" type="HBoxContainer" parent="PanelContainer/ShopContainer/ShopContent/SideActions"]
 layout_mode = 2
 
-[node name="ResetShopButton" type="TextureButton" parent="PanelContainer/ShopContainer/ShopContent/SideActions/ResetShopContainer"]
+[node name="ResetShopButton" type="Button" parent="PanelContainer/ShopContainer/ShopContent/SideActions/ResetShopContainer"]
 layout_mode = 2
-texture_normal = ExtResource("3_xixe3")
+size_flags_horizontal = 3
+text = "Reset Shop"
 
 [node name="ResetCostLabel" type="Label" parent="PanelContainer/ShopContainer/ShopContent/SideActions/ResetShopContainer"]
 layout_mode = 2
@@ -54,9 +55,9 @@ text = "Cost"
 [node name="RemoveCardContainer" type="HBoxContainer" parent="PanelContainer/ShopContainer/ShopContent/SideActions"]
 layout_mode = 2
 
-[node name="RemoveCardButton" type="TextureButton" parent="PanelContainer/ShopContainer/ShopContent/SideActions/RemoveCardContainer"]
+[node name="RemoveCardButton" type="Button" parent="PanelContainer/ShopContainer/ShopContent/SideActions/RemoveCardContainer"]
 layout_mode = 2
-texture_normal = ExtResource("4_reuma")
+text = "Remove Card"
 
 [node name="RemoveCardCost" type="Label" parent="PanelContainer/ShopContainer/ShopContent/SideActions/RemoveCardContainer"]
 layout_mode = 2

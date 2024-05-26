@@ -96,7 +96,6 @@ func harvest():
 		current_grow_progress = 0.0
 		current_yield = 0.0
 		$PlantSprite.visible = false
-		print(seed.effects)
 		if seed.effects.has("recurring"):
 			plant_seed(seed)
 			current_grow_progress = seed.effects.recurring.progress

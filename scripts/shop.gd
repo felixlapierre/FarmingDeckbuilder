@@ -7,49 +7,52 @@ var card_database = preload("res://scripts/cards_database.gd")
 signal on_shop_closed
 signal on_item_bought
 
+var reset_shop_cost = 10
+var remove_card_cost = 50
+var shop_item_capacity = 4
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	$PanelContainer.size = get_viewport_rect().size
 	fill_shop()
-
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
 
 func fill_shop():
-	stock = [
-		{
-			"type": "card",
-			"name": "Blueberry",
-			"cost": 30
-		},
-		{
-			"type": "card",
-			"name": "Pumpkin",
-			"cost": 10
-		},
-		{
-			"type": "card",
-			"name": "Carrot",
-			"cost": 10
-		},
-		{
-			"type": "card",
-			"name": "Scythe",
-			"cost": 20
-		}
-	]
+	# Clear existing shop
+	for child in $PanelContainer/ShopContainer/ShopContent/StockContainer.get_children():
+		$PanelContainer/ShopContainer/ShopContent/StockContainer.remove_child(child)
 	
-	for item in stock:
+	# Generate stock (dict)
+	var stock = generate_random_shop_items(shop_item_capacity)
+	for key in stock.keys():
+		var value = stock[key]
 		var new_node = ShopItem.instantiate()
-		if item.type == "card":
-			new_node.card_name = item.name
-		new_node.card_cost = item.cost
+		if value.type == "CARD":
+			new_node.card_name = key
+		new_node.card_cost = randi_range(value.min_cost, value.max_cost)
 		new_node.on_card_bought.connect(_on_shop_item_on_card_bought)
 		$PanelContainer/ShopContainer/ShopContent/StockContainer.add_child(new_node)
 	
-
+func generate_random_shop_items(count):
+	var options = card_database.SHOP
+	var total_weight = 0.0
+	var result = {}
+	for key in options.keys():
+		total_weight += float(options[key].weight)
+	var i = 0
+	while i < count:
+		var selected = randf_range(0, total_weight)
+		for key in options.keys():
+			selected -= float(options[key].weight)
+			if selected <= 0:
+				if !result.has(key):
+					result[key] = options[key]
+					i += 1
+				break
+	return result
 
 func _on_shop_item_on_card_bought(card_name, card_cost) -> void:
 	on_item_bought.emit(card_name)

@@ -8,6 +8,11 @@ static func get_tile_shape(size):
 			return [Vector2(0, 0), Vector2(1, 0)]
 		3:
 			return [Vector2(0, 0), Vector2(1, 0), Vector2(-1, 0)]
+		4:
+			return [Vector2(0, 0), Vector2(1, 0), Vector2(1, 1), Vector2(0, 1)]
+		6:
+			return [Vector2(0, 0), Vector2(1, 0), Vector2(-1, 0),
+				Vector2(0, 1), Vector2(1, 1), Vector2(-1, 1)]
 		9:
 			return [Vector2(0, 0), Vector2(1, 0), Vector2(-1, 0),
 				Vector2(0, 1), Vector2(1, 1), Vector2(-1, 1),

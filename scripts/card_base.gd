@@ -47,7 +47,7 @@ func _ready() -> void:
 		$CardIcon.set_region_rect(Rect2(card_info.texture * 16, 0, 16, 16))
 	elif card_info.type == "ACTION":
 		$CardIcon.texture = load(card_info.texture)
-	$CardIcon.position = $CardBorder.texture.get_size() / 2
+	$CardIcon.position = card_size / 2
 	$CardIcon.position.y /= 2
 	$Focus.scale *= card_size / $Focus.size
 	
