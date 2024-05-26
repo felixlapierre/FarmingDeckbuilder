@@ -31,15 +31,7 @@ var DRAWTIME = 0.5
 var ZOOMTIME = 0.3
 var HAND_TOP_Y
 
-enum {
-	InHand,
-	InPlay,
-	InMouse,
-	FocusInHand,
-	MoveDrawnCardToHand,
-	ReOrganiseHand
-}
-var state = InHand
+var state = CardState.InHand
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -66,11 +58,11 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	match state:
-		InHand:
+		CardState.InHand:
 			pass
-		InPlay:
+		CardState.InPlay:
 			pass
-		InMouse:
+		CardState.InMouse:
 			var mouse_position = get_global_mouse_position() - card_size
 			if mouse_position.y < HAND_TOP_Y:
 				target_position = get_viewport_rect().size / Vector2(16, 4)
@@ -81,16 +73,20 @@ func _process(delta: float) -> void:
 				scale = resting_scale
 				target_scale = scale
 			process_move_linear(delta, 0.1)
-		FocusInHand:
+		CardState.FocusInHand:
 			process_move_linear(delta, ZOOMTIME/2)
-		MoveDrawnCardToHand:
+		CardState.MoveDrawnCardToHand:
 			if t > 1:
-				state = InHand
+				state = CardState.InHand
 			process_move_linear(delta, DRAWTIME)
-		ReOrganiseHand:
+		CardState.ReOrganiseHand:
 			if t > 1:
-				state = InHand
+				state = CardState.InHand
 			process_move_linear(delta, 0.3)
+		CardState.MoveToDiscard:
+			if t > 1:
+				$"../../".finish_discard(self)
+			process_move_linear(delta, 0.5)
 
 func reset_starting_position():
 	starting_position = position
@@ -102,25 +98,25 @@ func Reset_Card(card_number_in_hand):
 	neighbor_card = $'../'.get_child(card_number_in_hand)
 	neighbor_card = $'../'.get_child(card_number_in_hand)
 	# Allows mousing directly from one card to another
-	if neighbor_card.state != FocusInHand:
-		neighbor_card.state = ReOrganiseHand
+	if neighbor_card.state != CardState.FocusInHand:
+		neighbor_card.state = CardState.ReOrganiseHand
 		neighbor_card.target_position = neighbor_card.resting_position
 		neighbor_card.reset_starting_position()
 
 func _on_focus_mouse_entered() -> void:
 	match state:
-		InHand, ReOrganiseHand:
+		CardState.InHand, CardState.ReOrganiseHand:
 			var new_position = resting_position
 			new_position.y = get_viewport_rect().size.y - card_size.y*ZoomInSize
-			set_state(FocusInHand, new_position, 0, resting_scale * 2)
+			set_state(CardState.FocusInHand, new_position, 0, resting_scale * 2)
 			move_neighbors()
 			Global.selected_card = Global.NO_CARD
 
 
 func _on_focus_mouse_exited() -> void:
 	match state:
-		FocusInHand:
-			set_state(ReOrganiseHand, resting_position, resting_rotation, resting_scale)
+		CardState.FocusInHand:
+			set_state(CardState.ReOrganiseHand, resting_position, resting_rotation, resting_scale)
 			reset_neighbors()
 
 func move_neighbors():
@@ -151,7 +147,7 @@ func move_neighbor_card(card_number_in_hand, Left, SpreadFactor):
 		new_position = neighbor_card.resting_position - SpreadFactor*Vector2(65,0)
 	else:
 		new_position = neighbor_card.resting_position + SpreadFactor*Vector2(65,0)
-	neighbor_card.set_state(ReOrganiseHand, new_position, null, null)
+	neighbor_card.set_state(CardState.ReOrganiseHand, new_position, null, null)
 
 func set_state(new_state, new_position, new_rotation, new_scale):
 	starting_position = position
@@ -197,13 +193,20 @@ func process_move_linear(delta, totaltime):
 
 func _on_focus_gui_input(event: InputEvent) -> void:
 	match state:
-		FocusInHand:
+		CardState.FocusInHand:
 			if event.is_action_pressed("leftclick"):
-				set_state(InMouse, null, null, resting_scale)
+				set_state(CardState.InMouse, null, null, resting_scale)
 				Global.selected_card = card_info
-		InMouse:
+		CardState.InMouse:
 			if event.is_action_pressed("leftclick"):
 				var new_position = resting_position
 				new_position.y = get_viewport_rect().size.y - card_size.y*ZoomInSize
-				set_state(FocusInHand, new_position, 0, resting_scale * 2)
+				set_state(CardState.FocusInHand, new_position, 0, resting_scale * 2)
 				Global.selected_card = Global.NO_CARD
+
+func _input(event: InputEvent) -> void:
+	if state == CardState.InMouse and event.is_action_pressed("rightclick"):
+		var new_position = resting_position
+		new_position.y = get_viewport_rect().size.y - card_size.y*ZoomInSize
+		set_state(CardState.FocusInHand, new_position, 0, resting_scale * 2)
+		Global.selected_card = Global.NO_CARD

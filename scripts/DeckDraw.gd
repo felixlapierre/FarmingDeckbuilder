@@ -15,6 +15,6 @@ func _process(delta: float) -> void:
 func _gui_input(event: InputEvent):
 	if Input.is_action_just_released("leftclick"):
 		if Decksize > 0:
-			Decksize = $'../../'.drawcard()
+			Decksize = $'../../Cards/'.drawcard()
 			if Decksize == 0:
 				disabled = true

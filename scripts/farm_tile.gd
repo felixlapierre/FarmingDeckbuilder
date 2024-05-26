@@ -23,32 +23,16 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	pass
 
-
 func _on_tile_button_mouse_entered() -> void:
-	if Global.selected_card.type == "NONE":
-		return
-	var shape = Helper.get_tile_shape(Global.selected_card.size)
-	
-	for item in shape:
-		if not Helper.in_bounds(item + grid_location):
-			continue
-		var sprite = Sprite2D.new()
-		sprite.texture = load("res://assets/custom/SelectTile.png")
-		sprite.position = position + item * TILE_SIZE + TILE_SIZE / 2
-		sprite.scale *= TILE_SIZE / sprite.texture.get_size()
-		sprite.z_index = 1
-		$SelectOverlay.add_child(sprite)
+	$"../../".on_tile_hover(grid_location)
 
 func _on_tile_button_mouse_exited() -> void:
-	for node in $SelectOverlay.get_children():
-		$SelectOverlay.remove_child(node)
-		node.queue_free()
-
+	$"../../".clear_overlay()
 
 func _on_tile_button_gui_input(event: InputEvent) -> void:
 	if event.is_action_pressed("leftclick"):
 		if Global.selected_card.type == "Seed":
-			$"../".use_card(Global.selected_card, grid_location)
+			$"../../".use_card(Global.selected_card, grid_location)
 
 func plant_seed(seed):
 	seed = Global.selected_card

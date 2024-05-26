@@ -1,15 +1,11 @@
-[gd_scene load_steps=13 format=3 uid="uid://xva3qbqb4k5o"]
+[gd_scene load_steps=9 format=3 uid="uid://xva3qbqb4k5o"]
 
 [ext_resource type="Texture2D" uid="uid://dejmbtpxa2rtc" path="res://assets/1616tinygarden/tileset.png" id="1_jy4o7"]
 [ext_resource type="Script" path="res://scripts/playspace.gd" id="1_yho3j"]
-[ext_resource type="PackedScene" uid="uid://bbmiskr3ha0we" path="res://farm_tiles.tscn" id="2_0314u"]
+[ext_resource type="Script" path="res://scripts/farm_tiles.gd" id="2_ghyw7"]
 [ext_resource type="Texture2D" uid="uid://c446mynw3jgpo" path="res://assets/CardBorder.png" id="3_ej1xc"]
 [ext_resource type="Texture2D" uid="uid://c8cs8b5ibrdjn" path="res://icon.svg" id="4_6s8vj"]
 [ext_resource type="Script" path="res://scripts/DeckDraw.gd" id="4_jb073"]
-[ext_resource type="PackedScene" uid="uid://dn6mjla5pvtrh" path="res://scenes/cards.tscn" id="7_81aef"]
-[ext_resource type="Texture2D" uid="uid://6kjw6wo7u7bw" path="res://assets/custom/EndTurn.png" id="8_dei73"]
-[ext_resource type="Texture2D" uid="uid://b2k8jysorsjw1" path="res://assets/custom/EndTurnClick.png" id="9_14chp"]
-[ext_resource type="Texture2D" uid="uid://jlxw6ypagasj" path="res://assets/custom/EndTurnHover.png" id="10_gqrn0"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_n4x4v"]
 texture = ExtResource("1_jy4o7")
@@ -124,7 +120,10 @@ sources/0 = SubResource("TileSetAtlasSource_n4x4v")
 [node name="Playspace" type="Node2D"]
 script = ExtResource("1_yho3j")
 
-[node name="FarmTiles" parent="." instance=ExtResource("2_0314u")]
+[node name="FarmTiles" type="Node" parent="."]
+script = ExtResource("2_ghyw7")
+
+[node name="Cards" type="Node" parent="."]
 
 [node name="Background" type="Sprite2D" parent="."]
 
@@ -141,7 +140,7 @@ layer_2/name = "Props 2"
 layer_2/tile_data = PackedInt32Array(720906, 917504, 3, 589834, 917504, 1, 327695, 917504, 0, 327698, 1048576, 0)
 
 [node name="Deck" type="Node2D" parent="."]
-position = Vector2(50, 400)
+position = Vector2(922, 318)
 
 [node name="DeckDraw" type="TextureButton" parent="Deck"]
 offset_right = 250.0
@@ -149,17 +148,3 @@ offset_bottom = 351.0
 texture_normal = ExtResource("3_ej1xc")
 texture_disabled = ExtResource("4_6s8vj")
 script = ExtResource("4_jb073")
-
-[node name="Cards" parent="." instance=ExtResource("7_81aef")]
-
-[node name="EndTurnButton" type="TextureButton" parent="."]
-offset_left = 992.0
-offset_top = 583.0
-offset_right = 1092.0
-offset_bottom = 633.0
-texture_normal = ExtResource("8_dei73")
-texture_pressed = ExtResource("9_14chp")
-texture_hover = ExtResource("10_gqrn0")
-
-[connection signal="card_played" from="FarmTiles" to="." method="_on_farm_tiles_card_played"]
-[connection signal="pressed" from="EndTurnButton" to="." method="_on_end_turn_button_pressed"]
