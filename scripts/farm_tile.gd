@@ -60,8 +60,8 @@ func grow_one_week():
 		current_grow_progress += 1.0
 		current_yield += seed_base_yield / seed_grow_time * current_multiplier
 		current_multiplier = 1.0
-		irrigated = false
-		$IrrigateOverlay.visible = false
+		if irrigated:
+			current_multiplier += IRRIGATED_MULTIPLIER
 		update_plant_sprite()
 		grow_animation()
 		if current_grow_progress == seed_grow_time:
@@ -114,3 +114,7 @@ func irrigate():
 		current_multiplier += IRRIGATED_MULTIPLIER
 		irrigated = true
 		$IrrigateOverlay.visible = true
+
+func lose_irrigate():
+	irrigated = false
+	$IrrigateOverlay.visible = false

@@ -27,9 +27,8 @@ func _ready() -> void:
 func use_card(card, grid_position):
 	if card == Global.NO_CARD or card.cost > $"../".energy:
 		return
-	var shape = Helper.get_tile_shape(card.size)
-	for tile in shape:
-		var target = grid_position + tile
+	var shape = get_targeted_tiles(grid_position, Global.selected_card.size)
+	for target in shape:
 		if not Helper.in_bounds(target):
 			continue
 		if card.type == "SEED":
@@ -48,21 +47,21 @@ func on_tile_hover(grid_position: Vector2):
 	if card.type == "NONE":
 		return
 	clear_overlay()
-	var shape = Helper.get_tile_shape(Global.selected_card.size)
+	var shape = get_targeted_tiles(grid_position, Global.selected_card.size)
+
 	for item in shape:
-		var target_grid_position = item + grid_position
 		var error = false
-		if not Helper.in_bounds(target_grid_position):
+		if not Helper.in_bounds(item):
 			error = true
 		else:
-			var targeted_tile = tiles[target_grid_position.x][target_grid_position.y]
+			var targeted_tile = tiles[item.x][item.y]
 			if card.type == "SEED" and targeted_tile.state != Constants.TileState.Empty:
 				error = true
 			elif card.type == "ACTION" and !card.targets.has(Constants.TileState.keys()[targeted_tile.state]):
 				error = true
 		var sprite = Sprite2D.new()
 		sprite.texture = load("res://assets/custom/SelectTile.png")
-		sprite.position = TOP_LEFT + (target_grid_position) * TILE_SIZE + TILE_SIZE / 2
+		sprite.position = TOP_LEFT + (item) * TILE_SIZE + TILE_SIZE / 2
 		sprite.scale *= TILE_SIZE / sprite.texture.get_size()
 		sprite.z_index = 1
 		if error:
@@ -70,6 +69,17 @@ func on_tile_hover(grid_position: Vector2):
 		else:
 			sprite.modulate = Color(98.0/256.0, 240.0/256.0, 70.0/256.0)
 		$SelectOverlay.add_child(sprite)
+
+func get_targeted_tiles(grid_position, size):
+	var shape = []
+	if Global.selected_card.size != -1:
+		for item in Helper.get_tile_shape(Global.selected_card.size):
+			shape.append(item + grid_position)
+	else:
+		for i in range(0, Constants.FARM_DIMENSIONS.x):
+			for j in range(0, Constants.FARM_DIMENSIONS.y):
+				shape.append(Vector2(i, j))
+	return shape
 
 func pct(num):
 	return float(num)/100.0
@@ -80,19 +90,20 @@ func clear_overlay():
 		node.queue_free()
 
 func process_one_week():
-	var all_tiles = []
+	var growing_tiles = []
 	for tile in $Tiles.get_children():
 		if tile.state == Constants.TileState.Growing:
-			all_tiles.append(tile)
-	all_tiles.shuffle()
-	for tile in all_tiles:
+			growing_tiles.append(tile)
+	growing_tiles.shuffle()
+	for tile in growing_tiles:
 		tile.grow_one_week()
 		await get_tree().create_timer(0.01).timeout
+	for tile in $Tiles.get_children():
+		tile.lose_irrigate()
 	var expired_effects = []
 	for effect in active_effects:
 		perform_action(effect.action, effect.tile)
 		effect.duration_remaining -= 1
-		print("effect " + effect.action.name + " duration is now " + str(effect.duration_remaining))
 		if effect.duration_remaining <= 0:
 			expired_effects.append(effect)
 	for effect in expired_effects:
@@ -114,6 +125,8 @@ func perform_action(action, tile):
 			tile.harvest()
 		"irrigate":
 			tile.irrigate()
+		"grow":
+			tile.grow_one_week()
 
 func gain_yield(yield_amount):
 	on_yield_gained.emit(yield_amount)

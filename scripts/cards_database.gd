@@ -95,25 +95,51 @@ const DATA = {
 				"duration": 3
 			}
 		]
+	}, "Time Bubble": {
+		"type": "ACTION",
+		"name": "Time Bubble",
+		"cost": 0,
+		"size": 4,
+		"text": "Grow 4 tiles by \n1 week",
+		"texture": "res://assets/custom/TimeBubble.png",
+		"targets": ["Growing"],
+		"actions": [
+			{
+				"name": "grow"
+			}
+		]
+	}, "Little Friend": {
+		"type": "ACTION",
+		"name": "Little Friend",
+		"cost": 2,
+		"size": -1,
+		"text": "Harvest the entire \nfarm",
+		"texture": "res://assets/custom/LittleHelper.png",
+		"targets": ["Mature"],
+		"actions": [
+			{
+				"name": "harvest"
+			}
+		]
 	}
 }
 
 const SHOP = {
 	"Carrot": {
 		"type": "CARD",
-		"weight": 1,
+		"weight": 0.5,
 		"min_cost": 10,
 		"max_cost": 30
 	},
 	"Pumpkin": {
 		"type": "CARD",
-		"weight": 1,
+		"weight": 0.5,
 		"min_cost": 10,
 		"max_cost": 30
 	},
 	"Blueberry": {
 		"type": "CARD",
-		"weight": 1,
+		"weight": 0.5,
 		"min_cost": 10,
 		"max_cost": 30
 	},
@@ -146,5 +172,17 @@ const SHOP = {
 		"weight": 3,
 		"min_cost": 30,
 		"max_cost": 50
+	},
+	"Time Bubble": {
+		"type": "CARD",
+		"weight": 3,
+		"min_cost": 20,
+		"max_cost": 40
+	},
+	"Little Friend": {
+		"type": "CARD",
+		"weight": 3,
+		"min_cost": 30,
+		"max_cost": 40
 	}
 }
