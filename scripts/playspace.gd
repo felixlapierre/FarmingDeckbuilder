@@ -1,6 +1,6 @@
 extends Node2D
 
-var total_yield = 0.0
+var total_yield = 100.0
 var week = 1
 var energy = 3
 
@@ -8,7 +8,7 @@ var Shop = preload("res://scenes/shop.tscn")
 var shop_instance
 
 func _ready() -> void:
-	update_labels()
+	update()
 	$Cards.draw_hand()
 
 
@@ -19,7 +19,7 @@ func _process(delta: float) -> void:
 
 func _on_farm_tiles_card_played(card) -> void:
 	energy -= card.cost
-	update_labels()
+	update()
 	$Cards.play_card()
 
 
@@ -32,27 +32,32 @@ func _on_end_turn_button_pressed() -> void:
 	$Cards.draw_hand()
 	week += 1
 	energy = Constants.MAX_ENERGY
-	update_labels()
+	update()
 
 
 func _on_farm_tiles_on_yield_gained(yield_amount) -> void:
 	total_yield += yield_amount
-	update_labels()
+	update()
 	
-func update_labels():
+func update():
 	$Stats/VBox/YieldLabel.text = "Total Yield: " + str(int(total_yield))
 	$Stats/VBox/TurnLabel.text = "Week: " + str(week)
 	$Stats/VBox/EnergyLabel.text = "Energy: " + str(energy) + " / " + str(Constants.MAX_ENERGY)
+	$Shop.player_money = total_yield
+	$Shop.update_labels()
 
 
 func _on_shop_button_button_up() -> void:
-	shop_instance = Shop.instantiate()
-	shop_instance.on_shop_closed.connect(_on_shop_on_shop_closed)
-	shop_instance.on_item_bought.connect(_on_shop_on_item_bought)
-	self.add_child(shop_instance)
+	$Shop.visible = true
 
 func _on_shop_on_shop_closed() -> void:
-	self.remove_child(shop_instance)
+	$Shop.visible = false
 
-func _on_shop_on_item_bought(card_name) -> void:
+func _on_shop_on_item_bought(card_name, card_cost) -> void:
+	total_yield -= card_cost
+	update()
 	$Cards.add_card_from_shop(card_name)
+
+func _on_shop_on_money_spent(amount) -> void:
+	total_yield -= amount
+	update()

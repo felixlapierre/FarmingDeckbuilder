@@ -22,4 +22,6 @@ offset_bottom = 40.0
 layout_mode = 2
 text = "Buy"
 
+[node name="Discarding" type="Node" parent="."]
+
 [connection signal="pressed" from="ItemContainer/BuyButton" to="." method="_on_buy_button_pressed"]

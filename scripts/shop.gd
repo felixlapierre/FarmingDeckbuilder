@@ -6,14 +6,23 @@ var card_database = preload("res://scripts/cards_database.gd")
 
 signal on_shop_closed
 signal on_item_bought
+signal on_money_spent
 
-var reset_shop_cost = 10
+@export var player_money: int
+
+var reset_shop_base_cost = 15
+var reset_shop_cost = 15
+var reset_shop_increment = 15
+var remove_card_base_cost = 50
 var remove_card_cost = 50
+var remove_card_cost_increment = 50
+
 var shop_item_capacity = 4
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	$PanelContainer.size = get_viewport_rect().size
+	update_labels()
 	fill_shop()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -30,9 +39,8 @@ func fill_shop():
 	for key in stock.keys():
 		var value = stock[key]
 		var new_node = ShopItem.instantiate()
-		if value.type == "CARD":
-			new_node.card_name = key
-		new_node.card_cost = randi_range(value.min_cost, value.max_cost)
+		var cost = randi_range(value.min_cost, value.max_cost)
+		new_node.set_card(key, cost)
 		new_node.on_card_bought.connect(_on_shop_item_on_card_bought)
 		$PanelContainer/ShopContainer/ShopContent/StockContainer.add_child(new_node)
 	
@@ -54,9 +62,44 @@ func generate_random_shop_items(count):
 				break
 	return result
 
-func _on_shop_item_on_card_bought(card_name, card_cost) -> void:
-	on_item_bought.emit(card_name)
-
+func _on_shop_item_on_card_bought(shop_item, card_name, card_cost) -> void:
+	if card_cost > player_money:
+		return
+	on_item_bought.emit(card_name, card_cost)
+	shop_item.move_card_to_discard()
+	var items = generate_random_shop_items(1)
+	var key = items.keys()[0]
+	var value = items[key]
+	var cost = randi_range(value.min_cost, value.max_cost)
+	shop_item.set_card(key, cost)
+	update_labels()
 
 func _on_close_button_pressed() -> void:
 	on_shop_closed.emit()
+
+
+func _on_reset_shop_button_pressed() -> void:
+	if player_money > reset_shop_cost:
+		on_money_spent.emit(reset_shop_cost)
+		reset_shop_cost += reset_shop_increment
+		update_labels()
+		fill_shop()
+
+
+func _on_remove_card_button_pressed() -> void:
+	if player_money > remove_card_cost:
+		# TODO: Pick card to remove and potentially cancel
+		on_money_spent.emit(remove_card_cost)
+		remove_card_cost += remove_card_cost_increment
+		update_labels()
+
+func on_week_pass():
+	fill_shop()
+	reset_shop_cost = reset_shop_base_cost
+	remove_card_cost = remove_card_base_cost
+	update_labels()
+
+func update_labels():
+	$PanelContainer/ShopContainer/ShopContent/SideActions/ResetShopContainer/ResetShopButton.text = "Reset Shop ("+str(reset_shop_cost)+")"
+	$PanelContainer/ShopContainer/ShopContent/SideActions/RemoveCardContainer/RemoveCardButton.text = "Remove Card ("+str(remove_card_cost)+")"
+	$PanelContainer/ShopContainer/Header/MoneyLabel.text = "$$$: " + str(player_money)

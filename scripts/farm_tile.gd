@@ -12,6 +12,9 @@ var seed_base_yield
 var seed_grow_time
 var current_yield
 var current_grow_progress
+var current_multiplier = 1.0
+var irrigated = false
+var IRRIGATED_MULTIPLIER = 0.4
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -55,7 +58,10 @@ func plant_seed(planted_seed):
 func grow_one_week():
 	if state == Constants.TileState.Growing:
 		current_grow_progress += 1.0
-		current_yield += seed_base_yield / seed_grow_time
+		current_yield += seed_base_yield / seed_grow_time * current_multiplier
+		current_multiplier = 1.0
+		irrigated = false
+		$IrrigateOverlay.visible = false
 		update_plant_sprite()
 		grow_animation()
 		if current_grow_progress == seed_grow_time:
@@ -75,8 +81,8 @@ func update_plant_sprite():
 			y = 32
 			h = 16
 		1:
-			y = 48
 			h = 16
+			y = 48
 		2:
 			y = 64
 			h = 32
@@ -85,7 +91,7 @@ func update_plant_sprite():
 			h = 32
 		
 	$PlantSprite.set_region_rect(Rect2(seed.texture * 16, y, 16, h))
-	$PlantSprite.offset = Vector2(0, -8 if h == 16 else -12)
+	$PlantSprite.offset = Vector2(0, -8 if h == 16 else -14)
 
 func harvest():
 	if state == Constants.TileState.Mature:
@@ -102,3 +108,9 @@ func harvest():
 			current_yield = current_grow_progress * seed_base_yield / seed_grow_time
 			update_plant_sprite()
 			grow_animation()
+
+func irrigate():
+	if !irrigated:
+		current_multiplier += IRRIGATED_MULTIPLIER
+		irrigated = true
+		$IrrigateOverlay.visible = true

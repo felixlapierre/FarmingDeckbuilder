@@ -81,6 +81,20 @@ const DATA = {
 		"text": "",
 		"texture": 7,
 		"effects": {}
+	}, "Conjure Raincloud": {
+		"type": "ACTION",
+		"name": "Conjure Raincloud",
+		"cost": 1,
+		"size": 9,
+		"text": "Irrigate 9 tiles \nfor 3 weeks",
+		"texture": "res://assets/custom/Raincloud.png",
+		"targets": ["Empty", "Mature", "Growing"],
+		"actions": [
+			{
+				"name": "irrigate",
+				"duration": 3
+			}
+		]
 	}
 }
 
@@ -126,5 +140,11 @@ const SHOP = {
 		"weight": 0.8,
 		"min_cost": 15,
 		"max_cost": 35
+	},
+	"Conjure Raincloud": {
+		"type": "CARD",
+		"weight": 3,
+		"min_cost": 30,
+		"max_cost": 50
 	}
 }

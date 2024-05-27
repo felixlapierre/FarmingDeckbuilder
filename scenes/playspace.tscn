@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://xva3qbqb4k5o"]
+[gd_scene load_steps=15 format=3 uid="uid://xva3qbqb4k5o"]
 
 [ext_resource type="Texture2D" uid="uid://dejmbtpxa2rtc" path="res://assets/1616tinygarden/tileset.png" id="1_jy4o7"]
 [ext_resource type="Script" path="res://scripts/playspace.gd" id="1_yho3j"]
@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://b2k8jysorsjw1" path="res://assets/custom/EndTurnClick.png" id="9_14chp"]
 [ext_resource type="Texture2D" uid="uid://jlxw6ypagasj" path="res://assets/custom/EndTurnHover.png" id="10_gqrn0"]
 [ext_resource type="Texture2D" uid="uid://ddooce1phh2xs" path="res://assets/custom/ShopButton.png" id="11_lwhr4"]
+[ext_resource type="PackedScene" uid="uid://ch1l0jofkrynh" path="res://scenes/shop.tscn" id="12_q43t0"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_n4x4v"]
 texture = ExtResource("1_jy4o7")
@@ -185,7 +186,13 @@ offset_right = 1148.0
 offset_bottom = 72.0
 texture_normal = ExtResource("11_lwhr4")
 
+[node name="Shop" parent="." instance=ExtResource("12_q43t0")]
+visible = false
+
 [connection signal="card_played" from="FarmTiles" to="." method="_on_farm_tiles_card_played"]
 [connection signal="on_yield_gained" from="FarmTiles" to="." method="_on_farm_tiles_on_yield_gained"]
 [connection signal="pressed" from="EndTurnButton" to="." method="_on_end_turn_button_pressed"]
 [connection signal="button_up" from="ShopButton" to="." method="_on_shop_button_button_up"]
+[connection signal="on_item_bought" from="Shop" to="." method="_on_shop_on_item_bought"]
+[connection signal="on_money_spent" from="Shop" to="." method="_on_shop_on_money_spent"]
+[connection signal="on_shop_closed" from="Shop" to="." method="_on_shop_on_shop_closed"]

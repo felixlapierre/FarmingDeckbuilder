@@ -24,6 +24,9 @@ layout_mode = 2
 layout_mode = 2
 text = "Shop"
 
+[node name="MoneyLabel" type="Label" parent="PanelContainer/ShopContainer/Header"]
+layout_mode = 2
+
 [node name="CloseButton" type="Button" parent="PanelContainer/ShopContainer/Header"]
 layout_mode = 2
 size_flags_horizontal = 10
@@ -48,10 +51,6 @@ layout_mode = 2
 size_flags_horizontal = 3
 text = "Reset Shop"
 
-[node name="ResetCostLabel" type="Label" parent="PanelContainer/ShopContainer/ShopContent/SideActions/ResetShopContainer"]
-layout_mode = 2
-text = "Cost"
-
 [node name="RemoveCardContainer" type="HBoxContainer" parent="PanelContainer/ShopContainer/ShopContent/SideActions"]
 layout_mode = 2
 
@@ -59,8 +58,6 @@ layout_mode = 2
 layout_mode = 2
 text = "Remove Card"
 
-[node name="RemoveCardCost" type="Label" parent="PanelContainer/ShopContainer/ShopContent/SideActions/RemoveCardContainer"]
-layout_mode = 2
-text = "Cost"
-
 [connection signal="pressed" from="PanelContainer/ShopContainer/Header/CloseButton" to="." method="_on_close_button_pressed"]
+[connection signal="pressed" from="PanelContainer/ShopContainer/ShopContent/SideActions/ResetShopContainer/ResetShopButton" to="." method="_on_reset_shop_button_pressed"]
+[connection signal="pressed" from="PanelContainer/ShopContainer/ShopContent/SideActions/RemoveCardContainer/RemoveCardButton" to="." method="_on_remove_card_button_pressed"]

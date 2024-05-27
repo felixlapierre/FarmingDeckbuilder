@@ -5,6 +5,7 @@ var FarmTile = preload("res://scenes/farm_tile.tscn")
 var TILE_SIZE = Vector2(56, 56);
 var TOP_LEFT
 var tiles = []
+var active_effects = []
 
 signal card_played
 signal on_yield_gained
@@ -34,7 +35,7 @@ func use_card(card, grid_position):
 		if card.type == "SEED":
 			tiles[target.x][target.y].plant_seed_animate(card)
 		elif card.type == "ACTION":
-			perform_action(card, tiles[target.x][target.y])
+			use_action_card(card, tiles[target.x][target.y])
 	clear_overlay()
 	card_played.emit(card)
 
@@ -87,12 +88,32 @@ func process_one_week():
 	for tile in all_tiles:
 		tile.grow_one_week()
 		await get_tree().create_timer(0.01).timeout
+	var expired_effects = []
+	for effect in active_effects:
+		perform_action(effect.action, effect.tile)
+		effect.duration_remaining -= 1
+		print("effect " + effect.action.name + " duration is now " + str(effect.duration_remaining))
+		if effect.duration_remaining <= 0:
+			expired_effects.append(effect)
+	for effect in expired_effects:
+		active_effects.erase(effect)
 
-func perform_action(card, tile):
+func use_action_card(card, tile):
 	for action in card.actions:
-		match action.name:
-			"harvest":
-				tile.harvest()
+		perform_action(action, tile)
+		if action.has("duration") and action.duration > 0:
+			active_effects.append({
+				"action": action,
+				"tile": tile,
+				"duration_remaining": action.duration - 1
+			})
+
+func perform_action(action, tile):
+	match action.name:
+		"harvest":
+			tile.harvest()
+		"irrigate":
+			tile.irrigate()
 
 func gain_yield(yield_amount):
 	on_yield_gained.emit(yield_amount)
