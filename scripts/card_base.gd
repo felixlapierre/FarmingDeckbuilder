@@ -1,6 +1,5 @@
 extends MarginContainer
 
-var card_name = "Blueberry"
 var card_info;
 var card_image = "res://assets/1616tinygarden/objects.png"
 var card_database
@@ -33,24 +32,26 @@ var HAND_TOP_Y
 
 var state = CardState.InHand
 
+signal on_clicked
+
 # Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	card_database = preload("res://scripts/cards_database.gd")
-	card_info = card_database.DATA[card_name]
-	
+func _ready() -> void:	
 	var card_size = size
 	HAND_TOP_Y = get_viewport_rect().size.y - card_size.y
 	$CardBorder.scale *= card_size / $CardBorder.texture.get_size()
+
+	$CardIcon.position = card_size / 2
+	$CardIcon.position.y /= 2
+	$Focus.scale *= card_size / $Focus.size
+
+func set_card_info(card_data):
+	card_info = card_data
 	if card_info.type == "SEED":
 		$CardIcon.texture = load(card_image)
 		$CardIcon.region_enabled = true
 		$CardIcon.set_region_rect(Rect2(card_info.texture * 16, 0, 16, 16))
 	elif card_info.type == "ACTION":
 		$CardIcon.texture = load(card_info.texture)
-	$CardIcon.position = card_size / 2
-	$CardIcon.position.y /= 2
-	$Focus.scale *= card_size / $Focus.size
-	
 	$HBoxContainer/VBoxContainer/BottomBar/TypeLabel.text = card_info.type
 	$HBoxContainer/VBoxContainer/TopBar/CardNameLabel.text = card_info.name
 	$HBoxContainer/VBoxContainer/TopBar/CardCostLabel.text = str(card_info.cost)
@@ -58,10 +59,12 @@ func _ready() -> void:
 		$HBoxContainer/VBoxContainer/BottomBar/YieldLabel.text = str(card_info.yield) + " Yld / "
 		$HBoxContainer/VBoxContainer/BottomBar/TimeLabel.text = str(card_info.time) + " Wks"
 	$HBoxContainer/VBoxContainer/DescriptionLabel.text = card_info.text
-	
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	match state:
+		CardState.InShop:
+			pass
 		CardState.InHand:
 			pass
 		CardState.InPlay:
@@ -196,17 +199,18 @@ func process_move_linear(delta, totaltime):
 
 
 func _on_focus_gui_input(event: InputEvent) -> void:
-	match state:
-		CardState.FocusInHand:
-			if event.is_action_pressed("leftclick"):
+	if event.is_action_pressed("leftclick"):
+		match state:
+			CardState.FocusInHand:
 				set_state(CardState.InMouse, null, null, resting_scale)
 				Global.selected_card = card_info
-		CardState.InMouse:
-			if event.is_action_pressed("leftclick"):
+			CardState.InMouse:
 				var new_position = resting_position
 				new_position.y = get_viewport_rect().size.y - card_size.y*ZoomInSize
 				set_state(CardState.FocusInHand, new_position, 0, resting_scale * 2)
 				Global.selected_card = Global.NO_CARD
+			CardState.InShop:
+				on_clicked.emit(self)
 
 func _input(event: InputEvent) -> void:
 	if state == CardState.InMouse and event.is_action_pressed("rightclick"):

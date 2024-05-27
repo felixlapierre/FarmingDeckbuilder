@@ -1,6 +1,6 @@
 extends Node2D
 
-var total_yield = 100.0
+var total_yield = 1100.0
 var week = 1
 var energy = 3
 
@@ -48,16 +48,23 @@ func update():
 
 
 func _on_shop_button_button_up() -> void:
+	$Shop.set_deck($Cards.get_hand_info())
 	$Shop.visible = true
 
 func _on_shop_on_shop_closed() -> void:
 	$Shop.visible = false
 
-func _on_shop_on_item_bought(card_name, card_cost) -> void:
-	total_yield -= card_cost
+func _on_shop_on_item_bought(item) -> void:
+	total_yield -= item.cost
 	update()
-	$Cards.add_card_from_shop(card_name)
+	if item.type == "CARD":
+		$Cards.add_card_from_shop(item.data)
 
 func _on_shop_on_money_spent(amount) -> void:
 	total_yield -= amount
 	update()
+
+
+func _on_shop_on_card_removed(card) -> void:
+	$Cards.remove_hand_card(card)
+	$Shop.set_deck($Cards.get_hand_info())

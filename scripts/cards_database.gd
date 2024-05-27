@@ -124,6 +124,22 @@ const DATA = {
 	}
 }
 
+const STRUCTURES = {
+	"Sprinkler": {
+		"name": "Sprinkler",
+		"texture": "res://assets/custom/Sprinkler.png",
+		"cost": 1,
+		"rarity": "common",
+		"description": "Irrigates all 8 adjacent\ntiles",
+		"actions": [
+			{
+			"name": "irrigate",
+			"range": "adjacent"
+			}
+		]
+	}
+}
+
 const SHOP = {
 	"Carrot": {
 		"type": "CARD",
@@ -184,5 +200,11 @@ const SHOP = {
 		"weight": 3,
 		"min_cost": 30,
 		"max_cost": 40
+	},
+	"Sprinkler": {
+		"type": "STRUCTURE",
+		"weight": 3,
+		"min_cost": 100,
+		"max_cost": 100
 	}
 }

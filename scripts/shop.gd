@@ -7,6 +7,7 @@ var card_database = preload("res://scripts/cards_database.gd")
 signal on_shop_closed
 signal on_item_bought
 signal on_money_spent
+signal on_card_removed
 
 @export var player_money: int
 
@@ -19,11 +20,17 @@ var remove_card_cost_increment = 50
 
 var shop_item_capacity = 4
 
+var player_cards
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	$PanelContainer.size = get_viewport_rect().size
+	$RemoveCardContainer.size = get_viewport_rect().size
 	update_labels()
 	fill_shop()
+
+func set_deck(deck):
+	player_cards = deck
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -40,8 +47,14 @@ func fill_shop():
 		var value = stock[key]
 		var new_node = ShopItem.instantiate()
 		var cost = randi_range(value.min_cost, value.max_cost)
-		new_node.set_card(key, cost)
-		new_node.on_card_bought.connect(_on_shop_item_on_card_bought)
+		var data;
+		match value.type:
+			"CARD":
+				data = card_database.DATA[key]
+			"STRUCTURE":
+				data = card_database.STRUCTURES[key]
+		new_node.set_item({"name": key, "data": data, "cost": cost, "type": value.type})
+		new_node.on_purchase.connect(_on_shop_item_on_card_bought)
 		$PanelContainer/ShopContainer/ShopContent/StockContainer.add_child(new_node)
 	
 func generate_random_shop_items(count):
@@ -62,16 +75,22 @@ func generate_random_shop_items(count):
 				break
 	return result
 
-func _on_shop_item_on_card_bought(shop_item, card_name, card_cost) -> void:
-	if card_cost > player_money:
+func _on_shop_item_on_card_bought(ui_shop_item, item) -> void:
+	if item.cost > player_money:
 		return
-	on_item_bought.emit(card_name, card_cost)
-	shop_item.move_card_to_discard()
+	on_item_bought.emit(item)
+	ui_shop_item.move_card_to_discard()
 	var items = generate_random_shop_items(1)
 	var key = items.keys()[0]
 	var value = items[key]
 	var cost = randi_range(value.min_cost, value.max_cost)
-	shop_item.set_card(key, cost)
+	var data;
+	match value.type:
+		"CARD":
+			data = card_database.DATA[key]
+		"STRUCTURE":
+			data = card_database.STRUCTURES[key]
+	ui_shop_item.set_item({"name": key, "data": data, "cost": cost, "type": value.type})
 	update_labels()
 
 func _on_close_button_pressed() -> void:
@@ -89,9 +108,18 @@ func _on_reset_shop_button_pressed() -> void:
 func _on_remove_card_button_pressed() -> void:
 	if player_money > remove_card_cost:
 		# TODO: Pick card to remove and potentially cancel
-		on_money_spent.emit(remove_card_cost)
-		remove_card_cost += remove_card_cost_increment
-		update_labels()
+		$RemoveCardContainer.visible = true
+		$RemoveCardContainer/SelectCard.do_card_pick(player_cards, "Select a card to remove")
+
+func _on_card_remove_chosen(card) -> void:
+	on_card_removed.emit(card.card_info)
+	on_money_spent.emit(remove_card_cost)
+	remove_card_cost += remove_card_cost_increment
+	update_labels()
+	$RemoveCardContainer.visible = false
+	
+func _on_card_remove_cancelled() -> void:
+	$RemoveCardContainer.visible = false
 
 func on_week_pass():
 	fill_shop()

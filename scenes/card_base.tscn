@@ -12,8 +12,8 @@ texture_filter = 1
 offset_right = 125.0
 offset_bottom = 182.0
 pivot_offset = Vector2(62.5, 87.5)
-size_flags_horizontal = 3
-size_flags_vertical = 3
+size_flags_horizontal = 4
+size_flags_vertical = 4
 script = ExtResource("1_ohx6w")
 
 [node name="CardBorder" type="Sprite2D" parent="."]

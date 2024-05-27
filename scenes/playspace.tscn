@@ -193,6 +193,7 @@ visible = false
 [connection signal="on_yield_gained" from="FarmTiles" to="." method="_on_farm_tiles_on_yield_gained"]
 [connection signal="pressed" from="EndTurnButton" to="." method="_on_end_turn_button_pressed"]
 [connection signal="button_up" from="ShopButton" to="." method="_on_shop_button_button_up"]
+[connection signal="on_card_removed" from="Shop" to="." method="_on_shop_on_card_removed"]
 [connection signal="on_item_bought" from="Shop" to="." method="_on_shop_on_item_bought"]
 [connection signal="on_money_spent" from="Shop" to="." method="_on_shop_on_money_spent"]
 [connection signal="on_shop_closed" from="Shop" to="." method="_on_shop_on_shop_closed"]

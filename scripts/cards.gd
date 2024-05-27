@@ -46,7 +46,7 @@ func drawcard():
 	# Create the new card and initialize its starting values
 	var new_card = CardBase.instantiate()
 	CardSelected = randi() % deck_cards.size()
-	new_card.card_name = deck_cards[CardSelected].name
+	new_card.set_card_info(deck_cards[CardSelected])
 	new_card.position = $"../Deck".position - CardSize / 2
 	new_card.starting_position = new_card.position
 	new_card.target_scale = new_card.resting_scale
@@ -105,10 +105,30 @@ func discard_card(card):
 	card.set_state(CardState.MoveToDiscard, get_viewport_rect().size, PI/4, card.resting_scale * 0.1)
 	card.move_using_tween(0.5)
 	number_of_cards_in_hand -= 1
-	discard_pile_cards.append(card_database.DATA.get(card.card_name))
+	discard_pile_cards.append(card.card_info)
 
 func finish_discard(card):
 	$Discarding.remove_child(card)
 
-func add_card_from_shop(card_name):
-	discard_pile_cards.append(card_database.DATA.get(card_name))
+func add_card_from_shop(card_info):
+	discard_pile_cards.append(card_info)
+
+func get_hand_info():
+	var card_info_array = []
+	for card in $Hand.get_children():
+		card_info_array.append(card.card_info)
+	return card_info_array
+
+func remove_hand_card(card_info):
+	# Temporary, eventually shop will just pass around the entire deck
+	var card
+	for hand_card in $Hand.get_children():
+		if Helper.card_info_matches(hand_card.card_info, card_info):
+			card = hand_card
+	if card != null:
+		$Hand.remove_child(card)
+		$Discarding.add_child(card)
+		card.set_state(CardState.MoveToDiscard, null, null, card.resting_scale * 0.1)
+		card.move_using_tween(0.5)
+		number_of_cards_in_hand -= 1
+		reorganize_hand()
