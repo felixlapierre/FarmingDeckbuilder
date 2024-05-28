@@ -5,7 +5,8 @@ var FarmTile = preload("res://scenes/farm_tile.tscn")
 var TILE_SIZE = Vector2(56, 56);
 var TOP_LEFT
 var tiles = []
-var active_effects = []
+var active_actions = []
+var effect_queue = []
 
 signal card_played
 signal on_yield_gained
@@ -37,7 +38,7 @@ func use_card(card, grid_position):
 		if card.type == "SEED":
 			target_tile.plant_seed_animate(card)
 		elif card.type == "ACTION":
-			use_action_card(card, target_tile)
+			use_action_card(card, Vector2(target.x, target.y))
 		elif card.type == "STRUCTURE":
 			target_tile.build_structure(card)
 	clear_overlay()
@@ -112,26 +113,43 @@ func process_one_week():
 	for tile in $Tiles.get_children():
 		tile.lose_irrigate()
 	var expired_effects = []
-	for effect in active_effects:
-		perform_action(effect.action, effect.tile)
-		effect.duration_remaining -= 1
-		if effect.duration_remaining <= 0:
-			expired_effects.append(effect)
+	for action in active_actions:
+		effect_queue.append({
+			"effect": action.effect,
+			"grid_location": action.grid_location
+		})
+		action.duration_remaining -= 1
+		if action.duration_remaining <= 0:
+			expired_effects.append(action)
 	for effect in expired_effects:
-		active_effects.erase(effect)
+		active_actions.erase(effect)
+	process_effect_queue()
+	for tile in $Tiles.get_children():
+		effect_queue.append_array(tile.start_of_week_effects())
+	process_effect_queue()
 
-func use_action_card(card, tile):
-	for action in card.actions:
-		perform_action(action, tile)
-		if action.has("duration") and action.duration > 0:
-			active_effects.append({
-				"action": action,
-				"tile": tile,
-				"duration_remaining": action.duration - 1
+func use_action_card(card, grid_location):
+	for effect in card.effects:
+		effect_queue.append({
+			"effect": effect,
+			"grid_location": grid_location
+		})
+		if effect.has("duration") and effect.duration > 0:
+			active_actions.append({
+				"effect": effect,
+				"grid_location": grid_location,
+				"duration_remaining": effect.duration - 1
 			})
+	process_effect_queue()
 
-func perform_action(action, tile):
-	match action.name:
+func process_effect_queue():
+	while effect_queue.size() > 0:
+		var next = effect_queue.pop_front()
+		var tile = tiles[next.grid_location.x][next.grid_location.y]
+		perform_effect(next.effect, tile)
+
+func perform_effect(effect, tile):
+	match effect.name:
 		"harvest":
 			tile.harvest()
 		"irrigate":

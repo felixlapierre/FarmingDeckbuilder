@@ -7,6 +7,7 @@ var FARM_DIMENSIONS = Vector2(6, 6);
 var objects_image = "res://assets/1616tinygarden/objects.png"
 
 var seed = null # To contain information about the seed being grown here
+var structure = null
 
 var seed_base_yield
 var seed_grow_time
@@ -108,6 +109,8 @@ func harvest():
 			current_yield = current_grow_progress * seed_base_yield / seed_grow_time
 			update_plant_sprite()
 			grow_animation()
+		else:
+			seed = null
 
 func irrigate():
 	if !irrigated:
@@ -121,9 +124,27 @@ func lose_irrigate():
 
 func build_structure(card):
 	state = Constants.TileState.Structure
+	structure = card
 	$PlantSprite.texture = load(card.texture)
 	$PlantSprite.visible = true
 	var rest_position = $PlantSprite.position
 	$PlantSprite.position += Vector2(0, -500)
 	var tween = get_tree().create_tween()
 	tween.tween_property($PlantSprite, "position", rest_position, 0.6).set_trans(Tween.TRANS_BOUNCE)
+	
+func start_of_week_effects():
+	var effects_generated = []
+	#TODO: Fix this unholy indentation
+	if structure != null:
+		for effect in structure.effects:
+			if effect.time == "week_start":
+				if effect.range == "adjacent":
+					var shapes = Helper.get_tile_shape(9)
+					for shape in shapes:
+						var target = shape + grid_location
+						if Helper.in_bounds(target):
+							effects_generated.append({
+								"effect": effect,
+								"grid_location": target
+							})
+	return effects_generated

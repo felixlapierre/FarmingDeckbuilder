@@ -43,7 +43,7 @@ const DATA = {
 		"text": "Harvest 9 tiles",
 		"texture": "res://assets/custom/Scythe.png",
 		"targets": ["Mature"],
-		"actions": [
+		"effects": [
 			{
 				"name": "harvest"
 			}
@@ -56,7 +56,7 @@ const DATA = {
 		"text": "Harvest 3 tiles",
 		"texture": "res://assets/custom/Scythe.png",
 		"targets": ["Mature"],
-		"actions": [
+		"effects": [
 			{
 				"name": "harvest"
 			}
@@ -89,7 +89,7 @@ const DATA = {
 		"text": "Irrigate 9 tiles \nfor 3 weeks",
 		"texture": "res://assets/custom/Raincloud.png",
 		"targets": ["Empty", "Mature", "Growing"],
-		"actions": [
+		"effects": [
 			{
 				"name": "irrigate",
 				"duration": 3
@@ -103,7 +103,7 @@ const DATA = {
 		"text": "Grow 4 tiles by \n1 week",
 		"texture": "res://assets/custom/TimeBubble.png",
 		"targets": ["Growing"],
-		"actions": [
+		"effects": [
 			{
 				"name": "grow"
 			}
@@ -116,7 +116,7 @@ const DATA = {
 		"text": "Harvest the entire \nfarm",
 		"texture": "res://assets/custom/LittleHelper.png",
 		"targets": ["Mature"],
-		"actions": [
+		"effects": [
 			{
 				"name": "harvest"
 			}
@@ -133,10 +133,11 @@ const STRUCTURES = {
 		"size": 1,
 		"rarity": "common",
 		"description": "Irrigates all 8 adjacent\ntiles",
-		"actions": [
+		"effects": [
 			{
-			"name": "irrigate",
-			"range": "adjacent"
+				"name": "irrigate",
+				"range": "adjacent",
+				"time": "week_start"
 			}
 		]
 	}
