@@ -25,19 +25,12 @@ func _process(delta: float) -> void:
 	
 func set_item(new_item):
 	item = new_item
-	if item.type == "CARD" or item.type == "STRUCTURE":
-		card = CardBase.instantiate()
-		card.state = CardState.InShop
-		card.set_card_info(item.data)
-		$ItemContainer.add_child(card)
-		$ItemContainer.move_child(card, 0)
-		$ItemContainer/ItemPanel.visible = false
-	#elif item.type == "STRUCTURE":
-	#	$ItemContainer/ItemPanel.visible = true
-	#	$ItemContainer/ItemPanel/ItemPanelBox/TypeLabel.text = "Structure"
-	#	$ItemContainer/ItemPanel/ItemPanelBox/ItemImage.texture = load(item.data.texture)
-	#	$ItemContainer/ItemPanel/ItemPanelBox/NameLabel.text = item.name
-	#	$ItemContainer/ItemPanel/ItemPanelBox/DescriptionLabel.text = item.data.description
+	card = CardBase.instantiate()
+	card.state = CardState.InShop
+	card.set_card_info(item.data)
+	$ItemContainer.add_child(card)
+	$ItemContainer.move_child(card, 0)
+	$ItemContainer/ItemPanel.visible = false
 	cost = item.cost
 	$ItemContainer/BuyButton.text = "Buy (" + str(cost) + ")"
 
@@ -48,7 +41,7 @@ func _on_buy_button_pressed() -> void:
 func move_card_to_discard():
 	# Need to remove the card from the control node otherwise it will displace
 	# other UI elements during the discard animation
-	if item.type == "CARD":
+	if item.type == "SEED" or item.type == "ACTION":
 		$ItemContainer.remove_child(card)
 		$Discarding.add_child(card)
 		# Card position is no longer being controlled and z-indexed so we have to set it manually

@@ -3,6 +3,7 @@ extends Node2D
 var total_yield = 500
 var week = 1
 var energy = 3
+var yield_counter = 0
 
 var Shop = preload("res://scenes/shop.tscn")
 var shop_instance
@@ -41,17 +42,20 @@ func _on_end_turn_button_pressed() -> void:
 	$Cards.draw_hand()
 	week += 1
 	energy = Constants.MAX_ENERGY
+	yield_counter = 0
 	update()
 
 
 func _on_farm_tiles_on_yield_gained(yield_amount) -> void:
 	total_yield += yield_amount
+	yield_counter += yield_amount
 	update()
 	
 func update():
 	$Stats/VBox/YieldLabel.text = "Total Yield: " + str(int(total_yield))
 	$Stats/VBox/TurnLabel.text = "Week: " + str(week)
 	$Stats/VBox/EnergyLabel.text = "Energy: " + str(energy) + " / " + str(Constants.MAX_ENERGY)
+	$YieldCounter.text = str(yield_counter)
 	$Shop.player_money = total_yield
 	$Shop.update_labels()
 
@@ -66,7 +70,7 @@ func _on_shop_on_shop_closed() -> void:
 func _on_shop_on_item_bought(item) -> void:
 	total_yield -= item.cost
 	update()
-	if item.type == "CARD":
+	if item.type == "SEED" or item.type == "ACTION":
 		$Cards.add_card_from_shop(item.data)
 
 func _on_shop_on_money_spent(amount) -> void:
@@ -88,3 +92,9 @@ func set_ui_visible(visible):
 	$Deck.visible = visible
 	$EndTurnButton.visible = visible
 	$Shop.visible = visible
+
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("transform"):
+		Global.shape = (Global.shape + 1) % 3
+	elif event.is_action_pressed("rotate"):
+		Global.rotate = (Global.rotate + 1) % 4

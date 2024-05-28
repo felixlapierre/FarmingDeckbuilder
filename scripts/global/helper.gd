@@ -1,23 +1,37 @@
 class_name Helper
 
-static func get_tile_shape(size):
-	match size:
-		1:
-			return [Vector2(0, 0)]
-		2:
-			return [Vector2(0, 0), Vector2(1, 0)]
-		3:
-			return [Vector2(0, 0), Vector2(1, 0), Vector2(-1, 0)]
-		4:
-			return [Vector2(0, 0), Vector2(1, 0), Vector2(1, 1), Vector2(0, 1)]
-		6:
-			return [Vector2(0, 0), Vector2(1, 0), Vector2(-1, 0),
-				Vector2(0, 1), Vector2(1, 1), Vector2(-1, 1)]
-		9:
-			return [Vector2(0, 0), Vector2(1, 0), Vector2(-1, 0),
-				Vector2(0, 1), Vector2(1, 1), Vector2(-1, 1),
-				Vector2(0, -1), Vector2(1, -1), Vector2(-1, -1)]
-	return []
+static func get_tile_shape(size, shape):
+	return get_tile_shape_rotated(size, shape, 0)
+
+static func get_tile_shape_rotated(size, shape: Enums.CursorShape, rotation):
+	var result = []
+	if shape == Enums.CursorShape.Line or size <= 2:
+		for i in range(size):
+			result.append(Vector2(i, 0).rotated(PI/2 * rotation).round())
+		return result
+	
+	var skip_center = 0 if shape == Enums.CursorShape.Square else 1
+	for i in range(skip_center, size + skip_center):
+		var x = 0
+		var y = 0
+		match i:
+			0, 3, 7:
+				x = 0
+			1, 2, 8:
+				x = 1
+			4, 5, 6:
+				x = -1
+			9, 10, 11:
+				x = 2
+		match i:
+			0, 1, 5, 10:
+				y = 0
+			6, 7, 8, 9:
+				y = 1
+			2, 3, 4, 11:
+				y = -1
+		result.append(Vector2(x, y).rotated(PI/2 * rotation).round())
+	return result
 
 static func in_bounds(grid_location):
 	return grid_location.x < Constants.FARM_DIMENSIONS.x and grid_location.y < Constants.FARM_DIMENSIONS.y \
@@ -30,3 +44,14 @@ static func card_info_matches(info1, info2):
 		and info1.size == info2.size \
 		and info1.text == info2.text \
 		and info1.texture == info2.texture
+
+static func get_default_shape(size):
+	match size:
+		3:
+			return Enums.CursorShape.Line
+		4:
+			return Enums.CursorShape.Square
+		5, 7:
+			return Enums.CursorShape.Elbow
+	return Enums.CursorShape.Square
+	

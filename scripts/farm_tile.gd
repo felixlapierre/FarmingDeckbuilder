@@ -17,6 +17,8 @@ var current_multiplier = 1.0
 var irrigated = false
 var IRRIGATED_MULTIPLIER = 0.4
 
+signal tile_hovered
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass
@@ -27,10 +29,10 @@ func _process(delta: float) -> void:
 	pass
 
 func _on_tile_button_mouse_entered() -> void:
-	$"../../".on_tile_hover(grid_location)
+	tile_hovered.emit(self)
 
 func _on_tile_button_mouse_exited() -> void:
-	$"../../".clear_overlay()
+	tile_hovered.emit(null)
 
 func _on_tile_button_gui_input(event: InputEvent) -> void:
 	if event.is_action_pressed("leftclick"):
@@ -103,7 +105,7 @@ func harvest():
 		current_grow_progress = 0.0
 		current_yield = 0.0
 		$PlantSprite.visible = false
-		if seed.effects.has("recurring"):
+		if seed.has("effects") and seed.effects.has("recurring"):
 			plant_seed(seed)
 			current_grow_progress = seed.effects.recurring.progress
 			current_yield = current_grow_progress * seed_base_yield / seed_grow_time
@@ -140,7 +142,7 @@ func start_of_week_effects():
 		for effect in structure.effects:
 			if effect.time == "week_start":
 				if effect.range == "adjacent":
-					var shapes = Helper.get_tile_shape(9)
+					var shapes = Helper.get_tile_shape(9, Enums.CursorShape.Square)
 					for shape in shapes:
 						var target = shape + grid_location
 						if Helper.in_bounds(target):

@@ -7,6 +7,8 @@ var TOP_LEFT
 var tiles = []
 var active_actions = []
 var effect_queue = []
+var hovered_tile = null
+var current_shape
 
 signal card_played
 signal on_yield_gained
@@ -23,6 +25,7 @@ func _ready() -> void:
 			tile.scale *= TILE_SIZE / Vector2(16, 16)
 			tile.grid_location = Vector2(i, j)
 			tiles[i].append(tile)
+			tile.tile_hovered.connect(on_tile_hover)
 			$Tiles.add_child(tile)
 
 func use_card(card, grid_position):
@@ -46,13 +49,17 @@ func use_card(card, grid_position):
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	pass
+	if current_shape != Global.shape and hovered_tile != null:
+		show_select_overlay()
+	if hovered_tile == null and $SelectOverlay.get_children().size() > 0:
+		clear_overlay()
 	
-func on_tile_hover(grid_position: Vector2):
+func show_select_overlay():
 	var card = Global.selected_card
-	if card.type == "NONE":
+	if card.type == "NONE" or hovered_tile == null:
 		return
 	clear_overlay()
+	var grid_position = hovered_tile.grid_location
 	var shape = get_targeted_tiles(grid_position, Global.selected_card.size)
 
 	for item in shape:
@@ -87,8 +94,9 @@ func is_eligible_card(card, targeted_tile):
 func get_targeted_tiles(grid_position, size):
 	var shape = []
 	if Global.selected_card.size != -1:
-		for item in Helper.get_tile_shape(Global.selected_card.size):
+		for item in Helper.get_tile_shape_rotated(Global.selected_card.size, Global.shape, Global.rotate):
 			shape.append(item + grid_position)
+			print(item + grid_position)
 	else:
 		for i in range(0, Constants.FARM_DIMENSIONS.x):
 			for j in range(0, Constants.FARM_DIMENSIONS.y):
@@ -97,6 +105,11 @@ func get_targeted_tiles(grid_position, size):
 
 func pct(num):
 	return float(num)/100.0
+
+func on_tile_hover(tile):
+	hovered_tile = tile
+	if tile != null:
+		show_select_overlay()
 
 func clear_overlay():
 	for node in $SelectOverlay.get_children():

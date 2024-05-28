@@ -19,7 +19,7 @@ var remove_card_base_cost = 50
 var remove_card_cost = 50
 var remove_card_cost_increment = 50
 
-var shop_item_capacity = 4
+var shop_item_capacity = 6
 
 var player_cards
 
@@ -44,31 +44,31 @@ func fill_shop():
 	
 	# Generate stock (dict)
 	var stock = generate_random_shop_items(shop_item_capacity)
-	for key in stock.keys():
-		var value = stock[key]
+	for item in stock:
 		var new_node = ShopItem.instantiate()
-		var cost = randi_range(value.min_cost, value.max_cost)
-		var data = card_database.DATA[key]
-		new_node.set_item({"name": key, "data": data, "cost": cost, "type": value.type})
+		var cost = randi_range(10, 50) if item.rarity == "common" else randi_range(50, 100)
+		new_node.set_item({"name": item.name, "data": item, "cost": cost, "type": item.type})
 		new_node.on_purchase.connect(_on_shop_item_on_card_bought)
 		$PanelContainer/ShopContainer/ShopContent/StockContainer.add_child(new_node)
 	
 func generate_random_shop_items(count):
-	var options = card_database.SHOP
-	var total_weight = 0.0
-	var result = {}
+	var options = card_database.DATA
+	var common = []
+	var rare = []
 	for key in options.keys():
-		total_weight += float(options[key].weight)
+		var value = options[key]
+		if value.rarity == "common":
+			common.append(value)
+		elif value.rarity == "rare":
+			rare.append(value)
+
+	var result = []
 	var i = 0
 	while i < count:
-		var selected = randf_range(0, total_weight)
-		for key in options.keys():
-			selected -= float(options[key].weight)
-			if selected <= 0:
-				if !result.has(key):
-					result[key] = options[key]
-					i += 1
-				break
+		var selection = common if randf() > 0.70 else rare
+		var selected = randi_range(0, selection.size() - 1)
+		result.append(selection[selected])
+		i += 1
 	return result
 
 func _on_shop_item_on_card_bought(ui_shop_item, item) -> void:
@@ -83,11 +83,9 @@ func finish_item_bought(ui_shop_item, item) -> void:
 	on_item_bought.emit(item)
 	ui_shop_item.move_card_to_discard()
 	var items = generate_random_shop_items(1)
-	var key = items.keys()[0]
-	var value = items[key]
-	var cost = randi_range(value.min_cost, value.max_cost)
-	var data = card_database.DATA[key]
-	ui_shop_item.set_item({"name": key, "data": data, "cost": cost, "type": value.type})
+	var new_item = items[0]
+	var cost = randi_range(10, 50) if new_item.rarity == "common" else randi_range(50, 100)
+	ui_shop_item.set_item({"name": new_item.name, "data": new_item, "cost": cost, "type": new_item.type})
 	update_labels()
 
 func _on_close_button_pressed() -> void:

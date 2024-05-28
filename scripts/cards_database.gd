@@ -4,6 +4,7 @@ const DATA = {
 	"Carrot" : {
 		"type": "SEED",
 		"name": "Carrot",
+		"rarity": "common",
 		"cost": 1,
 		"yield": 3,
 		"time": 3,
@@ -14,6 +15,7 @@ const DATA = {
 	}, "Pumpkin" : { 
 		"type": "SEED",
 		"name": "Pumpkin",
+		"rarity": "common",
 		"cost": 1,
 		"yield": 15,
 		"time": 3,
@@ -24,6 +26,7 @@ const DATA = {
 	}, "Blueberry" : {
 		"type": "SEED", 
 		"name": "Blueberry",
+		"rarity": "common",
 		"cost": 1,
 		"yield": 3,
 		"time": 3,
@@ -38,6 +41,7 @@ const DATA = {
 	}, "Scythe": {
 		"type": "ACTION",
 		"name": "Scythe",
+		"rarity": "common",
 		"cost": 1,
 		"size": 9,
 		"text": "Harvest 9 tiles",
@@ -51,6 +55,7 @@ const DATA = {
 	}, "Gather": {
 		"type": "ACTION",
 		"name": "Gather",
+		"rarity": "common",
 		"cost": 0,
 		"size": 3,
 		"text": "Harvest 3 tiles",
@@ -64,6 +69,7 @@ const DATA = {
 	}, "Radish": {
 		"type": "SEED",
 		"name": "Radish",
+		"rarity": "common",
 		"cost": 1,
 		"yield": "4",
 		"time": 1,
@@ -74,6 +80,7 @@ const DATA = {
 	}, "Cactus": {
 		"type": "SEED",
 		"name": "Cactus",
+		"rarity": "common",
 		"cost": 2,
 		"yield": 30,
 		"time": 5,
@@ -81,9 +88,43 @@ const DATA = {
 		"text": "",
 		"texture": 7,
 		"effects": {}
+	}, "Honey Melon": {
+		"type": "SEED",
+		"name": "Honey Melon",
+		"rarity": "rare",
+		"cost": 1,
+		"size": 1,
+		"yield": 100,
+		"time": 10,
+		"text": "",
+		"texture": 0,
+		"effects": {}
+	}, "Bamboo": {
+		"type": "SEED",
+		"name": "Bamboo",
+		"rarity": "rare",
+		"cost": 0,
+		"yield": 1,
+		"time": 1,
+		"size": 9,
+		"text": "",
+		"texture": 2,
+		"effects": {}
+	}, "Potato": {
+		"type": "SEED",
+		"name": "Potato",
+		"rarity": "common",
+		"cost": 1,
+		"yield": 4,
+		"size": 6,
+		"time": 2,
+		"text": "",
+		"texture": 8,
+		"effects": {}
 	}, "Conjure Raincloud": {
 		"type": "ACTION",
 		"name": "Conjure Raincloud",
+		"rarity": "rare",
 		"cost": 1,
 		"size": 9,
 		"text": "Irrigate 9 tiles \nfor 3 weeks",
@@ -98,8 +139,9 @@ const DATA = {
 	}, "Time Bubble": {
 		"type": "ACTION",
 		"name": "Time Bubble",
+		"rarity": "rare",
 		"cost": 0,
-		"size": 4,
+		"size": 6,
 		"text": "Grow 4 tiles by \n1 week",
 		"texture": "res://assets/custom/TimeBubble.png",
 		"targets": ["Growing"],
@@ -111,6 +153,7 @@ const DATA = {
 	}, "Little Friend": {
 		"type": "ACTION",
 		"name": "Little Friend",
+		"rarity": "rare",
 		"cost": 2,
 		"size": -1,
 		"text": "Harvest the entire \nfarm",
@@ -125,10 +168,10 @@ const DATA = {
 	"Sprinkler": {
 		"name": "Sprinkler",
 		"type": "STRUCTURE",
+		"rarity": "rare",
 		"texture": "res://assets/custom/Sprinkler.png",
 		"cost": 1,
 		"size": 1,
-		"rarity": "common",
 		"text": "Irrigates 8\nadjacent tiles at\nthe start of the\nturn",
 		"effects": [
 			{
@@ -141,10 +184,10 @@ const DATA = {
 	"Harvester": {
 		"name": "Harvester",
 		"type": "STRUCTURE",
+		"rarity": "rare",
 		"texture": "res://assets/custom/Harvester.png",
 		"cost": 1,
 		"size": 1,
-		"rarity": "common",
 		"text": "Harvests 8 adjacent\ntiles at the end of\nthe week",
 		"effects": [
 			{
@@ -153,80 +196,5 @@ const DATA = {
 				"time": "week_start"
 			}
 		]
-	}
-}
-
-const SHOP = {
-	"Carrot": {
-		"type": "CARD",
-		"weight": 0.5,
-		"min_cost": 10,
-		"max_cost": 30
-	},
-	"Pumpkin": {
-		"type": "CARD",
-		"weight": 0.5,
-		"min_cost": 10,
-		"max_cost": 30
-	},
-	"Blueberry": {
-		"type": "CARD",
-		"weight": 0.5,
-		"min_cost": 10,
-		"max_cost": 30
-	},
-	"Scythe": {
-		"type": "CARD",
-		"weight": 1,
-		"min_cost": 10,
-		"max_cost": 30
-	},
-	"Gather": {
-		"type": "CARD",
-		"weight": 1,
-		"min_cost": 10,
-		"max_cost": 30
-	},
-	"Radish": {
-		"type": "CARD",
-		"weight": 0.8,
-		"min_cost": 15,
-		"max_cost": 35
-	},
-	"Cactus": {
-		"type": "CARD",
-		"weight": 0.8,
-		"min_cost": 15,
-		"max_cost": 35
-	},
-	"Conjure Raincloud": {
-		"type": "CARD",
-		"weight": 3,
-		"min_cost": 30,
-		"max_cost": 50
-	},
-	"Time Bubble": {
-		"type": "CARD",
-		"weight": 3,
-		"min_cost": 20,
-		"max_cost": 40
-	},
-	"Little Friend": {
-		"type": "CARD",
-		"weight": 3,
-		"min_cost": 30,
-		"max_cost": 40
-	},
-	"Sprinkler": {
-		"type": "STRUCTURE",
-		"weight": 3,
-		"min_cost": 100,
-		"max_cost": 100
-	},
-	"Harvester": {
-		"type": "STRUCTURE",
-		"weight": 3,
-		"min_cost": 100,
-		"max_cost": 100
 	}
 }
