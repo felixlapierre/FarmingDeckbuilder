@@ -46,18 +46,22 @@ func _ready() -> void:
 
 func set_card_info(card_data):
 	card_info = card_data
-	if card_info.type == "SEED":
-		$CardIcon.texture = load(card_image)
-		$CardIcon.region_enabled = true
-		$CardIcon.set_region_rect(Rect2(card_info.texture * 16, 0, 16, 16))
-	elif card_info.type == "ACTION":
-		$CardIcon.texture = load(card_info.texture)
+	match card_info.type:
+		"SEED":
+			$CardIcon.texture = load(card_image)
+			$CardIcon.region_enabled = true
+			$CardIcon.set_region_rect(Rect2(card_info.texture * 16, 0, 16, 16))
+			$HBoxContainer/VBoxContainer/BottomBar/YieldLabel.text = str(card_info.yield) + " Yld / "
+			$HBoxContainer/VBoxContainer/BottomBar/TimeLabel.text = str(card_info.time) + " Wks"
+		"ACTION", "STRUCTURE":
+			$CardIcon.texture = load(card_info.texture)
+			$HBoxContainer/VBoxContainer/BottomBar/YieldLabel.visible = false
+			$HBoxContainer/VBoxContainer/BottomBar/TimeLabel.visible = false
+	if card_info.type == "STRUCTURE":
+		$CardBorder.modulate = Color8(135, 206, 250)
 	$HBoxContainer/VBoxContainer/BottomBar/TypeLabel.text = card_info.type
 	$HBoxContainer/VBoxContainer/TopBar/CardNameLabel.text = card_info.name
 	$HBoxContainer/VBoxContainer/TopBar/CardCostLabel.text = str(card_info.cost)
-	if card_info.type == "SEED":
-		$HBoxContainer/VBoxContainer/BottomBar/YieldLabel.text = str(card_info.yield) + " Yld / "
-		$HBoxContainer/VBoxContainer/BottomBar/TimeLabel.text = str(card_info.time) + " Wks"
 	$HBoxContainer/VBoxContainer/DescriptionLabel.text = card_info.text
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

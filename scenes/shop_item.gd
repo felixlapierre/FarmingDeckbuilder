@@ -25,19 +25,19 @@ func _process(delta: float) -> void:
 	
 func set_item(new_item):
 	item = new_item
-	if item.type == "CARD":
+	if item.type == "CARD" or item.type == "STRUCTURE":
 		card = CardBase.instantiate()
 		card.state = CardState.InShop
 		card.set_card_info(item.data)
 		$ItemContainer.add_child(card)
 		$ItemContainer.move_child(card, 0)
 		$ItemContainer/ItemPanel.visible = false
-	elif item.type == "STRUCTURE":
-		$ItemContainer/ItemPanel.visible = true
-		$ItemContainer/ItemPanel/ItemPanelBox/TypeLabel.text = "Structure"
-		$ItemContainer/ItemPanel/ItemPanelBox/ItemImage.texture = load(item.data.texture)
-		$ItemContainer/ItemPanel/ItemPanelBox/NameLabel.text = item.name
-		$ItemContainer/ItemPanel/ItemPanelBox/DescriptionLabel.text = item.data.description
+	#elif item.type == "STRUCTURE":
+	#	$ItemContainer/ItemPanel.visible = true
+	#	$ItemContainer/ItemPanel/ItemPanelBox/TypeLabel.text = "Structure"
+	#	$ItemContainer/ItemPanel/ItemPanelBox/ItemImage.texture = load(item.data.texture)
+	#	$ItemContainer/ItemPanel/ItemPanelBox/NameLabel.text = item.name
+	#	$ItemContainer/ItemPanel/ItemPanelBox/DescriptionLabel.text = item.data.description
 	cost = item.cost
 	$ItemContainer/BuyButton.text = "Buy (" + str(cost) + ")"
 
@@ -55,6 +55,8 @@ func move_card_to_discard():
 		card.position = $ItemContainer.global_position
 		card.z_index = 2
 		card.set_state(CardState.MoveToDiscard, get_viewport_rect().size, 0, Vector2(0, 0))
+	elif item.type == "STRUCTURE":
+		$ItemContainer.remove_child(card)
 
 func finish_discard(card):
 	$Discarding.remove_child(card)

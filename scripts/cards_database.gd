@@ -121,10 +121,7 @@ const DATA = {
 				"name": "harvest"
 			}
 		]
-	}
-}
-
-const STRUCTURES = {
+	},
 	"Sprinkler": {
 		"name": "Sprinkler",
 		"type": "STRUCTURE",
@@ -132,7 +129,7 @@ const STRUCTURES = {
 		"cost": 1,
 		"size": 1,
 		"rarity": "common",
-		"description": "Irrigates all 8 adjacent\ntiles",
+		"text": "Irrigates 8\nadjacent tiles at\nthe start of the\nturn",
 		"effects": [
 			{
 				"name": "irrigate",
@@ -148,7 +145,7 @@ const STRUCTURES = {
 		"cost": 1,
 		"size": 1,
 		"rarity": "common",
-		"description": "Harvests all 8 adjacent\ntiles at the end of\nthe week",
+		"text": "Harvests 8 adjacent\ntiles at the end of\nthe week",
 		"effects": [
 			{
 				"name": "harvest",

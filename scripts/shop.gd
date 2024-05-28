@@ -48,12 +48,7 @@ func fill_shop():
 		var value = stock[key]
 		var new_node = ShopItem.instantiate()
 		var cost = randi_range(value.min_cost, value.max_cost)
-		var data;
-		match value.type:
-			"CARD":
-				data = card_database.DATA[key]
-			"STRUCTURE":
-				data = card_database.STRUCTURES[key]
+		var data = card_database.DATA[key]
 		new_node.set_item({"name": key, "data": data, "cost": cost, "type": value.type})
 		new_node.on_purchase.connect(_on_shop_item_on_card_bought)
 		$PanelContainer/ShopContainer/ShopContent/StockContainer.add_child(new_node)
@@ -91,12 +86,7 @@ func finish_item_bought(ui_shop_item, item) -> void:
 	var key = items.keys()[0]
 	var value = items[key]
 	var cost = randi_range(value.min_cost, value.max_cost)
-	var data;
-	match value.type:
-		"CARD":
-			data = card_database.DATA[key]
-		"STRUCTURE":
-			data = card_database.STRUCTURES[key]
+	var data = card_database.DATA[key]
 	ui_shop_item.set_item({"name": key, "data": data, "cost": cost, "type": value.type})
 	update_labels()
 

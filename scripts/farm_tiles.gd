@@ -68,9 +68,9 @@ func on_tile_hover(grid_position: Vector2):
 		sprite.scale *= TILE_SIZE / sprite.texture.get_size()
 		sprite.z_index = 1
 		if error:
-			sprite.modulate = Color(191.0/256.0, 44.0/256.0, 44.0/256.0)
+			sprite.modulate = Color8(190, 44, 44)
 		else:
-			sprite.modulate = Color(98.0/256.0, 240.0/256.0, 70.0/256.0)
+			sprite.modulate = Color8(98, 240, 70)
 		$SelectOverlay.add_child(sprite)
 
 func is_eligible_card(card, targeted_tile):
