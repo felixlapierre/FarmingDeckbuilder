@@ -75,10 +75,12 @@ func on_tile_hover(grid_position: Vector2):
 
 func is_eligible_card(card, targeted_tile):
 	match card.type:
-		"SEED", "STRUCTURE":
+		"SEED":
 			return targeted_tile.state == Constants.TileState.Empty
 		"ACTION":
 			return card.targets.has(Constants.TileState.keys()[targeted_tile.state])
+		"STRUCTURE":
+			return ["Empty", "Growing", "Mature"].has(Constants.TileState.keys()[targeted_tile.state])
 		_:
 			return true
 

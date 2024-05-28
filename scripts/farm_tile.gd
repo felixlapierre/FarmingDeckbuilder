@@ -127,6 +127,7 @@ func build_structure(card):
 	structure = card
 	$PlantSprite.texture = load(card.texture)
 	$PlantSprite.visible = true
+	$PlantSprite.region_enabled = false
 	var rest_position = $PlantSprite.position
 	$PlantSprite.position += Vector2(0, -500)
 	var tween = get_tree().create_tween()

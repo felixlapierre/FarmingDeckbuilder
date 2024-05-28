@@ -1,6 +1,6 @@
 extends Node2D
 
-var total_yield = 1100.0
+var total_yield = 500
 var week = 1
 var energy = 3
 
