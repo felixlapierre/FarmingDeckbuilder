@@ -8,6 +8,7 @@ signal on_shop_closed
 signal on_item_bought
 signal on_money_spent
 signal on_card_removed
+signal on_structure_place
 
 @export var player_money: int
 
@@ -78,6 +79,12 @@ func generate_random_shop_items(count):
 func _on_shop_item_on_card_bought(ui_shop_item, item) -> void:
 	if item.cost > player_money:
 		return
+	if item.type == "STRUCTURE":
+		on_structure_place.emit(item, func(): finish_item_bought(ui_shop_item, item))
+		return
+	finish_item_bought(ui_shop_item, item)
+
+func finish_item_bought(ui_shop_item, item) -> void:
 	on_item_bought.emit(item)
 	ui_shop_item.move_card_to_discard()
 	var items = generate_random_shop_items(1)

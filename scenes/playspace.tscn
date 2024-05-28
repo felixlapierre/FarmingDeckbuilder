@@ -197,3 +197,4 @@ visible = false
 [connection signal="on_item_bought" from="Shop" to="." method="_on_shop_on_item_bought"]
 [connection signal="on_money_spent" from="Shop" to="." method="_on_shop_on_money_spent"]
 [connection signal="on_shop_closed" from="Shop" to="." method="_on_shop_on_shop_closed"]
+[connection signal="on_structure_place" from="Shop" to="." method="_on_shop_on_structure_place"]

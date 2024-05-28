@@ -118,3 +118,12 @@ func irrigate():
 func lose_irrigate():
 	irrigated = false
 	$IrrigateOverlay.visible = false
+
+func build_structure(card):
+	state = Constants.TileState.Structure
+	$PlantSprite.texture = load(card.texture)
+	$PlantSprite.visible = true
+	var rest_position = $PlantSprite.position
+	$PlantSprite.position += Vector2(0, -500)
+	var tween = get_tree().create_tween()
+	tween.tween_property($PlantSprite, "position", rest_position, 0.6).set_trans(Tween.TRANS_BOUNCE)

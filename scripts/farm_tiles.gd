@@ -31,10 +31,15 @@ func use_card(card, grid_position):
 	for target in shape:
 		if not Helper.in_bounds(target):
 			continue
+		var target_tile = tiles[target.x][target.y]
+		if not is_eligible_card(card, target_tile):
+			continue
 		if card.type == "SEED":
-			tiles[target.x][target.y].plant_seed_animate(card)
+			target_tile.plant_seed_animate(card)
 		elif card.type == "ACTION":
-			use_action_card(card, tiles[target.x][target.y])
+			use_action_card(card, target_tile)
+		elif card.type == "STRUCTURE":
+			target_tile.build_structure(card)
 	clear_overlay()
 	card_played.emit(card)
 
@@ -55,10 +60,7 @@ func on_tile_hover(grid_position: Vector2):
 			error = true
 		else:
 			var targeted_tile = tiles[item.x][item.y]
-			if card.type == "SEED" and targeted_tile.state != Constants.TileState.Empty:
-				error = true
-			elif card.type == "ACTION" and !card.targets.has(Constants.TileState.keys()[targeted_tile.state]):
-				error = true
+			error = !is_eligible_card(card, targeted_tile)
 		var sprite = Sprite2D.new()
 		sprite.texture = load("res://assets/custom/SelectTile.png")
 		sprite.position = TOP_LEFT + (item) * TILE_SIZE + TILE_SIZE / 2
@@ -69,6 +71,15 @@ func on_tile_hover(grid_position: Vector2):
 		else:
 			sprite.modulate = Color(98.0/256.0, 240.0/256.0, 70.0/256.0)
 		$SelectOverlay.add_child(sprite)
+
+func is_eligible_card(card, targeted_tile):
+	match card.type:
+		"SEED", "STRUCTURE":
+			return targeted_tile.state == Constants.TileState.Empty
+		"ACTION":
+			return card.targets.has(Constants.TileState.keys()[targeted_tile.state])
+		_:
+			return true
 
 func get_targeted_tiles(grid_position, size):
 	var shape = []

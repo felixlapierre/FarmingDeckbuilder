@@ -127,8 +127,10 @@ const DATA = {
 const STRUCTURES = {
 	"Sprinkler": {
 		"name": "Sprinkler",
+		"type": "STRUCTURE",
 		"texture": "res://assets/custom/Sprinkler.png",
 		"cost": 1,
+		"size": 1,
 		"rarity": "common",
 		"description": "Irrigates all 8 adjacent\ntiles",
 		"actions": [

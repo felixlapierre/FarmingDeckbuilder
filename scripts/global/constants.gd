@@ -8,5 +8,6 @@ enum TileState {
 	Empty,
 	Destroyed,
 	Growing,
-	Mature
+	Mature,
+	Structure
 }

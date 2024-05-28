@@ -6,6 +6,7 @@ var energy = 3
 
 var Shop = preload("res://scenes/shop.tscn")
 var shop_instance
+var shop_structure_place_callback
 
 func _ready() -> void:
 	update()
@@ -18,9 +19,15 @@ func _process(delta: float) -> void:
 
 
 func _on_farm_tiles_card_played(card) -> void:
-	energy -= card.cost
-	update()
-	$Cards.play_card()
+	if card.type == "STRUCTURE":
+		await get_tree().create_timer(1).timeout
+		set_ui_visible(true)
+		Global.selected_card = Global.NO_CARD
+		shop_structure_place_callback.call()
+	else:
+		energy -= card.cost
+		update()
+		$Cards.play_card()
 
 
 func _on_end_turn_button_pressed() -> void:
@@ -64,7 +71,18 @@ func _on_shop_on_money_spent(amount) -> void:
 	total_yield -= amount
 	update()
 
-
 func _on_shop_on_card_removed(card) -> void:
 	$Cards.remove_hand_card(card)
 	$Shop.set_deck($Cards.get_hand_info())
+
+func _on_shop_on_structure_place(item, callback) -> void:
+	Global.selected_card = item.data
+	shop_structure_place_callback = callback
+	set_ui_visible(false)
+	
+func set_ui_visible(visible):
+	$Cards.propagate_call("set_visible", [visible])
+	$ShopButton.visible = visible
+	$Deck.visible = visible
+	$EndTurnButton.visible = visible
+	$Shop.visible = visible
