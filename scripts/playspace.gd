@@ -20,10 +20,12 @@ func _process(delta: float) -> void:
 
 func _on_farm_tiles_card_played(card) -> void:
 	if card.type == "STRUCTURE":
-		await get_tree().create_timer(1).timeout
-		set_ui_visible(true)
 		Global.selected_card = Global.NO_CARD
+		await get_tree().create_timer(1).timeout
 		shop_structure_place_callback.call()
+		set_ui_visible(true)
+
+
 	else:
 		energy -= card.cost
 		update()

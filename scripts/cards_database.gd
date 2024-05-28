@@ -140,6 +140,22 @@ const STRUCTURES = {
 				"time": "week_start"
 			}
 		]
+	},
+	"Harvester": {
+		"name": "Harvester",
+		"type": "STRUCTURE",
+		"texture": "res://assets/custom/Harvester.png",
+		"cost": 1,
+		"size": 1,
+		"rarity": "common",
+		"description": "Harvests all 8 adjacent\ntiles at the end of\nthe week",
+		"effects": [
+			{
+				"name": "harvest",
+				"range": "adjacent",
+				"time": "week_start"
+			}
+		]
 	}
 }
 
@@ -205,6 +221,12 @@ const SHOP = {
 		"max_cost": 40
 	},
 	"Sprinkler": {
+		"type": "STRUCTURE",
+		"weight": 3,
+		"min_cost": 100,
+		"max_cost": 100
+	},
+	"Harvester": {
 		"type": "STRUCTURE",
 		"weight": 3,
 		"min_cost": 100,
