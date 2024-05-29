@@ -47,7 +47,7 @@ func move_card_to_discard():
 		# Card position is no longer being controlled and z-indexed so we have to set it manually
 		card.position = $ItemContainer.global_position
 		card.z_index = 2
-		card.set_state(CardState.MoveToDiscard, Constants.VIEWPORT_SIZE.size, 0, Vector2(0, 0))
+		card.set_state(CardState.MoveToDiscard, Constants.VIEWPORT_SIZE, 0, Vector2(0, 0))
 	elif item.type == "STRUCTURE":
 		$ItemContainer.remove_child(card)
 

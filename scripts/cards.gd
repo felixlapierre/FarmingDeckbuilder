@@ -13,54 +13,28 @@ var Angle = 0
 var CardSpread = 0.25
 var number_of_cards_in_hand = 0
 
-var starting_deck = [
-	{
-		"name": "blueberry",
-		"type": "seed",
-		"count": 3
-	},
-	{
-		"name": "carrot",
-		"type": "seed",
-		"count": 3
-	},
-	{
-		"name": "scythe",
-		"type": "action",
-		"count": 3
-	},
-	{
-		"name": "pumpkin",
-		"type": "seed",
-		"count": 1
-	},
-	{
-		"name": "focus",
-		"type": "action",
-		"count": 2
-	},
-	{
-		"name": "time_bubble",
-		"type": "action",
-		"count": 2
-	}
-]
-var card_database
 var deck_cards = []
 var discard_pile_cards = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	CardBase = preload("res://scenes/card_base.tscn")
-	card_database = preload("res://scripts/cards_database.gd")
+
 	CenterCardOval = Vector2(Constants.VIEWPORT_SIZE) * Vector2(0.5, 1.2)
 	HorizontalRadius = Constants.VIEWPORT_SIZE.x * 0.45
 	VerticalRadius = Constants.VIEWPORT_SIZE.y * 0.40
-	for card in starting_deck:
-		for i in range(card.count):
-			deck_cards.append(card_database.get_card_by_name(card.name, card.type))
-	for card in deck_cards:
-		print(card.name)
+
+func do_winter_clear():
+	for display_card in $Hand.get_children():
+		$Hand.remove_child(display_card)
+	for display_card in $Discarding.get_children():
+		$Discarding.remove_child(display_card)
+	discard_pile_cards = []
+	deck_cards = []
+
+func set_deck_for_year(new_deck):
+	for card in new_deck:
+		deck_cards.append(card.copy())
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:

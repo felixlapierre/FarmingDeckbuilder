@@ -35,3 +35,13 @@ func get_effect(effect_name):
 		if effect.name == effect_name:
 			return effect
 	return null
+
+func copy():
+	var n_targets = []
+	for target in targets:
+		n_targets.append(target)
+	var n_effects = []
+	for effect in effects:
+		n_effects.append(effect.duplicate())
+	
+	return CardData.new(type, name, rarity, cost, yld, time, size, text, texture, seed_texture, n_targets, n_effects)

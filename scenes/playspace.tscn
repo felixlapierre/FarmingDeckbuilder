@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://xva3qbqb4k5o"]
+[gd_scene load_steps=19 format=3 uid="uid://xva3qbqb4k5o"]
 
 [ext_resource type="Texture2D" uid="uid://dejmbtpxa2rtc" path="res://assets/1616tinygarden/tileset.png" id="1_jy4o7"]
 [ext_resource type="Script" path="res://scripts/playspace.gd" id="1_yho3j"]
@@ -7,7 +7,6 @@
 [ext_resource type="Theme" uid="uid://c21dhy264y6ty" path="res://assets/theme_large.tres" id="4_0pjqo"]
 [ext_resource type="Texture2D" uid="uid://c8cs8b5ibrdjn" path="res://icon.svg" id="4_6s8vj"]
 [ext_resource type="Script" path="res://scripts/DeckDraw.gd" id="4_jb073"]
-[ext_resource type="Theme" uid="uid://c3hfmpsb3fvhr" path="res://assets/game_theme.tres" id="4_u1e0t"]
 [ext_resource type="PackedScene" uid="uid://dn6mjla5pvtrh" path="res://scenes/cards.tscn" id="7_81aef"]
 [ext_resource type="Texture2D" uid="uid://6kjw6wo7u7bw" path="res://assets/custom/EndTurn.png" id="8_dei73"]
 [ext_resource type="Texture2D" uid="uid://b2k8jysorsjw1" path="res://assets/custom/EndTurnClick.png" id="9_14chp"]
@@ -147,9 +146,12 @@ layer_1/tile_data = PackedInt32Array(6, 1048576, 1, 655370, 917504, 2, 720906, 1
 layer_2/name = "Props 2"
 layer_2/tile_data = PackedInt32Array(720906, 917504, 3, 589834, 917504, 1, 327695, 917504, 0, 327698, 1048576, 0)
 
-[node name="UI" type="Node" parent="."]
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
 
 [node name="RitualCounter" type="HBoxContainer" parent="UI"]
+layout_mode = 0
 offset_left = 534.0
 offset_top = 420.0
 offset_right = 627.0
@@ -166,11 +168,12 @@ texture = ExtResource("15_va62u")
 stretch_mode = 5
 
 [node name="BlightCounter" type="HBoxContainer" parent="UI"]
+layout_mode = 0
 offset_left = 1198.0
 offset_top = 418.0
 offset_right = 1272.0
 offset_bottom = 459.0
-theme = ExtResource("4_u1e0t")
+theme = ExtResource("4_0pjqo")
 
 [node name="TextureRect" type="TextureRect" parent="UI/BlightCounter"]
 layout_mode = 2
@@ -182,6 +185,7 @@ layout_mode = 2
 text = "42"
 
 [node name="Stats" type="MarginContainer" parent="UI"]
+layout_mode = 0
 offset_right = 40.0
 offset_bottom = 77.0
 theme = ExtResource("4_0pjqo")
@@ -200,15 +204,8 @@ theme_override_font_sizes/font_size = 50
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
 
-[node name="ShopButton" type="TextureButton" parent="UI"]
-offset_left = 1781.0
-offset_top = -1.0
-offset_right = 1851.0
-offset_bottom = 69.0
-scale = Vector2(2, 2)
-texture_normal = ExtResource("11_lwhr4")
-
 [node name="EndTurnButton" type="TextureButton" parent="UI"]
+layout_mode = 0
 offset_left = 1701.0
 offset_top = 619.0
 offset_right = 1801.0
@@ -229,6 +226,8 @@ texture_disabled = ExtResource("4_6s8vj")
 script = ExtResource("4_jb073")
 
 [node name="Preview" type="MarginContainer" parent="UI"]
+visible = false
+layout_mode = 0
 offset_left = 847.0
 offset_top = 130.0
 offset_right = 965.0
@@ -264,14 +263,54 @@ text = "+12"
 
 [node name="Cards" parent="." instance=ExtResource("7_81aef")]
 
+[node name="Winter" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+theme = ExtResource("4_0pjqo")
+
+[node name="ShopButton" type="TextureButton" parent="Winter"]
+layout_mode = 0
+offset_left = 1781.0
+offset_top = -1.0
+offset_right = 1851.0
+offset_bottom = 69.0
+scale = Vector2(2, 2)
+texture_normal = ExtResource("11_lwhr4")
+
+[node name="NextYearButton" type="Button" parent="Winter"]
+layout_mode = 0
+offset_left = 323.0
+offset_top = 116.0
+offset_right = 493.0
+offset_bottom = 165.0
+text = "Next Year"
+
+[node name="FortuneTellerButton" type="Button" parent="Winter"]
+layout_mode = 0
+offset_left = 211.0
+offset_top = 587.0
+offset_right = 453.0
+offset_bottom = 636.0
+text = "Fortune Teller"
+
+[node name="EventButton" type="Button" parent="Winter"]
+layout_mode = 0
+offset_left = 1278.0
+offset_top = 377.0
+offset_right = 1378.0
+offset_bottom = 426.0
+text = "Event"
+
 [node name="Shop" parent="." instance=ExtResource("12_q43t0")]
 visible = false
 
 [connection signal="card_played" from="FarmTiles" to="." method="_on_farm_tiles_card_played"]
 [connection signal="on_preview_yield" from="FarmTiles" to="." method="_on_farm_tiles_on_preview_yield"]
 [connection signal="on_yield_gained" from="FarmTiles" to="." method="_on_farm_tiles_on_yield_gained"]
-[connection signal="button_up" from="UI/ShopButton" to="." method="_on_shop_button_button_up"]
 [connection signal="pressed" from="UI/EndTurnButton" to="." method="_on_end_turn_button_pressed"]
+[connection signal="button_up" from="Winter/ShopButton" to="." method="_on_shop_button_button_up"]
+[connection signal="pressed" from="Winter/NextYearButton" to="." method="start_year"]
 [connection signal="on_card_removed" from="Shop" to="." method="_on_shop_on_card_removed"]
 [connection signal="on_item_bought" from="Shop" to="." method="_on_shop_on_item_bought"]
 [connection signal="on_money_spent" from="Shop" to="." method="_on_shop_on_money_spent"]

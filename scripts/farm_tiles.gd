@@ -188,3 +188,7 @@ func perform_effect(effect, tile):
 
 func gain_yield(yield_amount, purple):
 	on_yield_gained.emit(int(yield_amount), purple)
+
+func do_winter_clear():
+	for tile in $Tiles.get_children():
+		tile.do_winter_clear()

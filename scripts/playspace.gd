@@ -9,15 +9,53 @@ var target_blight = 0
 var ritual_counter = 0
 var next_turn_blight = 0
 
+var card_database
+var deck = []
+var starting_deck = [
+	{
+		"name": "blueberry",
+		"type": "seed",
+		"count": 3
+	},
+	{
+		"name": "carrot",
+		"type": "seed",
+		"count": 3
+	},
+	{
+		"name": "scythe",
+		"type": "action",
+		"count": 3
+	},
+	{
+		"name": "pumpkin",
+		"type": "seed",
+		"count": 1
+	},
+	{
+		"name": "focus",
+		"type": "action",
+		"count": 2
+	},
+	{
+		"name": "time_bubble",
+		"type": "action",
+		"count": 2
+	}
+]
+
 var Shop = preload("res://scenes/shop.tscn")
 var shop_instance
 var shop_structure_place_callback
 
 func _ready() -> void:
-	ritual_counter = 150
+	card_database = preload("res://scripts/cards_database.gd")
+	for card in starting_deck:
+		for i in range(card.count):
+			deck.append(card_database.get_card_by_name(card.name, card.type))
 	update()
-	$Cards.draw_hand()
-
+	start_year()
+	ritual_counter = 1
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -46,6 +84,10 @@ func _on_end_turn_button_pressed() -> void:
 	await get_tree().create_timer(0.3).timeout
 	$FarmTiles.process_one_week()
 	await get_tree().create_timer(0.7).timeout
+	if ritual_counter <= 0:
+		# End the year
+		end_year()
+		return
 	$Cards.draw_hand()
 	week += 1
 	energy = Constants.MAX_ENERGY
@@ -79,7 +121,7 @@ func update():
 
 
 func _on_shop_button_button_up() -> void:
-	$Shop.set_deck($Cards.get_hand_info())
+	$Shop.set_deck(deck)
 	$Shop.visible = true
 
 func _on_shop_on_shop_closed() -> void:
@@ -96,8 +138,8 @@ func _on_shop_on_money_spent(amount) -> void:
 	update()
 
 func _on_shop_on_card_removed(card) -> void:
-	$Cards.remove_card_with_info(card)
-	$Shop.set_deck($Cards.get_hand_info())
+	deck.erase(card)
+	$Shop.set_deck(deck)
 
 func _on_shop_on_structure_place(item, callback) -> void:
 	Global.selected_card = item.data
@@ -106,7 +148,7 @@ func _on_shop_on_structure_place(item, callback) -> void:
 	
 func set_ui_visible(visible):
 	$Cards.propagate_call("set_visible", [visible])
-	$UI/ShopButton.visible = visible
+	$Winter/ShopButton.visible = visible
 	$UI/Deck.visible = visible
 	$UI/EndTurnButton.visible = visible
 	$Shop.visible = visible
@@ -126,3 +168,18 @@ func _on_farm_tiles_on_preview_yield(yellow, purple) -> void:
 	$UI/Preview.visible = yellow + purple > 0
 	$UI/Preview/Panel/HBox/PreviewYellow.text = "+" + str(yellow)
 	$UI/Preview/Panel/HBox/PreviewPurple.text = "+" + str(purple)
+	
+func end_year():
+	$FarmTiles.do_winter_clear()
+	$UI.visible = false
+	$Cards.do_winter_clear()
+	$Winter.visible = true
+
+func start_year():
+	$UI.visible = true
+	$Cards.visible = true
+	$Winter.visible = false
+	ritual_counter = 20
+	$Cards.set_deck_for_year(deck)
+	$Cards.draw_hand()
+	update()

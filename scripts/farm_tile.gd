@@ -134,9 +134,11 @@ func build_structure(card):
 	$PlantSprite.visible = true
 	$PlantSprite.region_enabled = false
 	var rest_position = $PlantSprite.position
-	$PlantSprite.position += Vector2(0, -500)
+	$PlantSprite.position += Vector2(0, -200)
+	$PlantSprite.offset = Vector2(0, -8)
 	var tween = get_tree().create_tween()
-	tween.tween_property($PlantSprite, "position", rest_position, 0.6).set_trans(Tween.TRANS_BOUNCE)
+	tween.tween_property($PlantSprite, "position", rest_position, 0.6).set_trans(Tween.TRANS_BOUNCE)\
+		.set_ease(Tween.EASE_OUT)
 	
 func start_of_week_effects():
 	var effects_generated = []
@@ -157,3 +159,14 @@ func start_of_week_effects():
 
 func preview_harvest() -> int:
 	return current_yield if state == Enums.TileState.Mature else 0
+
+func do_winter_clear():
+	if state == Enums.TileState.Growing or state == Enums.TileState.Mature:
+		state = Enums.TileState.Empty
+		seed = null
+		current_grow_progress = 0.0
+		current_yield = 0.0
+		var current_multiplier = 1.0
+		var irrigated = false
+		$PlantSprite.visible = false
+		lose_irrigate()
