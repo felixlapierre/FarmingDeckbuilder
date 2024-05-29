@@ -26,6 +26,8 @@ func _ready() -> void:
 			tile.grid_location = Vector2(i, j)
 			tiles[i].append(tile)
 			tile.tile_hovered.connect(on_tile_hover)
+			if i >= 3:
+				tile.purple = true
 			$Tiles.add_child(tile)
 
 func use_card(card, grid_position):
@@ -96,7 +98,6 @@ func get_targeted_tiles(grid_position, size):
 	if Global.selected_card.size != -1:
 		for item in Helper.get_tile_shape_rotated(Global.selected_card.size, Global.shape, Global.rotate):
 			shape.append(item + grid_position)
-			print(item + grid_position)
 	else:
 		for i in range(0, Constants.FARM_DIMENSIONS.x):
 			for j in range(0, Constants.FARM_DIMENSIONS.y):
@@ -172,5 +173,5 @@ func perform_effect(effect, tile):
 		"grow":
 			tile.grow_one_week()
 
-func gain_yield(yield_amount):
-	on_yield_gained.emit(yield_amount)
+func gain_yield(yield_amount, purple):
+	on_yield_gained.emit(int(yield_amount), purple)

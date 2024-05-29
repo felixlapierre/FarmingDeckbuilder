@@ -4,12 +4,17 @@ var total_yield = 500
 var week = 1
 var energy = 3
 var yield_counter = 0
+var blight_counter = 0
+var target_blight = 0
+var ritual_counter = 0
+var next_turn_blight = 0
 
 var Shop = preload("res://scenes/shop.tscn")
 var shop_instance
 var shop_structure_place_callback
 
 func _ready() -> void:
+	ritual_counter = 150
 	update()
 	$Cards.draw_hand()
 
@@ -34,21 +39,33 @@ func _on_farm_tiles_card_played(card) -> void:
 
 
 func _on_end_turn_button_pressed() -> void:
+	target_blight -= blight_counter
+	blight_counter = 0
 	Global.selected_card = Global.NO_CARD
 	$Cards.discard_hand()
 	await get_tree().create_timer(0.3).timeout
 	$FarmTiles.process_one_week()
-	await get_tree().create_timer(0.3).timeout
+	await get_tree().create_timer(0.7).timeout
 	$Cards.draw_hand()
 	week += 1
 	energy = Constants.MAX_ENERGY
 	yield_counter = 0
+
+	if target_blight > 0:
+		print("Took Damage")
+	target_blight = 0
+	target_blight = next_turn_blight
+	next_turn_blight = get_blight_at_week(week)
 	update()
 
 
-func _on_farm_tiles_on_yield_gained(yield_amount) -> void:
-	total_yield += yield_amount
-	yield_counter += yield_amount
+func _on_farm_tiles_on_yield_gained(yield_amount, purple) -> void:
+	if purple:
+		blight_counter += yield_amount
+	else:
+		total_yield += yield_amount
+		yield_counter += yield_amount
+		ritual_counter -= yield_amount
 	update()
 	
 func update():
@@ -57,6 +74,8 @@ func update():
 	$Stats/VBox/EnergyLabel.text = "Energy: " + str(energy) + " / " + str(Constants.MAX_ENERGY)
 	$YieldCounter.text = str(yield_counter)
 	$Shop.player_money = total_yield
+	$BlightCounter/Label.text = str(blight_counter) + " / " + str(target_blight) + " <-- " + str(next_turn_blight)
+	$RitualCounter/Label.text = str(ritual_counter)
 	$Shop.update_labels()
 
 
@@ -92,9 +111,16 @@ func set_ui_visible(visible):
 	$Deck.visible = visible
 	$EndTurnButton.visible = visible
 	$Shop.visible = visible
+	$YieldCounter.visible = visible
+	$BlightCounter.visible = visible
+	$RitualCounter.visible = visible
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("transform"):
 		Global.shape = (Global.shape + 1) % 3
 	elif event.is_action_pressed("rotate"):
 		Global.rotate = (Global.rotate + 1) % 4
+
+func get_blight_at_week(week):
+	return 0 if week < 5 else randi_range(0, 1) * (week * randi_range(1,3))
+	

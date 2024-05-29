@@ -16,11 +16,13 @@ var current_grow_progress
 var current_multiplier = 1.0
 var irrigated = false
 var IRRIGATED_MULTIPLIER = 0.4
+var purple = false
 
 signal tile_hovered
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	$PurpleOverlay.visible = purple
 	pass
 
 
@@ -99,7 +101,7 @@ func update_plant_sprite():
 func harvest():
 	if state == Constants.TileState.Mature:
 		state = Constants.TileState.Empty
-		$'../..'.gain_yield(current_yield)
+		$'../..'.gain_yield(current_yield, purple)
 		seed_base_yield = 0
 		seed_grow_time = 0
 		current_grow_progress = 0.0

@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://xva3qbqb4k5o"]
+[gd_scene load_steps=18 format=3 uid="uid://xva3qbqb4k5o"]
 
 [ext_resource type="Texture2D" uid="uid://dejmbtpxa2rtc" path="res://assets/1616tinygarden/tileset.png" id="1_jy4o7"]
 [ext_resource type="Script" path="res://scripts/playspace.gd" id="1_yho3j"]
@@ -13,6 +13,8 @@
 [ext_resource type="Texture2D" uid="uid://ddooce1phh2xs" path="res://assets/custom/ShopButton.png" id="11_lwhr4"]
 [ext_resource type="PackedScene" uid="uid://ch1l0jofkrynh" path="res://scenes/shop.tscn" id="12_q43t0"]
 [ext_resource type="FontFile" uid="uid://drlkmr7jve2ep" path="res://assets/m5x7.ttf" id="13_blg2d"]
+[ext_resource type="Texture2D" uid="uid://c0mxwj13dwpml" path="res://assets/custom/PurpleMana.png" id="14_pwohe"]
+[ext_resource type="Texture2D" uid="uid://b5gtwrgnirbxg" path="res://assets/custom/YellowMana.png" id="15_va62u"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_n4x4v"]
 texture = ExtResource("1_jy4o7")
@@ -198,6 +200,40 @@ offset_bottom = 105.0
 theme_override_fonts/font = ExtResource("13_blg2d")
 theme_override_font_sizes/font_size = 30
 text = "54"
+
+[node name="BlightCounter" type="HBoxContainer" parent="."]
+offset_left = 736.0
+offset_top = 257.0
+offset_right = 791.0
+offset_bottom = 297.0
+
+[node name="TextureRect" type="TextureRect" parent="BlightCounter"]
+layout_mode = 2
+texture = ExtResource("14_pwohe")
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="BlightCounter"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("13_blg2d")
+theme_override_font_sizes/font_size = 30
+text = "42"
+
+[node name="RitualCounter" type="HBoxContainer" parent="."]
+offset_left = 322.0
+offset_top = 255.0
+offset_right = 386.0
+offset_bottom = 295.0
+
+[node name="Label" type="Label" parent="RitualCounter"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("13_blg2d")
+theme_override_font_sizes/font_size = 30
+text = "300"
+
+[node name="TextureRect" type="TextureRect" parent="RitualCounter"]
+layout_mode = 2
+texture = ExtResource("15_va62u")
+stretch_mode = 5
 
 [connection signal="card_played" from="FarmTiles" to="." method="_on_farm_tiles_card_played"]
 [connection signal="on_yield_gained" from="FarmTiles" to="." method="_on_farm_tiles_on_yield_gained"]
