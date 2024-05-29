@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="CardData" load_steps=2 format=3 uid="uid://bx8fp28p3g0k3"]
+
+[ext_resource type="Script" path="res://scripts/card_data.gd" id="1_mnxdr"]
+
+[resource]
+script = ExtResource("1_mnxdr")
+type = "SEED"
+name = "Blueberry"
+rarity = "common"
+cost = 1
+yld = 3
+time = 3
+size = 3
+text = "Recurring 2"
+seed_texture = 3
+targets = Array[String]([])
+effects = Array[Dictionary]([{
+"name": "recurring",
+"progress": 1.0
+}])

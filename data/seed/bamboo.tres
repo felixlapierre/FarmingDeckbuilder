@@ -1,0 +1,17 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://b32fjn545cp2p"]
+
+[ext_resource type="Script" path="res://scripts/card_data.gd" id="1_s4n0i"]
+
+[resource]
+script = ExtResource("1_s4n0i")
+type = "SEED"
+name = "Carrot"
+rarity = "common"
+cost = 1
+yld = 3
+time = 3
+size = 9
+text = ""
+seed_texture = 1
+targets = Array[String]([])
+effects = Array[Dictionary]([])

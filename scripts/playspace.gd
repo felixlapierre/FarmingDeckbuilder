@@ -26,7 +26,7 @@ func _process(delta: float) -> void:
 
 func _on_farm_tiles_card_played(card) -> void:
 	if card.type == "STRUCTURE":
-		Global.selected_card = Global.NO_CARD
+		Global.selected_card = null
 		await get_tree().create_timer(1).timeout
 		shop_structure_place_callback.call()
 		set_ui_visible(true)
@@ -41,7 +41,7 @@ func _on_farm_tiles_card_played(card) -> void:
 func _on_end_turn_button_pressed() -> void:
 	target_blight -= blight_counter
 	blight_counter = 0
-	Global.selected_card = Global.NO_CARD
+	Global.selected_card = null
 	$Cards.discard_hand()
 	await get_tree().create_timer(0.3).timeout
 	$FarmTiles.process_one_week()

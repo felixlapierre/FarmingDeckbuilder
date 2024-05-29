@@ -31,7 +31,7 @@ func _ready() -> void:
 			$Tiles.add_child(tile)
 
 func use_card(card, grid_position):
-	if card == Global.NO_CARD or card.cost > $"../".energy:
+	if card == null or card.cost > $"../".energy:
 		return
 	var shape = get_targeted_tiles(grid_position, Global.selected_card.size)
 	for target in shape:
@@ -58,7 +58,7 @@ func _process(delta: float) -> void:
 	
 func show_select_overlay():
 	var card = Global.selected_card
-	if card.type == "NONE" or hovered_tile == null:
+	if card == null or hovered_tile == null:
 		return
 	clear_overlay()
 	var grid_position = hovered_tile.grid_location

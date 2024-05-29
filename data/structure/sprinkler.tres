@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="CardData" load_steps=3 format=3 uid="uid://dga1krx6t0skr"]
+
+[ext_resource type="Script" path="res://scripts/card_data.gd" id="1_l7kc4"]
+[ext_resource type="Texture2D" uid="uid://0ucraf05hybv" path="res://assets/custom/Harvester.png" id="2_l5k5k"]
+
+[resource]
+script = ExtResource("1_l7kc4")
+type = "STRUCTURE"
+name = "Sprinkler"
+rarity = "rare"
+cost = 1
+yld = 4
+time = 1
+size = 1
+text = "Irrigates 8 adjacent tiles at the start of the turn"
+texture = ExtResource("2_l5k5k")
+seed_texture = 6
+targets = Array[String]([])
+effects = Array[Dictionary]([{
+"name": "irrigate",
+"range": "adjacent",
+"time": "week_start"
+}])

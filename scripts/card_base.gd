@@ -38,8 +38,6 @@ signal on_clicked
 func _ready() -> void:	
 	var card_size = size
 	HAND_TOP_Y = get_viewport_rect().size.y - card_size.y
-	$CardBorder.scale *= card_size / $CardBorder.texture.get_size()
-
 	$CardIcon.position = card_size / 2
 	$CardIcon.position.y /= 2
 	$Focus.scale *= card_size / $Focus.size
@@ -50,11 +48,11 @@ func set_card_info(card_data):
 		"SEED":
 			$CardIcon.texture = load(card_image)
 			$CardIcon.region_enabled = true
-			$CardIcon.set_region_rect(Rect2(card_info.texture * 16, 0, 16, 16))
-			$HBoxContainer/VBoxContainer/BottomBar/YieldLabel.text = str(card_info.yield) + " Yld / "
+			$CardIcon.set_region_rect(Rect2(card_info.seed_texture * 16, 0, 16, 16))
+			$HBoxContainer/VBoxContainer/BottomBar/YieldLabel.text = str(card_info.yld) + " Yld / "
 			$HBoxContainer/VBoxContainer/BottomBar/TimeLabel.text = str(card_info.time) + " Wks"
 		"ACTION", "STRUCTURE":
-			$CardIcon.texture = load(card_info.texture)
+			$CardIcon.texture = card_info.texture
 			$HBoxContainer/VBoxContainer/BottomBar/YieldLabel.visible = false
 			$HBoxContainer/VBoxContainer/BottomBar/TimeLabel.visible = false
 	if card_info.type == "STRUCTURE":
@@ -121,7 +119,7 @@ func _on_focus_mouse_entered() -> void:
 			new_position.y = get_viewport_rect().size.y - card_size.y*ZoomInSize
 			set_state(CardState.FocusInHand, new_position, 0, resting_scale * 2)
 			move_neighbors()
-			Global.selected_card = Global.NO_CARD
+			Global.selected_card = null
 
 
 func _on_focus_mouse_exited() -> void:
@@ -214,7 +212,7 @@ func _on_focus_gui_input(event: InputEvent) -> void:
 				var new_position = resting_position
 				new_position.y = get_viewport_rect().size.y - card_size.y*ZoomInSize
 				set_state(CardState.FocusInHand, new_position, 0, resting_scale * 2)
-				Global.selected_card = Global.NO_CARD
+				Global.selected_card = null
 			CardState.InShop:
 				on_clicked.emit(self)
 
@@ -222,4 +220,4 @@ func _input(event: InputEvent) -> void:
 	if state == CardState.InMouse and event.is_action_pressed("rightclick"):
 		set_state(CardState.ReOrganiseHand, resting_position, resting_rotation, resting_scale)
 		reset_neighbors()
-		Global.selected_card = Global.NO_CARD
+		Global.selected_card = null

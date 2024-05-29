@@ -51,7 +51,7 @@ func plant_seed(planted_seed):
 		return
 	seed = planted_seed
 	seed_grow_time = float(seed.time)
-	seed_base_yield = float(seed.yield)
+	seed_base_yield = float(seed.yld)
 	current_grow_progress = 0.0
 	current_yield = 0.0
 	state = Constants.TileState.Growing
@@ -95,7 +95,7 @@ func update_plant_sprite():
 			y = 96
 			h = 32
 		
-	$PlantSprite.set_region_rect(Rect2(seed.texture * 16, y, 16, h))
+	$PlantSprite.set_region_rect(Rect2(seed.seed_texture * 16, y, 16, h))
 	$PlantSprite.offset = Vector2(0, -8 if h == 16 else -14)
 
 func harvest():
@@ -107,9 +107,10 @@ func harvest():
 		current_grow_progress = 0.0
 		current_yield = 0.0
 		$PlantSprite.visible = false
-		if seed.has("effects") and seed.effects.has("recurring"):
+		var recurring = seed.get_effect("recurring")
+		if recurring != null:
 			plant_seed(seed)
-			current_grow_progress = seed.effects.recurring.progress
+			current_grow_progress = recurring.progress
 			current_yield = current_grow_progress * seed_base_yield / seed_grow_time
 			update_plant_sprite()
 			grow_animation()
@@ -129,7 +130,7 @@ func lose_irrigate():
 func build_structure(card):
 	state = Constants.TileState.Structure
 	structure = card
-	$PlantSprite.texture = load(card.texture)
+	$PlantSprite.texture = card.texture
 	$PlantSprite.visible = true
 	$PlantSprite.region_enabled = false
 	var rest_position = $PlantSprite.position

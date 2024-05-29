@@ -13,7 +13,28 @@ var Angle = 0
 var CardSpread = 0.25
 var number_of_cards_in_hand = 0
 
-var starting_deck = ["Blueberry", "Carrot", "Carrot", "Pumpkin", "Carrot", "Blueberry", "Scythe", "Scythe"]
+var starting_deck = [
+	{
+		"name": "blueberry",
+		"type": "seed",
+		"count": 3
+	},
+	{
+		"name": "carrot",
+		"type": "seed",
+		"count": 3
+	},
+	{
+		"name": "scythe",
+		"type": "action",
+		"count": 3
+	},
+	{
+		"name": "pumpkin",
+		"type": "seed",
+		"count": 1
+	}
+]
 var card_database
 var deck_cards = []
 var discard_pile_cards = []
@@ -25,8 +46,11 @@ func _ready() -> void:
 	CenterCardOval = Vector2(get_viewport().size) * Vector2(0.5, 1.2)
 	HorizontalRadius = get_viewport_rect().size.x * 0.45
 	VerticalRadius = get_viewport_rect().size.y * 0.40
-	for cardname in starting_deck:
-		deck_cards.append(card_database.DATA.get(cardname))
+	for card in starting_deck:
+		for i in range(card.count):
+			deck_cards.append(card_database.get_card_by_name(card.name, card.type))
+	for card in deck_cards:
+		print(card.name)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -72,7 +96,7 @@ func play_card():
 	discard_card(playedcard)
 	
 	# Remove it from selected_card global var
-	Global.selected_card = Global.NO_CARD
+	Global.selected_card = null
 	# Rearrange the rest of the hand cards
 	reorganize_hand()
 	

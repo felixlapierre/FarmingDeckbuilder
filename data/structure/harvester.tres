@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="CardData" load_steps=3 format=3 uid="uid://chtq1per56nr0"]
+
+[ext_resource type="Script" path="res://scripts/card_data.gd" id="1_ukcar"]
+[ext_resource type="Texture2D" uid="uid://0ucraf05hybv" path="res://assets/custom/Harvester.png" id="2_2iei7"]
+
+[resource]
+script = ExtResource("1_ukcar")
+type = "STRUCTURE"
+name = "Harvester"
+rarity = "rare"
+cost = 1
+yld = 4
+time = 1
+size = 1
+text = "Harvests 8 adjacent tiles at the end of the week"
+texture = ExtResource("2_2iei7")
+seed_texture = 6
+targets = Array[String]([])
+effects = Array[Dictionary]([{
+"name": "harvest",
+"range": "adjacent",
+"time": "week_start"
+}])

@@ -52,15 +52,14 @@ func fill_shop():
 		$PanelContainer/ShopContainer/ShopContent/StockContainer.add_child(new_node)
 	
 func generate_random_shop_items(count):
-	var options = card_database.DATA
+	var options = card_database.get_all_cards()
 	var common = []
 	var rare = []
-	for key in options.keys():
-		var value = options[key]
-		if value.rarity == "common":
-			common.append(value)
-		elif value.rarity == "rare":
-			rare.append(value)
+	for card in options:
+		if card.rarity == "common":
+			common.append(card)
+		elif card.rarity == "rare":
+			rare.append(card)
 
 	var result = []
 	var i = 0
