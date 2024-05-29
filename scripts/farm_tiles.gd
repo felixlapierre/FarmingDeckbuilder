@@ -2,7 +2,7 @@ extends Node
 
 var FarmTile = preload("res://scenes/farm_tile.tscn")
 
-var TILE_SIZE = Vector2(56, 56);
+var TILE_SIZE = Vector2(91, 91);
 var TOP_LEFT
 var tiles = []
 var active_actions = []

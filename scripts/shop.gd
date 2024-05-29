@@ -25,8 +25,8 @@ var player_cards
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	$PanelContainer.size = get_viewport_rect().size
-	$RemoveCardContainer.size = get_viewport_rect().size
+	$PanelContainer.size = Constants.VIEWPORT_SIZE
+	$RemoveCardContainer.size = Constants.VIEWPORT_SIZE
 	update_labels()
 	fill_shop()
 

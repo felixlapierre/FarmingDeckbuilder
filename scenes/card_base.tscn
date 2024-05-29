@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://2yu7drphx7ur"]
+[gd_scene load_steps=6 format=3 uid="uid://2yu7drphx7ur"]
 
 [ext_resource type="Script" path="res://scripts/card_base.gd" id="1_ohx6w"]
+[ext_resource type="Theme" uid="uid://c3hfmpsb3fvhr" path="res://assets/game_theme.tres" id="1_w62ds"]
 [ext_resource type="Texture2D" uid="uid://by5wpf5vbkrw1" path="res://assets/custom/Card.png" id="2_2dibt"]
 [ext_resource type="FontFile" uid="uid://drlkmr7jve2ep" path="res://assets/m5x7.ttf" id="3_inew6"]
 
@@ -11,9 +12,10 @@ default_font = ExtResource("3_inew6")
 texture_filter = 1
 offset_right = 125.0
 offset_bottom = 182.0
-pivot_offset = Vector2(62.5, 87.5)
+pivot_offset = Vector2(125, 175)
 size_flags_horizontal = 4
 size_flags_vertical = 4
+theme = ExtResource("1_w62ds")
 script = ExtResource("1_ohx6w")
 
 [node name="CardBorder" type="Sprite2D" parent="."]
@@ -22,15 +24,15 @@ centered = false
 
 [node name="CardIcon" type="Sprite2D" parent="."]
 texture_filter = 1
-scale = Vector2(2, 2)
+scale = Vector2(4.01612, 3.98287)
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
-texture_filter = 1
-custom_minimum_size = Vector2(125, 175)
+texture_filter = 2
+custom_minimum_size = Vector2(250, 350)
 layout_mode = 2
 
 [node name="LeftMargin" type="MarginContainer" parent="HBoxContainer"]
-custom_minimum_size = Vector2(5, 5)
+custom_minimum_size = Vector2(10, 0)
 layout_mode = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
@@ -40,7 +42,7 @@ size_flags_vertical = 0
 theme = SubResource("Theme_xgb3r")
 
 [node name="TopMargin" type="MarginContainer" parent="HBoxContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 5)
+custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
 
 [node name="TopBar" type="HBoxContainer" parent="HBoxContainer/VBoxContainer"]
@@ -57,11 +59,12 @@ text = "1
 "
 
 [node name="ImageGap" type="MarginContainer" parent="HBoxContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 50)
+custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 
 [node name="DescriptionLabel" type="Label" parent="HBoxContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 70)
+texture_filter = 2
+custom_minimum_size = Vector2(0, 140)
 layout_mode = 2
 text = "Description
 "
@@ -86,11 +89,11 @@ layout_mode = 2
 text = " 3"
 
 [node name="BottomMargin" type="MarginContainer" parent="HBoxContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 5)
+custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
 
 [node name="RightMargin" type="MarginContainer" parent="HBoxContainer"]
-custom_minimum_size = Vector2(5, 0)
+custom_minimum_size = Vector2(10, 0)
 layout_mode = 2
 
 [node name="Focus" type="TextureButton" parent="."]

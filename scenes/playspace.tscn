@@ -1,11 +1,13 @@
-[gd_scene load_steps=18 format=3 uid="uid://xva3qbqb4k5o"]
+[gd_scene load_steps=20 format=3 uid="uid://xva3qbqb4k5o"]
 
 [ext_resource type="Texture2D" uid="uid://dejmbtpxa2rtc" path="res://assets/1616tinygarden/tileset.png" id="1_jy4o7"]
 [ext_resource type="Script" path="res://scripts/playspace.gd" id="1_yho3j"]
 [ext_resource type="PackedScene" uid="uid://bbmiskr3ha0we" path="res://scenes/farm_tiles.tscn" id="2_0314u"]
 [ext_resource type="Texture2D" uid="uid://c446mynw3jgpo" path="res://assets/CardBorder.png" id="3_ej1xc"]
+[ext_resource type="Theme" uid="uid://c21dhy264y6ty" path="res://assets/theme_large.tres" id="4_0pjqo"]
 [ext_resource type="Texture2D" uid="uid://c8cs8b5ibrdjn" path="res://icon.svg" id="4_6s8vj"]
 [ext_resource type="Script" path="res://scripts/DeckDraw.gd" id="4_jb073"]
+[ext_resource type="Theme" uid="uid://c3hfmpsb3fvhr" path="res://assets/game_theme.tres" id="4_u1e0t"]
 [ext_resource type="PackedScene" uid="uid://dn6mjla5pvtrh" path="res://scenes/cards.tscn" id="7_81aef"]
 [ext_resource type="Texture2D" uid="uid://6kjw6wo7u7bw" path="res://assets/custom/EndTurn.png" id="8_dei73"]
 [ext_resource type="Texture2D" uid="uid://b2k8jysorsjw1" path="res://assets/custom/EndTurnClick.png" id="9_14chp"]
@@ -135,7 +137,7 @@ script = ExtResource("1_yho3j")
 
 [node name="TileMap" type="TileMap" parent="Background"]
 texture_filter = 1
-scale = Vector2(3.5, 3.5)
+scale = Vector2(5.71384, 5.62504)
 tile_set = SubResource("TileSet_1faf4")
 format = 2
 layer_0/name = "Ground"
@@ -148,15 +150,14 @@ layer_2/tile_data = PackedInt32Array(720906, 917504, 3, 589834, 917504, 1, 32769
 [node name="UI" type="Node" parent="."]
 
 [node name="RitualCounter" type="HBoxContainer" parent="UI"]
-offset_left = 322.0
-offset_top = 255.0
-offset_right = 391.0
-offset_bottom = 295.0
+offset_left = 534.0
+offset_top = 420.0
+offset_right = 627.0
+offset_bottom = 461.0
+theme = ExtResource("4_0pjqo")
 
 [node name="Label" type="Label" parent="UI/RitualCounter"]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("13_blg2d")
-theme_override_font_sizes/font_size = 30
 text = "300"
 
 [node name="TextureRect" type="TextureRect" parent="UI/RitualCounter"]
@@ -165,10 +166,11 @@ texture = ExtResource("15_va62u")
 stretch_mode = 5
 
 [node name="BlightCounter" type="HBoxContainer" parent="UI"]
-offset_left = 736.0
-offset_top = 257.0
-offset_right = 794.0
-offset_bottom = 297.0
+offset_left = 1198.0
+offset_top = 418.0
+offset_right = 1272.0
+offset_bottom = 459.0
+theme = ExtResource("4_u1e0t")
 
 [node name="TextureRect" type="TextureRect" parent="UI/BlightCounter"]
 layout_mode = 2
@@ -177,13 +179,12 @@ stretch_mode = 5
 
 [node name="Label" type="Label" parent="UI/BlightCounter"]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("13_blg2d")
-theme_override_font_sizes/font_size = 30
 text = "42"
 
 [node name="Stats" type="MarginContainer" parent="UI"]
 offset_right = 40.0
 offset_bottom = 77.0
+theme = ExtResource("4_0pjqo")
 
 [node name="VBox" type="VBoxContainer" parent="UI/Stats"]
 layout_mode = 2
@@ -193,22 +194,26 @@ layout_mode = 2
 
 [node name="YieldLabel" type="Label" parent="UI/Stats/VBox"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 50
 
 [node name="EnergyLabel" type="Label" parent="UI/Stats/VBox"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 50
 
 [node name="ShopButton" type="TextureButton" parent="UI"]
-offset_left = 1078.0
-offset_top = 2.0
-offset_right = 1148.0
-offset_bottom = 72.0
+offset_left = 1781.0
+offset_top = -1.0
+offset_right = 1851.0
+offset_bottom = 69.0
+scale = Vector2(2, 2)
 texture_normal = ExtResource("11_lwhr4")
 
 [node name="EndTurnButton" type="TextureButton" parent="UI"]
-offset_left = 992.0
-offset_top = 583.0
-offset_right = 1092.0
-offset_bottom = 633.0
+offset_left = 1701.0
+offset_top = 619.0
+offset_right = 1801.0
+offset_bottom = 669.0
+scale = Vector2(2, 2)
 texture_normal = ExtResource("8_dei73")
 texture_pressed = ExtResource("9_14chp")
 texture_hover = ExtResource("10_gqrn0")
@@ -224,10 +229,11 @@ texture_disabled = ExtResource("4_6s8vj")
 script = ExtResource("4_jb073")
 
 [node name="Preview" type="MarginContainer" parent="UI"]
-offset_left = 526.0
-offset_top = 78.0
-offset_right = 596.0
-offset_bottom = 102.0
+offset_left = 847.0
+offset_top = 130.0
+offset_right = 965.0
+offset_bottom = 171.0
+theme = ExtResource("4_0pjqo")
 
 [node name="Panel" type="PanelContainer" parent="UI/Preview"]
 layout_mode = 2
@@ -243,7 +249,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 1
 theme_override_colors/font_color = Color(0.898039, 0.909804, 0.192157, 1)
 theme_override_fonts/font = ExtResource("13_blg2d")
-theme_override_font_sizes/font_size = 30
+theme_override_font_sizes/font_size = 50
 text = "+12"
 horizontal_alignment = 2
 
@@ -253,7 +259,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 1
 theme_override_colors/font_color = Color(0.623529, 0.470588, 0.890196, 1)
 theme_override_fonts/font = ExtResource("13_blg2d")
-theme_override_font_sizes/font_size = 30
+theme_override_font_sizes/font_size = 50
 text = "+12"
 
 [node name="Cards" parent="." instance=ExtResource("7_81aef")]

@@ -2,7 +2,7 @@ extends Node2D
 
 var CardBase;
 var PlayerHand;
-const CardSize = Vector2(125, 175)
+const CardSize = Vector2(250, 350)
 var CardSelected = []
 
 var CenterCardOval
@@ -53,9 +53,9 @@ var discard_pile_cards = []
 func _ready() -> void:
 	CardBase = preload("res://scenes/card_base.tscn")
 	card_database = preload("res://scripts/cards_database.gd")
-	CenterCardOval = Vector2(get_viewport().size) * Vector2(0.5, 1.2)
-	HorizontalRadius = get_viewport_rect().size.x * 0.45
-	VerticalRadius = get_viewport_rect().size.y * 0.40
+	CenterCardOval = Vector2(Constants.VIEWPORT_SIZE) * Vector2(0.5, 1.2)
+	HorizontalRadius = Constants.VIEWPORT_SIZE.x * 0.45
+	VerticalRadius = Constants.VIEWPORT_SIZE.y * 0.40
 	for card in starting_deck:
 		for i in range(card.count):
 			deck_cards.append(card_database.get_card_by_name(card.name, card.type))
@@ -160,7 +160,7 @@ func discard_hand():
 func discard_card(card):
 	$Hand.remove_child(card)
 	$Discarding.add_child(card)
-	card.set_state(CardState.MoveToDiscard, get_viewport_rect().size, PI/4, card.resting_scale * 0.1)
+	card.set_state(CardState.MoveToDiscard, Constants.VIEWPORT_SIZE, PI/4, card.resting_scale * 0.1)
 	card.move_using_tween(0.5)
 	number_of_cards_in_hand -= 1
 	discard_pile_cards.append(card.card_info)

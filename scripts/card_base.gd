@@ -3,21 +3,21 @@ extends MarginContainer
 var card_info;
 var card_image = "res://assets/1616tinygarden/objects.png"
 var card_database
-var card_size = Vector2(125, 175)
+var card_size = Vector2(250, 350)
 
 var starting_position # For animating movement, start position of the card
 var target_position # For animating movement, position card should end up at
 var resting_position: Vector2 # Card comes back to rest at this position when we need to unfocus etc
 
 var starting_scale: Vector2 # For animating scale, start scale
-var resting_scale = card_size / size
+var resting_scale = Vector2(0.8, 0.8)
 var target_scale;
 
 var starting_rotation = 0
 var target_rotation = 0
 var resting_rotation = 0
 
-var ZoomInSize = 2
+var ZoomInSize = 1.8
 var t = 0
 
 var tween
@@ -37,7 +37,7 @@ signal on_clicked
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:	
 	var card_size = size
-	HAND_TOP_Y = get_viewport_rect().size.y - card_size.y
+	HAND_TOP_Y = Constants.VIEWPORT_SIZE.y - card_size.y
 	$CardIcon.position = card_size / 2
 	$CardIcon.position.y /= 2
 	$Focus.scale *= card_size / $Focus.size
@@ -74,7 +74,7 @@ func _process(delta: float) -> void:
 		CardState.InMouse:
 			var mouse_position = get_global_mouse_position() - card_size
 			if mouse_position.y < HAND_TOP_Y:
-				target_position = get_viewport_rect().size / Vector2(16, 4)
+				target_position = Constants.VIEWPORT_SIZE / Vector2(16, 4)
 				scale = resting_scale * 1.7
 				target_scale = scale
 			else:
@@ -115,9 +115,12 @@ func Reset_Card(card_number_in_hand):
 func _on_focus_mouse_entered() -> void:
 	match state:
 		CardState.InHand, CardState.ReOrganiseHand:
+			print(position)
 			var new_position = resting_position
-			new_position.y = get_viewport_rect().size.y - card_size.y*ZoomInSize
-			set_state(CardState.FocusInHand, new_position, 0, resting_scale * 2)
+			new_position.y = Constants.VIEWPORT_SIZE.y - card_size.y*ZoomInSize*0.9
+			set_state(CardState.FocusInHand, new_position, 0, resting_scale * ZoomInSize)
+			print(new_position)
+			print(target_scale)
 			move_neighbors()
 			Global.selected_card = null
 
@@ -210,8 +213,8 @@ func _on_focus_gui_input(event: InputEvent) -> void:
 				Global.rotate = 0
 			CardState.InMouse:
 				var new_position = resting_position
-				new_position.y = get_viewport_rect().size.y - card_size.y*ZoomInSize
-				set_state(CardState.FocusInHand, new_position, 0, resting_scale * 2)
+				new_position.y = Constants.VIEWPORT_SIZE.size.y - card_size.y*ZoomInSize
+				set_state(CardState.FocusInHand, new_position, 0, resting_scale * ZoomInSize)
 				Global.selected_card = null
 			CardState.InShop:
 				on_clicked.emit(self)
