@@ -5,3 +5,11 @@ enum CursorShape {
 	Square,
 	Elbow
 }
+
+enum TileState {
+	Empty,
+	Destroyed,
+	Growing,
+	Mature,
+	Structure
+}

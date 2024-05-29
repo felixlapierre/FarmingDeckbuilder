@@ -145,19 +145,71 @@ layer_1/tile_data = PackedInt32Array(6, 1048576, 1, 655370, 917504, 2, 720906, 1
 layer_2/name = "Props 2"
 layer_2/tile_data = PackedInt32Array(720906, 917504, 3, 589834, 917504, 1, 327695, 917504, 0, 327698, 1048576, 0)
 
-[node name="Deck" type="Node2D" parent="."]
-position = Vector2(50, 400)
-
-[node name="DeckDraw" type="TextureButton" parent="Deck"]
-offset_right = 250.0
-offset_bottom = 351.0
-texture_normal = ExtResource("3_ej1xc")
-texture_disabled = ExtResource("4_6s8vj")
-script = ExtResource("4_jb073")
-
 [node name="Cards" parent="." instance=ExtResource("7_81aef")]
 
-[node name="EndTurnButton" type="TextureButton" parent="."]
+[node name="Shop" parent="." instance=ExtResource("12_q43t0")]
+visible = false
+
+[node name="UI" type="Node" parent="."]
+
+[node name="RitualCounter" type="HBoxContainer" parent="UI"]
+offset_left = 322.0
+offset_top = 255.0
+offset_right = 391.0
+offset_bottom = 295.0
+
+[node name="Label" type="Label" parent="UI/RitualCounter"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("13_blg2d")
+theme_override_font_sizes/font_size = 30
+text = "300"
+
+[node name="TextureRect" type="TextureRect" parent="UI/RitualCounter"]
+layout_mode = 2
+texture = ExtResource("15_va62u")
+stretch_mode = 5
+
+[node name="BlightCounter" type="HBoxContainer" parent="UI"]
+offset_left = 736.0
+offset_top = 257.0
+offset_right = 794.0
+offset_bottom = 297.0
+
+[node name="TextureRect" type="TextureRect" parent="UI/BlightCounter"]
+layout_mode = 2
+texture = ExtResource("14_pwohe")
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="UI/BlightCounter"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("13_blg2d")
+theme_override_font_sizes/font_size = 30
+text = "42"
+
+[node name="Stats" type="MarginContainer" parent="UI"]
+offset_right = 40.0
+offset_bottom = 77.0
+
+[node name="VBox" type="VBoxContainer" parent="UI/Stats"]
+layout_mode = 2
+
+[node name="TurnLabel" type="Label" parent="UI/Stats/VBox"]
+layout_mode = 2
+
+[node name="YieldLabel" type="Label" parent="UI/Stats/VBox"]
+layout_mode = 2
+
+[node name="EnergyLabel" type="Label" parent="UI/Stats/VBox"]
+layout_mode = 2
+
+[node name="ShopButton" type="TextureButton" parent="UI"]
+offset_left = 1078.0
+offset_top = 2.0
+offset_right = 1148.0
+offset_bottom = 72.0
+texture_normal = ExtResource("11_lwhr4")
+
+[node name="EndTurnButton" type="TextureButton" parent="UI"]
 offset_left = 992.0
 offset_top = 583.0
 offset_right = 1092.0
@@ -166,81 +218,56 @@ texture_normal = ExtResource("8_dei73")
 texture_pressed = ExtResource("9_14chp")
 texture_hover = ExtResource("10_gqrn0")
 
-[node name="Stats" type="MarginContainer" parent="."]
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="Deck" type="Node2D" parent="UI"]
+position = Vector2(50, 400)
 
-[node name="VBox" type="VBoxContainer" parent="Stats"]
+[node name="DeckDraw" type="TextureButton" parent="UI/Deck"]
+offset_right = 250.0
+offset_bottom = 351.0
+texture_normal = ExtResource("3_ej1xc")
+texture_disabled = ExtResource("4_6s8vj")
+script = ExtResource("4_jb073")
+
+[node name="Preview" type="MarginContainer" parent="UI"]
+offset_left = 526.0
+offset_top = 78.0
+offset_right = 596.0
+offset_bottom = 102.0
+
+[node name="Panel" type="PanelContainer" parent="UI/Preview"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="HBox" type="HBoxContainer" parent="UI/Preview/Panel"]
 layout_mode = 2
 
-[node name="TurnLabel" type="Label" parent="Stats/VBox"]
+[node name="PreviewYellow" type="Label" parent="UI/Preview/Panel/HBox"]
 layout_mode = 2
-
-[node name="YieldLabel" type="Label" parent="Stats/VBox"]
-layout_mode = 2
-
-[node name="EnergyLabel" type="Label" parent="Stats/VBox"]
-layout_mode = 2
-
-[node name="ShopButton" type="TextureButton" parent="."]
-offset_left = 1078.0
-offset_top = 2.0
-offset_right = 1148.0
-offset_bottom = 72.0
-texture_normal = ExtResource("11_lwhr4")
-
-[node name="Shop" parent="." instance=ExtResource("12_q43t0")]
-visible = false
-
-[node name="YieldCounter" type="Label" parent="."]
-offset_left = 553.0
-offset_top = 70.0
-offset_right = 593.0
-offset_bottom = 105.0
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(0.898039, 0.909804, 0.192157, 1)
 theme_override_fonts/font = ExtResource("13_blg2d")
 theme_override_font_sizes/font_size = 30
-text = "54"
+text = "+12"
+horizontal_alignment = 2
 
-[node name="BlightCounter" type="HBoxContainer" parent="."]
-offset_left = 736.0
-offset_top = 257.0
-offset_right = 791.0
-offset_bottom = 297.0
-
-[node name="TextureRect" type="TextureRect" parent="BlightCounter"]
+[node name="PreviewPurple" type="Label" parent="UI/Preview/Panel/HBox"]
 layout_mode = 2
-texture = ExtResource("14_pwohe")
-stretch_mode = 5
-
-[node name="Label" type="Label" parent="BlightCounter"]
-layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(0.623529, 0.470588, 0.890196, 1)
 theme_override_fonts/font = ExtResource("13_blg2d")
 theme_override_font_sizes/font_size = 30
-text = "42"
-
-[node name="RitualCounter" type="HBoxContainer" parent="."]
-offset_left = 322.0
-offset_top = 255.0
-offset_right = 386.0
-offset_bottom = 295.0
-
-[node name="Label" type="Label" parent="RitualCounter"]
-layout_mode = 2
-theme_override_fonts/font = ExtResource("13_blg2d")
-theme_override_font_sizes/font_size = 30
-text = "300"
-
-[node name="TextureRect" type="TextureRect" parent="RitualCounter"]
-layout_mode = 2
-texture = ExtResource("15_va62u")
-stretch_mode = 5
+text = "+12"
 
 [connection signal="card_played" from="FarmTiles" to="." method="_on_farm_tiles_card_played"]
+[connection signal="on_preview_yield" from="FarmTiles" to="." method="_on_farm_tiles_on_preview_yield"]
 [connection signal="on_yield_gained" from="FarmTiles" to="." method="_on_farm_tiles_on_yield_gained"]
-[connection signal="pressed" from="EndTurnButton" to="." method="_on_end_turn_button_pressed"]
-[connection signal="button_up" from="ShopButton" to="." method="_on_shop_button_button_up"]
 [connection signal="on_card_removed" from="Shop" to="." method="_on_shop_on_card_removed"]
 [connection signal="on_item_bought" from="Shop" to="." method="_on_shop_on_item_bought"]
 [connection signal="on_money_spent" from="Shop" to="." method="_on_shop_on_money_spent"]
 [connection signal="on_shop_closed" from="Shop" to="." method="_on_shop_on_shop_closed"]
 [connection signal="on_structure_place" from="Shop" to="." method="_on_shop_on_structure_place"]
+[connection signal="button_up" from="UI/ShopButton" to="." method="_on_shop_button_button_up"]
+[connection signal="pressed" from="UI/EndTurnButton" to="." method="_on_end_turn_button_pressed"]

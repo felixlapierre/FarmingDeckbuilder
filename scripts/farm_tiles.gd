@@ -12,6 +12,7 @@ var current_shape
 
 signal card_played
 signal on_yield_gained
+signal on_preview_yield
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -53,7 +54,7 @@ func use_card(card, grid_position):
 func _process(delta: float) -> void:
 	if current_shape != Global.shape and hovered_tile != null:
 		show_select_overlay()
-	if hovered_tile == null and $SelectOverlay.get_children().size() > 0:
+	if (hovered_tile == null or Global.selected_card == null) and $SelectOverlay.get_children().size() > 0:
 		clear_overlay()
 	
 func show_select_overlay():
@@ -63,6 +64,8 @@ func show_select_overlay():
 	clear_overlay()
 	var grid_position = hovered_tile.grid_location
 	var shape = get_targeted_tiles(grid_position, Global.selected_card.size)
+	var yld_preview_yellow = 0
+	var yld_preview_purple = 0
 
 	for item in shape:
 		var error = false
@@ -71,6 +74,12 @@ func show_select_overlay():
 		else:
 			var targeted_tile = tiles[item.x][item.y]
 			error = !is_eligible_card(card, targeted_tile)
+			if card.get_effect("harvest") != null:
+				var yld = targeted_tile.preview_harvest()
+				if targeted_tile.purple:
+					yld_preview_purple += yld
+				else:
+					yld_preview_yellow += yld
 		var sprite = Sprite2D.new()
 		sprite.texture = load("res://assets/custom/SelectTile.png")
 		sprite.position = TOP_LEFT + (item) * TILE_SIZE + TILE_SIZE / 2
@@ -81,15 +90,17 @@ func show_select_overlay():
 		else:
 			sprite.modulate = Color8(98, 240, 70)
 		$SelectOverlay.add_child(sprite)
+	if yld_preview_purple + yld_preview_yellow > 0:
+		on_preview_yield.emit(yld_preview_yellow, yld_preview_purple)
 
 func is_eligible_card(card, targeted_tile):
 	match card.type:
 		"SEED":
-			return targeted_tile.state == Constants.TileState.Empty
+			return targeted_tile.state == Enums.TileState.Empty
 		"ACTION":
-			return card.targets.has(Constants.TileState.keys()[targeted_tile.state])
+			return card.targets.has(Enums.TileState.keys()[targeted_tile.state])
 		"STRUCTURE":
-			return ["Empty", "Growing", "Mature"].has(Constants.TileState.keys()[targeted_tile.state])
+			return ["Empty", "Growing", "Mature"].has(Enums.TileState.keys()[targeted_tile.state])
 		_:
 			return true
 
@@ -116,11 +127,12 @@ func clear_overlay():
 	for node in $SelectOverlay.get_children():
 		$SelectOverlay.remove_child(node)
 		node.queue_free()
+	on_preview_yield.emit(0, 0) #This signals to clear the preview
 
 func process_one_week():
 	var growing_tiles = []
 	for tile in $Tiles.get_children():
-		if tile.state == Constants.TileState.Growing:
+		if tile.state == Enums.TileState.Growing:
 			growing_tiles.append(tile)
 	growing_tiles.shuffle()
 	for tile in growing_tiles:

@@ -69,13 +69,12 @@ func _on_farm_tiles_on_yield_gained(yield_amount, purple) -> void:
 	update()
 	
 func update():
-	$Stats/VBox/YieldLabel.text = "Total Yield: " + str(int(total_yield))
-	$Stats/VBox/TurnLabel.text = "Week: " + str(week)
-	$Stats/VBox/EnergyLabel.text = "Energy: " + str(energy) + " / " + str(Constants.MAX_ENERGY)
-	$YieldCounter.text = str(yield_counter)
+	$UI/Stats/VBox/YieldLabel.text = "Total Yield: " + str(int(total_yield))
+	$UI/Stats/VBox/TurnLabel.text = "Week: " + str(week)
+	$UI/Stats/VBox/EnergyLabel.text = "Energy: " + str(energy) + " / " + str(Constants.MAX_ENERGY)
 	$Shop.player_money = total_yield
-	$BlightCounter/Label.text = str(blight_counter) + " / " + str(target_blight) + " <-- " + str(next_turn_blight)
-	$RitualCounter/Label.text = str(ritual_counter)
+	$UI/BlightCounter/Label.text = str(blight_counter) + " / " + str(target_blight) + " <-- " + str(next_turn_blight)
+	$UI/RitualCounter/Label.text = str(ritual_counter)
 	$Shop.update_labels()
 
 
@@ -107,13 +106,12 @@ func _on_shop_on_structure_place(item, callback) -> void:
 	
 func set_ui_visible(visible):
 	$Cards.propagate_call("set_visible", [visible])
-	$ShopButton.visible = visible
-	$Deck.visible = visible
-	$EndTurnButton.visible = visible
+	$UI/ShopButton.visible = visible
+	$UI/Deck.visible = visible
+	$UI/EndTurnButton.visible = visible
 	$Shop.visible = visible
-	$YieldCounter.visible = visible
-	$BlightCounter.visible = visible
-	$RitualCounter.visible = visible
+	$UI/BlightCounter.visible = visible
+	$UI/RitualCounter.visible = visible
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("transform"):
@@ -123,4 +121,8 @@ func _input(event: InputEvent) -> void:
 
 func get_blight_at_week(week):
 	return 0 if week < 5 else randi_range(0, 1) * (week * randi_range(1,3))
-	
+
+func _on_farm_tiles_on_preview_yield(yellow, purple) -> void:
+	$UI/Preview.visible = yellow + purple > 0
+	$UI/Preview/Panel/HBox/PreviewYellow.text = "+" + str(yellow)
+	$UI/Preview/Panel/HBox/PreviewPurple.text = "+" + str(purple)

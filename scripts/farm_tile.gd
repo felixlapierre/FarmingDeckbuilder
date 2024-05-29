@@ -1,6 +1,6 @@
 extends MarginContainer
 
-var state = Constants.TileState.Empty # Store the state of the farm tile
+var state = Enums.TileState.Empty # Store the state of the farm tile
 var grid_location: Vector2
 var TILE_SIZE = Vector2(56, 56);
 var FARM_DIMENSIONS = Vector2(6, 6);
@@ -47,21 +47,21 @@ func plant_seed_animate(planted_seed):
 	tween.tween_property($PlantSprite, "scale", Vector2(1, 1), 0.1);
 
 func plant_seed(planted_seed):
-	if state != Constants.TileState.Empty:
+	if state != Enums.TileState.Empty:
 		return
 	seed = planted_seed
 	seed_grow_time = float(seed.time)
 	seed_base_yield = float(seed.yld)
 	current_grow_progress = 0.0
 	current_yield = 0.0
-	state = Constants.TileState.Growing
+	state = Enums.TileState.Growing
 	$PlantSprite.visible = true
 	$PlantSprite.texture = load(objects_image)
 	$PlantSprite.region_enabled = true
 	update_plant_sprite()
 	
 func grow_one_week():
-	if state == Constants.TileState.Growing:
+	if state == Enums.TileState.Growing:
 		current_grow_progress += 1.0
 		current_yield += seed_base_yield / seed_grow_time * current_multiplier
 		current_multiplier = 1.0
@@ -70,7 +70,7 @@ func grow_one_week():
 		update_plant_sprite()
 		grow_animation()
 		if current_grow_progress == seed_grow_time:
-			state = Constants.TileState.Mature
+			state = Enums.TileState.Mature
 
 func grow_animation():
 	var tween = get_tree().create_tween()
@@ -99,8 +99,8 @@ func update_plant_sprite():
 	$PlantSprite.offset = Vector2(0, -8 if h == 16 else -14)
 
 func harvest():
-	if state == Constants.TileState.Mature:
-		state = Constants.TileState.Empty
+	if state == Enums.TileState.Mature:
+		state = Enums.TileState.Empty
 		$'../..'.gain_yield(current_yield, purple)
 		seed_base_yield = 0
 		seed_grow_time = 0
@@ -128,7 +128,7 @@ func lose_irrigate():
 	$IrrigateOverlay.visible = false
 
 func build_structure(card):
-	state = Constants.TileState.Structure
+	state = Enums.TileState.Structure
 	structure = card
 	$PlantSprite.texture = card.texture
 	$PlantSprite.visible = true
@@ -154,3 +154,6 @@ func start_of_week_effects():
 								"grid_location": target
 							})
 	return effects_generated
+
+func preview_harvest() -> int:
+	return current_yield if state == Enums.TileState.Mature else 0
