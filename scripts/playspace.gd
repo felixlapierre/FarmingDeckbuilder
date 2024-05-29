@@ -96,7 +96,7 @@ func _on_shop_on_money_spent(amount) -> void:
 	update()
 
 func _on_shop_on_card_removed(card) -> void:
-	$Cards.remove_hand_card(card)
+	$Cards.remove_card_with_info(card)
 	$Shop.set_deck($Cards.get_hand_info())
 
 func _on_shop_on_structure_place(item, callback) -> void:

@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="CardData" load_steps=3 format=3 uid="uid://r2riwcbmww0s"]
+
+[ext_resource type="Script" path="res://scripts/card_data.gd" id="1_53a0c"]
+[ext_resource type="Texture2D" uid="uid://xioa7pkdc5t0" path="res://assets/custom/Scythe.png" id="2_4myq1"]
+
+[resource]
+script = ExtResource("1_53a0c")
+type = "ACTION"
+name = "Trusty Ol Hoe"
+rarity = "rare"
+cost = 1
+yld = 0
+time = 0
+size = 6
+text = "Harvest 6 tiles. Remembrance"
+texture = ExtResource("2_4myq1")
+seed_texture = 3
+targets = Array[String](["Mature"])
+effects = Array[Dictionary]([{
+"name": "harvest"
+}, {
+"name": "remembrance"
+}])

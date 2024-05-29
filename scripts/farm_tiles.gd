@@ -59,11 +59,11 @@ func _process(delta: float) -> void:
 	
 func show_select_overlay():
 	var card = Global.selected_card
-	if card == null or hovered_tile == null:
+	if card == null or hovered_tile == null or card.size == 0:
 		return
 	clear_overlay()
 	var grid_position = hovered_tile.grid_location
-	var shape = get_targeted_tiles(grid_position, Global.selected_card.size)
+	var shape = get_targeted_tiles(grid_position, card.size)
 	var yld_preview_yellow = 0
 	var yld_preview_purple = 0
 
@@ -183,7 +183,8 @@ func perform_effect(effect, tile):
 		"irrigate":
 			tile.irrigate()
 		"grow":
-			tile.grow_one_week()
+			for i in range(effect.strength):
+				tile.grow_one_week()
 
 func gain_yield(yield_amount, purple):
 	on_yield_gained.emit(int(yield_amount), purple)

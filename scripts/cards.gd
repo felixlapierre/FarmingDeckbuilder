@@ -33,6 +33,16 @@ var starting_deck = [
 		"name": "pumpkin",
 		"type": "seed",
 		"count": 1
+	},
+	{
+		"name": "focus",
+		"type": "action",
+		"count": 2
+	},
+	{
+		"name": "time_bubble",
+		"type": "action",
+		"count": 2
 	}
 ]
 var card_database
@@ -59,13 +69,25 @@ func _process(delta: float) -> void:
 func draw_hand():
 	for i in range(Constants.BASE_HAND_SIZE):
 		drawcard()
+	reorganize_hand()
+
+func draw_one_card():
+	drawcard()
+	reorganize_hand()
 	
 func drawcard():
+	# Maximum hand size 10
+	if $Hand.get_child_count() >= 10:
+		return
 	# Refill the draw pile if necessary
 	if deck_cards.size() == 0:
 		for card in discard_pile_cards:
 			deck_cards.append(card)
 		discard_pile_cards.clear()
+	
+	# If deck is still empty then all cards are in hand and we can't draw
+	if deck_cards.size() == 0:
+		return
 		
 	# Create the new card and initialize its starting values
 	var new_card = CardBase.instantiate()
@@ -81,19 +103,29 @@ func drawcard():
 	# Add it to the hand and call reorganize_hand which will position it
 	$Hand.add_child(new_card);
 	number_of_cards_in_hand += 1
-	reorganize_hand()
 
 	# Remove card from deck
 	deck_cards.erase(deck_cards[CardSelected])
 	return deck_cards.size()
 
 func play_card():
-	# Delete the card
+	# Find the card in our hand
 	var playedcard
 	for card in $Hand.get_children():
 		if card.state == CardState.InMouse:
 			playedcard = card
-	discard_card(playedcard)
+	
+	# Have to draw before discarding or we could draw the card we just discarded
+	var draw = playedcard.card_info.get_effect("draw")
+	if draw != null:
+		for i in range(draw.strength):
+			drawcard()
+	
+	# If Obliviate, delete instead of discarding
+	if playedcard.card_info.get_effect("obliviate") != null:
+		remove_hand_card(playedcard)
+	else:
+		discard_card(playedcard)
 	
 	# Remove it from selected_card global var
 	Global.selected_card = null
@@ -121,7 +153,9 @@ func reorganize_hand():
 
 func discard_hand():
 	for card in $Hand.get_children():
-		discard_card(card)
+		if card.card_info.get_effect("remembrance") == null:
+			discard_card(card)
+	reorganize_hand()
 
 func discard_card(card):
 	$Hand.remove_child(card)
@@ -143,16 +177,19 @@ func get_hand_info():
 		card_info_array.append(card.card_info)
 	return card_info_array
 
-func remove_hand_card(card_info):
+func remove_card_with_info(card_info):
 	# Temporary, eventually shop will just pass around the entire deck
 	var card
 	for hand_card in $Hand.get_children():
 		if Helper.card_info_matches(hand_card.card_info, card_info):
 			card = hand_card
 	if card != null:
-		$Hand.remove_child(card)
-		$Discarding.add_child(card)
-		card.set_state(CardState.MoveToDiscard, null, null, card.resting_scale * 0.1)
-		card.move_using_tween(0.5)
-		number_of_cards_in_hand -= 1
-		reorganize_hand()
+		remove_hand_card(card)
+	reorganize_hand()
+
+func remove_hand_card(card):
+	$Hand.remove_child(card)
+	$Discarding.add_child(card)
+	card.set_state(CardState.MoveToDiscard, null, null, card.resting_scale * 0.1)
+	card.move_using_tween(0.5)
+	number_of_cards_in_hand -= 1

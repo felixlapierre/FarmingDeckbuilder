@@ -12,10 +12,11 @@ cost = 0
 yld = 0
 time = 0
 size = 6
-text = "Grow 4 tiles by\\n1 week"
+text = "Grow 6 tiles once"
 texture = ExtResource("2_wnftv")
 seed_texture = 3
 targets = Array[String](["Growing"])
 effects = Array[Dictionary]([{
-"name": "grow"
+"name": "grow",
+"strength": 1
 }])

@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="CardData" load_steps=3 format=3 uid="uid://bp0hgq1xut4gn"]
+
+[ext_resource type="Script" path="res://scripts/card_data.gd" id="1_sqjt2"]
+[ext_resource type="Texture2D" uid="uid://bnukunhjx4dno" path="res://assets/custom/FleetingInspiration.png" id="2_oyhgd"]
+
+[resource]
+script = ExtResource("1_sqjt2")
+type = "ACTION"
+name = "Fleeting Inspiration"
+rarity = "rare"
+cost = 0
+yld = 0
+time = 0
+size = 0
+text = "Draw 3 cards. Obliviate"
+texture = ExtResource("2_oyhgd")
+seed_texture = 3
+targets = Array[String]([])
+effects = Array[Dictionary]([{
+"name": "draw",
+"strength": 3
+}, {
+"name": "obliviate"
+}])

@@ -145,11 +145,6 @@ layer_1/tile_data = PackedInt32Array(6, 1048576, 1, 655370, 917504, 2, 720906, 1
 layer_2/name = "Props 2"
 layer_2/tile_data = PackedInt32Array(720906, 917504, 3, 589834, 917504, 1, 327695, 917504, 0, 327698, 1048576, 0)
 
-[node name="Cards" parent="." instance=ExtResource("7_81aef")]
-
-[node name="Shop" parent="." instance=ExtResource("12_q43t0")]
-visible = false
-
 [node name="UI" type="Node" parent="."]
 
 [node name="RitualCounter" type="HBoxContainer" parent="UI"]
@@ -261,13 +256,18 @@ theme_override_fonts/font = ExtResource("13_blg2d")
 theme_override_font_sizes/font_size = 30
 text = "+12"
 
+[node name="Cards" parent="." instance=ExtResource("7_81aef")]
+
+[node name="Shop" parent="." instance=ExtResource("12_q43t0")]
+visible = false
+
 [connection signal="card_played" from="FarmTiles" to="." method="_on_farm_tiles_card_played"]
 [connection signal="on_preview_yield" from="FarmTiles" to="." method="_on_farm_tiles_on_preview_yield"]
 [connection signal="on_yield_gained" from="FarmTiles" to="." method="_on_farm_tiles_on_yield_gained"]
+[connection signal="button_up" from="UI/ShopButton" to="." method="_on_shop_button_button_up"]
+[connection signal="pressed" from="UI/EndTurnButton" to="." method="_on_end_turn_button_pressed"]
 [connection signal="on_card_removed" from="Shop" to="." method="_on_shop_on_card_removed"]
 [connection signal="on_item_bought" from="Shop" to="." method="_on_shop_on_item_bought"]
 [connection signal="on_money_spent" from="Shop" to="." method="_on_shop_on_money_spent"]
 [connection signal="on_shop_closed" from="Shop" to="." method="_on_shop_on_shop_closed"]
 [connection signal="on_structure_place" from="Shop" to="." method="_on_shop_on_structure_place"]
-[connection signal="button_up" from="UI/ShopButton" to="." method="_on_shop_button_button_up"]
-[connection signal="pressed" from="UI/EndTurnButton" to="." method="_on_end_turn_button_pressed"]
