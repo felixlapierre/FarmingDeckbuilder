@@ -14,9 +14,15 @@
 z_index = 2
 script = ExtResource("1_qv16a")
 
+[node name="ClickOutButton" type="Button" parent="."]
+modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(1920, 1080)
+offset_right = 8.0
+offset_bottom = 8.0
+
 [node name="PanelContainer" type="PanelContainer" parent="."]
-offset_right = 1920.0
-offset_bottom = 1080.0
+offset_right = 1000.0
+offset_bottom = 757.0
 theme = ExtResource("2_j5k0x")
 
 [node name="ShopContainer" type="VBoxContainer" parent="PanelContainer"]
@@ -79,37 +85,6 @@ text = "Reroll"
 cost = -1
 row = 2
 
-[node name="ChoiceThree" type="HBoxContainer" parent="PanelContainer/ShopContainer"]
-custom_minimum_size = Vector2(0, 350)
-layout_mode = 2
-
-[node name="Stock" type="HBoxContainer" parent="PanelContainer/ShopContainer/ChoiceThree"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 0
-
-[node name="ExpandFarm" parent="PanelContainer/ShopContainer/ChoiceThree/Stock" instance=ExtResource("3_4jobj")]
-layout_mode = 2
-text = "Expand Farm"
-
-[node name="Energy Fr" parent="PanelContainer/ShopContainer/ChoiceThree/Stock" instance=ExtResource("3_4jobj")]
-layout_mode = 2
-text = "Energy Fragment"
-
-[node name="MoreDraw" parent="PanelContainer/ShopContainer/ChoiceThree/Stock" instance=ExtResource("3_4jobj")]
-layout_mode = 2
-text = "Draw More"
-
-[node name="Scrap" parent="PanelContainer/ShopContainer/ChoiceThree/Stock" instance=ExtResource("3_4jobj")]
-layout_mode = 2
-text = "Gain"
-cost = 3
-
-[node name="Reroll" parent="PanelContainer/ShopContainer/ChoiceThree" instance=ExtResource("3_4jobj")]
-layout_mode = 2
-text = "Reroll"
-cost = -1
-
 [node name="RemoveCardContainer" type="PanelContainer" parent="."]
 visible = false
 theme = ExtResource("2_j5k0x")
@@ -117,6 +92,7 @@ theme = ExtResource("2_j5k0x")
 [node name="SelectCard" parent="RemoveCardContainer" instance=ExtResource("2_a4ssg")]
 layout_mode = 2
 
+[connection signal="pressed" from="ClickOutButton" to="." method="_on_close_button_pressed"]
 [connection signal="pressed" from="PanelContainer/ShopContainer/Header/CloseButton" to="." method="_on_close_button_pressed"]
 [connection signal="option_selected" from="PanelContainer/ShopContainer/ChoiceOne/Reroll" to="." method="on_reroll"]
 [connection signal="option_selected" from="PanelContainer/ShopContainer/ChoiceTwo/Reroll" to="." method="on_reroll"]

@@ -19,9 +19,13 @@ var shop_item_capacity = 4
 
 var player_cards
 
+@onready var CHOICE_ONE = $PanelContainer/ShopContainer/ChoiceOne
+@onready var STOCK_ONE = $PanelContainer/ShopContainer/ChoiceOne/Stock
+@onready var CHOICE_TWO = $PanelContainer/ShopContainer/ChoiceTwo
+@onready var STOCK_TWO = $PanelContainer/ShopContainer/ChoiceTwo/Stock
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	$PanelContainer.size = Constants.VIEWPORT_SIZE
 	$RemoveCardContainer.size = Constants.VIEWPORT_SIZE
 	player_money = 5
 	update_labels()
@@ -41,14 +45,15 @@ func fill_shop():
 	clear_row(2)
 	fill_row_one()
 	fill_row_two()
+	$PanelContainer.position = Constants.VIEWPORT_SIZE / 2 - $PanelContainer.size / 2
 
 func clear_row(row):
 	var node
 	match row:
 		1:
-			node = $PanelContainer/ShopContainer/ChoiceOne/Stock
+			node = STOCK_ONE
 		2:
-			node = $PanelContainer/ShopContainer/ChoiceTwo/Stock
+			node = STOCK_TWO
 	for child in node.get_children():
 		node.remove_child(child)
 
@@ -61,12 +66,14 @@ func fill_row_number(row):
 
 func fill_row_one():
 	var stock = generate_random_shop_items_choice1(shop_item_capacity, ["SEED", "ACTION"])
-	fill_row($PanelContainer/ShopContainer/ChoiceOne/Stock, 1, stock)
+	fill_row(STOCK_ONE, 1, stock)
+	STOCK_ONE.add_child(create_scrap_option(1, 1))
 
 func fill_row_two():
 	var stock = generate_random_shop_items_choice1(3, ["STRUCTURE", "UPGRADE"])
-	fill_row($PanelContainer/ShopContainer/ChoiceTwo/Stock, 2, stock)
-	$PanelContainer/ShopContainer/ChoiceTwo/Stock.add_child(create_remove_card_option())
+	fill_row(STOCK_TWO, 2, stock)
+	STOCK_TWO.add_child(create_remove_card_option())
+	STOCK_TWO.add_child(create_scrap_option(2, 2))
 
 func fill_row(node, row_number, stock):
 	for item in stock:
@@ -74,7 +81,6 @@ func fill_row(node, row_number, stock):
 		new_node.card_data = item
 		new_node.on_clicked.connect(func(option): on_buy(option, row_number))
 		node.add_child(new_node)
-	node.add_child(create_scrap_option(row_number, row_number))
 
 func create_scrap_option(amount, row):
 	var scrap = ShopButton.instantiate()
@@ -130,10 +136,10 @@ func finish_item_bought(card, card_data, row) -> void:
 func set_row_visible(row, vis):
 	match row:
 		1:
-			for child in $PanelContainer/ShopContainer/ChoiceOne.get_children():
+			for child in CHOICE_ONE.get_children():
 				child.visible = vis
 		2:
-			for child in $PanelContainer/ShopContainer/ChoiceTwo.get_children():
+			for child in CHOICE_TWO.get_children():
 				child.visible = vis
 
 func _on_close_button_pressed() -> void:

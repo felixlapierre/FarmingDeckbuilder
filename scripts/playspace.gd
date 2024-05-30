@@ -67,7 +67,8 @@ func _on_farm_tiles_card_played(card) -> void:
 		Global.selected_card = null
 		await get_tree().create_timer(1).timeout
 		shop_structure_place_callback.call()
-		set_ui_visible(true)
+		set_winter_visible(true)
+		$Shop.visible = true
 
 
 	else:
@@ -122,9 +123,11 @@ func update():
 func _on_shop_button_button_up() -> void:
 	$Shop.set_deck(deck)
 	$Shop.visible = true
+	set_winter_visible(false)
 
 func _on_shop_on_shop_closed() -> void:
 	$Shop.visible = false
+	set_winter_visible(true)
 
 func _on_shop_on_item_bought(item) -> void:
 	deck.append(item)
@@ -140,7 +143,8 @@ func _on_shop_on_card_removed(card) -> void:
 func _on_shop_on_structure_place(item, callback) -> void:
 	Global.selected_card = item
 	shop_structure_place_callback = callback
-	set_ui_visible(false)
+	set_winter_visible(false)
+	$Shop.visible = false
 	
 func set_ui_visible(visible):
 	$Cards.propagate_call("set_visible", [visible])
@@ -150,6 +154,9 @@ func set_ui_visible(visible):
 	$Shop.visible = visible
 	$UI/BlightCounter.visible = visible
 	$UI/RitualCounter.visible = visible
+
+func set_winter_visible(visible):
+	$Winter.visible = visible
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("transform"):
