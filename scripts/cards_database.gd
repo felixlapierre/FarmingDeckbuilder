@@ -7,7 +7,6 @@ static func get_all_cards() -> Array[CardData]:
 
 static func get_card_by_name(name: String, type: String):
 	var path = "res://data/" + type + "/" + name + ".tres"
-	print(path)
 	return load(path)
 
 static func get_all_file_paths(path: String) -> Array[String]:  

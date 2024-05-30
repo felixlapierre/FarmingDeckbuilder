@@ -2,7 +2,7 @@ extends Node2D
 
 var CardBase;
 var PlayerHand;
-const CardSize = Vector2(250, 350)
+const CardSize = Vector2(200, 280)
 var CardSelected = []
 
 var CenterCardOval

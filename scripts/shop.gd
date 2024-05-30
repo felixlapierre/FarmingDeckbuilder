@@ -3,6 +3,9 @@ extends Node2D
 var stock = []
 var ShopItem = preload("res://scenes/shop_item.tscn")
 var card_database = preload("res://scripts/cards_database.gd")
+var CardBase = preload("res://scenes/card_base.tscn")
+var ShopCard = preload("res://scenes/shop_card.tscn")
+var ShopButton = preload("res://scenes/shop_button.tscn")
 
 signal on_shop_closed
 signal on_item_bought
@@ -12,14 +15,7 @@ signal on_structure_place
 
 @export var player_money: int
 
-var reset_shop_base_cost = 15
-var reset_shop_cost = 15
-var reset_shop_increment = 15
-var remove_card_base_cost = 50
-var remove_card_cost = 50
-var remove_card_cost_increment = 50
-
-var shop_item_capacity = 6
+var shop_item_capacity = 4
 
 var player_cards
 
@@ -27,6 +23,7 @@ var player_cards
 func _ready() -> void:
 	$PanelContainer.size = Constants.VIEWPORT_SIZE
 	$RemoveCardContainer.size = Constants.VIEWPORT_SIZE
+	player_money = 5
 	update_labels()
 	fill_shop()
 
@@ -38,28 +35,71 @@ func _process(delta: float) -> void:
 	pass
 
 func fill_shop():
-	# Clear existing shop
-	for child in $PanelContainer/ShopContainer/ShopContent/StockContainer.get_children():
-		$PanelContainer/ShopContainer/ShopContent/StockContainer.remove_child(child)
-	
-	# Generate stock (dict)
-	var stock = generate_random_shop_items(shop_item_capacity)
+	set_row_visible(1, true)
+	set_row_visible(2, true)
+	clear_row(1)
+	clear_row(2)
+	fill_row_one()
+	fill_row_two()
+
+func clear_row(row):
+	var node
+	match row:
+		1:
+			node = $PanelContainer/ShopContainer/ChoiceOne/Stock
+		2:
+			node = $PanelContainer/ShopContainer/ChoiceTwo/Stock
+	for child in node.get_children():
+		node.remove_child(child)
+
+func fill_row_number(row):
+	match row:
+		1:
+			fill_row_one()
+		2:
+			fill_row_two()
+
+func fill_row_one():
+	var stock = generate_random_shop_items_choice1(shop_item_capacity, ["SEED", "ACTION"])
+	fill_row($PanelContainer/ShopContainer/ChoiceOne/Stock, 1, stock)
+
+func fill_row_two():
+	var stock = generate_random_shop_items_choice1(3, ["STRUCTURE", "UPGRADE"])
+	fill_row($PanelContainer/ShopContainer/ChoiceTwo/Stock, 2, stock)
+	$PanelContainer/ShopContainer/ChoiceTwo/Stock.add_child(create_remove_card_option())
+
+func fill_row(node, row_number, stock):
 	for item in stock:
-		var new_node = ShopItem.instantiate()
-		var cost = randi_range(10, 50) if item.rarity == "common" else randi_range(50, 100)
-		new_node.set_item({"name": item.name, "data": item, "cost": cost, "type": item.type})
-		new_node.on_purchase.connect(_on_shop_item_on_card_bought)
-		$PanelContainer/ShopContainer/ShopContent/StockContainer.add_child(new_node)
-	
-func generate_random_shop_items(count):
+		var new_node = ShopCard.instantiate()
+		new_node.card_data = item
+		new_node.on_clicked.connect(func(option): on_buy(option, row_number))
+		node.add_child(new_node)
+	node.add_child(create_scrap_option(row_number, row_number))
+
+func create_scrap_option(amount, row):
+	var scrap = ShopButton.instantiate()
+	scrap.text = "Gain"
+	scrap.cost = amount
+	scrap.option_selected.connect(on_scrap)
+	return scrap
+
+func create_remove_card_option():
+	var remove = ShopButton.instantiate()
+	remove.text = "Remove Card"
+	remove.cost = 0
+	remove.option_selected.connect(_on_remove_card_button_pressed)
+	return remove
+
+func generate_random_shop_items_choice1(count, types):
 	var options = card_database.get_all_cards()
 	var common = []
 	var rare = []
 	for card in options:
-		if card.rarity == "common":
-			common.append(card)
-		elif card.rarity == "rare":
-			rare.append(card)
+		if types.has(card.type):
+			if card.rarity == "common":
+				common.append(card)
+			elif card.rarity == "rare":
+				rare.append(card)
 
 	var result = []
 	var i = 0
@@ -70,45 +110,42 @@ func generate_random_shop_items(count):
 		i += 1
 	return result
 
-func _on_shop_item_on_card_bought(ui_shop_item, item) -> void:
-	if item.cost > player_money:
-		return
-	if item.type == "STRUCTURE":
-		on_structure_place.emit(item, func(): finish_item_bought(ui_shop_item, item))
-		return
-	finish_item_bought(ui_shop_item, item)
+func on_buy_row1(option):
+	on_buy(option, 1)
 
-func finish_item_bought(ui_shop_item, item) -> void:
-	on_item_bought.emit(item)
-	ui_shop_item.move_card_to_discard()
-	var items = generate_random_shop_items(1)
-	var new_item = items[0]
-	var cost = randi_range(10, 50) if new_item.rarity == "common" else randi_range(50, 100)
-	ui_shop_item.set_item({"name": new_item.name, "data": new_item, "cost": cost, "type": new_item.type})
+func on_buy_row2(option):
+	on_buy(option, 2)
+
+func on_buy(option, row):
+	if option.card_info.type == "STRUCTURE":
+		on_structure_place.emit(option.card_info, func(): finish_item_bought(option, option.card_info, row))
+		return
+	finish_item_bought(option, option.card_info, row)
+
+func finish_item_bought(card, card_data, row) -> void:
+	on_item_bought.emit(card_data)
+	set_row_visible(row, false)
 	update_labels()
+
+func set_row_visible(row, vis):
+	match row:
+		1:
+			for child in $PanelContainer/ShopContainer/ChoiceOne.get_children():
+				child.visible = vis
+		2:
+			for child in $PanelContainer/ShopContainer/ChoiceTwo.get_children():
+				child.visible = vis
 
 func _on_close_button_pressed() -> void:
 	on_shop_closed.emit()
 
-
-func _on_reset_shop_button_pressed() -> void:
-	if player_money > reset_shop_cost:
-		on_money_spent.emit(reset_shop_cost)
-		reset_shop_cost += reset_shop_increment
-		update_labels()
-		fill_shop()
-
-
-func _on_remove_card_button_pressed() -> void:
-	if player_money > remove_card_cost:
-		# TODO: Pick card to remove and potentially cancel
-		$RemoveCardContainer.visible = true
-		$RemoveCardContainer/SelectCard.do_card_pick(player_cards, "Select a card to remove")
+func _on_remove_card_button_pressed(cost, row) -> void:
+	$RemoveCardContainer.visible = true
+	$RemoveCardContainer/SelectCard.do_card_pick(player_cards, "Select a card to remove")
 
 func _on_card_remove_chosen(card) -> void:
 	on_card_removed.emit(card.card_info)
-	on_money_spent.emit(remove_card_cost)
-	remove_card_cost += remove_card_cost_increment
+	set_row_visible(2, false)
 	update_labels()
 	$RemoveCardContainer.visible = false
 	
@@ -117,11 +154,18 @@ func _on_card_remove_cancelled() -> void:
 
 func on_week_pass():
 	fill_shop()
-	reset_shop_cost = reset_shop_base_cost
-	remove_card_cost = remove_card_base_cost
 	update_labels()
 
 func update_labels():
-	$PanelContainer/ShopContainer/ShopContent/SideActions/ResetShopContainer/ResetShopButton.text = "Reset Shop ("+str(reset_shop_cost)+")"
-	$PanelContainer/ShopContainer/ShopContent/SideActions/RemoveCardContainer/RemoveCardButton.text = "Remove Card ("+str(remove_card_cost)+")"
 	$PanelContainer/ShopContainer/Header/MoneyLabel.text = "$$$: " + str(player_money)
+
+func on_reroll(cost, row):
+	if player_money + cost < 0:
+		return
+	player_money += cost
+	update_labels()
+	clear_row(row)
+	fill_row_number(row)
+
+func on_scrap(amount, row):
+	print(str(amount) + " " + str(row))

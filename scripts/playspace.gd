@@ -55,7 +55,7 @@ func _ready() -> void:
 			deck.append(card_database.get_card_by_name(card.name, card.type))
 	update()
 	start_year()
-	ritual_counter = 1
+	ritual_counter = 0
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -114,7 +114,6 @@ func update():
 	$UI/Stats/VBox/YieldLabel.text = "Total Yield: " + str(int(total_yield))
 	$UI/Stats/VBox/TurnLabel.text = "Week: " + str(week)
 	$UI/Stats/VBox/EnergyLabel.text = "Energy: " + str(energy) + " / " + str(Constants.MAX_ENERGY)
-	$Shop.player_money = total_yield
 	$UI/BlightCounter/Label.text = str(blight_counter) + " / " + str(target_blight) + " <-- " + str(next_turn_blight)
 	$UI/RitualCounter/Label.text = str(ritual_counter)
 	$Shop.update_labels()
@@ -128,10 +127,7 @@ func _on_shop_on_shop_closed() -> void:
 	$Shop.visible = false
 
 func _on_shop_on_item_bought(item) -> void:
-	total_yield -= item.cost
-	update()
-	if item.type == "SEED" or item.type == "ACTION":
-		$Cards.add_card_from_shop(item.data)
+	deck.append(item)
 
 func _on_shop_on_money_spent(amount) -> void:
 	total_yield -= amount
@@ -142,7 +138,7 @@ func _on_shop_on_card_removed(card) -> void:
 	$Shop.set_deck(deck)
 
 func _on_shop_on_structure_place(item, callback) -> void:
-	Global.selected_card = item.data
+	Global.selected_card = item
 	shop_structure_place_callback = callback
 	set_ui_visible(false)
 	
@@ -174,12 +170,13 @@ func end_year():
 	$UI.visible = false
 	$Cards.do_winter_clear()
 	$Winter.visible = true
+	$Shop.fill_shop()
 
 func start_year():
 	$UI.visible = true
 	$Cards.visible = true
 	$Winter.visible = false
-	ritual_counter = 20
+	ritual_counter = 0
 	$Cards.set_deck_for_year(deck)
 	$Cards.draw_hand()
 	update()

@@ -3,14 +3,14 @@ extends MarginContainer
 var card_info;
 var card_image = "res://assets/1616tinygarden/objects.png"
 var card_database
-var card_size = Vector2(250, 350)
+var card_size = Vector2(200, 280)
 
 var starting_position # For animating movement, start position of the card
 var target_position # For animating movement, position card should end up at
 var resting_position: Vector2 # Card comes back to rest at this position when we need to unfocus etc
 
 var starting_scale: Vector2 # For animating scale, start scale
-var resting_scale = Vector2(0.8, 0.8)
+var resting_scale = Vector2(1, 1)
 var target_scale;
 
 var starting_rotation = 0
@@ -115,12 +115,9 @@ func Reset_Card(card_number_in_hand):
 func _on_focus_mouse_entered() -> void:
 	match state:
 		CardState.InHand, CardState.ReOrganiseHand:
-			print(position)
 			var new_position = resting_position
 			new_position.y = Constants.VIEWPORT_SIZE.y - card_size.y*ZoomInSize*0.9
 			set_state(CardState.FocusInHand, new_position, 0, resting_scale * ZoomInSize)
-			print(new_position)
-			print(target_scale)
 			move_neighbors()
 			Global.selected_card = null
 

@@ -2,7 +2,7 @@ extends TextureButton
 
 var Decksize = INF
 
-var CardSize = Vector2(250, 350)
+var CardSize = Vector2(200, 280)
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass

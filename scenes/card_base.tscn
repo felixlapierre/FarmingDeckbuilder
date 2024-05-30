@@ -10,9 +10,9 @@ default_font = ExtResource("3_inew6")
 
 [node name="CardBase" type="MarginContainer"]
 texture_filter = 1
-offset_right = 125.0
-offset_bottom = 182.0
-pivot_offset = Vector2(125, 175)
+offset_right = 200.0
+offset_bottom = 280.0
+pivot_offset = Vector2(100, 140)
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme = ExtResource("1_w62ds")
@@ -24,26 +24,22 @@ centered = false
 
 [node name="CardIcon" type="Sprite2D" parent="."]
 texture_filter = 1
-scale = Vector2(4.01612, 3.98287)
+scale = Vector2(3.227, 3.2)
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
+[node name="HBoxContainer" type="MarginContainer" parent="."]
 texture_filter = 2
-custom_minimum_size = Vector2(250, 350)
+custom_minimum_size = Vector2(200, 280)
 layout_mode = 2
-
-[node name="LeftMargin" type="MarginContainer" parent="HBoxContainer"]
-custom_minimum_size = Vector2(10, 0)
-layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
 theme = SubResource("Theme_xgb3r")
-
-[node name="TopMargin" type="MarginContainer" parent="HBoxContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 10)
-layout_mode = 2
 
 [node name="TopBar" type="HBoxContainer" parent="HBoxContainer/VBoxContainer"]
 layout_mode = 2
@@ -59,12 +55,12 @@ text = "1
 "
 
 [node name="ImageGap" type="MarginContainer" parent="HBoxContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 100)
+custom_minimum_size = Vector2(0, 80)
 layout_mode = 2
 
 [node name="DescriptionLabel" type="Label" parent="HBoxContainer/VBoxContainer"]
 texture_filter = 2
-custom_minimum_size = Vector2(0, 140)
+custom_minimum_size = Vector2(0, 112)
 layout_mode = 2
 text = "Description
 "
@@ -87,14 +83,6 @@ horizontal_alignment = 2
 [node name="TimeLabel" type="Label" parent="HBoxContainer/VBoxContainer/BottomBar"]
 layout_mode = 2
 text = " 3"
-
-[node name="BottomMargin" type="MarginContainer" parent="HBoxContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 10)
-layout_mode = 2
-
-[node name="RightMargin" type="MarginContainer" parent="HBoxContainer"]
-custom_minimum_size = Vector2(10, 0)
-layout_mode = 2
 
 [node name="Focus" type="TextureButton" parent="."]
 layout_mode = 2
