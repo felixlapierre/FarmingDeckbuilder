@@ -261,6 +261,15 @@ theme_override_fonts/font = ExtResource("13_blg2d")
 theme_override_font_sizes/font_size = 50
 text = "+12"
 
+[node name="SkipButton" type="Button" parent="UI"]
+layout_mode = 0
+offset_left = 1223.0
+offset_top = 6.0
+offset_right = 1294.0
+offset_bottom = 55.0
+theme = ExtResource("4_0pjqo")
+text = "Skip"
+
 [node name="Cards" parent="." instance=ExtResource("7_81aef")]
 
 [node name="Winter" type="Control" parent="."]
@@ -317,6 +326,7 @@ visible = false
 [connection signal="on_preview_yield" from="FarmTiles" to="." method="_on_farm_tiles_on_preview_yield"]
 [connection signal="on_yield_gained" from="FarmTiles" to="." method="_on_farm_tiles_on_yield_gained"]
 [connection signal="pressed" from="UI/EndTurnButton" to="." method="_on_end_turn_button_pressed"]
+[connection signal="pressed" from="UI/SkipButton" to="." method="_on_skip_button_pressed"]
 [connection signal="button_up" from="Winter/ShopButton" to="." method="_on_shop_button_button_up"]
 [connection signal="pressed" from="Winter/NextYearButton" to="." method="start_year"]
 [connection signal="pressed" from="Winter/FarmUpgradeButton" to="." method="_on_farm_upgrade_button_pressed"]

@@ -11,13 +11,13 @@ rarity = "rare"
 cost = 1
 yld = 4
 time = 1
-size = 1
+size = 8
 text = "Harvests 8 adjacent tiles at the end of the week"
 texture = ExtResource("2_2iei7")
 seed_texture = 6
 targets = Array[String]([])
 effects = Array[Dictionary]([{
 "name": "harvest",
-"range": "adjacent",
-"time": "week_start"
+"on": "week_start",
+"range": "adjacent"
 }])

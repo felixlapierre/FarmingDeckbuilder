@@ -5,9 +5,11 @@ static func get_tile_shape(size, shape):
 
 static func get_tile_shape_rotated(size, shape: Enums.CursorShape, rotation):
 	var result = []
-	if shape == Enums.CursorShape.Line or size <= 2:
+	if shape == Enums.CursorShape.Line:
 		for i in range(size):
-			result.append(Vector2(i, 0).rotated(PI/2 * rotation).round())
+			var x = ceil(float(i)/2)
+			var sign = 1 if i % 2 == 0 else -1
+			result.append(Vector2(x * sign, 0).rotated(PI/2 * rotation).round())
 		return result
 	
 	var skip_center = 0 if shape == Enums.CursorShape.Square else 1

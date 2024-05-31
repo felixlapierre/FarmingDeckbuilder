@@ -35,7 +35,10 @@ func _ready() -> void:
 func use_card(card, grid_position):
 	if card == null or card.cost > $"../".energy:
 		return
-	var targets = get_targeted_tiles(grid_position, Global.selected_card.size, Global.shape, Global.rotate)
+	var size = Global.selected_card.size
+	if card.type == "STRUCTURE":
+		size = 1
+	var targets = get_targeted_tiles(grid_position, size, Global.shape, Global.rotate)
 	use_card_on_targets(card, targets, false)
 	clear_overlay()
 	card_played.emit(card)
@@ -53,11 +56,21 @@ func show_select_overlay():
 		return
 	clear_overlay()
 	var grid_position = hovered_tile.grid_location
-	var shape = get_targeted_tiles(grid_position, card.size, Global.shape, Global.rotate)
+	var shape = Global.shape
+	if card.type == "STRUCTURE":
+		shape = Enums.CursorShape.Elbow
+		var sprite = Sprite2D.new()
+		sprite.texture = card.texture
+		sprite.position = TOP_LEFT + (grid_position) * TILE_SIZE + TILE_SIZE / 2
+		sprite.scale *= TILE_SIZE / sprite.texture.get_size()
+		sprite.z_index = 1
+		$SelectOverlay.add_child(sprite)
+		
+	var targets = get_targeted_tiles(grid_position, card.size, shape, Global.rotate)
 	var yld_preview_yellow = 0
 	var yld_preview_purple = 0
 
-	for item in shape:
+	for item in targets:
 		var error = false
 		if not Helper.in_bounds(item):
 			error = true
@@ -120,6 +133,10 @@ func clear_overlay():
 	on_preview_yield.emit(0, 0) #This signals to clear the preview
 
 func process_one_week():
+	for tile in $Tiles.get_children():
+		effect_queue.append_array(tile.on_turn_effects())
+	process_effect_queue()
+
 	var growing_tiles = []
 	for tile in $Tiles.get_children():
 		if tile.state == Enums.TileState.Growing:
@@ -200,7 +217,7 @@ func use_card_on_targets(card, targets, only_first):
 		elif card.type == "ACTION":
 			use_action_card(card, Vector2(target.x, target.y))
 		elif card.type == "STRUCTURE":
-			target_tile.build_structure(card)
+			target_tile.build_structure(card, Global.rotate)
 		if only_first:
 			return
 

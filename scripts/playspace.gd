@@ -83,8 +83,8 @@ func _on_end_turn_button_pressed() -> void:
 	Global.selected_card = null
 	$Cards.discard_hand()
 	await get_tree().create_timer(0.3).timeout
-	$FarmTiles.process_one_week()
-	await get_tree().create_timer(0.7).timeout
+	await $FarmTiles.process_one_week()
+	await get_tree().create_timer(0.1).timeout
 	if ritual_counter <= 0:
 		# End the year
 		end_year()
@@ -197,3 +197,11 @@ func _on_farm_upgrade_button_pressed() -> void:
 
 func _on_farm_tiles_on_energy_gained(amount) -> void:
 	energy += amount
+
+
+func _on_skip_button_pressed() -> void:
+	ritual_counter = 0
+	blight_counter = 0
+	Global.selected_card = null
+	$Cards.discard_hand()
+	end_year()

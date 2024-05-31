@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="CardData" load_steps=3 format=3 uid="uid://dga1krx6t0skr"]
+
+[ext_resource type="Script" path="res://scripts/card_data.gd" id="1_nv3ay"]
+[ext_resource type="Texture2D" uid="uid://cavyjgexng65w" path="res://assets/custom/Fertilizer.png" id="2_n0wmb"]
+
+[resource]
+script = ExtResource("1_nv3ay")
+type = "STRUCTURE"
+name = "Fertilizer"
+rarity = "rare"
+cost = 1
+yld = 4
+time = 1
+size = 1
+text = "One tile grows +1 time per week"
+texture = ExtResource("2_n0wmb")
+seed_texture = 6
+targets = Array[String]([])
+effects = Array[Dictionary]([{
+"name": "grow",
+"on": "turn",
+"range": "adjacent",
+"strength": 1
+}])

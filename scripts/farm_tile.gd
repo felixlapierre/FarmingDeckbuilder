@@ -17,6 +17,7 @@ var current_multiplier = 1.0
 var irrigated = false
 var IRRIGATED_MULTIPLIER = 0.4
 var purple = false
+var structure_rotate = 0
 
 signal tile_hovered
 
@@ -136,9 +137,10 @@ func lose_irrigate():
 	irrigated = false
 	$IrrigateOverlay.visible = false
 
-func build_structure(card):
+func build_structure(card, rotate):
 	state = Enums.TileState.Structure
 	structure = card
+	structure_rotate = rotate
 	$PlantSprite.texture = card.texture
 	$PlantSprite.visible = true
 	$PlantSprite.region_enabled = false
@@ -150,13 +152,19 @@ func build_structure(card):
 		.set_ease(Tween.EASE_OUT)
 	
 func start_of_week_effects():
+	return get_effects("week_start")
+
+func on_turn_effects():
+	return get_effects("turn")
+
+func get_effects(time):
 	var effects_generated = []
 	#TODO: Fix this unholy indentation
 	if structure != null:
 		for effect in structure.effects:
-			if effect.time == "week_start":
+			if effect.on == time:
 				if effect.range == "adjacent":
-					var shapes = Helper.get_tile_shape(9, Enums.CursorShape.Square)
+					var shapes = Helper.get_tile_shape_rotated(structure.size, Enums.CursorShape.Elbow, structure_rotate)
 					for shape in shapes:
 						var target = shape + grid_location
 						if Helper.in_bounds(target):
