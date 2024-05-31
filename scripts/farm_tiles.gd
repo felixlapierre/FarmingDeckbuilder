@@ -13,6 +13,7 @@ var current_shape
 signal card_played
 signal on_yield_gained
 signal on_preview_yield
+signal on_energy_gained
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -34,19 +35,8 @@ func _ready() -> void:
 func use_card(card, grid_position):
 	if card == null or card.cost > $"../".energy:
 		return
-	var shape = get_targeted_tiles(grid_position, Global.selected_card.size)
-	for target in shape:
-		if not Helper.in_bounds(target):
-			continue
-		var target_tile = tiles[target.x][target.y]
-		if not is_eligible_card(card, target_tile):
-			continue
-		if card.type == "SEED":
-			target_tile.plant_seed_animate(card)
-		elif card.type == "ACTION":
-			use_action_card(card, Vector2(target.x, target.y))
-		elif card.type == "STRUCTURE":
-			target_tile.build_structure(card)
+	var targets = get_targeted_tiles(grid_position, Global.selected_card.size, Global.shape, Global.rotate)
+	use_card_on_targets(card, targets, false)
 	clear_overlay()
 	card_played.emit(card)
 
@@ -63,7 +53,7 @@ func show_select_overlay():
 		return
 	clear_overlay()
 	var grid_position = hovered_tile.grid_location
-	var shape = get_targeted_tiles(grid_position, card.size)
+	var shape = get_targeted_tiles(grid_position, card.size, Global.shape, Global.rotate)
 	var yld_preview_yellow = 0
 	var yld_preview_purple = 0
 
@@ -104,16 +94,16 @@ func is_eligible_card(card, targeted_tile):
 		_:
 			return true
 
-func get_targeted_tiles(grid_position, size):
-	var shape = []
-	if Global.selected_card.size != -1:
-		for item in Helper.get_tile_shape_rotated(Global.selected_card.size, Global.shape, Global.rotate):
-			shape.append(item + grid_position)
+func get_targeted_tiles(grid_position, size, shape, rotate):
+	var tiles = []
+	if size != -1:
+		for item in Helper.get_tile_shape_rotated(size, shape, rotate):
+			tiles.append(item + grid_position)
 	else:
 		for i in range(0, Constants.FARM_DIMENSIONS.x):
 			for j in range(0, Constants.FARM_DIMENSIONS.y):
-				shape.append(Vector2(i, j))
-	return shape
+				tiles.append(Vector2(i, j))
+	return tiles
 
 func pct(num):
 	return float(num)/100.0
@@ -192,3 +182,27 @@ func gain_yield(yield_amount, purple):
 func do_winter_clear():
 	for tile in $Tiles.get_children():
 		tile.do_winter_clear()
+
+func spread(card, grid_position, size, shape):
+	var targets = get_targeted_tiles(grid_position, size, shape, 0)
+	targets.shuffle()
+	use_card_on_targets(card, targets, true)
+
+func use_card_on_targets(card, targets, only_first):
+	for target in targets:
+		if not Helper.in_bounds(target):
+			continue
+		var target_tile = tiles[target.x][target.y]
+		if not is_eligible_card(card, target_tile):
+			continue
+		if card.type == "SEED":
+			target_tile.plant_seed_animate(card)
+		elif card.type == "ACTION":
+			use_action_card(card, Vector2(target.x, target.y))
+		elif card.type == "STRUCTURE":
+			target_tile.build_structure(card)
+		if only_first:
+			return
+
+func gain_energy(amount):
+	on_energy_gained.emit(amount)

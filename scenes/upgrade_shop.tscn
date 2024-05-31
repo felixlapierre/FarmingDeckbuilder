@@ -1,0 +1,63 @@
+[gd_scene load_steps=4 format=3 uid="uid://dvjkkex6w162i"]
+
+[ext_resource type="Script" path="res://scenes/upgrade_shop.gd" id="1_tdv4b"]
+[ext_resource type="Theme" uid="uid://c21dhy264y6ty" path="res://assets/theme_large.tres" id="2_8i71s"]
+[ext_resource type="Texture2D" uid="uid://i3hxrkvy84y4" path="res://assets/custom/Star.png" id="2_jv3eb"]
+
+[node name="UpgradeShop" type="Node2D"]
+script = ExtResource("1_tdv4b")
+
+[node name="ClickOutButton" type="Button" parent="."]
+modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(1920, 1080)
+offset_right = 1920.0
+offset_bottom = 1080.0
+
+[node name="Panel" type="PanelContainer" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+theme = ExtResource("2_8i71s")
+
+[node name="VBox" type="VBoxContainer" parent="Panel"]
+layout_mode = 2
+
+[node name="HBox" type="HBoxContainer" parent="Panel/VBox"]
+layout_mode = 2
+
+[node name="Prompt" type="Label" parent="Panel/VBox/HBox"]
+layout_mode = 2
+text = "Choose an Upgrade"
+
+[node name="Close" type="Button" parent="Panel/VBox/HBox"]
+layout_mode = 2
+text = "Close"
+
+[node name="Expand" type="Button" parent="Panel/VBox"]
+layout_mode = 2
+text = "Expand Farm"
+
+[node name="Energy" type="Button" parent="Panel/VBox"]
+layout_mode = 2
+text = "Energy Fragment
+"
+
+[node name="Draw" type="Button" parent="Panel/VBox"]
+layout_mode = 2
+text = "Draw Fragment
+"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBox"]
+layout_mode = 2
+
+[node name="Skip" type="Button" parent="Panel/VBox/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Skip"
+
+[node name="Label" type="Label" parent="Panel/VBox/HBoxContainer"]
+layout_mode = 2
+text = "+3"
+
+[node name="TextureRect" type="TextureRect" parent="Panel/VBox/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("2_jv3eb")

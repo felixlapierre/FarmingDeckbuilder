@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="CardData" load_steps=2 format=3 uid="uid://cxo5fik2tsce8"]
+
+[ext_resource type="Script" path="res://scripts/card_data.gd" id="1_ywcda"]
+
+[resource]
+script = ExtResource("1_ywcda")
+type = "SEED"
+name = "Watermelon"
+rarity = "common"
+cost = 2
+yld = 7
+time = 5
+size = 3
+text = "Benefits twice as much from irrigation"
+seed_texture = 8
+targets = Array[String]([])
+effects = Array[Dictionary]([{
+"name": "absorb",
+"strength": 1.0
+}])

@@ -13,14 +13,14 @@ var card_database
 var deck = []
 var starting_deck = [
 	{
-		"name": "blueberry",
-		"type": "seed",
-		"count": 3
-	},
-	{
 		"name": "carrot",
 		"type": "seed",
-		"count": 3
+		"count": 2
+	},
+	{
+		"name": "blueberry",
+		"type": "seed",
+		"count": 2
 	},
 	{
 		"name": "scythe",
@@ -28,19 +28,19 @@ var starting_deck = [
 		"count": 3
 	},
 	{
-		"name": "pumpkin",
+		"name": "watermelon",
 		"type": "seed",
 		"count": 1
 	},
 	{
-		"name": "focus",
-		"type": "action",
-		"count": 2
+		"name": "coffee",
+		"type": "seed",
+		"count": 1
 	},
 	{
-		"name": "time_bubble",
-		"type": "action",
-		"count": 2
+		"name": "mint",
+		"type": "seed",
+		"count": 1
 	}
 ]
 
@@ -55,7 +55,7 @@ func _ready() -> void:
 			deck.append(card_database.get_card_by_name(card.name, card.type))
 	update()
 	start_year()
-	ritual_counter = 0
+	ritual_counter = 30
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -178,12 +178,22 @@ func end_year():
 	$Cards.do_winter_clear()
 	$Winter.visible = true
 	$Shop.fill_shop()
+	next_turn_blight = 0
 
 func start_year():
 	$UI.visible = true
 	$Cards.visible = true
 	$Winter.visible = false
-	ritual_counter = 0
+	ritual_counter = 30
 	$Cards.set_deck_for_year(deck)
 	$Cards.draw_hand()
+	week = 1
 	update()
+
+
+func _on_farm_upgrade_button_pressed() -> void:
+	pass # Replace with function body.
+
+
+func _on_farm_tiles_on_energy_gained(amount) -> void:
+	energy += amount

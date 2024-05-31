@@ -67,10 +67,16 @@ func grow_one_week():
 		current_multiplier = 1.0
 		if irrigated:
 			current_multiplier += IRRIGATED_MULTIPLIER
+			var absorb = seed.get_effect("absorb")
+			if absorb != null:
+				current_multiplier += IRRIGATED_MULTIPLIER * absorb.strength
 		update_plant_sprite()
 		grow_animation()
 		if current_grow_progress == seed_grow_time:
 			state = Enums.TileState.Mature
+		var spread = seed.get_effect("spread")
+		if spread != null and spread.on == "grow":
+			$'../../'.spread(seed, grid_location, 8, Enums.CursorShape.Elbow)
 
 func grow_animation():
 	var tween = get_tree().create_tween()
@@ -107,6 +113,9 @@ func harvest():
 		current_grow_progress = 0.0
 		current_yield = 0.0
 		$PlantSprite.visible = false
+		var energy = seed.get_effect("energy")
+		if energy != null:
+			$"../..".gain_energy(energy.amount)
 		var recurring = seed.get_effect("recurring")
 		if recurring != null:
 			plant_seed(seed)

@@ -86,6 +86,7 @@ func create_scrap_option(amount, row):
 	var scrap = ShopButton.instantiate()
 	scrap.text = "Gain"
 	scrap.cost = amount
+	scrap.row = row
 	scrap.option_selected.connect(on_scrap)
 	return scrap
 
@@ -129,7 +130,8 @@ func on_buy(option, row):
 	finish_item_bought(option, option.card_info, row)
 
 func finish_item_bought(card, card_data, row) -> void:
-	on_item_bought.emit(card_data)
+	if card_data.type != "STRUCTURE":
+		on_item_bought.emit(card_data)
 	set_row_visible(row, false)
 	update_labels()
 
@@ -174,4 +176,6 @@ func on_reroll(cost, row):
 	fill_row_number(row)
 
 func on_scrap(amount, row):
-	print(str(amount) + " " + str(row))
+	player_money += amount
+	set_row_visible(row, false)
+	update_labels()

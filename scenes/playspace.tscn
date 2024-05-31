@@ -264,7 +264,6 @@ text = "+12"
 [node name="Cards" parent="." instance=ExtResource("7_81aef")]
 
 [node name="Winter" type="Control" parent="."]
-visible = false
 layout_mode = 3
 anchors_preset = 0
 theme = ExtResource("4_0pjqo")
@@ -288,10 +287,10 @@ text = "Next Year"
 
 [node name="FortuneTellerButton" type="Button" parent="Winter"]
 layout_mode = 0
-offset_left = 211.0
-offset_top = 587.0
-offset_right = 453.0
-offset_bottom = 636.0
+offset_left = 832.0
+offset_top = 835.0
+offset_right = 1074.0
+offset_bottom = 884.0
 text = "Fortune Teller"
 
 [node name="EventButton" type="Button" parent="Winter"]
@@ -302,15 +301,25 @@ offset_right = 1378.0
 offset_bottom = 426.0
 text = "Event"
 
+[node name="FarmUpgradeButton" type="Button" parent="Winter"]
+layout_mode = 0
+offset_left = 341.0
+offset_top = 432.0
+offset_right = 479.0
+offset_bottom = 481.0
+text = "Upgrade"
+
 [node name="Shop" parent="." instance=ExtResource("12_q43t0")]
 visible = false
 
 [connection signal="card_played" from="FarmTiles" to="." method="_on_farm_tiles_card_played"]
+[connection signal="on_energy_gained" from="FarmTiles" to="." method="_on_farm_tiles_on_energy_gained"]
 [connection signal="on_preview_yield" from="FarmTiles" to="." method="_on_farm_tiles_on_preview_yield"]
 [connection signal="on_yield_gained" from="FarmTiles" to="." method="_on_farm_tiles_on_yield_gained"]
 [connection signal="pressed" from="UI/EndTurnButton" to="." method="_on_end_turn_button_pressed"]
 [connection signal="button_up" from="Winter/ShopButton" to="." method="_on_shop_button_button_up"]
 [connection signal="pressed" from="Winter/NextYearButton" to="." method="start_year"]
+[connection signal="pressed" from="Winter/FarmUpgradeButton" to="." method="_on_farm_upgrade_button_pressed"]
 [connection signal="on_card_removed" from="Shop" to="." method="_on_shop_on_card_removed"]
 [connection signal="on_item_bought" from="Shop" to="." method="_on_shop_on_item_bought"]
 [connection signal="on_money_spent" from="Shop" to="." method="_on_shop_on_money_spent"]
