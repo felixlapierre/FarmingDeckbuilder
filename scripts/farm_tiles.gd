@@ -33,7 +33,7 @@ func _ready() -> void:
 			$Tiles.add_child(tile)
 
 func use_card(card, grid_position):
-	if card == null or card.cost > $"../".energy:
+	if card == null or (card.cost > $"../".energy and card.type != "STRUCTURE"):
 		return
 	var size = Global.selected_card.size
 	if card.type == "STRUCTURE":
@@ -64,6 +64,7 @@ func show_select_overlay():
 		sprite.position = TOP_LEFT + (grid_position) * TILE_SIZE + TILE_SIZE / 2
 		sprite.scale *= TILE_SIZE / sprite.texture.get_size()
 		sprite.z_index = 1
+		sprite.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 		$SelectOverlay.add_child(sprite)
 		
 	var targets = get_targeted_tiles(grid_position, card.size, shape, Global.rotate)
@@ -77,12 +78,20 @@ func show_select_overlay():
 		else:
 			var targeted_tile = tiles[item.x][item.y]
 			error = !is_eligible_card(card, targeted_tile)
+			var yld_purple = 0
+			var yld_yellow = 0
 			if card.get_effect("harvest") != null:
 				var yld = targeted_tile.preview_harvest()
 				if targeted_tile.purple:
-					yld_preview_purple += yld
+					yld_purple += yld
 				else:
-					yld_preview_yellow += yld
+					yld_yellow += yld
+			var multiply_yield = card.get_effect("multiply_yield")
+			if multiply_yield != null:
+				yld_purple *= multiply_yield.strength
+				yld_yellow *= multiply_yield.strength
+			yld_preview_purple += yld_purple
+			yld_preview_yellow += yld_yellow
 		var sprite = Sprite2D.new()
 		sprite.texture = load("res://assets/custom/SelectTile.png")
 		sprite.position = TOP_LEFT + (item) * TILE_SIZE + TILE_SIZE / 2
@@ -192,6 +201,10 @@ func perform_effect(effect, tile):
 		"grow":
 			for i in range(effect.strength):
 				tile.grow_one_week()
+		"multiply_yield":
+			tile.multiply_yield(effect.strength)
+		"add_yield":
+			tile.add_yield(effect.strength)
 
 func gain_yield(yield_amount, purple):
 	on_yield_gained.emit(int(yield_amount), purple)

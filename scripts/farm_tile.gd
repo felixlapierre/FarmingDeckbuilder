@@ -187,3 +187,8 @@ func do_winter_clear():
 		var irrigated = false
 		$PlantSprite.visible = false
 		lose_irrigate()
+
+func multiply_yield(strength):
+	current_yield *= strength
+func add_yield(strength):
+	current_yield += strength

@@ -113,8 +113,9 @@ func generate_random_shop_items_choice1(count, types):
 	while i < count:
 		var selection = common if randf() > 0.70 else rare
 		var selected = randi_range(0, selection.size() - 1)
-		result.append(selection[selected])
-		i += 1
+		if !result.has(selected):
+			result.append(selection[selected])
+			i += 1
 	return result
 
 func on_buy_row1(option):

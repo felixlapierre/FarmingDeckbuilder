@@ -1,13 +1,8 @@
 extends Node2D
 
-var total_yield = 500
-var week = 1
 var energy = 3
-var yield_counter = 0
-var blight_counter = 0
-var target_blight = 0
-var ritual_counter = 0
-var next_turn_blight = 0
+var victory = false
+var turn_ending = false
 
 var card_database
 var deck = []
@@ -15,12 +10,12 @@ var starting_deck = [
 	{
 		"name": "carrot",
 		"type": "seed",
-		"count": 2
+		"count": 3
 	},
 	{
 		"name": "blueberry",
 		"type": "seed",
-		"count": 2
+		"count": 3
 	},
 	{
 		"name": "scythe",
@@ -28,17 +23,7 @@ var starting_deck = [
 		"count": 3
 	},
 	{
-		"name": "watermelon",
-		"type": "seed",
-		"count": 1
-	},
-	{
-		"name": "coffee",
-		"type": "seed",
-		"count": 1
-	},
-	{
-		"name": "mint",
+		"name": "pumpkin",
 		"type": "seed",
 		"count": 1
 	}
@@ -55,7 +40,6 @@ func _ready() -> void:
 			deck.append(card_database.get_card_by_name(card.name, card.type))
 	update()
 	start_year()
-	ritual_counter = 30
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -65,58 +49,56 @@ func _process(delta: float) -> void:
 func _on_farm_tiles_card_played(card) -> void:
 	if card.type == "STRUCTURE":
 		Global.selected_card = null
-		await get_tree().create_timer(1).timeout
 		shop_structure_place_callback.call()
+		await get_tree().create_timer(1).timeout
 		set_winter_visible(true)
 		$Shop.visible = true
-
-
 	else:
 		energy -= card.cost
 		update()
 		$Cards.play_card()
-
+		if victory == true:
+			end_year()
 
 func _on_end_turn_button_pressed() -> void:
-	target_blight -= blight_counter
-	blight_counter = 0
+	if turn_ending:
+		return
+	turn_ending = true
 	Global.selected_card = null
 	$Cards.discard_hand()
 	await get_tree().create_timer(0.3).timeout
 	await $FarmTiles.process_one_week()
 	await get_tree().create_timer(0.1).timeout
-	if ritual_counter <= 0:
-		# End the year
+	
+	if victory == true:
 		end_year()
+		turn_ending = false
 		return
+	var damage = $TurnManager.end_turn()
 	$Cards.draw_hand()
-	week += 1
 	energy = Constants.MAX_ENERGY
-	yield_counter = 0
 
-	if target_blight > 0:
+	if damage:
 		print("Took Damage")
-	target_blight = 0
-	target_blight = next_turn_blight
-	next_turn_blight = get_blight_at_week(week)
 	update()
-
+	turn_ending = false
 
 func _on_farm_tiles_on_yield_gained(yield_amount, purple) -> void:
 	if purple:
-		blight_counter += yield_amount
+		$TurnManager.gain_purple_mana(yield_amount)
 	else:
-		total_yield += yield_amount
-		yield_counter += yield_amount
-		ritual_counter -= yield_amount
+		var ritual_complete = $TurnManager.gain_yellow_mana(yield_amount)
+		if ritual_complete:
+			victory = true
 	update()
 	
 func update():
-	$UI/Stats/VBox/YieldLabel.text = "Total Yield: " + str(int(total_yield))
-	$UI/Stats/VBox/TurnLabel.text = "Week: " + str(week)
+	$UI/Stats/VBox/TurnLabel.text = "Week: " + str($TurnManager.week)
 	$UI/Stats/VBox/EnergyLabel.text = "Energy: " + str(energy) + " / " + str(Constants.MAX_ENERGY)
-	$UI/BlightCounter/Label.text = str(blight_counter) + " / " + str(target_blight) + " <-- " + str(next_turn_blight)
-	$UI/RitualCounter/Label.text = str(ritual_counter)
+	$UI/BlightCounter/Label.text = str($TurnManager.purple_mana)\
+		 + " / " + str($TurnManager.target_blight)\
+		 + " <-- " + str($TurnManager.next_turn_blight)
+	$UI/RitualCounter/Label.text = str($TurnManager.ritual_counter)
 	$Shop.update_labels()
 
 
@@ -133,7 +115,6 @@ func _on_shop_on_item_bought(item) -> void:
 	deck.append(item)
 
 func _on_shop_on_money_spent(amount) -> void:
-	total_yield -= amount
 	update()
 
 func _on_shop_on_card_removed(card) -> void:
@@ -173,22 +154,26 @@ func _on_farm_tiles_on_preview_yield(yellow, purple) -> void:
 	$UI/Preview/Panel/HBox/PreviewPurple.text = "+" + str(purple)
 	
 func end_year():
-	$FarmTiles.do_winter_clear()
-	$UI.visible = false
+	$Cards.discard_hand()
 	$Cards.do_winter_clear()
-	$Winter.visible = true
+	await get_tree().create_timer(1.5).timeout
+
+	$FarmTiles.do_winter_clear()
 	$Shop.fill_shop()
-	next_turn_blight = 0
+	$TurnManager.end_year()
+	$UI.visible = false
+	$Winter.visible = true
 
 func start_year():
+	victory = false
+	energy = Constants.MAX_ENERGY
+	$TurnManager.start_new_year()
+	$Cards.set_deck_for_year(deck)
+	$Cards.draw_hand()
+	update()
 	$UI.visible = true
 	$Cards.visible = true
 	$Winter.visible = false
-	ritual_counter = 30
-	$Cards.set_deck_for_year(deck)
-	$Cards.draw_hand()
-	week = 1
-	update()
 
 
 func _on_farm_upgrade_button_pressed() -> void:
@@ -200,8 +185,5 @@ func _on_farm_tiles_on_energy_gained(amount) -> void:
 
 
 func _on_skip_button_pressed() -> void:
-	ritual_counter = 0
-	blight_counter = 0
 	Global.selected_card = null
-	$Cards.discard_hand()
 	end_year()

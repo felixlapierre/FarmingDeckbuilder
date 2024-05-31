@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://xva3qbqb4k5o"]
+[gd_scene load_steps=20 format=3 uid="uid://xva3qbqb4k5o"]
 
 [ext_resource type="Texture2D" uid="uid://dejmbtpxa2rtc" path="res://assets/1616tinygarden/tileset.png" id="1_jy4o7"]
 [ext_resource type="Script" path="res://scripts/playspace.gd" id="1_yho3j"]
@@ -16,6 +16,7 @@
 [ext_resource type="FontFile" uid="uid://drlkmr7jve2ep" path="res://assets/m5x7.ttf" id="13_blg2d"]
 [ext_resource type="Texture2D" uid="uid://c0mxwj13dwpml" path="res://assets/custom/PurpleMana.png" id="14_pwohe"]
 [ext_resource type="Texture2D" uid="uid://b5gtwrgnirbxg" path="res://assets/custom/YellowMana.png" id="15_va62u"]
+[ext_resource type="PackedScene" uid="uid://bc8n6jk05ybsj" path="res://scenes/turn_manager.tscn" id="17_h6fui"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_n4x4v"]
 texture = ExtResource("1_jy4o7")
@@ -196,10 +197,6 @@ layout_mode = 2
 [node name="TurnLabel" type="Label" parent="UI/Stats/VBox"]
 layout_mode = 2
 
-[node name="YieldLabel" type="Label" parent="UI/Stats/VBox"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 50
-
 [node name="EnergyLabel" type="Label" parent="UI/Stats/VBox"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
@@ -229,9 +226,9 @@ script = ExtResource("4_jb073")
 visible = false
 layout_mode = 0
 offset_left = 847.0
-offset_top = 130.0
+offset_top = 88.0
 offset_right = 965.0
-offset_bottom = 171.0
+offset_bottom = 129.0
 theme = ExtResource("4_0pjqo")
 
 [node name="Panel" type="PanelContainer" parent="UI/Preview"]
@@ -320,6 +317,8 @@ text = "Upgrade"
 
 [node name="Shop" parent="." instance=ExtResource("12_q43t0")]
 visible = false
+
+[node name="TurnManager" parent="." instance=ExtResource("17_h6fui")]
 
 [connection signal="card_played" from="FarmTiles" to="." method="_on_farm_tiles_card_played"]
 [connection signal="on_energy_gained" from="FarmTiles" to="." method="_on_farm_tiles_on_energy_gained"]
