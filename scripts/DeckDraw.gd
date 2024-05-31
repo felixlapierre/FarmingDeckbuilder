@@ -10,10 +10,3 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
-
-func _gui_input(event: InputEvent):
-	if Input.is_action_just_released("leftclick"):
-		if Decksize > 0:
-			Decksize = $'../../Cards/'.draw_one_card()
-			if Decksize == 0:
-				disabled = true

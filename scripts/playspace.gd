@@ -38,6 +38,11 @@ func _ready() -> void:
 	for card in starting_deck:
 		for i in range(card.count):
 			deck.append(card_database.get_card_by_name(card.name, card.type))
+	for i in Constants.MAX_BLIGHT:
+		var sprite = TextureRect.new()
+		sprite.texture = load("res://assets/custom/BlightEmpty.png")
+		sprite.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+		$UI/BlightDamage.add_child(sprite)
 	update()
 	start_year()
 
@@ -79,9 +84,15 @@ func _on_end_turn_button_pressed() -> void:
 	energy = Constants.MAX_ENERGY
 
 	if damage:
-		print("Took Damage")
+		$UI/BlightDamage.visible = true
+		var img = $UI/BlightDamage.get_child($TurnManager.blight_damage - 1)
+		img.texture = load("res://assets/custom/Blight.png")
 	update()
+	if $TurnManager.blight_damage >= Constants.MAX_BLIGHT:
+		on_lose()
+	await get_tree().create_timer(1).timeout
 	turn_ending = false
+
 
 func _on_farm_tiles_on_yield_gained(yield_amount, purple) -> void:
 	if purple:
@@ -93,6 +104,7 @@ func _on_farm_tiles_on_yield_gained(yield_amount, purple) -> void:
 	update()
 	
 func update():
+	$UI/Stats/VBox/YearLabel.text = "Year: " + str($TurnManager.year) + " / 10"
 	$UI/Stats/VBox/TurnLabel.text = "Week: " + str($TurnManager.week)
 	$UI/Stats/VBox/EnergyLabel.text = "Energy: " + str(energy) + " / " + str(Constants.MAX_ENERGY)
 	$UI/BlightCounter/Label.text = str($TurnManager.purple_mana)\
@@ -187,3 +199,11 @@ func _on_farm_tiles_on_energy_gained(amount) -> void:
 func _on_skip_button_pressed() -> void:
 	Global.selected_card = null
 	end_year()
+
+func on_lose():
+	$Cards.discard_hand()
+	$Cards.do_winter_clear()
+	$UI/EndTurnButton.visible = false
+	$LoseContainer.visible = true
+	$UI/Deck.visible = false
+	$UI/RitualCounter.visible = false

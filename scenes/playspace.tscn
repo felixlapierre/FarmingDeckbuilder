@@ -185,6 +185,14 @@ stretch_mode = 5
 layout_mode = 2
 text = "42"
 
+[node name="BlightDamage" type="HBoxContainer" parent="UI"]
+visible = false
+layout_mode = 0
+offset_left = 1206.0
+offset_top = 475.0
+offset_right = 1246.0
+offset_bottom = 515.0
+
 [node name="Stats" type="MarginContainer" parent="UI"]
 layout_mode = 0
 offset_right = 40.0
@@ -192,6 +200,9 @@ offset_bottom = 77.0
 theme = ExtResource("4_0pjqo")
 
 [node name="VBox" type="VBoxContainer" parent="UI/Stats"]
+layout_mode = 2
+
+[node name="YearLabel" type="Label" parent="UI/Stats/VBox"]
 layout_mode = 2
 
 [node name="TurnLabel" type="Label" parent="UI/Stats/VBox"]
@@ -319,6 +330,19 @@ text = "Upgrade"
 visible = false
 
 [node name="TurnManager" parent="." instance=ExtResource("17_h6fui")]
+
+[node name="LoseContainer" type="PanelContainer" parent="."]
+visible = false
+offset_left = 746.0
+offset_top = 407.0
+offset_right = 1119.0
+offset_bottom = 487.0
+theme = ExtResource("4_0pjqo")
+
+[node name="YouLose" type="Label" parent="LoseContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 100
+text = "You Lose! :("
 
 [connection signal="card_played" from="FarmTiles" to="." method="_on_farm_tiles_card_played"]
 [connection signal="on_energy_gained" from="FarmTiles" to="." method="_on_farm_tiles_on_energy_gained"]

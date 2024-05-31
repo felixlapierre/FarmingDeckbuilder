@@ -31,6 +31,7 @@ func do_winter_clear():
 		$Discarding.remove_child(display_card)
 	discard_pile_cards = []
 	deck_cards = []
+	number_of_cards_in_hand = 0
 
 func set_deck_for_year(new_deck):
 	for card in new_deck:
