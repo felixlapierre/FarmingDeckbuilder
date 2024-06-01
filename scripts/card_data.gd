@@ -13,7 +13,7 @@ class_name CardData
 @export var texture: Texture2D
 @export var seed_texture: int
 @export var targets: Array[String]
-@export var effects: Array[Dictionary]
+@export var effects: Array[Effect]
 
 func _init(p_type = "CARD", p_name = "PlaceholderCardName", p_rarity = "common", p_cost = 1, p_yld = 1,\
 	p_time = 1, p_size = 1, p_text = "", p_texture = null, p_seed_texture = 1, p_targets = [], p_effects = []):
@@ -42,6 +42,6 @@ func copy():
 		n_targets.append(target)
 	var n_effects = []
 	for effect in effects:
-		n_effects.append(effect.duplicate())
+		n_effects.append(effect.copy())
 	
 	return CardData.new(type, name, rarity, cost, yld, time, size, text, texture, seed_texture, n_targets, n_effects)

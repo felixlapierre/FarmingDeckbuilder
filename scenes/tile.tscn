@@ -1,0 +1,36 @@
+[gd_scene load_steps=6 format=3 uid="uid://ccnobfjaguoie"]
+
+[ext_resource type="Script" path="res://scripts/tile.gd" id="1_c4ut0"]
+[ext_resource type="Texture2D" uid="uid://kpujc3kdexl3" path="res://assets/custom/PurpleOverlay.png" id="2_rto6c"]
+[ext_resource type="Texture2D" uid="uid://bofm5pndld7ww" path="res://assets/custom/FarmTile2.png" id="3_0qxel"]
+[ext_resource type="Texture2D" uid="uid://bb144nrbi3dda" path="res://assets/custom/IrrigateOverlay.png" id="4_ojhh8"]
+[ext_resource type="Texture2D" uid="uid://xioa7pkdc5t0" path="res://assets/custom/Scythe.png" id="5_b2itu"]
+
+[node name="Tile" type="MarginContainer"]
+script = ExtResource("1_c4ut0")
+
+[node name="PurpleOverlay" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("2_rto6c")
+offset = Vector2(8, 8)
+
+[node name="TileButton" type="TextureButton" parent="."]
+texture_filter = 1
+layout_mode = 2
+texture_normal = ExtResource("3_0qxel")
+
+[node name="IrrigateOverlay" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("4_ojhh8")
+offset = Vector2(8, 8)
+
+[node name="PlantSprite" type="Sprite2D" parent="."]
+visible = false
+texture_filter = 1
+position = Vector2(8, 16)
+texture = ExtResource("5_b2itu")
+offset = Vector2(0, -8)
+
+[connection signal="gui_input" from="TileButton" to="." method="_on_tile_button_gui_input"]
+[connection signal="mouse_entered" from="TileButton" to="." method="_on_tile_button_mouse_entered"]
+[connection signal="mouse_exited" from="TileButton" to="." method="_on_tile_button_mouse_exited"]

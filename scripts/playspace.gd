@@ -71,6 +71,7 @@ func _on_end_turn_button_pressed() -> void:
 	turn_ending = true
 	Global.selected_card = null
 	$Cards.discard_hand()
+	energy = Constants.MAX_ENERGY
 	await get_tree().create_timer(0.3).timeout
 	await $FarmTiles.process_one_week()
 	await get_tree().create_timer(0.1).timeout
@@ -81,7 +82,6 @@ func _on_end_turn_button_pressed() -> void:
 		return
 	var damage = $TurnManager.end_turn()
 	$Cards.draw_hand()
-	energy = Constants.MAX_ENERGY
 
 	if damage:
 		$UI/BlightDamage.visible = true
@@ -194,6 +194,7 @@ func _on_farm_upgrade_button_pressed() -> void:
 
 func _on_farm_tiles_on_energy_gained(amount) -> void:
 	energy += amount
+	update()
 
 
 func _on_skip_button_pressed() -> void:

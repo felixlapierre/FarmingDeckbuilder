@@ -210,7 +210,7 @@ func _on_focus_gui_input(event: InputEvent) -> void:
 				Global.rotate = 0
 			CardState.InMouse:
 				var new_position = resting_position
-				new_position.y = Constants.VIEWPORT_SIZE.size.y - card_size.y*ZoomInSize
+				new_position.y = Constants.VIEWPORT_SIZE.y - card_size.y*ZoomInSize
 				set_state(CardState.FocusInHand, new_position, 0, resting_scale * ZoomInSize)
 				Global.selected_card = null
 			CardState.InShop:

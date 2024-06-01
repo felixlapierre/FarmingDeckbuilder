@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Effect" load_steps=2 format=3 uid="uid://tten54qni61l"]
+
+[ext_resource type="Script" path="res://scripts/effect.gd" id="1_5epmh"]
+
+[resource]
+script = ExtResource("1_5epmh")
+name = "absorb"
+strength = 1.0
+on = "plant"
+range = "self"
