@@ -15,6 +15,7 @@ signal card_played
 signal on_yield_gained
 signal on_preview_yield
 signal on_energy_gained
+signal on_card_draw
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -204,7 +205,7 @@ func perform_effect(effect, tile: Tile):
 		"energy":
 			on_energy_gained.emit(effect.strength)
 		"draw":
-			pass #TODO: Draw cards from plant
+			on_card_draw.emit(effect.strength, null)
 		"absorb":
 			tile.increase_permanent_mult(tile.IRRIGATED_MULTIPLIER * effect.strength)
 

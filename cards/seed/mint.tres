@@ -1,10 +1,10 @@
 [gd_resource type="Resource" script_class="CardData" load_steps=3 format=3 uid="uid://crj6d2rurd7hy"]
 
-[ext_resource type="Script" path="res://scripts/card_data.gd" id="1_4btaj"]
-[ext_resource type="Resource" uid="uid://bg3p5v7yqd35b" path="res://data/effect/spread_on_grow.tres" id="1_6na0l"]
+[ext_resource type="Resource" uid="uid://bg3p5v7yqd35b" path="res://data/effect/spread_on_grow.tres" id="1_2tm72"]
+[ext_resource type="Script" path="res://scripts/card_data.gd" id="2_p7hwa"]
 
 [resource]
-script = ExtResource("1_4btaj")
+script = ExtResource("2_p7hwa")
 type = "SEED"
 name = "Mint"
 rarity = "rare"
@@ -15,4 +15,4 @@ size = 2
 text = "Spread on Grow"
 seed_texture = 2
 targets = Array[String]([])
-effects = Array[Resource("res://scripts/effect.gd")]([ExtResource("1_6na0l")])
+effects = Array[Resource("res://scripts/effect.gd")]([ExtResource("1_2tm72")])

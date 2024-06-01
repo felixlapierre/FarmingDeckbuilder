@@ -92,7 +92,7 @@ func play_card():
 	
 	# Have to draw before discarding or we could draw the card we just discarded
 	var draw = playedcard.card_info.get_effect("draw")
-	if draw != null:
+	if draw != null and draw.on == "play":
 		for i in range(draw.strength):
 			drawcard()
 	

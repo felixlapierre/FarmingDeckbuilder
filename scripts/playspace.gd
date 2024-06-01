@@ -23,7 +23,7 @@ var starting_deck = [
 		"count": 3
 	},
 	{
-		"name": "pumpkin",
+		"name": "sunflower",
 		"type": "seed",
 		"count": 1
 	}
@@ -208,3 +208,8 @@ func on_lose():
 	$LoseContainer.visible = true
 	$UI/Deck.visible = false
 	$UI/RitualCounter.visible = false
+
+
+func _on_farm_tiles_on_card_draw(number_of_cards, card) -> void:
+	for i in range(number_of_cards):
+		$Cards.drawcard()

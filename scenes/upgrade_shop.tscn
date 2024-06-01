@@ -65,3 +65,4 @@ text = "+3"
 [node name="TextureRect" type="TextureRect" parent="Panel/VBox/HBoxContainer"]
 layout_mode = 2
 texture = ExtResource("2_jv3eb")
+expand_mode = 2

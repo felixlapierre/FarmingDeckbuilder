@@ -1,9 +1,17 @@
-[gd_resource type="Resource" script_class="CardData" load_steps=2 format=3 uid="uid://b32fjn545cp2p"]
+[gd_resource type="Resource" script_class="CardData" load_steps=4 format=3 uid="uid://b32fjn545cp2p"]
 
-[ext_resource type="Script" path="res://scripts/card_data.gd" id="1_s4n0i"]
+[ext_resource type="Script" path="res://scripts/effect.gd" id="1_36hac"]
+[ext_resource type="Script" path="res://scripts/card_data.gd" id="2_8j5j0"]
+
+[sub_resource type="Resource" id="Resource_3irjb"]
+script = ExtResource("1_36hac")
+name = "spread"
+strength = 1.0
+on = "harvest"
+range = "self"
 
 [resource]
-script = ExtResource("1_s4n0i")
+script = ExtResource("2_8j5j0")
 type = "SEED"
 name = "Bamboo"
 rarity = "common"
@@ -14,4 +22,4 @@ size = 9
 text = ""
 seed_texture = 2
 targets = Array[String]([])
-effects = Array[Resource("res://scripts/effect.gd")]([])
+effects = Array[ExtResource("1_36hac")]([SubResource("Resource_3irjb")])

@@ -333,6 +333,7 @@ visible = false
 
 [node name="LoseContainer" type="PanelContainer" parent="."]
 visible = false
+z_index = 2
 offset_left = 746.0
 offset_top = 407.0
 offset_right = 1119.0
@@ -345,6 +346,7 @@ theme_override_font_sizes/font_size = 100
 text = "You Lose! :("
 
 [connection signal="card_played" from="FarmTiles" to="." method="_on_farm_tiles_card_played"]
+[connection signal="on_card_draw" from="FarmTiles" to="." method="_on_farm_tiles_on_card_draw"]
 [connection signal="on_energy_gained" from="FarmTiles" to="." method="_on_farm_tiles_on_energy_gained"]
 [connection signal="on_preview_yield" from="FarmTiles" to="." method="_on_farm_tiles_on_preview_yield"]
 [connection signal="on_yield_gained" from="FarmTiles" to="." method="_on_farm_tiles_on_yield_gained"]
