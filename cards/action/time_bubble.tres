@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="CardData" load_steps=5 format=3 uid="uid://c67xaeegp8p43"]
 
-[ext_resource type="Script" path="res://scripts/card_data.gd" id="1_b1xxd"]
+[ext_resource type="Script" path="res://scripts/resource/card_data.gd" id="1_b1xxd"]
 [ext_resource type="Script" path="res://scripts/effect.gd" id="1_u7dfd"]
 [ext_resource type="Texture2D" uid="uid://bxvdndi6kqmax" path="res://assets/custom/TimeBubble.png" id="2_wnftv"]
 

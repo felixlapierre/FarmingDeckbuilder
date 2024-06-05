@@ -7,6 +7,7 @@ signal option_selected
 @export var cost: int
 @export var row: int
 @export var disabled: bool
+@export var callback: Callable
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

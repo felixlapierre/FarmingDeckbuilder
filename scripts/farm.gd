@@ -34,12 +34,17 @@ func _ready() -> void:
 				tile.purple = true
 			$Tiles.add_child(tile)
 
-func use_card(card, grid_position):
-	if card == null or (card.cost > $"../".energy and card.type != "STRUCTURE"):
+func use_card(grid_position):
+	var card = Global.selected_card
+	if Global.selected_structure != null:
+		tiles[grid_position.x][grid_position.y]\
+				.build_structure(Global.selected_structure, Global.rotate)
+		clear_overlay()
+		card_played.emit(Global.selected_structure)
+		return
+	if card == null or card.cost > $"../".energy:
 		return
 	var size = Global.selected_card.size
-	if card.type == "STRUCTURE":
-		size = 1
 	var targets = get_targeted_tiles(grid_position, size, Global.shape, Global.rotate)
 	use_card_on_targets(card, targets, false)
 	clear_overlay()
@@ -50,51 +55,49 @@ func use_card(card, grid_position):
 func _process(delta: float) -> void:
 	if current_shape != Global.shape and hovered_tile != null:
 		show_select_overlay()
-	if (hovered_tile == null or Global.selected_card == null) and $SelectOverlay.get_children().size() > 0:
+	if hovered_tile == null or (Global.selected_card == null and Global.selected_structure == null) and $SelectOverlay.get_children().size() > 0:
 		clear_overlay()
 	
 func show_select_overlay():
-	var card = Global.selected_card
-	if card == null or hovered_tile == null or card.size == 0:
+	var size = 0
+	var targets = []
+	if Global.selected_card != null:
+		var crd = Global.selected_card
+		size = crd.size
+		targets = crd.targets if crd.type == "ACTION" else ["Empty"]
+	elif Global.selected_structure != null:
+		size = Global.selected_structure.size
+		targets = ["Empty", "Growing", "Mature"]
+	if hovered_tile == null or size == 0:
 		return
 	clear_overlay()
 	var grid_position = hovered_tile.grid_location
 	var shape = Global.shape
-	if card.type == "STRUCTURE":
+	if Global.selected_structure != null:
 		shape = Enums.CursorShape.Elbow
 		var sprite = Sprite2D.new()
-		sprite.texture = card.texture
+		sprite.texture = Global.selected_structure.texture
 		sprite.position = TOP_LEFT + (grid_position) * TILE_SIZE + TILE_SIZE / 2
 		sprite.scale *= TILE_SIZE / sprite.texture.get_size()
 		sprite.z_index = 1
 		sprite.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 		$SelectOverlay.add_child(sprite)
 		
-	var targets = get_targeted_tiles(grid_position, card.size, shape, Global.rotate)
+	var targeted_grid_locations = get_targeted_tiles(grid_position, size, shape, Global.rotate)
 	var yld_preview_yellow = 0
 	var yld_preview_purple = 0
 
-	for item in targets:
+	for item in targeted_grid_locations:
 		var error = false
 		if not Helper.in_bounds(item):
 			error = true
 		else:
 			var targeted_tile = tiles[item.x][item.y]
-			error = !is_eligible_card(card, targeted_tile)
-			var yld_purple = 0
-			var yld_yellow = 0
-			if card.get_effect("harvest") != null:
-				var yld = targeted_tile.preview_harvest()
-				if targeted_tile.purple:
-					yld_purple += yld
-				else:
-					yld_yellow += yld
-			var multiply_yield = card.get_effect("multiply_yield")
-			if multiply_yield != null:
-				yld_purple *= multiply_yield.strength
-				yld_yellow *= multiply_yield.strength
-			yld_preview_purple += yld_purple
-			yld_preview_yellow += yld_yellow
+			error = !is_eligible(targets, targeted_tile)
+			if Global.selected_card != null:
+				var preview = preview_yield(Global.selected_card, targeted_tile)
+				yld_preview_purple += preview.purple
+				yld_preview_yellow += preview.yellow
 		var sprite = Sprite2D.new()
 		sprite.texture = load("res://assets/custom/SelectTile.png")
 		sprite.position = TOP_LEFT + (item) * TILE_SIZE + TILE_SIZE / 2
@@ -108,16 +111,8 @@ func show_select_overlay():
 	if yld_preview_purple + yld_preview_yellow > 0:
 		on_preview_yield.emit(yld_preview_yellow, yld_preview_purple)
 
-func is_eligible_card(card, targeted_tile):
-	match card.type:
-		"SEED":
-			return targeted_tile.state == Enums.TileState.Empty
-		"ACTION":
-			return card.targets.has(Enums.TileState.keys()[targeted_tile.state])
-		"STRUCTURE":
-			return ["Empty", "Growing", "Mature"].has(Enums.TileState.keys()[targeted_tile.state])
-		_:
-			return true
+func is_eligible(targets, targeted_tile):
+	return targets.has(Enums.TileState.keys()[targeted_tile.state])
 
 func get_targeted_tiles(grid_position, size, shape, rotate):
 	var tiles = []
@@ -226,16 +221,33 @@ func use_card_on_targets(card, targets, only_first):
 		if not Helper.in_bounds(target):
 			continue
 		var target_tile = tiles[target.x][target.y]
-		if not is_eligible_card(card, target_tile):
+		if not is_eligible(card.targets if card.type == "ACTION" else ["Empty"], \
+			target_tile):
 			continue
 		if card.type == "SEED":
 			effect_queue.append_array(target_tile.plant_seed_animate(card))
 		elif card.type == "ACTION":
 			use_action_card(card, Vector2(target.x, target.y))
-		elif card.type == "STRUCTURE":
-			target_tile.build_structure(card, Global.rotate)
 		if only_first:
 			return
 
 func gain_energy(amount):
 	on_energy_gained.emit(amount)
+
+func preview_yield(card, targeted_tile):
+	var yld_purple = 0
+	var yld_yellow = 0
+	if card.get_effect("harvest") != null:
+		var yld = targeted_tile.preview_harvest()
+		if targeted_tile.purple:
+			yld_purple += yld
+		else:
+			yld_yellow += yld
+	var multiply_yield = card.get_effect("multiply_yield")
+	if multiply_yield != null:
+		yld_purple *= multiply_yield.strength
+		yld_yellow *= multiply_yield.strength
+	return {
+		"purple": yld_purple,
+		"yellow": yld_yellow
+	}

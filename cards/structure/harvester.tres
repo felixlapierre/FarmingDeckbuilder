@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="CardData" load_steps=5 format=3 uid="uid://chtq1per56nr0"]
 
 [ext_resource type="Script" path="res://scripts/effect.gd" id="1_7gwfi"]
-[ext_resource type="Script" path="res://scripts/card_data.gd" id="1_ukcar"]
+[ext_resource type="Script" path="res://scripts/resource/card_data.gd" id="1_ukcar"]
 [ext_resource type="Texture2D" uid="uid://0ucraf05hybv" path="res://assets/custom/Harvester.png" id="2_2iei7"]
 
 [sub_resource type="Resource" id="Resource_7wj1d"]

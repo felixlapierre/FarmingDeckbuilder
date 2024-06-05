@@ -6,6 +6,7 @@ var card_database = preload("res://scripts/cards_database.gd")
 var CardBase = preload("res://scenes/card_base.tscn")
 var ShopCard = preload("res://scenes/shop_card.tscn")
 var ShopButton = preload("res://scenes/shop_button.tscn")
+var ShopDisplay = preload("res://scenes/shop_display.tscn")
 
 signal on_shop_closed
 signal on_item_bought
@@ -65,22 +66,40 @@ func fill_row_number(row):
 			fill_row_two()
 
 func fill_row_one():
-	var stock = generate_random_shop_items_choice1(shop_item_capacity, ["SEED", "ACTION"])
+	var options = card_database.get_all_cards()
+	var selected = []
+	for option in options:
+		if option.type == "SEED" or option.type == "ACTION":
+			selected.append(option)
+	var stock = generate_random_shop_items(shop_item_capacity, selected)
 	fill_row(STOCK_ONE, 1, stock)
 	STOCK_ONE.add_child(create_scrap_option(1, 1))
 
 func fill_row_two():
-	var stock = generate_random_shop_items_choice1(3, ["STRUCTURE", "UPGRADE"])
+	var structures = card_database.get_all_structure()
+	var selected = []
+	for structure in structures:
+		selected.append(structure)
+	var enhances = card_database.get_all_enhance()
+	for enhance in enhances:
+		selected.append(enhance)
+	var stock = generate_random_shop_items(3, selected)
 	fill_row(STOCK_TWO, 2, stock)
 	STOCK_TWO.add_child(create_remove_card_option())
 	STOCK_TWO.add_child(create_scrap_option(2, 2))
 
 func fill_row(node, row_number, stock):
 	for item in stock:
-		var new_node = ShopCard.instantiate()
-		new_node.card_data = item
-		new_node.on_clicked.connect(func(option): on_buy(option, row_number))
-		node.add_child(new_node)
+		if item.CLASS_NAME == "CardData":
+			var new_node = ShopCard.instantiate()
+			new_node.card_data = item
+			new_node.on_clicked.connect(func(option): on_buy(option, row_number))
+			node.add_child(new_node)
+		elif item.CLASS_NAME == "Structure":
+			var new_node = ShopDisplay.instantiate()
+			new_node.set_data(item)
+			new_node.callback = func(): on_buy_structure(item, row_number)
+			node.add_child(new_node)
 
 func create_scrap_option(amount, row):
 	var scrap = ShopButton.instantiate()
@@ -97,25 +116,24 @@ func create_remove_card_option():
 	remove.option_selected.connect(_on_remove_card_button_pressed)
 	return remove
 
-func generate_random_shop_items_choice1(count, types):
-	var options = card_database.get_all_cards()
+# returns an array, items can be either CardData or Enhance
+func generate_random_shop_items(count, options):
 	var common = []
 	var rare = []
-	for card in options:
-		if types.has(card.type):
-			if card.rarity == "common":
-				common.append(card)
-			elif card.rarity == "rare":
-				rare.append(card)
+	for option in options:
+		if option.rarity == "common":
+			common.append(option)
+		elif option.rarity == "rare":
+			rare.append(option)
 
 	var result = []
 	var i = 0
 	while i < count:
 		var selection = common if randf() > 0.70 else rare
 		var selected = randi_range(0, selection.size() - 1)
-		if !result.has(selected):
-			result.append(selection[selected])
-			i += 1
+		#if !result.has(selected):
+		result.append(selection[selected])
+		i += 1
 	return result
 
 func on_buy_row1(option):
@@ -180,3 +198,12 @@ func on_scrap(amount, row):
 	player_money += amount
 	set_row_visible(row, false)
 	update_labels()
+
+func on_enhance_selected(enhance: Enhance, cost, row):
+	$RemoveCardContainer.visible = true
+	$RemoveCardContainer/SelectCard.do_card_pick(player_cards, "Select a card to enhance")
+
+func on_buy_structure(structure, row):
+	on_structure_place.emit(structure, func(): 	
+		set_row_visible(row, false)
+		update_labels())

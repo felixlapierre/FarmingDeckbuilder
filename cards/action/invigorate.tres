@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="CardData" load_steps=5 format=3 uid="uid://beaye7namxw3o"]
 
-[ext_resource type="Script" path="res://scripts/card_data.gd" id="1_kys65"]
+[ext_resource type="Script" path="res://scripts/resource/card_data.gd" id="1_kys65"]
 [ext_resource type="Script" path="res://scripts/effect.gd" id="1_y6kup"]
 [ext_resource type="Texture2D" uid="uid://bi4hsmh0ase3b" path="res://assets/custom/Invigorate.png" id="2_72aai"]
 

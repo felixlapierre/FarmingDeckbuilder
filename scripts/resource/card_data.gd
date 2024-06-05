@@ -2,6 +2,8 @@ extends Resource
 
 class_name CardData
 
+const CLASS_NAME = "CardData"
+
 @export var type: String
 @export var name: String
 @export var rarity: String

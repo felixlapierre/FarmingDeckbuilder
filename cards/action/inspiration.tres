@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="CardData" load_steps=6 format=3 uid="uid://bp0hgq1xut4gn"]
 
 [ext_resource type="Script" path="res://scripts/effect.gd" id="1_dhx3u"]
-[ext_resource type="Script" path="res://scripts/card_data.gd" id="1_sqjt2"]
+[ext_resource type="Script" path="res://scripts/resource/card_data.gd" id="1_sqjt2"]
 [ext_resource type="Texture2D" uid="uid://bnukunhjx4dno" path="res://assets/custom/FleetingInspiration.png" id="2_oyhgd"]
 
 [sub_resource type="Resource" id="Resource_agk17"]

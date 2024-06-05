@@ -25,3 +25,23 @@ static func get_all_file_paths(path: String) -> Array[String]:
 			file_paths.append(file_path)  
 		file_name = dir.get_next()  
 	return file_paths
+
+static func get_all_enhance() -> Array[Enhance]:
+	var enhances: Array[Enhance] = []
+	var paths = get_all_file_paths("res://data/enhance");
+	for path in paths:
+		var enhance: Enhance = load(path)
+		if enhance == null:
+			print(path)
+		enhances.append(enhance)
+	return enhances
+
+static func get_all_structure() -> Array[Structure]:
+	var structures: Array[Structure] = []
+	var paths = get_all_file_paths("res://data/structure");
+	for path in paths:
+		var structure: Structure = load(path)
+		if structure == null:
+			print(path)
+		structures.append(structure)
+	return structures

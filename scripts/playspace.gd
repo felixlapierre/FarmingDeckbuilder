@@ -52,8 +52,8 @@ func _process(delta: float) -> void:
 
 
 func _on_farm_tiles_card_played(card) -> void:
-	if card.type == "STRUCTURE":
-		Global.selected_card = null
+	if card.CLASS_NAME == "Structure":
+		Global.selected_structure = null
 		shop_structure_place_callback.call()
 		await get_tree().create_timer(1).timeout
 		set_winter_visible(true)
@@ -133,8 +133,9 @@ func _on_shop_on_card_removed(card) -> void:
 	deck.erase(card)
 	$Shop.set_deck(deck)
 
-func _on_shop_on_structure_place(item, callback) -> void:
-	Global.selected_card = item
+func _on_shop_on_structure_place(structure, callback) -> void:
+	Global.selected_structure = structure
+	Global.selected_card = null
 	shop_structure_place_callback = callback
 	set_winter_visible(false)
 	$Shop.visible = false

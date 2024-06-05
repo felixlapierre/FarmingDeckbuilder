@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="CardData" load_steps=3 format=3 uid="uid://cxo5fik2tsce8"]
 
 [ext_resource type="Resource" uid="uid://tten54qni61l" path="res://data/effect/double_irrigate_bonus.tres" id="1_swgbg"]
-[ext_resource type="Script" path="res://scripts/card_data.gd" id="2_15ip1"]
+[ext_resource type="Script" path="res://scripts/resource/card_data.gd" id="2_15ip1"]
 
 [resource]
 script = ExtResource("2_15ip1")

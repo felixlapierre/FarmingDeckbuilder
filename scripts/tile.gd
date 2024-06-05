@@ -8,7 +8,7 @@ var FARM_DIMENSIONS = Vector2(6, 6);
 var objects_image = "res://assets/1616tinygarden/objects.png"
 
 var seed = null # To contain information about the seed being grown here
-var structure = null
+var structure: Structure = null
 
 var seed_base_yield
 var seed_grow_time
@@ -41,7 +41,7 @@ func _on_tile_button_mouse_exited() -> void:
 
 func _on_tile_button_gui_input(event: InputEvent) -> void:
 	if event.is_action_pressed("leftclick"):
-		$"../../".use_card(Global.selected_card, grid_location)
+		$"../../".use_card(grid_location)
 
 func plant_seed_animate(planted_seed) -> Array[Effect]:
 	var effects = plant_seed(planted_seed)
@@ -132,11 +132,11 @@ func lose_irrigate():
 	irrigated = false
 	$IrrigateOverlay.visible = false
 
-func build_structure(card, rotate):
+func build_structure(n_structure, rotate):
 	state = Enums.TileState.Structure
-	structure = card
+	structure = n_structure
 	structure_rotate = rotate
-	$PlantSprite.texture = card.texture
+	$PlantSprite.texture = n_structure.texture
 	$PlantSprite.visible = true
 	$PlantSprite.region_enabled = false
 	var rest_position = $PlantSprite.position

@@ -15,7 +15,6 @@ func _ready() -> void:
 	card_node.set_state(CardState.InShop, null, null, null)
 	$VBox.add_child(card_node)
 
-
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if cost == 0:
