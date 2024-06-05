@@ -47,3 +47,17 @@ func copy():
 		n_effects.append(effect.copy())
 	
 	return CardData.new(type, name, rarity, cost, yld, time, size, text, texture, seed_texture, n_targets, n_effects)
+
+func apply_enhance(enhance: Enhance):
+	var n_card = copy()
+	if enhance.name == "Discount":
+		n_card.cost = cost - int(enhance.strength)
+		if n_card.cost < 0:
+			n_card.cost = 0
+	elif enhance.name == "GrowSpeed":
+		n_card.time -= int(enhance.strength) if time > int(enhance.strength) else 0
+		if n_card.time < 1:
+			n_card.time = 1
+	elif enhance.name == "FlatYield":
+		n_card.yld += int(enhance.strength)
+	return n_card

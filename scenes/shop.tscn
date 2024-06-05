@@ -96,5 +96,4 @@ layout_mode = 2
 [connection signal="pressed" from="PanelContainer/ShopContainer/Header/CloseButton" to="." method="_on_close_button_pressed"]
 [connection signal="option_selected" from="PanelContainer/ShopContainer/ChoiceOne/Reroll" to="." method="on_reroll"]
 [connection signal="option_selected" from="PanelContainer/ShopContainer/ChoiceTwo/Reroll" to="." method="on_reroll"]
-[connection signal="card_selected" from="RemoveCardContainer/SelectCard" to="." method="_on_card_remove_chosen"]
 [connection signal="select_cancelled" from="RemoveCardContainer/SelectCard" to="." method="_on_card_remove_cancelled"]

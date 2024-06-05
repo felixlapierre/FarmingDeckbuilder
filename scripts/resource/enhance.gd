@@ -15,7 +15,7 @@ func _init(p_name = "name", p_rarity = "common", p_strength = 1.0, p_targets = [
 	name = p_name
 	rarity = p_rarity
 	strength = p_strength
-	targets = p_targets
+	targets.assign(p_targets)
 	texture = p_texture
 
 func copy():

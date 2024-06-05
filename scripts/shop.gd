@@ -100,6 +100,11 @@ func fill_row(node, row_number, stock):
 			new_node.set_data(item)
 			new_node.callback = func(): on_buy_structure(item, row_number)
 			node.add_child(new_node)
+		elif item.CLASS_NAME == "Enhance":
+			var new_node = ShopDisplay.instantiate()
+			new_node.set_data(item)
+			new_node.callback = func(): on_enhance_selected(item, row_number)
+			node.add_child(new_node)
 
 func create_scrap_option(amount, row):
 	var scrap = ShopButton.instantiate()
@@ -113,6 +118,7 @@ func create_remove_card_option():
 	var remove = ShopButton.instantiate()
 	remove.text = "Remove Card"
 	remove.cost = 0
+	remove.row = 2
 	remove.option_selected.connect(_on_remove_card_button_pressed)
 	return remove
 
@@ -168,13 +174,12 @@ func _on_close_button_pressed() -> void:
 
 func _on_remove_card_button_pressed(cost, row) -> void:
 	$RemoveCardContainer.visible = true
+	$RemoveCardContainer/SelectCard.select_callback = func(card_data):
+		on_card_removed.emit(card_data)
+		set_row_visible(row, false)
+		update_labels()
+		$RemoveCardContainer.visible = false
 	$RemoveCardContainer/SelectCard.do_card_pick(player_cards, "Select a card to remove")
-
-func _on_card_remove_chosen(card) -> void:
-	on_card_removed.emit(card.card_info)
-	set_row_visible(2, false)
-	update_labels()
-	$RemoveCardContainer.visible = false
 	
 func _on_card_remove_cancelled() -> void:
 	$RemoveCardContainer.visible = false
@@ -199,9 +204,16 @@ func on_scrap(amount, row):
 	set_row_visible(row, false)
 	update_labels()
 
-func on_enhance_selected(enhance: Enhance, cost, row):
+func on_enhance_selected(enhance: Enhance, row):
 	$RemoveCardContainer.visible = true
-	$RemoveCardContainer/SelectCard.do_card_pick(player_cards, "Select a card to enhance")
+	$RemoveCardContainer/SelectCard.select_callback = func(card_data: CardData):
+		var enhanced = card_data.apply_enhance(enhance)
+		on_card_removed.emit(card_data)
+		on_item_bought.emit(enhanced)
+		set_row_visible(row, false)
+		update_labels()
+		$RemoveCardContainer.visible = false
+	$RemoveCardContainer/SelectCard.do_enhance_pick(player_cards, enhance, "Select a card to enhance")
 
 func on_buy_structure(structure, row):
 	on_structure_place.emit(structure, func(): 	
