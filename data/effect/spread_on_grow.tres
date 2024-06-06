@@ -5,6 +5,6 @@
 [resource]
 script = ExtResource("1_xs3ir")
 name = "spread"
-strength = 0.0
+strength = 0.5
 on = "grow"
 range = "self"

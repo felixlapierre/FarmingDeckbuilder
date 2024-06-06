@@ -37,7 +37,7 @@ func do_enhance_pick(cards_input, p_enhance: Enhance, prompt_text):
 	enhance = p_enhance
 	# Filter for cards the enhance applies to
 	for card in cards_input:
-		if enhance.targets.has(card.type):
+		if enhance.is_card_eligible(card):
 			cards.append(card)
 	do_card_pick(cards, prompt_text)
 	enhance = p_enhance

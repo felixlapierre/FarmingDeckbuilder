@@ -60,6 +60,21 @@ func sort(a: Effect, b: Effect):
 	#	return a_prio > b_prio
 	return a_prio > b_prio
 
+func get_short_description():
+	match name:
+		"plant":
+			if on == "harvest":
+				return "On harvest, re-plant seed with +%s yield" % strength
+		"obliviate", "remembrance", "harvest":
+			return name.capitalize()
+		"energy":
+			return "Gain " + str(strength) + " energy on " + on
+		"draw":
+			return "Draw " + str(strength) + " cards on " + on
+		"spread":
+			str(strength).pad_decimals(2) + " chance to spread on " + on
+		_:
+			return "OOPS no description"
 
 # Only name as property:
 # harvest

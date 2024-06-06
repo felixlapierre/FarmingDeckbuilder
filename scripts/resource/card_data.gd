@@ -50,14 +50,36 @@ func copy():
 
 func apply_enhance(enhance: Enhance):
 	var n_card = copy()
-	if enhance.name == "Discount":
-		n_card.cost = cost - int(enhance.strength)
-		if n_card.cost < 0:
-			n_card.cost = 0
-	elif enhance.name == "GrowSpeed":
-		n_card.time -= int(enhance.strength) if time > int(enhance.strength) else 0
-		if n_card.time < 1:
-			n_card.time = 1
-	elif enhance.name == "FlatYield":
-		n_card.yld += int(enhance.strength)
+	match enhance.name:
+		"Discount":
+			n_card.cost = cost - int(enhance.strength)
+		"GrowSpeed":
+			n_card.time -= int(enhance.strength) if time > int(enhance.strength) else 0
+			if n_card.time < 1:
+				n_card.time = 1
+		"FlatYield":
+			n_card.yld += int(enhance.strength)
+		"SpreadGrow":
+			n_card.effects.append(load("res://data/effect/spread_on_grow.tres"))
+		"SpreadHarvest":
+			n_card.effects.append(load("res://data/effect/spread_on_harvest.tres"))
+		"Obliviate":
+			n_card.effects.append(load("res://data/effect/obliviate.tres"))
+		"Remembrance":
+			n_card.effects.append(load("res://data/effect/remembrance.tres"))
+		"RemoveObliviate":
+			n_card.effects.erase(load("res://data/effect/obliviate.tres"))
+		"Strength":
+			n_card.apply_strength(enhance)
 	return n_card
+
+func apply_strength(enhance: Enhance):
+	for effect in effects:
+		if effect.strength != 0.0:
+			effect.strength += enhance.strength
+
+func get_description() -> String:
+	var descr = ""
+	for effect in effects:
+		descr += effect.get_short_description()
+	return descr

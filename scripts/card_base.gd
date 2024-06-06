@@ -60,7 +60,8 @@ func set_card_info(card_data):
 	$HBoxContainer/VBoxContainer/BottomBar/TypeLabel.text = card_info.type
 	$HBoxContainer/VBoxContainer/TopBar/CardNameLabel.text = card_info.name
 	$HBoxContainer/VBoxContainer/TopBar/CardCostLabel.text = str(card_info.cost)
-	$HBoxContainer/VBoxContainer/DescriptionLabel.text = card_info.text
+	$HBoxContainer/VBoxContainer/DescriptionLabel.text = card_info.text\
+	if card_info.text.length() != 0 else card_info.get_description()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:

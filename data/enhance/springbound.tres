@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="Enhance" load_steps=3 format=3 uid="uid://c0eyyc5fpmmpp"]
+
+[ext_resource type="Script" path="res://scripts/resource/enhance.gd" id="1_4hvhj"]
+[ext_resource type="Texture2D" uid="uid://c46q76532nqk" path="res://assets/custom/Temp.png" id="2_anrd5"]
+
+[resource]
+script = ExtResource("1_4hvhj")
+name = "Springbound"
+rarity = "rare"
+strength = 0.0
+targets = Array[String]([])
+texture = ExtResource("2_anrd5")

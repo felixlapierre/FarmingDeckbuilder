@@ -193,11 +193,13 @@ func perform_effect(effect, tile: Tile):
 		"add_yield":
 			tile.add_yield(effect.strength)
 		"plant":
-			effect_queue.append_array(tile.plant_seed(effect.card))
+			var card = effect.card.copy()
 			if effect.strength > 0:
-				effect_queue.append(Effect.new("grow", effect.strength, "", "self", tile.grid_location, null))
+				card.yld += effect.strength
+			effect_queue.append_array(tile.plant_seed(card))
 		"spread":
-			spread(effect.card, tile.grid_location, 8, Enums.CursorShape.Elbow)
+			if randf_range(0, 1) > effect.strength:
+				spread(effect.card, tile.grid_location, 8, Enums.CursorShape.Elbow)
 		"energy":
 			on_energy_gained.emit(effect.strength)
 		"draw":

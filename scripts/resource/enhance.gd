@@ -23,3 +23,22 @@ func copy():
 	for target in targets:
 		n_targets.append(target)
 	return Enhance.new(name, rarity, strength, n_targets, texture)
+
+func is_card_eligible(card: CardData):
+	match name:
+		"Discount":
+			return card.cost > 0
+		"GrowSpeed", "FlatYield":
+			return card.type == "SEED"
+		"SpreadGrow", "SpreadHarvest":
+			return card.get_effect("spread") == null
+		"Remembrance":
+			return card.get_effect("remembrance") == null
+		"Springbound":
+			return card.get_effect("springbound") == null
+		"Obliviate":
+			return card.get_effect("obliviate") == null
+		"RemoveObliviate":
+			return card.get_effect("obliviate") != null
+		"Strength":
+			return card.effects.size() > 0
