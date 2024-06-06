@@ -25,9 +25,35 @@ signal tile_hovered
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	$PurpleOverlay.visible = purple
-	pass
+	do_active_check()
 
+func do_active_check():
+	if grid_location.x < Global.FARM_TOPLEFT.x\
+		or grid_location.x > Global.FARM_BOTRIGHT.x\
+		or grid_location.y < Global.FARM_TOPLEFT.y\
+		or grid_location.y > Global.FARM_BOTRIGHT.y:
+		state = Enums.TileState.Inactive
+		$Farmland.visible = false
+		$TileButton.visible = false
+		return
+	$PurpleOverlay.visible = purple
+	$Farmland.visible = true
+	$TileButton.visible = true
+	if grid_location.x == Global.FARM_TOPLEFT.x:
+		$Farmland.region_rect.position.x = 0
+	elif grid_location.x == Global.FARM_BOTRIGHT.x:
+		$Farmland.region_rect.position.x = 48
+	else:
+		$Farmland.region_rect.position.x = 16
+
+	if grid_location.y == Global.FARM_TOPLEFT.y:
+		$Farmland.region_rect.position.y = 0
+	elif grid_location.y == Global.FARM_BOTRIGHT.y:
+		$Farmland.region_rect.position.y = 48
+	else:
+		$Farmland.region_rect.position.y = 16
+	if state == Enums.TileState.Inactive:
+		state = Enums.TileState.Empty
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:

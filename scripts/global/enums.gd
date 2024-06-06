@@ -11,5 +11,7 @@ enum TileState {
 	Destroyed,
 	Growing,
 	Mature,
-	Structure
+	Structure,
+	Blighted,
+	Inactive
 }

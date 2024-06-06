@@ -20,7 +20,8 @@ signal on_card_draw
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	# Create the farm tiles
-	TOP_LEFT = Vector2(TILE_SIZE.x * 7, TILE_SIZE.y * 2)
+	var x = Constants.VIEWPORT_SIZE.x/2 - TILE_SIZE.x * Constants.FARM_DIMENSIONS.x / 2
+	TOP_LEFT = Vector2(x, TILE_SIZE.y * 0.5)
 	for i in Constants.FARM_DIMENSIONS.x:
 		tiles.append([])
 		for j in Constants.FARM_DIMENSIONS.y:
@@ -30,7 +31,7 @@ func _ready() -> void:
 			tile.grid_location = Vector2(i, j)
 			tiles[i].append(tile)
 			tile.tile_hovered.connect(on_tile_hover)
-			if i >= 3:
+			if i >= 4:
 				tile.purple = true
 			$Tiles.add_child(tile)
 
@@ -251,3 +252,7 @@ func preview_yield(card, targeted_tile):
 		"purple": yld_purple,
 		"yellow": yld_yellow
 	}
+
+func on_expand_farm():
+	for tile in $Tiles.get_children():
+		tile.do_active_check()

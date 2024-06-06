@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://i3hxrkvy84y4" path="res://assets/custom/Star.png" id="2_jv3eb"]
 
 [node name="UpgradeShop" type="Node2D"]
+z_index = 2
 script = ExtResource("1_tdv4b")
 
 [node name="ClickOutButton" type="Button" parent="."]
@@ -32,9 +33,21 @@ text = "Choose an Upgrade"
 layout_mode = 2
 text = "Close"
 
-[node name="Expand" type="Button" parent="Panel/VBox"]
+[node name="ExpandUp" type="Button" parent="Panel/VBox"]
 layout_mode = 2
-text = "Expand Farm"
+text = "Expand Farm Up"
+
+[node name="ExpandDown" type="Button" parent="Panel/VBox"]
+layout_mode = 2
+text = "Expand Farm Down"
+
+[node name="ExpandLeft" type="Button" parent="Panel/VBox"]
+layout_mode = 2
+text = "Expand Farm Left"
+
+[node name="ExpandRight" type="Button" parent="Panel/VBox"]
+layout_mode = 2
+text = "Expand Farm Right"
 
 [node name="Energy" type="Button" parent="Panel/VBox"]
 layout_mode = 2
@@ -66,3 +79,10 @@ text = "+3"
 layout_mode = 2
 texture = ExtResource("2_jv3eb")
 expand_mode = 2
+
+[connection signal="pressed" from="ClickOutButton" to="." method="_on_click_out_button_pressed"]
+[connection signal="pressed" from="Panel/VBox/HBox/Close" to="." method="_on_click_out_button_pressed"]
+[connection signal="pressed" from="Panel/VBox/ExpandUp" to="." method="expand_up"]
+[connection signal="pressed" from="Panel/VBox/ExpandDown" to="." method="expand_down"]
+[connection signal="pressed" from="Panel/VBox/ExpandLeft" to="." method="expand_left"]
+[connection signal="pressed" from="Panel/VBox/ExpandRight" to="." method="expand_right"]

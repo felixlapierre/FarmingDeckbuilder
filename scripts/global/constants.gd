@@ -1,6 +1,6 @@
 class_name Constants
 
-static var FARM_DIMENSIONS = Vector2(6, 6);
+static var FARM_DIMENSIONS = Vector2(8, 8);
 static var BASE_HAND_SIZE = 5
 static var MAX_ENERGY = 3
 

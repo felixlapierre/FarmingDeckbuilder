@@ -190,7 +190,7 @@ func start_year():
 
 
 func _on_farm_upgrade_button_pressed() -> void:
-	pass # Replace with function body.
+	$UpgradeShop.visible = true
 
 
 func _on_farm_tiles_on_energy_gained(amount) -> void:
@@ -214,3 +214,19 @@ func on_lose():
 func _on_farm_tiles_on_card_draw(number_of_cards, card) -> void:
 	for i in range(number_of_cards):
 		$Cards.drawcard()
+
+func upgrade_shop_close():
+	$UpgradeShop.visible = false
+
+func on_upgrade(upgrade: Upgrade):
+	if upgrade.name == "expand":
+		match int(upgrade.strength):
+			0:
+				Global.FARM_TOPLEFT.y -= 1
+			1:
+				Global.FARM_BOTRIGHT.x += 1
+			2:
+				Global.FARM_BOTRIGHT.y += 1
+			3:
+				Global.FARM_TOPLEFT.x -= 1
+		$FarmTiles.on_expand_farm()
