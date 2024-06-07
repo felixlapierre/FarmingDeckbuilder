@@ -34,25 +34,28 @@ var state = CardState.InHand
 
 signal on_clicked
 
+var CARD_ICON
+var SIZE_LABEL
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:	
 	var card_size = size
 	HAND_TOP_Y = Constants.VIEWPORT_SIZE.y - card_size.y
-	$CardIcon.position = card_size / 2
-	$CardIcon.position.y /= 2
 	$Focus.scale *= card_size / $Focus.size
 
 func set_card_info(card_data):
 	card_info = card_data
+	CARD_ICON = $HBoxContainer/VBoxContainer/ImageMargin/ImageCont/CardIconCont/CardIcon
+	SIZE_LABEL = $HBoxContainer/VBoxContainer/ImageMargin/ImageCont/SizeCont/SizeLabel
 	match card_info.type:
 		"SEED":
-			$CardIcon.texture = load(card_image)
-			$CardIcon.region_enabled = true
-			$CardIcon.set_region_rect(Rect2(card_info.seed_texture * 16, 0, 16, 16))
+			var texture = AtlasTexture.new()
+			texture.atlas = load("res://assets/1616tinygarden/objects.png")
+			texture.set_region(Rect2(Vector2(card_data.seed_texture * 16, 0), Vector2(16, 16)))
+			CARD_ICON.texture = texture
 			$HBoxContainer/VBoxContainer/BottomBar/YieldLabel.text = str(card_info.yld) + " Yld / "
 			$HBoxContainer/VBoxContainer/BottomBar/TimeLabel.text = str(card_info.time) + " Wks"
 		"ACTION", "STRUCTURE":
-			$CardIcon.texture = card_info.texture
+			CARD_ICON.texture = card_info.texture
 			$HBoxContainer/VBoxContainer/BottomBar/YieldLabel.visible = false
 			$HBoxContainer/VBoxContainer/BottomBar/TimeLabel.visible = false
 	if card_info.type == "STRUCTURE":
@@ -62,6 +65,10 @@ func set_card_info(card_data):
 	$HBoxContainer/VBoxContainer/TopBar/CardCostLabel.text = str(card_info.cost)
 	$HBoxContainer/VBoxContainer/DescriptionLabel.text = card_info.text\
 	if card_info.text.length() != 0 else card_info.get_description()
+	if card_info.size == 0:
+		$HBoxContainer/VBoxContainer/ImageMargin/ImageCont/SizeCont.visible = false
+	else:
+		SIZE_LABEL.text = str(card_info.size) if card_info.size != -1 else "All"
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:

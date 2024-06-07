@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://2yu7drphx7ur"]
+[gd_scene load_steps=8 format=3 uid="uid://2yu7drphx7ur"]
 
 [ext_resource type="Script" path="res://scripts/card_base.gd" id="1_ohx6w"]
 [ext_resource type="Theme" uid="uid://c3hfmpsb3fvhr" path="res://assets/game_theme.tres" id="1_w62ds"]
@@ -6,29 +6,41 @@
 [ext_resource type="Texture2D" uid="uid://bqjj7hkpne0ln" path="res://assets/custom/SelectTile.png" id="3_4ormi"]
 [ext_resource type="FontFile" uid="uid://drlkmr7jve2ep" path="res://assets/m5x7.ttf" id="3_inew6"]
 [ext_resource type="Theme" uid="uid://c21dhy264y6ty" path="res://assets/theme_large.tres" id="4_jm2oq"]
-[ext_resource type="Texture2D" uid="uid://djhimhud6ix6o" path="res://assets/1616tinygarden/objects.png" id="5_i4nm1"]
 
 [sub_resource type="Theme" id="Theme_xgb3r"]
 default_font = ExtResource("3_inew6")
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_dv1kl"]
-atlas = ExtResource("5_i4nm1")
-region = Rect2(0, 0, 16, 16)
-
-[node name="CardBase" type="MarginContainer"]
+[node name="CardBase" type="Node2D"]
 texture_filter = 1
-custom_minimum_size = Vector2(200, 280)
-pivot_offset = Vector2(100, 140)
 script = ExtResource("1_ohx6w")
 
 [node name="CardBorder" type="Sprite2D" parent="."]
 texture = ExtResource("2_2dibt")
 centered = false
 
+[node name="CardIcon" type="Sprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(3.227, 3.2)
+
+[node name="SizeIcon" type="Sprite2D" parent="."]
+modulate = Color(0.384314, 0.941176, 0.27451, 1)
+position = Vector2(160, 72)
+scale = Vector2(3.2, 3.2)
+texture = ExtResource("3_4ormi")
+
+[node name="SizeLabel" type="Label" parent="."]
+offset_left = 151.0
+offset_top = 48.0
+offset_right = 351.0
+offset_bottom = 89.0
+theme = ExtResource("4_jm2oq")
+text = "9"
+
 [node name="HBoxContainer" type="MarginContainer" parent="."]
 texture_filter = 2
 custom_minimum_size = Vector2(200, 280)
-layout_mode = 2
+offset_right = 200.0
+offset_bottom = 280.0
 theme = ExtResource("1_w62ds")
 theme_override_constants/margin_left = 8
 theme_override_constants/margin_top = 8
@@ -54,37 +66,9 @@ size_flags_horizontal = 10
 text = "1
 "
 
-[node name="ImageMargin" type="MarginContainer" parent="HBoxContainer/VBoxContainer"]
+[node name="ImageGap" type="MarginContainer" parent="HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 80)
 layout_mode = 2
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_bottom = 10
-
-[node name="ImageCont" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/ImageMargin"]
-layout_mode = 2
-
-[node name="CardIconCont" type="CenterContainer" parent="HBoxContainer/VBoxContainer/ImageMargin/ImageCont"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="CardIcon" type="TextureRect" parent="HBoxContainer/VBoxContainer/ImageMargin/ImageCont/CardIconCont"]
-texture_filter = 1
-custom_minimum_size = Vector2(50, 50)
-layout_mode = 2
-texture = SubResource("AtlasTexture_dv1kl")
-
-[node name="SizeCont" type="CenterContainer" parent="HBoxContainer/VBoxContainer/ImageMargin/ImageCont"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="SizeLabel" type="Label" parent="HBoxContainer/VBoxContainer/ImageMargin/ImageCont/SizeCont"]
-layout_mode = 2
-theme = ExtResource("4_jm2oq")
-text = "9"
-
-[node name="SizeIcon" type="TextureRect" parent="HBoxContainer/VBoxContainer/ImageMargin/ImageCont/SizeCont"]
-custom_minimum_size = Vector2(50, 50)
-layout_mode = 2
-texture = ExtResource("3_4ormi")
 
 [node name="DescriptionLabel" type="Label" parent="HBoxContainer/VBoxContainer"]
 texture_filter = 2
@@ -113,7 +97,8 @@ layout_mode = 2
 text = " 3"
 
 [node name="Focus" type="TextureButton" parent="."]
-layout_mode = 2
+offset_right = 200.0
+offset_bottom = 280.0
 
 [connection signal="gui_input" from="Focus" to="." method="_on_focus_gui_input"]
 [connection signal="mouse_entered" from="Focus" to="." method="_on_focus_mouse_entered"]
