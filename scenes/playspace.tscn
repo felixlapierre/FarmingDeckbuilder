@@ -187,6 +187,7 @@ layout_mode = 2
 text = "42"
 
 [node name="BlightDamage" type="HBoxContainer" parent="UI"]
+visible = false
 layout_mode = 0
 offset_left = 1337.0
 offset_top = 464.0

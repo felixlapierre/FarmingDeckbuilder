@@ -72,7 +72,7 @@ func get_short_description():
 		"draw":
 			return "Draw " + str(strength) + " cards on " + on
 		"spread":
-			str(strength).pad_decimals(2) + " chance to spread on " + on
+			return str(strength*100) + "% chance to spread on " + on
 		_:
 			return "OOPS no description"
 
