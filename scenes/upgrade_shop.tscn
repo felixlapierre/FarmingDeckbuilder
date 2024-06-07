@@ -86,3 +86,5 @@ expand_mode = 2
 [connection signal="pressed" from="Panel/VBox/ExpandDown" to="." method="expand_down"]
 [connection signal="pressed" from="Panel/VBox/ExpandLeft" to="." method="expand_left"]
 [connection signal="pressed" from="Panel/VBox/ExpandRight" to="." method="expand_right"]
+[connection signal="pressed" from="Panel/VBox/Energy" to="." method="_on_energy_pressed"]
+[connection signal="pressed" from="Panel/VBox/Draw" to="." method="_on_draw_pressed"]

@@ -194,7 +194,7 @@ offset_top = 464.0
 offset_right = 1377.0
 offset_bottom = 504.0
 
-[node name="Stats" type="MarginContainer" parent="UI"]
+[node name="Stats" type="PanelContainer" parent="UI"]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 77.0

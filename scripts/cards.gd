@@ -41,8 +41,8 @@ func set_deck_for_year(new_deck):
 func _process(delta: float) -> void:
 	pass
 	
-func draw_hand():
-	for i in range(Constants.BASE_HAND_SIZE):
+func draw_hand(count, week):
+	for i in range(count):
 		drawcard()
 	reorganize_hand()
 

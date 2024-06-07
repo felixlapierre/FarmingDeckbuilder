@@ -71,7 +71,6 @@ func _on_end_turn_button_pressed() -> void:
 	turn_ending = true
 	Global.selected_card = null
 	$Cards.discard_hand()
-	energy = Constants.MAX_ENERGY
 	await get_tree().create_timer(0.3).timeout
 	await $FarmTiles.process_one_week()
 	await get_tree().create_timer(0.1).timeout
@@ -81,7 +80,11 @@ func _on_end_turn_button_pressed() -> void:
 		turn_ending = false
 		return
 	var damage = $TurnManager.end_turn()
-	$Cards.draw_hand()
+	
+
+	$Cards.draw_hand(get_cards_drawn(), $TurnManager.week)
+	
+	energy = get_max_energy()
 
 	if damage:
 		$UI/BlightDamage.visible = true
@@ -106,12 +109,13 @@ func _on_farm_tiles_on_yield_gained(yield_amount, purple) -> void:
 func update():
 	$UI/Stats/VBox/YearLabel.text = "Year: " + str($TurnManager.year) + " / 10"
 	$UI/Stats/VBox/TurnLabel.text = "Week: " + str($TurnManager.week)
-	$UI/Stats/VBox/EnergyLabel.text = "Energy: " + str(energy) + " / " + str(Constants.MAX_ENERGY)
+	$UI/Stats/VBox/EnergyLabel.text = "Energy: " + str(energy) + " / " + str(Constants.MAX_ENERGY) + " (" + str(Global.ENERGY_FRAGMENTS) + " fragments)"
 	$UI/BlightCounter/Label.text = str($TurnManager.purple_mana)\
 		 + " / " + str($TurnManager.target_blight)\
 		 + " <-- " + str($TurnManager.next_turn_blight)
 	$UI/RitualCounter/Label.text = str($TurnManager.ritual_counter)
 	$Shop.update_labels()
+	$Winter/FarmUpgradeButton.disabled = $UpgradeShop.lock
 
 
 func _on_shop_button_button_up() -> void:
@@ -176,13 +180,14 @@ func end_year():
 	$TurnManager.end_year()
 	$UI.visible = false
 	$Winter.visible = true
+	$UpgradeShop.lock = false
 
 func start_year():
 	victory = false
-	energy = Constants.MAX_ENERGY
 	$TurnManager.start_new_year()
 	$Cards.set_deck_for_year(deck)
-	$Cards.draw_hand()
+	$Cards.draw_hand(get_cards_drawn(), $TurnManager.week)
+	energy = get_max_energy()
 	update()
 	$UI.visible = true
 	$Cards.visible = true
@@ -190,8 +195,8 @@ func start_year():
 
 
 func _on_farm_upgrade_button_pressed() -> void:
-	$UpgradeShop.visible = true
-
+	if !$UpgradeShop.lock:
+		$UpgradeShop.visible = true
 
 func _on_farm_tiles_on_energy_gained(amount) -> void:
 	energy += amount
@@ -217,6 +222,7 @@ func _on_farm_tiles_on_card_draw(number_of_cards, card) -> void:
 
 func upgrade_shop_close():
 	$UpgradeShop.visible = false
+	update()
 
 func on_upgrade(upgrade: Upgrade):
 	if upgrade.name == "expand":
@@ -230,3 +236,17 @@ func on_upgrade(upgrade: Upgrade):
 			3:
 				Global.FARM_TOPLEFT.x -= 1
 		$FarmTiles.on_expand_farm()
+
+func get_cards_drawn():
+	var cards_drawn = Constants.BASE_HAND_SIZE
+	if (Global.SCROLL_FRAGMENTS % 3 > ($TurnManager.week-1) % 3):
+		cards_drawn += 1
+	cards_drawn += int(float(Global.SCROLL_FRAGMENTS) / 3)
+	return cards_drawn
+
+func get_max_energy():
+	var new_energy = Constants.MAX_ENERGY
+	if (Global.ENERGY_FRAGMENTS % 3 > ($TurnManager.week-1) % 3):
+		new_energy += 1
+	new_energy += int(float(Global.ENERGY_FRAGMENTS) / 3)
+	return new_energy
