@@ -71,6 +71,7 @@ func _on_confirm_button_pressed() -> void:
 	select_callback.call(card.card_info)
 	for child in $ConfirmContainer/ConfirmVbox/ConfirmCards.get_children():
 		$ConfirmContainer/ConfirmVbox/ConfirmCards.remove_child(child)
+	enhance = null
 
 func _on_cancel_button_pressed() -> void:
 	state = SelectState.Selecting
@@ -87,3 +88,4 @@ func _on_close_button_pressed() -> void:
 	for child in $SelectContainer/CardContainer.get_children():
 		$SelectContainer/CardContainer.remove_child(child)
 	select_cancelled.emit()
+	enhance = null

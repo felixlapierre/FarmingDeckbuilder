@@ -77,6 +77,7 @@ func apply_strength(enhance: Enhance):
 	for effect in effects:
 		if effect.strength != 0.0:
 			effect.strength += enhance.strength
+			break
 
 func get_description() -> String:
 	var descr = text

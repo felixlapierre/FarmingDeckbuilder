@@ -133,6 +133,7 @@ func update():
 	$UI/RitualCounter/Label.text = str($TurnManager.ritual_counter)
 	$Shop.update_labels()
 	$Winter/FarmUpgradeButton.disabled = $UpgradeShop.lock
+	$Winter/NextYearButton.disabled = !$UpgradeShop.lock
 
 
 func _on_shop_button_button_up() -> void:

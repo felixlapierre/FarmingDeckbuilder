@@ -41,4 +41,7 @@ func is_card_eligible(card: CardData):
 		"RemoveObliviate":
 			return card.get_effect("obliviate") != null
 		"Strength":
-			return card.effects.size() > 0
+			for effect in card.effects:
+				if effect.strength != 0:
+					return true
+			return false

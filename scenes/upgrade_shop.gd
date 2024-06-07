@@ -37,6 +37,7 @@ func expand_left():
 func expand_right():
 	$Panel/VBox/ExpandRight.disabled = true
 	on_upgrade.emit(Upgrade.new("expand", 1, null, null))
+	lock = true
 	on_close.emit()
 
 func _on_energy_pressed() -> void:
@@ -46,5 +47,11 @@ func _on_energy_pressed() -> void:
 
 func _on_draw_pressed() -> void:
 	Global.SCROLL_FRAGMENTS += 1
+	lock = true
+	on_close.emit()
+
+
+func _on_skip_pressed() -> void:
+	# TODO gain balance
 	lock = true
 	on_close.emit()

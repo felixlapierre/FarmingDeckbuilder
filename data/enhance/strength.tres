@@ -7,6 +7,6 @@
 script = ExtResource("1_3b03w")
 name = "Strength"
 rarity = "common"
-strength = 0.0
+strength = 1.0
 targets = Array[String]([])
 texture = ExtResource("2_kdfxp")

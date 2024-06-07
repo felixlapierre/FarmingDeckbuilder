@@ -71,7 +71,6 @@ layout_mode = 2
 [node name="Skip" type="Button" parent="Panel/VBox/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-disabled = true
 text = "Skip"
 
 [node name="Label" type="Label" parent="Panel/VBox/HBoxContainer"]
@@ -91,3 +90,4 @@ expand_mode = 2
 [connection signal="pressed" from="Panel/VBox/ExpandRight" to="." method="expand_right"]
 [connection signal="pressed" from="Panel/VBox/Energy" to="." method="_on_energy_pressed"]
 [connection signal="pressed" from="Panel/VBox/Draw" to="." method="_on_draw_pressed"]
+[connection signal="pressed" from="Panel/VBox/HBoxContainer/Skip" to="." method="_on_skip_pressed"]
