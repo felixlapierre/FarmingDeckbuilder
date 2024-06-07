@@ -52,12 +52,15 @@ func set_card_info(card_data):
 			texture.atlas = load("res://assets/1616tinygarden/objects.png")
 			texture.set_region(Rect2(Vector2(card_data.seed_texture * 16, 0), Vector2(16, 16)))
 			CARD_ICON.texture = texture
-			$HBoxContainer/VBoxContainer/BottomBar/YieldLabel.text = str(card_info.yld) + " Yld / "
-			$HBoxContainer/VBoxContainer/BottomBar/TimeLabel.text = str(card_info.time) + " Wks"
+			$HBoxContainer/VBoxContainer/BottomBar/YieldLabel.text = str(card_info.yld)\
+				+ " (" + str(card_info.yld * card_info.size) + ")"
+			$HBoxContainer/VBoxContainer/BottomBar/TimeLabel.text = str(card_info.time)
 		"ACTION", "STRUCTURE":
 			CARD_ICON.texture = card_info.texture
 			$HBoxContainer/VBoxContainer/BottomBar/YieldLabel.visible = false
+			$HBoxContainer/VBoxContainer/BottomBar/YieldTexture.visible = false
 			$HBoxContainer/VBoxContainer/BottomBar/TimeLabel.visible = false
+			$HBoxContainer/VBoxContainer/BottomBar/TimeTexture.visible = false
 	if card_info.type == "STRUCTURE":
 		$CardBorder.modulate = Color8(135, 206, 250)
 	$HBoxContainer/VBoxContainer/BottomBar/TypeLabel.text = card_info.type

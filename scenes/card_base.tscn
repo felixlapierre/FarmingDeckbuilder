@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://2yu7drphx7ur"]
+[gd_scene load_steps=13 format=3 uid="uid://2yu7drphx7ur"]
 
 [ext_resource type="Script" path="res://scripts/card_base.gd" id="1_ohx6w"]
 [ext_resource type="Theme" uid="uid://c3hfmpsb3fvhr" path="res://assets/game_theme.tres" id="1_w62ds"]
@@ -6,7 +6,10 @@
 [ext_resource type="Texture2D" uid="uid://bqjj7hkpne0ln" path="res://assets/custom/SelectTile.png" id="3_4ormi"]
 [ext_resource type="FontFile" uid="uid://drlkmr7jve2ep" path="res://assets/m5x7.ttf" id="3_inew6"]
 [ext_resource type="Theme" uid="uid://c21dhy264y6ty" path="res://assets/theme_large.tres" id="4_jm2oq"]
+[ext_resource type="Texture2D" uid="uid://ykuefae3vde0" path="res://assets/custom/Energy.png" id="5_8u4qp"]
 [ext_resource type="Texture2D" uid="uid://djhimhud6ix6o" path="res://assets/1616tinygarden/objects.png" id="5_i4nm1"]
+[ext_resource type="Texture2D" uid="uid://b5gtwrgnirbxg" path="res://assets/custom/YellowMana.png" id="8_md8ou"]
+[ext_resource type="Texture2D" uid="uid://bvk0lh8bp63in" path="res://assets/custom/Time.png" id="9_63ik7"]
 
 [sub_resource type="Theme" id="Theme_xgb3r"]
 default_font = ExtResource("3_inew6")
@@ -54,6 +57,11 @@ size_flags_horizontal = 10
 text = "1
 "
 
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer/VBoxContainer/TopBar"]
+layout_mode = 2
+texture = ExtResource("5_8u4qp")
+expand_mode = 2
+
 [node name="ImageMargin" type="MarginContainer" parent="HBoxContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_top = 10
@@ -88,7 +96,7 @@ texture = ExtResource("3_4ormi")
 
 [node name="DescriptionLabel" type="Label" parent="HBoxContainer/VBoxContainer"]
 texture_filter = 2
-custom_minimum_size = Vector2(0, 112)
+custom_minimum_size = Vector2(0, 135)
 layout_mode = 2
 text = "description"
 autowrap_mode = 2
@@ -99,18 +107,28 @@ layout_mode = 2
 size_flags_vertical = 8
 
 [node name="TypeLabel" type="Label" parent="HBoxContainer/VBoxContainer/BottomBar"]
+visible = false
 layout_mode = 2
 text = "Type"
+
+[node name="YieldTexture" type="TextureRect" parent="HBoxContainer/VBoxContainer/BottomBar"]
+layout_mode = 2
+texture = ExtResource("8_md8ou")
+expand_mode = 3
 
 [node name="YieldLabel" type="Label" parent="HBoxContainer/VBoxContainer/BottomBar"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "3 /"
-horizontal_alignment = 2
+text = "3"
 
 [node name="TimeLabel" type="Label" parent="HBoxContainer/VBoxContainer/BottomBar"]
 layout_mode = 2
-text = " 3"
+text = "/ 3"
+
+[node name="TimeTexture" type="TextureRect" parent="HBoxContainer/VBoxContainer/BottomBar"]
+layout_mode = 2
+texture = ExtResource("9_63ik7")
+expand_mode = 2
 
 [node name="Focus" type="TextureButton" parent="."]
 layout_mode = 2

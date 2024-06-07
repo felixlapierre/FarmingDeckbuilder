@@ -31,7 +31,7 @@ func is_card_eligible(card: CardData):
 		"GrowSpeed", "FlatYield":
 			return card.type == "SEED"
 		"SpreadGrow", "SpreadHarvest":
-			return card.get_effect("spread") == null
+			return card.get_effect("spread") == null and card.type == "SEED"
 		"Remembrance":
 			return card.get_effect("remembrance") == null
 		"Springbound":

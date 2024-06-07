@@ -69,6 +69,7 @@ func drawcard():
 	CardSelected = randi() % deck_cards.size()
 	new_card.set_card_info(deck_cards[CardSelected])
 	new_card.position = $"../UI/Deck".position - CardSize / 2
+	new_card.target_position = new_card.position
 	new_card.starting_position = new_card.position
 	new_card.target_scale = new_card.resting_scale
 	new_card.scale = new_card.resting_scale

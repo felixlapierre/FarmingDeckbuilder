@@ -9,13 +9,13 @@
 script = ExtResource("1_dhx3u")
 name = "draw"
 strength = 3.0
-on = ""
+on = "play"
 range = "self"
 
 [resource]
 script = ExtResource("1_sqjt2")
 type = "ACTION"
-name = "Fleeting Inspiration"
+name = "Inspiration"
 rarity = "rare"
 cost = 0
 yld = 0

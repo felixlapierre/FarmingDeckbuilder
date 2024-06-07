@@ -23,7 +23,7 @@ var starting_deck = [
 		"count": 3
 	},
 	{
-		"name": "sunflower",
+		"name": "pumpkin",
 		"type": "seed",
 		"count": 1
 	}
@@ -109,7 +109,24 @@ func _on_farm_tiles_on_yield_gained(yield_amount, purple) -> void:
 func update():
 	$UI/Stats/VBox/YearLabel.text = "Year: " + str($TurnManager.year) + " / 10"
 	$UI/Stats/VBox/TurnLabel.text = "Week: " + str($TurnManager.week)
-	$UI/Stats/VBox/EnergyLabel.text = "Energy: " + str(energy) + " / " + str(Constants.MAX_ENERGY) + " (" + str(Global.ENERGY_FRAGMENTS) + " fragments)"
+	$UI/Stats/VBox/EnergyHbox/EnergyLabel.text = "Energy: " + str(energy) + " / " + str(Constants.MAX_ENERGY + int(float(Global.ENERGY_FRAGMENTS) / 3))
+	for child in $UI/Stats/VBox/EnergyHbox/Fragments.get_children():
+		$UI/Stats/VBox/EnergyHbox/Fragments.remove_child(child)
+	for i in range(Global.ENERGY_FRAGMENTS % 3):
+		var fragment = TextureRect.new()
+		fragment.texture = load("res://assets/custom/EnergyFrag.png")
+		fragment.expand_mode = TextureRect.EXPAND_FIT_WIDTH
+		$UI/Stats/VBox/EnergyHbox/Fragments.add_child(fragment)
+	
+	$UI/Stats/VBox/CardsHbox/CardsLabel.text = "Cards: " + str(get_cards_drawn()) + " / " + str(Constants.BASE_HAND_SIZE + int(float(Global.SCROLL_FRAGMENTS) / 3))
+	for child in $UI/Stats/VBox/CardsHbox/Fragments.get_children():
+		$UI/Stats/VBox/CardsHbox/Fragments.remove_child(child)
+	for i in range(Global.SCROLL_FRAGMENTS % 3):
+		var fragment = TextureRect.new()
+		fragment.texture = load("res://assets/custom/CardFragment.png")
+		fragment.expand_mode = TextureRect.EXPAND_FIT_WIDTH
+		$UI/Stats/VBox/CardsHbox/Fragments.add_child(fragment)
+		
 	$UI/BlightCounter/Label.text = str($TurnManager.purple_mana)\
 		 + " / " + str($TurnManager.target_blight)\
 		 + " <-- " + str($TurnManager.next_turn_blight)
@@ -181,6 +198,7 @@ func end_year():
 	$UI.visible = false
 	$Winter.visible = true
 	$UpgradeShop.lock = false
+	update()
 
 func start_year():
 	victory = false

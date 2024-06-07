@@ -74,7 +74,7 @@ func _on_confirm_button_pressed() -> void:
 
 func _on_cancel_button_pressed() -> void:
 	state = SelectState.Selecting
-	var card = $ConfirmContainer/ConfirmVbox.get_child(0)
+	var card = $ConfirmContainer/ConfirmVbox/ConfirmCards.get_child(0)
 	for child in $ConfirmContainer/ConfirmVbox/ConfirmCards.get_children():
 		$ConfirmContainer/ConfirmVbox/ConfirmCards.remove_child(child)
 	$SelectContainer/CardContainer.add_child(card)

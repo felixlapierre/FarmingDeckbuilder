@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://xva3qbqb4k5o"]
+[gd_scene load_steps=23 format=3 uid="uid://xva3qbqb4k5o"]
 
 [ext_resource type="Texture2D" uid="uid://dejmbtpxa2rtc" path="res://assets/1616tinygarden/tileset.png" id="1_jy4o7"]
 [ext_resource type="Script" path="res://scripts/playspace.gd" id="1_yho3j"]
@@ -8,6 +8,8 @@
 [ext_resource type="Texture2D" uid="uid://c8cs8b5ibrdjn" path="res://icon.svg" id="4_6s8vj"]
 [ext_resource type="Script" path="res://scripts/DeckDraw.gd" id="4_jb073"]
 [ext_resource type="PackedScene" uid="uid://dn6mjla5pvtrh" path="res://scenes/cards.tscn" id="7_81aef"]
+[ext_resource type="Texture2D" uid="uid://ykuefae3vde0" path="res://assets/custom/Energy.png" id="7_toh6n"]
+[ext_resource type="Texture2D" uid="uid://bkk1x2nsynl6x" path="res://assets/custom/CardIcon.png" id="8_5675n"]
 [ext_resource type="Texture2D" uid="uid://6kjw6wo7u7bw" path="res://assets/custom/EndTurn.png" id="8_dei73"]
 [ext_resource type="Texture2D" uid="uid://b2k8jysorsjw1" path="res://assets/custom/EndTurnClick.png" id="9_14chp"]
 [ext_resource type="Texture2D" uid="uid://jlxw6ypagasj" path="res://assets/custom/EndTurnHover.png" id="10_gqrn0"]
@@ -205,13 +207,44 @@ layout_mode = 2
 
 [node name="YearLabel" type="Label" parent="UI/Stats/VBox"]
 layout_mode = 2
+text = "Year 1"
 
 [node name="TurnLabel" type="Label" parent="UI/Stats/VBox"]
 layout_mode = 2
+text = "Week 1"
 
-[node name="EnergyLabel" type="Label" parent="UI/Stats/VBox"]
+[node name="EnergyHbox" type="HBoxContainer" parent="UI/Stats/VBox"]
+layout_mode = 2
+
+[node name="EnergyLabel" type="Label" parent="UI/Stats/VBox/EnergyHbox"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
+text = "0/3 Energy"
+
+[node name="EnergyTexture" type="TextureRect" parent="UI/Stats/VBox/EnergyHbox"]
+layout_mode = 2
+texture = ExtResource("7_toh6n")
+expand_mode = 2
+
+[node name="Fragments" type="HBoxContainer" parent="UI/Stats/VBox/EnergyHbox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="CardsHbox" type="HBoxContainer" parent="UI/Stats/VBox"]
+layout_mode = 2
+
+[node name="CardsLabel" type="Label" parent="UI/Stats/VBox/CardsHbox"]
+layout_mode = 2
+text = "Cards:"
+
+[node name="CardsTexture" type="TextureRect" parent="UI/Stats/VBox/CardsHbox"]
+layout_mode = 2
+texture = ExtResource("8_5675n")
+expand_mode = 2
+
+[node name="Fragments" type="HBoxContainer" parent="UI/Stats/VBox/CardsHbox"]
+layout_mode = 2
+size_flags_horizontal = 3
 
 [node name="EndTurnButton" type="TextureButton" parent="UI"]
 layout_mode = 0
