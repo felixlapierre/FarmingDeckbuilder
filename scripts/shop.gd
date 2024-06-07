@@ -28,7 +28,7 @@ var player_cards
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	$RemoveCardContainer.size = Constants.VIEWPORT_SIZE
-	player_money = 5
+	player_money = 500
 	update_labels()
 	fill_shop()
 

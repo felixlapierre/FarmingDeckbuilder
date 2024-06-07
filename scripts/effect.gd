@@ -65,16 +65,31 @@ func get_short_description():
 		"plant":
 			if on == "harvest":
 				return "On harvest, re-plant seed with +%s yield" % strength
-		"obliviate", "remembrance", "harvest":
+		"obliviate", "remembrance", "springbound":
 			return name.capitalize()
 		"energy":
-			return "Gain " + str(strength) + " energy on " + on
+			return "Gain " + str(strength) + " energy" + get_on_text()
 		"draw":
-			return "Draw " + str(strength) + " cards on " + on
+			return "Draw " + str(strength) + " cards" + get_on_text()
 		"spread":
 			return str(strength*100) + "% chance to spread on " + on
+		"increase_yield":
+			return "Increase yield by " + str(strength * 100) + "%"
+		"harvest":
+			return "Harvest fully grown plants"
+		"grow":
+			return "Grow targeted plants" + (" " + str(strength) + " times" if strength > 1 else "")
+		"add_yield":
+			return "Add " + str(strength) + " yield to targeted plants"
+		"irrigate":
+			return "Irrigate tiles for " + str(strength) + " weeks"
+		"absorb":
+			return "Benefits " + str(strength*100) + "% more from irrigation"
 		_:
-			return "OOPS no description"
+			return ""
+
+func get_on_text():
+	return " on " + on if on.length() > 0 else ""
 
 # Only name as property:
 # harvest
@@ -82,7 +97,7 @@ func get_short_description():
 # remembrance
 
 # These ones only have strength as a property
-# multiply_yield
+# increase_yield
 # draw
 # grow
 # add_yield

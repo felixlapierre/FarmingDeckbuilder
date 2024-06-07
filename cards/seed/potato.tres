@@ -1,4 +1,4 @@
-[gd_resource type="Resource" load_steps=2 format=3 uid="uid://dh37048ret5uw"]
+[gd_resource type="Resource" script_class="CardData" load_steps=2 format=3 uid="uid://dh37048ret5uw"]
 
 [ext_resource type="Script" path="res://scripts/resource/card_data.gd" id="1_60uiu"]
 
@@ -14,4 +14,4 @@ size = 6
 text = ""
 seed_texture = 8
 targets = Array[String]([])
-effects = Array[Dictionary]([])
+effects = Array[Resource("res://scripts/effect.gd")]([])

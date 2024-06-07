@@ -188,8 +188,8 @@ func perform_effect(effect, tile: Tile):
 		"grow":
 			for i in range(effect.strength):
 				effect_queue.append_array(tile.grow_one_week())
-		"multiply_yield":
-			tile.multiply_yield(effect.strength)
+		"increase_yield":
+			tile.multiply_yield(1.0 + effect.strength)
 		"add_yield":
 			tile.add_yield(effect.strength)
 		"plant":
@@ -246,10 +246,10 @@ func preview_yield(card, targeted_tile):
 			yld_purple += yld
 		else:
 			yld_yellow += yld
-	var multiply_yield = card.get_effect("multiply_yield")
-	if multiply_yield != null:
-		yld_purple *= multiply_yield.strength
-		yld_yellow *= multiply_yield.strength
+	var increase_yield = card.get_effect("increase_yield")
+	if increase_yield != null:
+		yld_purple *= 1.0 + increase_yield.strength
+		yld_yellow *= 1.0 + increase_yield.strength
 	return {
 		"purple": yld_purple,
 		"yellow": yld_yellow

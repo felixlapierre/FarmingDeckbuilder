@@ -90,9 +90,9 @@ texture = ExtResource("3_4ormi")
 texture_filter = 2
 custom_minimum_size = Vector2(0, 112)
 layout_mode = 2
-text = "Description
-"
+text = "description"
 autowrap_mode = 2
+text_overrun_behavior = 3
 
 [node name="BottomBar" type="HBoxContainer" parent="HBoxContainer/VBoxContainer"]
 layout_mode = 2

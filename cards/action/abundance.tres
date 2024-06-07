@@ -6,8 +6,8 @@
 
 [sub_resource type="Resource" id="Resource_0np7m"]
 script = ExtResource("1_wow6b")
-name = "multiply_yield"
-strength = 1.5
+name = "increase_yield"
+strength = 0.5
 on = ""
 range = "self"
 
