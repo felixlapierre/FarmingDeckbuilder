@@ -213,6 +213,8 @@ func gain_yield(yield_amount, purple):
 func do_winter_clear():
 	for tile in $Tiles.get_children():
 		tile.do_winter_clear()
+		tile.set_blight_targeted(false)
+		tile.lose_irrigate()
 
 func spread(card, grid_position, size, shape):
 	var targets = get_targeted_tiles(grid_position, size, shape, 0)
@@ -258,3 +260,18 @@ func preview_yield(card, targeted_tile):
 func on_expand_farm():
 	for tile in $Tiles.get_children():
 		tile.do_active_check()
+
+func set_blight_target_tiles(number_tiles):
+	var tiles = []
+	for tile in $Tiles.get_children():
+		tile.set_blight_targeted(false)
+		if [Enums.TileState.Empty, Enums.TileState.Growing, Enums.TileState.Mature].has(tile.state):
+			tiles.append(tile)
+	tiles.shuffle()
+	for i in range(number_tiles):
+		tiles[i].set_blight_targeted(true)
+
+func destroy_blighted_tiles():
+	for tile in $Tiles.get_children():
+		if tile.blight_targeted == true:
+			tile.set_blighted()

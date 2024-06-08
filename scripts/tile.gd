@@ -20,6 +20,7 @@ var IRRIGATED_MULTIPLIER = 0.4
 var purple = false
 var structure_rotate = 0
 var permanent_multiplier = 0.0
+var blight_targeted = false
 
 signal tile_hovered
 
@@ -152,11 +153,12 @@ func irrigate():
 	if !irrigated:
 		current_multiplier += IRRIGATED_MULTIPLIER
 		irrigated = true
-		$IrrigateOverlay.visible = true
+		$Farmland.modulate = Color8(0, 102, 255)
 
 func lose_irrigate():
 	irrigated = false
-	$IrrigateOverlay.visible = false
+	if state != Enums.TileState.Blighted:
+		$Farmland.modulate = Color8(255, 255, 255)
 
 func build_structure(n_structure, rotate):
 	state = Enums.TileState.Structure
@@ -228,3 +230,11 @@ func get_effects_in_shape(effect: Effect, shape):
 func increase_permanent_mult(factor):
 	permanent_multiplier += factor
 	
+func set_blight_targeted(value):
+	blight_targeted = value
+	$BlightTargetOverlay.visible = value
+
+func set_blighted():
+	state = Enums.TileState.Blighted
+	$PlantSprite.visible = false
+	$Farmland.modulate = Color8(102, 0, 102)

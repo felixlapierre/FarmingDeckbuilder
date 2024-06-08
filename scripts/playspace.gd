@@ -90,9 +90,11 @@ func _on_end_turn_button_pressed() -> void:
 		$UI/BlightDamage.visible = true
 		var img = $UI/BlightDamage.get_child($TurnManager.blight_damage - 1)
 		img.texture = load("res://assets/custom/Blight.png")
+		$FarmTiles.destroy_blighted_tiles()
 	update()
 	if $TurnManager.blight_damage >= Constants.MAX_BLIGHT:
 		on_lose()
+	$FarmTiles.set_blight_target_tiles(Constants.BASE_BLIGHT_DAMAGE if $TurnManager.target_blight > 0 else 0)
 	await get_tree().create_timer(1).timeout
 	turn_ending = false
 
