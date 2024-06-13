@@ -1,4 +1,5 @@
 extends Node
+class_name TurnManager
 
 var week = 1
 var year = 0

@@ -35,6 +35,8 @@ var shop_structure_place_callback
 
 func _ready() -> void:
 	card_database = preload("res://scripts/cards_database.gd")
+	$EventManager.setup($FarmTiles, $TurnManager)
+	$FortuneTeller.setup($EventManager)
 	for card in starting_deck:
 		for i in range(card.count):
 			deck.append(card_database.get_card_by_name(card.name, card.type))
@@ -197,6 +199,8 @@ func end_year():
 
 	$FarmTiles.do_winter_clear()
 	$Shop.fill_shop()
+	$FortuneTeller.unregister_fortunes()
+	$FortuneTeller.create_fortunes()
 	$TurnManager.end_year()
 	$UI.visible = false
 	$Winter.visible = true
@@ -205,14 +209,16 @@ func end_year():
 
 func start_year():
 	victory = false
+	$FortuneTeller.register_fortunes()
 	$TurnManager.start_new_year()
 	$Cards.set_deck_for_year(deck)
 	$Cards.draw_hand(get_cards_drawn(), $TurnManager.week)
 	energy = get_max_energy()
-	update()
 	$UI.visible = true
 	$Cards.visible = true
 	$Winter.visible = false
+	$EventManager.notify_year_start()
+	update()
 
 
 func _on_farm_upgrade_button_pressed() -> void:
@@ -271,3 +277,11 @@ func get_max_energy():
 		new_energy += 1
 	new_energy += int(float(Global.ENERGY_FRAGMENTS) / 3)
 	return new_energy
+
+
+func _on_fortune_teller_button_pressed() -> void:
+	$FortuneTeller.visible = true
+
+
+func _on_fortune_teller_on_close() -> void:
+	$FortuneTeller.visible = false

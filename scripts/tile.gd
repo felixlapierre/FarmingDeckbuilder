@@ -88,6 +88,9 @@ func plant_seed(planted_seed) -> Array[Effect]:
 		current_yield = 0.0
 		permanent_multiplier = 0.0
 		state = Enums.TileState.Growing
+		if seed_grow_time == 0:
+			state = Enums.TileState.Mature
+			current_yield = seed_base_yield
 		$PlantSprite.visible = true
 		$PlantSprite.texture = load(objects_image)
 		$PlantSprite.region_enabled = true
@@ -115,7 +118,7 @@ func grow_animation():
 	tween.tween_property($PlantSprite, "scale", Vector2(1, 1), 0.1)
 
 func update_plant_sprite():
-	var stage = int(current_grow_progress / seed_grow_time * 3)
+	var stage = 3 if seed_grow_time == 0 else int(current_grow_progress / seed_grow_time * 3)
 	var y
 	var h
 	match stage:

@@ -1,4 +1,5 @@
 extends Node
+class_name Farm
 
 var FarmTile = preload("res://scenes/tile.tscn")
 
@@ -275,3 +276,15 @@ func destroy_blighted_tiles():
 	for tile in $Tiles.get_children():
 		if tile.blight_targeted == true:
 			tile.set_blighted()
+
+func use_card_random_tile(card: CardData, times: int):
+	var tiles = []
+	for tile in $Tiles.get_children():
+		if tile.state != Enums.TileState.Inactive:
+			tiles.append(tile)
+	tiles.shuffle()
+	var locations = []
+	for i in range(times):
+		locations.append(tiles[i].grid_location)
+	use_card_on_targets(card, locations, false)
+	

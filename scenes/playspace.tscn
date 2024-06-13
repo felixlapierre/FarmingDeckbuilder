@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://xva3qbqb4k5o"]
+[gd_scene load_steps=25 format=3 uid="uid://xva3qbqb4k5o"]
 
 [ext_resource type="Texture2D" uid="uid://dejmbtpxa2rtc" path="res://assets/1616tinygarden/tileset.png" id="1_jy4o7"]
 [ext_resource type="Script" path="res://scripts/playspace.gd" id="1_yho3j"]
@@ -20,6 +20,8 @@
 [ext_resource type="Texture2D" uid="uid://b5gtwrgnirbxg" path="res://assets/custom/YellowMana.png" id="15_va62u"]
 [ext_resource type="PackedScene" uid="uid://bc8n6jk05ybsj" path="res://scenes/turn_manager.tscn" id="17_h6fui"]
 [ext_resource type="PackedScene" uid="uid://dvjkkex6w162i" path="res://scenes/upgrade_shop.tscn" id="18_00ajt"]
+[ext_resource type="PackedScene" uid="uid://cjdwiax30iity" path="res://scenes/event_manager.tscn" id="21_74s0y"]
+[ext_resource type="PackedScene" uid="uid://djb7edsvibm5i" path="res://scenes/fortune_teller.tscn" id="22_1nf1y"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_n4x4v"]
 texture = ExtResource("1_jy4o7")
@@ -382,6 +384,11 @@ text = "You Lose! :("
 [node name="UpgradeShop" parent="." instance=ExtResource("18_00ajt")]
 visible = false
 
+[node name="EventManager" parent="." instance=ExtResource("21_74s0y")]
+
+[node name="FortuneTeller" parent="." instance=ExtResource("22_1nf1y")]
+visible = false
+
 [connection signal="card_played" from="FarmTiles" to="." method="_on_farm_tiles_card_played"]
 [connection signal="on_card_draw" from="FarmTiles" to="." method="_on_farm_tiles_on_card_draw"]
 [connection signal="on_energy_gained" from="FarmTiles" to="." method="_on_farm_tiles_on_energy_gained"]
@@ -391,6 +398,7 @@ visible = false
 [connection signal="pressed" from="UI/SkipButton" to="." method="_on_skip_button_pressed"]
 [connection signal="button_up" from="Winter/ShopButton" to="." method="_on_shop_button_button_up"]
 [connection signal="pressed" from="Winter/NextYearButton" to="." method="start_year"]
+[connection signal="pressed" from="Winter/FortuneTellerButton" to="." method="_on_fortune_teller_button_pressed"]
 [connection signal="pressed" from="Winter/FarmUpgradeButton" to="." method="_on_farm_upgrade_button_pressed"]
 [connection signal="on_card_removed" from="Shop" to="." method="_on_shop_on_card_removed"]
 [connection signal="on_item_bought" from="Shop" to="." method="_on_shop_on_item_bought"]
@@ -399,3 +407,4 @@ visible = false
 [connection signal="on_structure_place" from="Shop" to="." method="_on_shop_on_structure_place"]
 [connection signal="on_close" from="UpgradeShop" to="." method="upgrade_shop_close"]
 [connection signal="on_upgrade" from="UpgradeShop" to="." method="on_upgrade"]
+[connection signal="on_close" from="FortuneTeller" to="." method="_on_fortune_teller_on_close"]
