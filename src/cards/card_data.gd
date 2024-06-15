@@ -60,15 +60,15 @@ func apply_enhance(enhance: Enhance):
 		"FlatYield":
 			n_card.yld += int(enhance.strength)
 		"SpreadGrow":
-			n_card.effects.append(load("res://data/effect/spread_on_grow.tres"))
+			n_card.effects.append(load("res://src/effect/data/spread_on_grow.tres"))
 		"SpreadHarvest":
-			n_card.effects.append(load("res://data/effect/spread_on_harvest.tres"))
+			n_card.effects.append(load("res://src/effect/data/spread_on_harvest.tres"))
 		"Obliviate":
-			n_card.effects.append(load("res://data/effect/obliviate.tres"))
+			n_card.effects.append(load("res://src/effect/data/obliviate.tres"))
 		"Remembrance":
-			n_card.effects.append(load("res://data/effect/remembrance.tres"))
+			n_card.effects.append(load("res://src/effect/data/remembrance.tres"))
 		"RemoveObliviate":
-			n_card.effects.erase(load("res://data/effect/obliviate.tres"))
+			n_card.effects.erase(load("res://src/effect/data/obliviate.tres"))
 		"Strength":
 			n_card.apply_strength(enhance)
 	return n_card

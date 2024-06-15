@@ -44,7 +44,7 @@ func unregister_fortune(event_manager: EventManager):
 func weeds(event_manager: EventManager):
 	callback = func(farm: Farm, turn_manager: TurnManager):
 		print("Weeds callback")
-		var card: CardData = load("res://data/seeds/weed.tres")
+		var card: CardData = load("res://src/fortune/unique/weed.tres")
 		farm.use_card_random_tile(card, 4)
 	event_manager.register_on_year_start(callback)
 

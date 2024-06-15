@@ -10,7 +10,7 @@ func _ready() -> void:
 
 func generate_random_event():
 	# For now hardcode dream of emptiness
-	current_event = load("res://data/event/dream_of_emptiness.tres")
+	current_event = load("res://src/event/data/dream_of_emptiness.tres")
 	update_interface()
 
 func update_interface():
