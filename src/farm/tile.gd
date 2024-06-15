@@ -144,13 +144,16 @@ func harvest() -> Array[Effect]:
 		effects.append_array(get_effects("harvest"))
 		state = Enums.TileState.Empty
 		$'../..'.gain_yield(current_yield, purple)
-		seed_base_yield = 0
-		seed_grow_time = 0
-		current_grow_progress = 0.0
-		current_yield = 0.0
-		$PlantSprite.visible = false
-		seed = null
+		remove_seed()
 	return effects
+
+func remove_seed():
+	seed_base_yield = 0
+	seed_grow_time = 0
+	current_grow_progress = 0.0
+	current_yield = 0.0
+	$PlantSprite.visible = false
+	seed = null
 
 func irrigate():
 	if !irrigated:
@@ -160,7 +163,7 @@ func irrigate():
 
 func lose_irrigate():
 	irrigated = false
-	if state != Enums.TileState.Blighted:
+	if state != Enums.TileState.Blighted and state != Enums.TileState.Destroyed:
 		$Farmland.modulate = Color8(255, 255, 255)
 
 func build_structure(n_structure, rotate):
@@ -181,7 +184,7 @@ func preview_harvest() -> int:
 	return current_yield if state == Enums.TileState.Mature else 0
 
 func do_winter_clear():
-	if state == Enums.TileState.Growing or state == Enums.TileState.Mature:
+	if state == Enums.TileState.Growing or state == Enums.TileState.Mature or state == Enums.TileState.Destroyed:
 		state = Enums.TileState.Empty
 		seed = null
 		current_grow_progress = 0.0
@@ -241,3 +244,8 @@ func set_blighted():
 	state = Enums.TileState.Blighted
 	$PlantSprite.visible = false
 	$Farmland.modulate = Color8(102, 0, 102)
+
+func destroy():
+	state = Enums.TileState.Destroyed
+	$Farmland.modulate = Color8(45, 45, 45)
+	remove_seed()

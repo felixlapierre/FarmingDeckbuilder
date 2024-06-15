@@ -25,6 +25,11 @@ var starting_deck = [
 		"name": "pumpkin",
 		"type": "seed",
 		"count": 1
+	},
+	{
+		"name": "earthrite",
+		"type": "action",
+		"count": 1
 	}
 ]
 

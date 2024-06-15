@@ -1,0 +1,29 @@
+[gd_resource type="Resource" script_class="CardData" load_steps=7 format=3 uid="uid://uynxilpsmb2c"]
+
+[ext_resource type="Script" path="res://src/cards/card_data.gd" id="1_holry"]
+[ext_resource type="Script" path="res://src/effect/effect.gd" id="1_sy7m2"]
+[ext_resource type="Resource" uid="uid://cqfvdr8thdmfu" path="res://src/effect/data/harvest.tres" id="2_laiyt"]
+[ext_resource type="Resource" uid="uid://bhqfoxamlgo2g" path="res://src/effect/data/destroy.tres" id="3_nq72m"]
+[ext_resource type="Texture2D" uid="uid://c46q76532nqk" path="res://assets/custom/Temp.png" id="5_4iw54"]
+
+[sub_resource type="Resource" id="Resource_j36iy"]
+script = ExtResource("1_sy7m2")
+name = "increase_yield"
+strength = 1.0
+on = ""
+range = "self"
+
+[resource]
+script = ExtResource("1_holry")
+type = "ACTION"
+name = "Earthrite"
+rarity = "rare"
+cost = 1
+yld = 0
+time = 0
+size = 9
+text = ""
+texture = ExtResource("5_4iw54")
+seed_texture = 0
+targets = Array[String](["Mature"])
+effects = Array[ExtResource("1_sy7m2")]([SubResource("Resource_j36iy"), ExtResource("2_laiyt"), ExtResource("3_nq72m")])

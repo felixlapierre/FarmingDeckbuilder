@@ -27,7 +27,7 @@ func _process(delta: float) -> void:
 # Return bool indicating if the ritual is complete
 func gain_yellow_mana(amount):
 	ritual_counter -= amount
-	if ritual_counter < 0:
+	if ritual_counter <= 0:
 		ritual_counter = 0
 		return true
 	return false

@@ -207,6 +207,8 @@ func perform_effect(effect, tile: Tile):
 			on_card_draw.emit(effect.strength, null)
 		"absorb":
 			tile.increase_permanent_mult(tile.IRRIGATED_MULTIPLIER * effect.strength)
+		"destroy_tile":
+			tile.destroy()
 
 func gain_yield(yield_amount, purple):
 	on_yield_gained.emit(int(yield_amount), purple)

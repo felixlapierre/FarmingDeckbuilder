@@ -157,8 +157,8 @@ func _on_end_turn_button_pressed() -> void:
 	end_turn_button_pressed.emit()
 
 func damage_taken():
-	$UserInterface/UI/BlightDamage.visible = true
-	var img = $UserInterface/UI/BlightDamage.get_child($TurnManager.blight_damage - 1)
+	$UI/BlightDamage.visible = true
+	var img = $UI/BlightDamage.get_child(turn_manager.blight_damage - 1)
 	img.texture = load("res://assets/custom/Blight.png")
 
 func _on_next_year_button_pressed() -> void:
