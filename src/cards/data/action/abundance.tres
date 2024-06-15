@@ -1,0 +1,34 @@
+[gd_resource type="Resource" script_class="CardData" load_steps=6 format=3 uid="uid://xsgk6rajjn2b"]
+
+[ext_resource type="Script" path="res://src/cards/card_data.gd" id="1_blsu2"]
+[ext_resource type="Script" path="res://src/effect/effect.gd" id="1_wow6b"]
+[ext_resource type="Texture2D" uid="uid://vxpf2uldpbug" path="res://assets/custom/Abundance.png" id="2_prrlo"]
+
+[sub_resource type="Resource" id="Resource_0np7m"]
+script = ExtResource("1_wow6b")
+name = "increase_yield"
+strength = 0.5
+on = ""
+range = "self"
+
+[sub_resource type="Resource" id="Resource_qdbuy"]
+script = ExtResource("1_wow6b")
+name = "harvest"
+strength = 0.0
+on = ""
+range = "self"
+
+[resource]
+script = ExtResource("1_blsu2")
+type = "ACTION"
+name = "Abundance"
+rarity = "rare"
+cost = 3
+yld = 3
+time = 3
+size = 1
+text = ""
+texture = ExtResource("2_prrlo")
+seed_texture = 3
+targets = Array[String](["Mature"])
+effects = Array[ExtResource("1_wow6b")]([SubResource("Resource_0np7m"), SubResource("Resource_qdbuy")])

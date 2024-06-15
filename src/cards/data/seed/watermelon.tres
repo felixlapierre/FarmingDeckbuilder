@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="CardData" load_steps=3 format=3 uid="uid://cxo5fik2tsce8"]
+
+[ext_resource type="Resource" uid="uid://tten54qni61l" path="res://src/effect/data/double_irrigate_bonus.tres" id="1_swgbg"]
+[ext_resource type="Script" path="res://src/cards/card_data.gd" id="2_15ip1"]
+
+[resource]
+script = ExtResource("2_15ip1")
+type = "SEED"
+name = "Watermelon"
+rarity = "common"
+cost = 2
+yld = 7
+time = 5
+size = 3
+text = ""
+seed_texture = 8
+targets = Array[String]([])
+effects = Array[Resource("res://src/effect/effect.gd")]([ExtResource("1_swgbg")])

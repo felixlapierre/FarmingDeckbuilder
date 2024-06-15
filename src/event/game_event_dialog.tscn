@@ -1,0 +1,50 @@
+[gd_scene load_steps=3 format=3 uid="uid://cg2lu7ivw8gms"]
+
+[ext_resource type="Script" path="res://src/event/game_event_dialog.gd" id="1_t53rf"]
+[ext_resource type="Theme" uid="uid://c21dhy264y6ty" path="res://assets/theme_large.tres" id="3_f6b05"]
+
+[node name="GameEventDialog" type="Node2D"]
+z_index = 2
+script = ExtResource("1_t53rf")
+
+[node name="ClickOutButton" type="Button" parent="."]
+visible = false
+custom_minimum_size = Vector2(1920, 1080)
+offset_right = 8.0
+offset_bottom = 8.0
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+offset_right = 231.0
+offset_bottom = 404.0
+theme = ExtResource("3_f6b05")
+
+[node name="VBox" type="VBoxContainer" parent="PanelContainer"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="PanelContainer/VBox"]
+layout_mode = 2
+theme = ExtResource("3_f6b05")
+text = "Title of event"
+horizontal_alignment = 1
+
+[node name="Description" type="RichTextLabel" parent="PanelContainer/VBox"]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+text = "Description of event"
+fit_content = true
+
+[node name="Option1Button" type="Button" parent="PanelContainer/VBox"]
+layout_mode = 2
+text = "Option 1"
+
+[node name="Option2Button" type="Button" parent="PanelContainer/VBox"]
+layout_mode = 2
+text = "Option 2"
+
+[node name="Option3Button" type="Button" parent="PanelContainer/VBox"]
+layout_mode = 2
+text = "Option 3"
+
+[connection signal="pressed" from="PanelContainer/VBox/Option1Button" to="." method="_on_option_1_button_pressed"]
+[connection signal="pressed" from="PanelContainer/VBox/Option2Button" to="." method="_on_option_2_button_pressed"]
+[connection signal="pressed" from="PanelContainer/VBox/Option3Button" to="." method="_on_option_3_button_pressed"]

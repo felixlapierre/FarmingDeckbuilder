@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="CardData" load_steps=2 format=3 uid="uid://dh37048ret5uw"]
+
+[ext_resource type="Script" path="res://src/cards/card_data.gd" id="1_60uiu"]
+
+[resource]
+script = ExtResource("1_60uiu")
+type = "SEED"
+name = "Potato"
+rarity = "common"
+cost = 1
+yld = 4
+time = 2
+size = 6
+text = ""
+seed_texture = 8
+targets = Array[String]([])
+effects = Array[Resource("res://src/effect/effect.gd")]([])

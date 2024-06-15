@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://bbmiskr3ha0we"]
+
+[ext_resource type="Script" path="res://src/farm/farm.gd" id="1_1ma26"]
+
+[node name="Farm" type="Node"]
+script = ExtResource("1_1ma26")
+
+[node name="Tiles" type="Node" parent="."]
+
+[node name="SelectOverlay" type="Node" parent="."]

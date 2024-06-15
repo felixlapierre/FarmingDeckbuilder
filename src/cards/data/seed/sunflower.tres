@@ -1,0 +1,28 @@
+[gd_resource type="Resource" script_class="CardData" load_steps=7 format=3 uid="uid://dqb6xiiph4f6r"]
+
+[ext_resource type="Script" path="res://src/cards/card_data.gd" id="1_a3w07"]
+[ext_resource type="Resource" uid="uid://tten54qni61l" path="res://src/effect/data/double_irrigate_bonus.tres" id="1_n8553"]
+[ext_resource type="Resource" uid="uid://b78m2r175sji7" path="res://src/effect/data/one_energy_on_harvest.tres" id="2_f1yv7"]
+[ext_resource type="Resource" uid="uid://bg3p5v7yqd35b" path="res://src/effect/data/spread_on_grow.tres" id="3_55y25"]
+[ext_resource type="Script" path="res://src/effect/effect.gd" id="4_avtix"]
+
+[sub_resource type="Resource" id="Resource_k1qlq"]
+script = ExtResource("4_avtix")
+name = "draw"
+strength = 1.0
+on = "harvest"
+range = "self"
+
+[resource]
+script = ExtResource("1_a3w07")
+type = "SEED"
+name = "Sunflower"
+rarity = "common"
+cost = 1
+yld = 8
+time = 3
+size = 6
+text = ""
+seed_texture = 3
+targets = Array[String]([])
+effects = Array[ExtResource("4_avtix")]([ExtResource("1_n8553"), ExtResource("2_f1yv7"), ExtResource("3_55y25"), SubResource("Resource_k1qlq")])

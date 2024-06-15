@@ -1,0 +1,45 @@
+[gd_scene load_steps=7 format=3 uid="uid://ccnobfjaguoie"]
+
+[ext_resource type="Script" path="res://src/farm/tile.gd" id="1_8vnt4"]
+[ext_resource type="Texture2D" uid="uid://cmitvrjj6os0f" path="res://assets/1616tinygarden/Farm.png" id="2_n75y4"]
+[ext_resource type="Texture2D" uid="uid://kpujc3kdexl3" path="res://assets/custom/PurpleOverlay.png" id="3_jwute"]
+[ext_resource type="Texture2D" uid="uid://bofm5pndld7ww" path="res://assets/custom/FarmTile2.png" id="4_bvg7e"]
+[ext_resource type="Texture2D" uid="uid://xioa7pkdc5t0" path="res://assets/custom/Scythe.png" id="5_u7scn"]
+[ext_resource type="Texture2D" uid="uid://dbbhalo3edxpk" path="res://assets/custom/BlightTarget.png" id="6_6m84b"]
+
+[node name="Tile" type="MarginContainer"]
+script = ExtResource("1_8vnt4")
+
+[node name="Farmland" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("2_n75y4")
+offset = Vector2(8, 8)
+region_enabled = true
+region_rect = Rect2(0, 0, 16, 16)
+
+[node name="PurpleOverlay" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("3_jwute")
+offset = Vector2(8, 8)
+
+[node name="TileButton" type="TextureButton" parent="."]
+texture_filter = 1
+layout_mode = 2
+texture_normal = ExtResource("4_bvg7e")
+
+[node name="PlantSprite" type="Sprite2D" parent="."]
+visible = false
+texture_filter = 1
+position = Vector2(8, 16)
+texture = ExtResource("5_u7scn")
+offset = Vector2(0, -8)
+
+[node name="BlightTargetOverlay" type="Sprite2D" parent="."]
+visible = false
+texture_filter = 1
+texture = ExtResource("6_6m84b")
+offset = Vector2(8, 8)
+
+[connection signal="gui_input" from="TileButton" to="." method="_on_tile_button_gui_input"]
+[connection signal="mouse_entered" from="TileButton" to="." method="_on_tile_button_mouse_entered"]
+[connection signal="mouse_exited" from="TileButton" to="." method="_on_tile_button_mouse_exited"]

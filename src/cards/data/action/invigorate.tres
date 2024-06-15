@@ -1,0 +1,27 @@
+[gd_resource type="Resource" script_class="CardData" load_steps=5 format=3 uid="uid://beaye7namxw3o"]
+
+[ext_resource type="Script" path="res://src/cards/card_data.gd" id="1_kys65"]
+[ext_resource type="Script" path="res://src/effect/effect.gd" id="1_y6kup"]
+[ext_resource type="Texture2D" uid="uid://bi4hsmh0ase3b" path="res://assets/custom/Invigorate.png" id="2_72aai"]
+
+[sub_resource type="Resource" id="Resource_q64ga"]
+script = ExtResource("1_y6kup")
+name = "add_yield"
+strength = 1.0
+on = ""
+range = "self"
+
+[resource]
+script = ExtResource("1_kys65")
+type = "ACTION"
+name = "Invigorate"
+rarity = "rare"
+cost = 2
+yld = 0
+time = 0
+size = -1
+text = ""
+texture = ExtResource("2_72aai")
+seed_texture = 3
+targets = Array[String](["Growing", "Mature"])
+effects = Array[ExtResource("1_y6kup")]([SubResource("Resource_q64ga")])

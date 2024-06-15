@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="Enhance" load_steps=3 format=3 uid="uid://dkjp542dgwjuq"]
+
+[ext_resource type="Script" path="res://src/enhance/enhance.gd" id="1_1ojx3"]
+[ext_resource type="Texture2D" uid="uid://c46q76532nqk" path="res://assets/custom/Temp.png" id="2_ny8gy"]
+
+[resource]
+script = ExtResource("1_1ojx3")
+name = "SpreadHarvest"
+rarity = "common"
+strength = 0.0
+targets = Array[String]([])
+texture = ExtResource("2_ny8gy")

@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="Upgrade" load_steps=2 format=3 uid="uid://b8th5h0p6ejwt"]
+
+[ext_resource type="Script" path="res://src/upgrade/upgrade.gd" id="1_sx1mn"]
+
+[resource]
+script = ExtResource("1_sx1mn")
+type = 5
+text = "Remove a card from your deck"
+strength = 0.0

@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="FarmingDeckbuilder"
-run/main_scene="res://scenes/playspace.tscn"
+run/main_scene="res://src/playspace.tscn"
 config/features=PackedStringArray("4.2", "Mobile")
 config/icon="res://icon.svg"
 
