@@ -44,7 +44,7 @@ func use_card(grid_position):
 		clear_overlay()
 		card_played.emit(Global.selected_structure)
 		return
-	if card == null or card.cost > $"../".energy:
+	if card == null or card.cost > $"../TurnManager".energy:
 		return
 	var size = Global.selected_card.size
 	var targets = get_targeted_tiles(grid_position, size, Global.shape, Global.rotate)

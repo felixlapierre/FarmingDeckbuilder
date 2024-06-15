@@ -14,4 +14,4 @@ size = 1
 text = ""
 seed_texture = 2
 targets = Array[String]([])
-effects = Array[Resource("res://scripts/effect.gd")]([])
+effects = Array[Resource("res://src/effect/effect.gd")]([])

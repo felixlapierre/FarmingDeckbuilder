@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="GameEvent" load_steps=4 format=3 uid="uid://bk22ypc1dcusn"]
+[gd_resource type="Resource" script_class="GameEvent" load_steps=4 format=3 uid="uid://ch0x43uv4j73v"]
 
 [ext_resource type="Resource" uid="uid://b8th5h0p6ejwt" path="res://src/upgrade/data/remove_card.tres" id="1_kg1t0"]
 [ext_resource type="Script" path="res://src/event/event.gd" id="1_seva8"]
@@ -7,10 +7,10 @@
 [resource]
 script = ExtResource("1_seva8")
 name = "Dream of Emptiness"
-text = "TODO Add flavor text"
-flavor_text_1 = "Explore the dream"
-flavor_text_2 = "Awake from the dream"
+text = "TODO placeholder"
+flavor_text_1 = ""
+flavor_text_2 = ""
 flavor_text_3 = ""
-option1 = Array[Resource("res://scripts/resource/upgrade.gd")]([ExtResource("1_kg1t0")])
-option2 = Array[Resource("res://scripts/resource/upgrade.gd")]([ExtResource("2_34ksi")])
-option3 = Array[Resource("res://scripts/resource/upgrade.gd")]([])
+option1 = Array[Resource("res://src/upgrade/upgrade.gd")]([ExtResource("1_kg1t0")])
+option2 = Array[Resource("res://src/upgrade/upgrade.gd")]([ExtResource("2_34ksi")])
+option3 = Array[Resource("res://src/upgrade/upgrade.gd")]([])

@@ -4,6 +4,7 @@ class_name TurnManager
 var week = 1
 var year = 0
 
+var energy: int = 3
 var ritual_counter: int = 0
 var purple_mana: int = 0
 var target_blight: int = 0
@@ -48,7 +49,7 @@ func end_turn():
 	week += 1
 	target_blight = get_blight_requirements(week, year)
 	next_turn_blight = get_blight_requirements(week + 1, year)
-	$'../'.update()
+	energy = get_max_energy()
 	return damage
 
 func start_new_year():
@@ -60,6 +61,7 @@ func start_new_year():
 	target_blight = get_blight_requirements(week, year)
 	next_turn_blight = get_blight_requirements(week + 1, year)
 	purple_mana = 0
+	energy = get_max_energy()
 
 func end_year():
 	pass
@@ -96,3 +98,20 @@ func get_blight_requirements(week, year):
 
 func get_blight_year_multiplier(year):
 	return 1.0 + year * 0.1
+
+func get_max_energy():
+	var new_energy = Constants.MAX_ENERGY
+	if (Global.ENERGY_FRAGMENTS % 3 > (week-1) % 3):
+		new_energy += 1
+	new_energy += int(float(Global.ENERGY_FRAGMENTS) / 3)
+	return new_energy
+
+func get_cards_drawn():
+	var cards_drawn = Constants.BASE_HAND_SIZE
+	if (Global.SCROLL_FRAGMENTS % 3 > (week-1) % 3):
+		cards_drawn += 1
+	cards_drawn += int(float(Global.SCROLL_FRAGMENTS) / 3)
+	return cards_drawn
+
+func get_blight_at_week(week):
+	return 0 if week < 5 else randi_range(0, 1) * (week * randi_range(1,3))
