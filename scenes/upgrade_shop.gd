@@ -18,25 +18,25 @@ func _on_click_out_button_pressed() -> void:
 
 func expand_up():
 	$Panel/VBox/ExpandUp.disabled = true
-	on_upgrade.emit(Upgrade.new("expand", 0, null, null))
+	on_upgrade.emit(load("res://data/upgrade/expand_up.tres"))
 	lock = true
 	on_close.emit()
 	
 func expand_down():
 	$Panel/VBox/ExpandDown.disabled = true
-	on_upgrade.emit(Upgrade.new("expand", 2, null, null))
+	on_upgrade.emit(load("res://data/upgrade/expand_down.tres"))
 	lock = true
 	on_close.emit()
 
 func expand_left():
 	$Panel/VBox/ExpandLeft.disabled = true
-	on_upgrade.emit(Upgrade.new("expand", 3, null, null))
+	on_upgrade.emit(load("res://data/upgrade/expand_left.tres"))
 	lock = true
 	on_close.emit()
 
 func expand_right():
 	$Panel/VBox/ExpandRight.disabled = true
-	on_upgrade.emit(Upgrade.new("expand", 1, null, null))
+	on_upgrade.emit(load("res://data/upgrade/expand_right.tres"))
 	lock = true
 	on_close.emit()
 

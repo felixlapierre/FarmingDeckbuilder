@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://xva3qbqb4k5o"]
+[gd_scene load_steps=26 format=3 uid="uid://xva3qbqb4k5o"]
 
 [ext_resource type="Texture2D" uid="uid://dejmbtpxa2rtc" path="res://assets/1616tinygarden/tileset.png" id="1_jy4o7"]
 [ext_resource type="Script" path="res://scripts/playspace.gd" id="1_yho3j"]
@@ -22,6 +22,7 @@
 [ext_resource type="PackedScene" uid="uid://dvjkkex6w162i" path="res://scenes/upgrade_shop.tscn" id="18_00ajt"]
 [ext_resource type="PackedScene" uid="uid://cjdwiax30iity" path="res://scenes/event_manager.tscn" id="21_74s0y"]
 [ext_resource type="PackedScene" uid="uid://djb7edsvibm5i" path="res://scenes/fortune_teller.tscn" id="22_1nf1y"]
+[ext_resource type="PackedScene" uid="uid://cg2lu7ivw8gms" path="res://scripts/game_event_dialog.tscn" id="23_5ud03"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_n4x4v"]
 texture = ExtResource("1_jy4o7")
@@ -389,6 +390,9 @@ visible = false
 [node name="FortuneTeller" parent="." instance=ExtResource("22_1nf1y")]
 visible = false
 
+[node name="GameEventDialog" parent="." instance=ExtResource("23_5ud03")]
+visible = false
+
 [connection signal="card_played" from="FarmTiles" to="." method="_on_farm_tiles_card_played"]
 [connection signal="on_card_draw" from="FarmTiles" to="." method="_on_farm_tiles_on_card_draw"]
 [connection signal="on_energy_gained" from="FarmTiles" to="." method="_on_farm_tiles_on_energy_gained"]
@@ -399,6 +403,7 @@ visible = false
 [connection signal="button_up" from="Winter/ShopButton" to="." method="_on_shop_button_button_up"]
 [connection signal="pressed" from="Winter/NextYearButton" to="." method="start_year"]
 [connection signal="pressed" from="Winter/FortuneTellerButton" to="." method="_on_fortune_teller_button_pressed"]
+[connection signal="pressed" from="Winter/EventButton" to="." method="_on_event_button_pressed"]
 [connection signal="pressed" from="Winter/FarmUpgradeButton" to="." method="_on_farm_upgrade_button_pressed"]
 [connection signal="on_card_removed" from="Shop" to="." method="_on_shop_on_card_removed"]
 [connection signal="on_item_bought" from="Shop" to="." method="_on_shop_on_item_bought"]
@@ -408,3 +413,4 @@ visible = false
 [connection signal="on_close" from="UpgradeShop" to="." method="upgrade_shop_close"]
 [connection signal="on_upgrade" from="UpgradeShop" to="." method="on_upgrade"]
 [connection signal="on_close" from="FortuneTeller" to="." method="_on_fortune_teller_on_close"]
+[connection signal="on_upgrades_selected" from="GameEventDialog" to="." method="_on_game_event_dialog_on_upgrades_selected"]

@@ -10,6 +10,8 @@ z_index = 2
 script = ExtResource("1_el13c")
 
 [node name="ClickOutButton" type="Button" parent="."]
+visible = false
+custom_minimum_size = Vector2(1920, 1080)
 offset_right = 8.0
 offset_bottom = 8.0
 

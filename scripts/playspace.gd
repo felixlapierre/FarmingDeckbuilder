@@ -205,6 +205,8 @@ func end_year():
 	$UI.visible = false
 	$Winter.visible = true
 	$UpgradeShop.lock = false
+	$Winter/EventButton.disabled = false
+	$GameEventDialog.generate_random_event()
 	update()
 
 func start_year():
@@ -252,7 +254,7 @@ func upgrade_shop_close():
 	update()
 
 func on_upgrade(upgrade: Upgrade):
-	if upgrade.name == "expand":
+	if upgrade.type == Upgrade.UpgradeType.ExpandFarm:
 		match int(upgrade.strength):
 			0:
 				Global.FARM_TOPLEFT.y -= 1
@@ -263,6 +265,8 @@ func on_upgrade(upgrade: Upgrade):
 			3:
 				Global.FARM_TOPLEFT.x -= 1
 		$FarmTiles.on_expand_farm()
+	else:
+		print(upgrade.text)
 
 func get_cards_drawn():
 	var cards_drawn = Constants.BASE_HAND_SIZE
@@ -285,3 +289,15 @@ func _on_fortune_teller_button_pressed() -> void:
 
 func _on_fortune_teller_on_close() -> void:
 	$FortuneTeller.visible = false
+
+func _on_event_button_pressed() -> void:
+	$GameEventDialog.visible = true
+
+func _on_game_event_dialog_on_upgrades_selected(upgrades: Array[Upgrade]) -> void:
+	for upgrade in upgrades:
+		apply_upgrade(upgrade)
+	$GameEventDialog.visible = false
+	$Winter/EventButton.disabled = true
+
+func apply_upgrade(upgrade: Upgrade):
+	on_upgrade(upgrade)
