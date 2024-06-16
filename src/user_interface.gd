@@ -11,6 +11,8 @@ var shop_structure_place_callback
 var deck
 var turn_ending = false
 
+var SELECT_CARD = preload("res://src/cards/select_card.tscn")
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	for i in Constants.MAX_BLIGHT:
@@ -170,3 +172,15 @@ func _on_farm_upgrade_button_pressed() -> void:
 
 func _on_upgrade_shop_on_upgrade(upgrade: Upgrade) -> void:
 	apply_upgrade.emit(upgrade)
+
+func select_card_to_remove():
+	var select_card = SELECT_CARD.instantiate()
+	select_card.size = Constants.VIEWPORT_SIZE
+	select_card.z_index = 2
+	select_card.theme = load("res://assets/theme_large.tres")
+	select_card.select_callback = func(card_data):
+		remove_child(select_card)
+		deck.erase(card_data)
+		$Shop.set_deck(deck)
+	add_child(select_card)
+	select_card.do_card_pick(deck, "Select a card to remove")

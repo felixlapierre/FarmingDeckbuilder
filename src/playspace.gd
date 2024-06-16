@@ -34,6 +34,7 @@ var starting_deck = [
 ]
 
 func _ready() -> void:
+	randomize()
 	card_database = preload("res://src/cards/cards_database.gd")
 	$EventManager.setup($FarmTiles, $TurnManager)
 	$UserInterface.setup($EventManager, $TurnManager, deck)
@@ -116,19 +117,22 @@ func _on_farm_tiles_on_card_draw(number_of_cards, card) -> void:
 		$Cards.drawcard()
 
 func on_upgrade(upgrade: Upgrade):
-	if upgrade.type == Upgrade.UpgradeType.ExpandFarm:
-		match int(upgrade.strength):
-			0:
-				Global.FARM_TOPLEFT.y -= 1
-			1:
-				Global.FARM_BOTRIGHT.x += 1
-			2:
-				Global.FARM_BOTRIGHT.y += 1
-			3:
-				Global.FARM_TOPLEFT.x -= 1
-		$FarmTiles.on_expand_farm()
-	else:
-		print(upgrade.text)
+	match upgrade.type:
+		Upgrade.UpgradeType.ExpandFarm:
+			match int(upgrade.strength):
+				0:
+					Global.FARM_TOPLEFT.y -= 1
+				1:
+					Global.FARM_BOTRIGHT.x += 1
+				2:
+					Global.FARM_BOTRIGHT.y += 1
+				3:
+					Global.FARM_TOPLEFT.x -= 1
+			$FarmTiles.on_expand_farm()
+		Upgrade.UpgradeType.RemoveAnyCard:
+			$UserInterface.select_card_to_remove()
+		_:
+			print(upgrade.text)
 
 func on_turn_end():
 	$Cards.discard_hand()

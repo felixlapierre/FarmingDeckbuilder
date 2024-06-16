@@ -2,7 +2,7 @@ extends Resource
 class_name GameEvent
 
 @export var name: String
-@export var text: String
+@export_multiline var text: String
 @export var flavor_text_1: String
 @export var flavor_text_2: String
 @export var flavor_text_3: String

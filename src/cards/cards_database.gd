@@ -1,3 +1,5 @@
+class_name DataFetcher
+
 static func get_all_cards() -> Array[CardData]:
 	var cards: Array[CardData] = []
 	var paths = get_all_file_paths("res://src/cards/data");
@@ -45,3 +47,13 @@ static func get_all_structure() -> Array[Structure]:
 			print(path)
 		structures.append(structure)
 	return structures
+
+static func get_all_event() -> Array[GameEvent]:
+	var events: Array[GameEvent] = []
+	var paths = get_all_file_paths("res://src/event/data");
+	for path in paths:
+		var event: GameEvent = load(path)
+		if event == null:
+			print(path)
+		events.append(event)
+	return events

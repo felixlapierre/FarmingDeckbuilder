@@ -1,16 +1,26 @@
 extends Node2D
 
 var current_event: GameEvent
+var completed_events: Array[GameEvent] = []
 
 signal on_upgrades_selected
+
+var card_database: DataFetcher
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	$PanelContainer.position = Constants.VIEWPORT_SIZE / 2 - $PanelContainer.size / 2
+	card_database = preload("res://src/cards/cards_database.gd").new()
 
 func generate_random_event():
 	# For now hardcode dream of emptiness
-	current_event = load("res://src/event/data/dream_of_emptiness.tres")
+	var events = card_database.get_all_event()
+	events.shuffle()
+	for event in events:
+		if !completed_events.has(event):
+			current_event = event
+			break
+	completed_events.append(current_event)
 	update_interface()
 
 func update_interface():
@@ -27,6 +37,7 @@ func update_option(flavor: String, upgrades: Array[Upgrade], button: Button):
 	if upgrades.size() == 0:
 		button.visible = false
 	else:
+		button.visible = true
 		var text = flavor
 		for upgrade in upgrades:
 			if upgrade.text.length() > 0:
