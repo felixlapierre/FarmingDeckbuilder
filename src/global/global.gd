@@ -10,3 +10,7 @@ static var FARM_BOTRIGHT = Vector2(6, 6)
 
 static var ENERGY_FRAGMENTS = 0
 static var SCROLL_FRAGMENTS = 0
+
+static var BLIGHT_TILES_THREATENED = 4
+static var BLIGHT_FLAG_PIERCING = false
+static var BLIGHT_FLAG_THREATEN_GROWING = false

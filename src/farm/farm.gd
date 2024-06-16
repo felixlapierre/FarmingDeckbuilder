@@ -264,16 +264,6 @@ func on_expand_farm():
 	for tile in $Tiles.get_children():
 		tile.do_active_check()
 
-func set_blight_target_tiles(number_tiles):
-	var tiles = []
-	for tile in $Tiles.get_children():
-		tile.set_blight_targeted(false)
-		if [Enums.TileState.Empty, Enums.TileState.Growing, Enums.TileState.Mature].has(tile.state):
-			tiles.append(tile)
-	tiles.shuffle()
-	for i in range(number_tiles):
-		tiles[i].set_blight_targeted(true)
-
 func destroy_blighted_tiles():
 	for tile in $Tiles.get_children():
 		if tile.blight_targeted == true:
@@ -290,3 +280,7 @@ func use_card_random_tile(card: CardData, times: int):
 		locations.append(tiles[i].grid_location)
 	use_card_on_targets(card, locations, false)
 	
+func get_all_tiles() -> Array[Tile]:
+	var result: Array[Tile] = []
+	result.assign($Tiles.get_children())
+	return result

@@ -7,6 +7,7 @@ enum FortuneType {
 	Creeping,
 	Destroy,
 	Swap,
+	TargetGrowingPlants,
 	# Good fortunes
 	ReduceRitualTarget
 }

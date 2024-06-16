@@ -115,3 +115,28 @@ func get_cards_drawn():
 
 func get_blight_at_week(week):
 	return 0 if week < 5 else randi_range(0, 1) * (week * randi_range(1,3))
+
+func set_blight_targeted_tiles(farm: Farm):
+	print(Global.BLIGHT_FLAG_THREATEN_GROWING)
+	var number_tiles = Constants.BASE_BLIGHT_DAMAGE if target_blight > 0 else 0
+	var all_tiles = farm.get_all_tiles()
+	all_tiles.shuffle()
+	var target_tile_states = [Enums.TileState.Empty, Enums.TileState.Growing, Enums.TileState.Mature]\
+		if Global.BLIGHT_FLAG_THREATEN_GROWING == false else [Enums.TileState.Growing]
+	var valid_targets = []
+	for tile in all_tiles:
+		tile.set_blight_targeted(false)
+		if target_tile_states.has(tile.state):
+			valid_targets.append(tile)
+	# In case we are targeting only growing plants and there aren't enough
+	while valid_targets.size() < number_tiles:
+		for tile in all_tiles:
+			if [Enums.TileState.Empty, Enums.TileState.Mature].has(tile.state):
+				valid_targets.append(tile)
+				if valid_targets.size() >= number_tiles:
+					break
+	for i in range(number_tiles):
+		valid_targets[i].set_blight_targeted(true)
+
+func destroy_blighted_tiles(farm: Farm):
+	farm.destroy_blighted_tiles()
