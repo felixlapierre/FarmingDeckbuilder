@@ -184,3 +184,15 @@ func select_card_to_remove():
 		$Shop.set_deck(deck)
 	add_child(select_card)
 	select_card.do_card_pick(deck, "Select a card to remove")
+
+func select_card_to_copy():
+	var select_card = SELECT_CARD.instantiate()
+	select_card.size = Constants.VIEWPORT_SIZE
+	select_card.z_index = 2
+	select_card.theme = load("res://assets/theme_large.tres")
+	select_card.select_callback = func(card_data):
+		remove_child(select_card)
+		deck.append(card_data)
+		$Shop.set_deck(deck)
+	add_child(select_card)
+	select_card.do_card_pick(deck, "Select a card to copy")

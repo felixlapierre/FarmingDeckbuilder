@@ -131,6 +131,8 @@ func on_upgrade(upgrade: Upgrade):
 			$FarmTiles.on_expand_farm()
 		Upgrade.UpgradeType.RemoveAnyCard:
 			$UserInterface.select_card_to_remove()
+		Upgrade.UpgradeType.CopyAnyCard:
+			$UserInterface.select_card_to_copy()
 		_:
 			print(upgrade.text)
 
