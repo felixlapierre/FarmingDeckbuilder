@@ -15,6 +15,7 @@ enum UpgradeType {
 	GainReroll,
 	AddSpecificCard,
 	RemoveAnyCard,
+	RemoveSpecificCard,
 	CopyAnyCard
 }
 

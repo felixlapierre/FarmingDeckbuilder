@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="CardData" load_steps=3 format=3 uid="uid://dqb6xiiph4f6r"]
+
+[ext_resource type="Script" path="res://src/cards/card_data.gd" id="1_a3w07"]
+[ext_resource type="Resource" uid="uid://cvjsjs0olfpl5" path="res://src/effect/data/draw_on_harvest.tres" id="1_qvyaw"]
+
+[resource]
+script = ExtResource("1_a3w07")
+type = "SEED"
+name = "Sunflower"
+rarity = "unique"
+cost = 1
+yld = 8
+time = 3
+size = 4
+text = ""
+seed_texture = 3
+targets = Array[String]([])
+effects = Array[Resource("res://src/effect/effect.gd")]([ExtResource("1_qvyaw")])

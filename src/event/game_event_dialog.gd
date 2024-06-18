@@ -17,7 +17,7 @@ func generate_random_event():
 	var events = card_database.get_all_event()
 	events.shuffle()
 	for event in events:
-		if !completed_events.has(event):
+		if !completed_events.has(event) and (event.prerequisite == null or completed_events.has(event.prerequisite)):
 			current_event = event
 			break
 	completed_events.append(current_event)

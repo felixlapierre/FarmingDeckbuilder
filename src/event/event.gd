@@ -9,9 +9,10 @@ class_name GameEvent
 @export var option1: Array[Upgrade]
 @export var option2: Array[Upgrade]
 @export var option3: Array[Upgrade]
+@export var prerequisite: GameEvent
 
 func _init(p_name = "name", p_text = "text", p_flavor_1 = "", p_flavor_2 = "", p_flavor_3 = "", \
-	p_option1 = [], p_option2 = [], p_option3 = []) -> void:
+	p_option1 = [], p_option2 = [], p_option3 = [], p_prerequisite = null) -> void:
 	name = p_name
 	text = p_text
 	flavor_text_1 = p_flavor_1
@@ -20,4 +21,5 @@ func _init(p_name = "name", p_text = "text", p_flavor_1 = "", p_flavor_2 = "", p
 	option1.append_array(p_option1)
 	option2.append_array(p_option2)
 	option3.append_array(p_option3)
+	prerequisite = p_prerequisite
 

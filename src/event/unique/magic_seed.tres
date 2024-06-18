@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="CardData" load_steps=2 format=3 uid="uid://barxfhscvj50g"]
+
+[ext_resource type="Script" path="res://src/cards/card_data.gd" id="1_lfoho"]
+
+[resource]
+script = ExtResource("1_lfoho")
+type = "SEED"
+name = "Magic Seed"
+rarity = "unique"
+cost = 1
+yld = 99
+time = 99
+size = 1
+text = "A strange and unique seed"
+seed_texture = 3
+targets = Array[String]([])
+effects = Array[Resource("res://src/effect/effect.gd")]([])

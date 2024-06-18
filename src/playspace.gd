@@ -133,6 +133,10 @@ func on_upgrade(upgrade: Upgrade):
 			$UserInterface.select_card_to_remove()
 		Upgrade.UpgradeType.CopyAnyCard:
 			$UserInterface.select_card_to_copy()
+		Upgrade.UpgradeType.AddSpecificCard:
+			deck.append(upgrade.card)
+		Upgrade.UpgradeType.RemoveSpecificCard:
+			deck.erase(upgrade.card)
 		_:
 			print(upgrade.text)
 
