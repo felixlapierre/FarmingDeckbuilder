@@ -8,7 +8,7 @@ signal on_next_year
 @export var turn_manager: TurnManager
 
 var shop_structure_place_callback
-var deck
+var deck: Array[CardData]
 var turn_ending = false
 
 var SELECT_CARD = preload("res://src/cards/select_card.tscn")
@@ -25,10 +25,11 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	pass
 
-func setup(p_event_manager: EventManager, p_turn_manager: TurnManager, p_deck):
+func setup(p_event_manager: EventManager, p_turn_manager: TurnManager, p_deck: Array[CardData]):
 	$FortuneTeller.setup(p_event_manager)
 	turn_manager = p_turn_manager
 	deck = p_deck
+	$GameEventDialog.setup(deck, turn_manager)
 
 # Start and end year
 func end_year():
@@ -76,7 +77,8 @@ func update():
 	$UI/RitualCounter/Label.text = str(turn_manager.ritual_counter)
 	$Shop.update_labels()
 	$Winter/FarmUpgradeButton.disabled = $UpgradeShop.lock
-	$Winter/NextYearButton.disabled = !$UpgradeShop.lock
+	# Temporarily disable this QOL for testing
+	$Winter/NextYearButton.disabled = false #!$UpgradeShop.lock
 
 # Fortune Teller
 func _on_fortune_teller_button_pressed() -> void:
@@ -158,10 +160,14 @@ func _on_end_turn_button_pressed() -> void:
 	Global.selected_card = null
 	end_turn_button_pressed.emit()
 
-func damage_taken():
-	$UI/BlightDamage.visible = true
-	var img = $UI/BlightDamage.get_child(turn_manager.blight_damage - 1)
-	img.texture = load("res://assets/custom/Blight.png")
+func update_damage():
+	$UI/BlightDamage.visible = turn_manager.blight_damage != 0
+	for i in $UI/BlightDamage.get_child_count():
+		var img = $UI/BlightDamage.get_child(i)
+		if turn_manager.blight_damage > i:
+			img.texture = load("res://assets/custom/Blight.png")
+		else:
+			img.texture = load("res://assets/custom/BlightEmpty.png")
 
 func _on_next_year_button_pressed() -> void:
 	on_next_year.emit()

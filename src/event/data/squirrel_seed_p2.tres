@@ -9,7 +9,7 @@
 [sub_resource type="Resource" id="Resource_uejx8"]
 script = ExtResource("2_2w6g0")
 type = 7
-text = "Remove Mysterious Seed"
+text = "Remove Mysterious Seed. "
 strength = 0.0
 card = ExtResource("1_3t8e7")
 

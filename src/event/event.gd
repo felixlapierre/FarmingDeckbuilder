@@ -23,3 +23,23 @@ func _init(p_name = "name", p_text = "text", p_flavor_1 = "", p_flavor_2 = "", p
 	option3.append_array(p_option3)
 	prerequisite = p_prerequisite
 
+func maybe_setup_random_card(card_database: DataFetcher):
+	_setup_option(option1, card_database)
+	_setup_option(option2, card_database)
+	_setup_option(option3, card_database)
+
+func _setup_option(option: Array[Upgrade], card_database: DataFetcher):
+	for upgrade in option:
+		upgrade.setup_random_values(card_database)
+
+func check_upgrade_prerequisite(deck: Array[CardData], turn_manager: TurnManager):
+	return check_option_prerequisite(option1, deck, turn_manager)\
+		and check_option_prerequisite(option2, deck, turn_manager)\
+		and check_option_prerequisite(option3, deck, turn_manager)
+
+func check_option_prerequisite(option: Array[Upgrade], deck: Array[CardData], turn_manager: TurnManager):
+	for upgrade in option:
+		if upgrade.check_prerequisite(deck, turn_manager) == false:
+			return false
+	return true
+	

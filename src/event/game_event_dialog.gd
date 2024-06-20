@@ -2,36 +2,49 @@ extends Node2D
 
 var current_event: GameEvent
 var completed_events: Array[GameEvent] = []
+var always_do_event: GameEvent = preload("res://src/event/data/quiet_winter.tres")
 
 signal on_upgrades_selected
 
 var card_database: DataFetcher
+var deck: Array[CardData] = []
+var turn_manager: TurnManager = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	$PanelContainer.position = Constants.VIEWPORT_SIZE / 2 - $PanelContainer.size / 2
 	card_database = preload("res://src/cards/cards_database.gd").new()
 
+func setup(p_deck: Array[CardData], p_turn_manager: TurnManager):
+	deck = p_deck
+	turn_manager = p_turn_manager
+
 func generate_random_event():
-	# For now hardcode dream of emptiness
-	var events = card_database.get_all_event()
-	events.shuffle()
-	for event in events:
-		if !completed_events.has(event) and (event.prerequisite == null or completed_events.has(event.prerequisite)):
-			current_event = event
-			break
+	if always_do_event != null and !completed_events.has(always_do_event):
+		current_event = always_do_event
+	else:
+		var events = card_database.get_all_event()
+		events.shuffle()
+		for event in events:
+			if !completed_events.has(event)\
+				and (event.prerequisite == null or completed_events.has(event.prerequisite))\
+				and event.check_upgrade_prerequisite(deck, turn_manager):
+				current_event = event
+				break
+		
 	completed_events.append(current_event)
+	current_event.maybe_setup_random_card(card_database)
 	update_interface()
 
 func update_interface():
 	if current_event == null:
 		return
-	$PanelContainer/VBox/Title.text = current_event.name
-	$PanelContainer/VBox/Description.text = current_event.text
+	$PanelContainer/Margin/VBox/Title.text = current_event.name
+	$PanelContainer/Margin/VBox/Description.text = current_event.text
 	
-	update_option(current_event.flavor_text_1, current_event.option1, $PanelContainer/VBox/Option1Button)
-	update_option(current_event.flavor_text_2, current_event.option2, $PanelContainer/VBox/Option2Button)
-	update_option(current_event.flavor_text_3, current_event.option3, $PanelContainer/VBox/Option3Button)
+	update_option(current_event.flavor_text_1, current_event.option1, $PanelContainer/Margin/VBox/Option1Button)
+	update_option(current_event.flavor_text_2, current_event.option2, $PanelContainer/Margin/VBox/Option2Button)
+	update_option(current_event.flavor_text_3, current_event.option3, $PanelContainer/Margin/VBox/Option3Button)
 
 func update_option(flavor: String, upgrades: Array[Upgrade], button: Button):
 	if upgrades.size() == 0:
@@ -43,7 +56,7 @@ func update_option(flavor: String, upgrades: Array[Upgrade], button: Button):
 			if upgrade.text.length() > 0:
 				if text.length() == flavor.length(): # if this is the first upgrade with text
 					text += " ("
-				text += upgrade.text
+				text += upgrade.get_text()
 		if text.length() > flavor.length(): # if at least one upgrade had text
 			text += ")"
 		button.text = text

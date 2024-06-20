@@ -4,6 +4,6 @@
 
 [resource]
 script = ExtResource("1_fbkdu")
-type = 2
+type = 3
 text = "Gain a Card Fragment"
 strength = 1.0

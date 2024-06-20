@@ -3,7 +3,7 @@ extends Node2D
 var victory = false
 
 var card_database
-var deck = []
+var deck: Array[CardData] = []
 
 var starting_deck = [
 	{
@@ -133,10 +133,26 @@ func on_upgrade(upgrade: Upgrade):
 			$UserInterface.select_card_to_remove()
 		Upgrade.UpgradeType.CopyAnyCard:
 			$UserInterface.select_card_to_copy()
-		Upgrade.UpgradeType.AddSpecificCard:
+		Upgrade.UpgradeType.AddSpecificCard, Upgrade.UpgradeType.AddCommonCard, Upgrade.UpgradeType.AddRareCard:
 			deck.append(upgrade.card)
 		Upgrade.UpgradeType.RemoveSpecificCard:
 			deck.erase(upgrade.card)
+		Upgrade.UpgradeType.EnergyFragment:
+			Global.ENERGY_FRAGMENTS += int(upgrade.strength)
+		Upgrade.UpgradeType.CardFragment:
+			Global.SCROLL_FRAGMENTS += int(upgrade.strength)
+		Upgrade.UpgradeType.GainMoney:
+			$UserInterface/Shop.player_money += int(upgrade.strength)
+			$UserInterface/Shop.update_labels()
+		Upgrade.UpgradeType.LoseMoney:
+			$UserInterface/Shop.player_money += int(upgrade.strength)
+			$UserInterface/Shop.update_labels()
+		Upgrade.UpgradeType.GainBlight:
+			$TurnManager.blight_damage += int(upgrade.strength)
+			$UserInterface.update_damage()
+		Upgrade.UpgradeType.RemoveBlight:
+			$TurnManager.blight_damage -= int(upgrade.strength)
+			$UserInterface.update_damage()
 		_:
 			print(upgrade.text)
 
@@ -152,7 +168,7 @@ func on_turn_end():
 		return
 	var damage = $TurnManager.end_turn()
 	if damage:
-		$UserInterface.damage_taken()
+		$UserInterface.update_damage()
 		$TurnManager.destroy_blighted_tiles($FarmTiles)
 
 	$Cards.draw_hand($TurnManager.get_cards_drawn(), $TurnManager.week)

@@ -1,13 +1,17 @@
 class_name DataFetcher
 
 static func get_all_cards() -> Array[CardData]:
+	return get_all_cards_rarity(null)
+
+static func get_all_cards_rarity(rarity) -> Array[CardData]:
 	var cards: Array[CardData] = []
 	var paths = get_all_file_paths("res://src/cards/data");
 	for path in paths:
 		var card: CardData = load(path)
 		if card == null:
 			print(path)
-		cards.append(card)
+		if rarity == null or rarity == card.rarity:
+			cards.append(card)
 	return cards
 
 static func get_card_by_name(name: String, type: String):

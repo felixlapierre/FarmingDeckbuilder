@@ -4,6 +4,6 @@
 
 [resource]
 script = ExtResource("1_urxt3")
-type = 1
+type = 2
 text = "Gain an energy fragment"
 strength = 1.0
