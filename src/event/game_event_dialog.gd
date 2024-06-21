@@ -2,7 +2,7 @@ extends Node2D
 
 var current_event: GameEvent
 var completed_events: Array[GameEvent] = []
-var always_do_event: GameEvent = preload("res://src/event/data/quiet_winter.tres")
+var always_do_event: GameEvent = preload("res://src/event/data/druid_enhance.tres")
 
 signal on_upgrades_selected
 

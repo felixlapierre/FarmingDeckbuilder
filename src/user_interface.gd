@@ -202,3 +202,16 @@ func select_card_to_copy():
 		$Shop.set_deck(deck)
 	add_child(select_card)
 	select_card.do_card_pick(deck, "Select a card to copy")
+
+func select_card_to_enhance(enhance: Enhance):
+	var select_card = SELECT_CARD.instantiate()
+	select_card.size = Constants.VIEWPORT_SIZE
+	select_card.z_index = 2
+	select_card.theme = load("res://assets/theme_large.tres")
+	select_card.select_callback = func(card_data: CardData):
+		remove_child(select_card)
+		var new_card = card_data.apply_enhance(enhance)
+		deck.erase(card_data)
+		deck.append(new_card)
+	add_child(select_card)
+	select_card.do_enhance_pick(deck, enhance, "Select a card to enhance")
