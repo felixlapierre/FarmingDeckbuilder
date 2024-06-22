@@ -9,7 +9,8 @@ enum FortuneType {
 	Swap,
 	TargetGrowingPlants,
 	# Good fortunes
-	ReduceRitualTarget
+	ReduceRitualTarget,
+	Blank
 }
 
 @export var name: String
@@ -43,14 +44,14 @@ func unregister_fortune(event_manager: EventManager):
 	event_manager.unregister_on_year_start(callback)
 
 func weeds(event_manager: EventManager):
-	callback = func(farm: Farm, turn_manager: TurnManager):
+	callback = func(farm: Farm, turn_manager: TurnManager, cards: Cards):
 		print("Weeds callback")
 		var card: CardData = load("res://src/fortune/unique/weed.tres")
 		farm.use_card_random_tile(card, 4)
 	event_manager.register_on_year_start(callback)
 
 func reduce_ritual_target(event_manager: EventManager):
-	callback = func(farm: Farm, turn_manager: TurnManager):
+	callback = func(farm: Farm, turn_manager: TurnManager, cards: Cards):
 		print("Reduce ritual target callback")
 		turn_manager.ritual_counter -= 20
 	event_manager.register_on_year_start(callback)

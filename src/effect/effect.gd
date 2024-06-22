@@ -72,7 +72,7 @@ func get_short_description():
 		"draw":
 			return "Draw " + str(strength) + " card" + "s" if strength > 1 else "" + get_on_text()
 		"spread":
-			return str(strength*100) + "% chance to spread on " + on
+			return str(strength*100) + "% chance to spread" + get_on_text()
 		"increase_yield":
 			return "Increase yield by " + str(strength * 100) + "%"
 		"harvest":

@@ -1,0 +1,27 @@
+[gd_resource type="Resource" script_class="CardData" load_steps=5 format=3 uid="uid://6gx7te5invcj"]
+
+[ext_resource type="Script" path="res://src/effect/effect.gd" id="1_02dmq"]
+[ext_resource type="Script" path="res://src/cards/card_data.gd" id="1_s3w2f"]
+[ext_resource type="Texture2D" uid="uid://c46q76532nqk" path="res://assets/custom/Temp.png" id="3_kt3w6"]
+
+[sub_resource type="Resource" id="Resource_mgt3x"]
+script = ExtResource("1_02dmq")
+name = "spread"
+strength = 1.0
+on = ""
+range = "self"
+
+[resource]
+script = ExtResource("1_s3w2f")
+type = "ACTION"
+name = "Propagation"
+rarity = "rare"
+cost = 2
+yld = 0
+time = 0
+size = 6
+text = ""
+texture = ExtResource("3_kt3w6")
+seed_texture = 0
+targets = Array[String](["Growing"])
+effects = Array[ExtResource("1_02dmq")]([SubResource("Resource_mgt3x")])

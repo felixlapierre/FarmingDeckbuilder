@@ -1,4 +1,5 @@
 extends Node2D
+class_name Cards
 
 var CardBase;
 var PlayerHand;
@@ -132,6 +133,12 @@ func discard_hand():
 		if card.card_info.get_effect("remembrance") == null:
 			discard_card(card)
 	reorganize_hand()
+
+func obliviate_rightmost():
+	var hand_count = $Hand.get_child_count()
+	if hand_count > 0:
+		var card = $Hand.get_child(hand_count - 1)
+		remove_hand_card(card)
 
 func discard_card(card):
 	$Hand.remove_child(card)

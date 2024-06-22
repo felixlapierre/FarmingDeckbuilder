@@ -249,3 +249,6 @@ func destroy():
 	state = Enums.TileState.Destroyed
 	$Farmland.modulate = Color8(45, 45, 45)
 	remove_seed()
+
+func update_purple_overlay():
+	$PurpleOverlay.visible = purple and state != Enums.TileState.Inactive

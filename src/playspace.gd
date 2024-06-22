@@ -27,7 +27,7 @@ var starting_deck = [
 		"count": 1
 	},
 	{
-		"name": "earthrite",
+		"name": "propagation",
 		"type": "action",
 		"count": 1
 	}
@@ -36,7 +36,7 @@ var starting_deck = [
 func _ready() -> void:
 	randomize()
 	card_database = preload("res://src/cards/cards_database.gd")
-	$EventManager.setup($FarmTiles, $TurnManager)
+	$EventManager.setup($FarmTiles, $TurnManager, $Cards)
 	$UserInterface.setup($EventManager, $TurnManager, deck)
 	for card in starting_deck:
 		for i in range(card.count):
@@ -106,10 +106,10 @@ func _on_farm_tiles_on_energy_gained(amount) -> void:
 func on_lose():
 	$Cards.discard_hand()
 	$Cards.do_winter_clear()
-	$UI/EndTurnButton.visible = false
+	$UserInterface/UI/EndTurnButton.visible = false
 	$LoseContainer.visible = true
-	$UI/Deck.visible = false
-	$UI/RitualCounter.visible = false
+	$UserInterface/UI/Deck.visible = false
+	$UserInterface/UI/RitualCounter.visible = false
 
 
 func _on_farm_tiles_on_card_draw(number_of_cards, card) -> void:
@@ -181,6 +181,7 @@ func on_upgrade(upgrade: Upgrade):
 			print(upgrade.text)
 
 func on_turn_end():
+	$EventManager.notify_turn_end()
 	$Cards.discard_hand()
 	await get_tree().create_timer(0.3).timeout
 	await $FarmTiles.process_one_week()

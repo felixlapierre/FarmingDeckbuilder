@@ -32,7 +32,7 @@ func _ready() -> void:
 			tile.grid_location = Vector2(i, j)
 			tiles[i].append(tile)
 			tile.tile_hovered.connect(on_tile_hover)
-			if i >= 4:
+			if i >= Constants.PURPLE_GTE_INDEX:
 				tile.purple = true
 			$Tiles.add_child(tile)
 
@@ -169,7 +169,10 @@ func process_one_week():
 
 func use_action_card(card, grid_location):
 	for effect in card.effects:
-		effect_queue.append(effect.copy().set_location(grid_location))
+		var n_effect = effect.copy().set_location(grid_location)
+		if n_effect.name == "spread":
+			n_effect.card = tiles[grid_location.x][grid_location.y].seed
+		effect_queue.append(n_effect)
 
 func process_effect_queue():
 	while effect_queue.size() > 0:
