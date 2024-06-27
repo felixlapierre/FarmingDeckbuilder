@@ -184,6 +184,7 @@ func select_card_to_remove():
 	select_card.size = Constants.VIEWPORT_SIZE
 	select_card.z_index = 2
 	select_card.theme = load("res://assets/theme_large.tres")
+	select_card.disable_cancel()
 	select_card.select_callback = func(card_data):
 		remove_child(select_card)
 		deck.erase(card_data)
@@ -196,6 +197,7 @@ func select_card_to_copy():
 	select_card.size = Constants.VIEWPORT_SIZE
 	select_card.z_index = 2
 	select_card.theme = load("res://assets/theme_large.tres")
+	select_card.disable_cancel()
 	select_card.select_callback = func(card_data):
 		remove_child(select_card)
 		deck.append(card_data)
@@ -208,6 +210,7 @@ func select_card_to_enhance(enhance: Enhance):
 	select_card.size = Constants.VIEWPORT_SIZE
 	select_card.z_index = 2
 	select_card.theme = load("res://assets/theme_large.tres")
+	select_card.disable_cancel()
 	select_card.select_callback = func(card_data: CardData):
 		remove_child(select_card)
 		var new_card = card_data.apply_enhance(enhance)

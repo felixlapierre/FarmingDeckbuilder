@@ -3,6 +3,8 @@ class_name Farm
 
 var FarmTile = preload("res://src/farm/tile.tscn")
 
+var event_manager: EventManager
+
 var TILE_SIZE = Vector2(91, 91);
 var TOP_LEFT
 var tiles = []
@@ -32,9 +34,15 @@ func _ready() -> void:
 			tile.grid_location = Vector2(i, j)
 			tiles[i].append(tile)
 			tile.tile_hovered.connect(on_tile_hover)
+			tile.on_event.connect(on_farm_tile_on_event)
 			if i >= Constants.PURPLE_GTE_INDEX:
 				tile.purple = true
 			$Tiles.add_child(tile)
+
+func setup(p_event_manager: EventManager):
+	event_manager = p_event_manager
+	for tile in $Tiles.get_children():
+		tile.event_manager = event_manager
 
 func use_card(grid_position):
 	var card = Global.selected_card
@@ -287,3 +295,6 @@ func get_all_tiles() -> Array[Tile]:
 	var result: Array[Tile] = []
 	result.assign($Tiles.get_children())
 	return result
+
+func on_farm_tile_on_event(event_type: EventManager.EventType, specific_args):
+	event_manager.notify_specific_args(event_type, specific_args)

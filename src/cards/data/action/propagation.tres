@@ -23,5 +23,5 @@ size = 6
 text = ""
 texture = ExtResource("3_kt3w6")
 seed_texture = 0
-targets = Array[String](["Growing"])
+targets = Array[String](["Growing", "Mature"])
 effects = Array[ExtResource("1_02dmq")]([SubResource("Resource_mgt3x")])

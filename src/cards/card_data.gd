@@ -88,3 +88,10 @@ func get_description() -> String:
 				descr += ". "
 			descr += effect_text
 	return descr
+
+# To be overridden by specific code seeds
+func register_events(event_manager: EventManager, tile: Tile):
+	pass
+
+func unregister_events(event_manager: EventManager):
+	pass

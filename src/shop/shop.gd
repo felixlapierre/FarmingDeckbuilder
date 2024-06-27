@@ -180,7 +180,7 @@ func _on_remove_card_button_pressed(cost, row) -> void:
 		update_labels()
 		$RemoveCardContainer.visible = false
 	$RemoveCardContainer/SelectCard.do_card_pick(player_cards, "Select a card to remove")
-	
+
 func _on_card_remove_cancelled() -> void:
 	$RemoveCardContainer.visible = false
 

@@ -23,6 +23,9 @@ var permanent_multiplier = 0.0
 var blight_targeted = false
 
 signal tile_hovered
+signal on_event
+
+var event_manager: EventManager
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -81,6 +84,7 @@ func plant_seed(planted_seed) -> Array[Effect]:
 	var effects: Array[Effect] = []
 	if state == Enums.TileState.Empty:
 		seed = planted_seed
+		seed.register_events(event_manager, self)
 		effects.append_array(get_effects("plant"))
 		seed_grow_time = float(seed.time)
 		seed_base_yield = float(seed.yld)
@@ -95,6 +99,7 @@ func plant_seed(planted_seed) -> Array[Effect]:
 		$PlantSprite.texture = load(objects_image)
 		$PlantSprite.region_enabled = true
 		update_plant_sprite()
+	event_manager.notify_specific_args(EventManager.EventType.OnPlantPlanted, EventArgs.SpecificArgs.new(self))
 	return effects
 	
 func grow_one_week() -> Array[Effect]:
@@ -110,6 +115,7 @@ func grow_one_week() -> Array[Effect]:
 		grow_animation()
 		if current_grow_progress == seed_grow_time:
 			state = Enums.TileState.Mature
+	event_manager.notify_specific_args(EventManager.EventType.OnPlantGrow, EventArgs.SpecificArgs.new(self))
 	return effects
 
 func grow_animation():
@@ -139,6 +145,7 @@ func update_plant_sprite():
 	$PlantSprite.offset = Vector2(0, -8 if h == 16 else -14)
 
 func harvest() -> Array[Effect]:
+	event_manager.notify_specific_args(EventManager.EventType.OnPlantHarvest, EventArgs.SpecificArgs.new(self))
 	var effects: Array[Effect] = []
 	if state == Enums.TileState.Mature:
 		effects.append_array(get_effects("harvest"))
@@ -148,6 +155,9 @@ func harvest() -> Array[Effect]:
 	return effects
 
 func remove_seed():
+	event_manager.notify_specific_args(EventManager.EventType.OnPlantDestroyed,\
+		EventArgs.SpecificArgs.new(self))
+	seed.unregister_events(event_manager)
 	seed_base_yield = 0
 	seed_grow_time = 0
 	current_grow_progress = 0.0
@@ -170,6 +180,7 @@ func build_structure(n_structure, rotate):
 	state = Enums.TileState.Structure
 	structure = n_structure
 	structure_rotate = rotate
+	structure.register_events(event_manager, self)
 	$PlantSprite.texture = n_structure.texture
 	$PlantSprite.visible = true
 	$PlantSprite.region_enabled = false
@@ -241,13 +252,19 @@ func set_blight_targeted(value):
 	$BlightTargetOverlay.visible = value
 
 func set_blighted():
+	remove_seed()
 	state = Enums.TileState.Blighted
 	$PlantSprite.visible = false
 	$Farmland.modulate = Color8(102, 0, 102)
 
 func destroy():
+	on_event.emit()
 	state = Enums.TileState.Destroyed
 	$Farmland.modulate = Color8(45, 45, 45)
+	remove_seed()
+
+func destroy_plant():
+	state = Enums.TileState.Empty
 	remove_seed()
 
 func update_purple_overlay():

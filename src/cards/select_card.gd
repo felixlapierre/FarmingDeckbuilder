@@ -1,5 +1,7 @@
 extends Control
 
+class_name SelectCard
+
 var CardBase
 var cards = []
 
@@ -18,6 +20,9 @@ var select_callback: Callable
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	CardBase = preload("res://src/cards/card_base.tscn")
+
+func disable_cancel():
+	$SelectContainer/Header/CloseButton.visible = false
 
 func do_card_pick(cards_input, prompt_text):
 	cards = cards_input

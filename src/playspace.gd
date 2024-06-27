@@ -27,8 +27,8 @@ var starting_deck = [
 		"count": 1
 	},
 	{
-		"name": "propagation",
-		"type": "action",
+		"name": "inky_cap",
+		"type": "seed",
 		"count": 1
 	}
 ]
@@ -42,6 +42,7 @@ func _ready() -> void:
 		for i in range(card.count):
 			deck.append(card_database.get_card_by_name(card.name, card.type))
 	$UserInterface.update()
+	$FarmTiles.setup($EventManager)
 	start_year()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -181,12 +182,12 @@ func on_upgrade(upgrade: Upgrade):
 			print(upgrade.text)
 
 func on_turn_end():
-	$EventManager.notify_turn_end()
+	$EventManager.notify(EventManager.EventType.BeforeGrow)
 	$Cards.discard_hand()
 	await get_tree().create_timer(0.3).timeout
 	await $FarmTiles.process_one_week()
 	await get_tree().create_timer(0.1).timeout
-	
+	$EventManager.notify(EventManager.EventType.AfterGrow)
 	if victory == true:
 		end_year()
 		$UserInterface.turn_ending = false
@@ -195,7 +196,7 @@ func on_turn_end():
 	if damage:
 		$UserInterface.update_damage()
 		$TurnManager.destroy_blighted_tiles($FarmTiles)
-
+	$EventManager.notify(EventManager.EventType.OnTurnEnd)
 	$Cards.draw_hand($TurnManager.get_cards_drawn(), $TurnManager.week)
 	
 	if $TurnManager.blight_damage >= Constants.MAX_BLIGHT:
@@ -205,3 +206,4 @@ func on_turn_end():
 	await get_tree().create_timer(1).timeout
 	$UserInterface.update()
 	$UserInterface.turn_ending = false
+	$EventManager.notify(EventManager.EventType.BeforeTurnStart)

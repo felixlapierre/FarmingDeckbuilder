@@ -34,3 +34,10 @@ func copy():
 	for effect in effects:
 		n_effects.append(effect.copy())
 	return CardData.new(name, rarity, cost, size, text, texture, n_effects)
+
+# To be overridden by specific script structures
+func register_events(event_manager: EventManager, tile: Tile):
+	pass
+
+func unregister_events(event_manager: EventManager):
+	pass
