@@ -32,8 +32,13 @@ func gain_yellow_mana(amount):
 		return true
 	return false
 
-func gain_purple_mana(amount):
-	purple_mana += amount
+func gain_purple_mana(amount, delay):
+	if !delay:
+		purple_mana += amount
+	else:
+		next_turn_blight -= amount
+		if next_turn_blight < 0:
+			next_turn_blight = 0
 
 # Return boolean if the player took damage
 func end_turn():
@@ -47,7 +52,7 @@ func end_turn():
 	var blight_remaining = target_blight - purple_mana
 	blight_remaining = 0 if blight_remaining < 0 else blight_remaining
 	week += 1
-	target_blight = get_blight_requirements(week, year)
+	target_blight = next_turn_blight
 	next_turn_blight = get_blight_requirements(week + 1, year)
 	energy = get_max_energy()
 	return damage

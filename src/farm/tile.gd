@@ -144,13 +144,13 @@ func update_plant_sprite():
 	$PlantSprite.set_region_rect(Rect2(seed.seed_texture * 16, y, 16, h))
 	$PlantSprite.offset = Vector2(0, -8 if h == 16 else -14)
 
-func harvest() -> Array[Effect]:
-	event_manager.notify_specific_args(EventManager.EventType.OnPlantHarvest, EventArgs.SpecificArgs.new(self))
+func harvest(delay) -> Array[Effect]:
+	var harvest_args = notify_harvest(delay)
 	var effects: Array[Effect] = []
 	if state == Enums.TileState.Mature:
 		effects.append_array(get_effects("harvest"))
 		state = Enums.TileState.Empty
-		$'../..'.gain_yield(current_yield, purple)
+		$'../..'.gain_yield(harvest_args.yld, harvest_args.purple, harvest_args.delay)
 		remove_seed()
 	return effects
 
@@ -269,3 +269,10 @@ func destroy_plant():
 
 func update_purple_overlay():
 	$PurpleOverlay.visible = purple and state != Enums.TileState.Inactive
+
+func notify_harvest(delay: bool) -> EventArgs.HarvestArgs:
+	var harvest_args = EventArgs.HarvestArgs.new(current_yield, purple, delay)
+	var specific_args = EventArgs.SpecificArgs.new(self)
+	specific_args.harvest_args = harvest_args
+	event_manager.notify_specific_args(EventManager.EventType.OnPlantHarvest, specific_args)
+	return harvest_args

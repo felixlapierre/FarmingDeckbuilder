@@ -191,7 +191,9 @@ func process_effect_queue():
 func perform_effect(effect, tile: Tile):
 	match effect.name:
 		"harvest":
-			effect_queue.append_array(tile.harvest())
+			effect_queue.append_array(tile.harvest(false))
+		"harvest_delay":
+			effect_queue.append_array(tile.harvest(true))
 		"irrigate":
 			tile.irrigate()
 			if effect.strength > 1:
@@ -221,8 +223,8 @@ func perform_effect(effect, tile: Tile):
 		"destroy_tile":
 			tile.destroy()
 
-func gain_yield(yield_amount, purple):
-	on_yield_gained.emit(int(yield_amount), purple)
+func gain_yield(yield_amount, purple, delay):
+	on_yield_gained.emit(int(yield_amount), purple, delay)
 
 func do_winter_clear():
 	for tile in $Tiles.get_children():
@@ -256,7 +258,7 @@ func gain_energy(amount):
 func preview_yield(card, targeted_tile):
 	var yld_purple = 0
 	var yld_yellow = 0
-	if card.get_effect("harvest") != null:
+	if card.get_effect("harvest") != null or card.get_effect("harvest_delay") != null:
 		var yld = targeted_tile.preview_harvest()
 		if targeted_tile.purple:
 			yld_purple += yld

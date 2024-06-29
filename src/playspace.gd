@@ -27,8 +27,8 @@ var starting_deck = [
 		"count": 1
 	},
 	{
-		"name": "inky_cap",
-		"type": "seed",
+		"name": "dear_future",
+		"type": "action",
 		"count": 1
 	}
 ]
@@ -64,15 +64,14 @@ func _on_farm_tiles_card_played(card) -> void:
 		if victory == true:
 			end_year()
 
-func _on_farm_tiles_on_yield_gained(yield_amount, purple) -> void:
+func _on_farm_tiles_on_yield_gained(yield_amount, purple, delay) -> void:
 	if purple:
-		$TurnManager.gain_purple_mana(yield_amount)
+		$TurnManager.gain_purple_mana(yield_amount, delay)
 	else:
 		var ritual_complete = $TurnManager.gain_yellow_mana(yield_amount)
 		if ritual_complete:
 			victory = true
 	$UserInterface.update()
-	
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("transform"):

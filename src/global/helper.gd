@@ -17,21 +17,29 @@ static func get_tile_shape_rotated(size, shape: Enums.CursorShape, rotation):
 		var x = 0
 		var y = 0
 		match i:
-			0, 3, 7:
-				x = 0
-			1, 2, 8:
-				x = 1
-			4, 5, 6:
+			16, 17, 18, 19, 20:
+				x = -2
+			4, 5, 6, 15, 21:
 				x = -1
-			9, 10, 11:
+			0, 3, 7, 14, 22:
+				x = 0
+			1, 2, 8, 13, 23:
+				x = 1
+			9, 10, 11, 12, 24:
 				x = 2
+
 		match i:
-			0, 1, 5, 10:
-				y = 0
-			6, 7, 8, 9:
-				y = 1
-			2, 3, 4, 11:
+			12, 13, 14, 15, 16:
+				y = -2
+			2, 3, 4, 11, 17:
 				y = -1
+			0, 1, 5, 10, 18:
+				y = 0
+			6, 7, 8, 9, 19:
+				y = 1
+			20, 21, 22, 23, 24:
+				y = 2
+
 		result.append(Vector2(x, y).rotated(PI/2 * rotation).round())
 	return result
 
@@ -56,4 +64,11 @@ static func get_default_shape(size):
 		5, 7:
 			return Enums.CursorShape.Elbow
 	return Enums.CursorShape.Square
-	
+
+static func is_adjacent(loc1: Vector2, loc2: Vector2):
+	return abs(loc1.x - loc2.x) <= 1\
+		and abs(loc1.y - loc2.y) <= 1
+
+static func is_nearby(loc1: Vector2, loc2: Vector2):
+	return abs(loc1.x - loc2.x) <= 2\
+		and abs(loc1.y - loc2.y) <= 2
