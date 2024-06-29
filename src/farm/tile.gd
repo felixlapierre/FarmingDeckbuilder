@@ -157,7 +157,8 @@ func harvest(delay) -> Array[Effect]:
 func remove_seed():
 	event_manager.notify_specific_args(EventManager.EventType.OnPlantDestroyed,\
 		EventArgs.SpecificArgs.new(self))
-	seed.unregister_events(event_manager)
+	if seed != null:
+		seed.unregister_events(event_manager)
 	seed_base_yield = 0
 	seed_grow_time = 0
 	current_grow_progress = 0.0

@@ -56,9 +56,11 @@ func use_card(grid_position):
 		return
 	var size = Global.selected_card.size
 	var targets = get_targeted_tiles(grid_position, size, Global.shape, Global.rotate)
+	card.register_events(event_manager, null)
 	use_card_on_targets(card, targets, false)
 	clear_overlay()
 	process_effect_queue()
+	card.unregister_events(event_manager)
 	card_played.emit(card)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

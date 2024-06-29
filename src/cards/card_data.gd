@@ -38,15 +38,26 @@ func get_effect(effect_name):
 			return effect
 	return null
 
-func copy():
-	var n_targets = []
-	for target in targets:
-		n_targets.append(target)
-	var n_effects = []
-	for effect in effects:
-		n_effects.append(effect.copy())
-	
-	return CardData.new(type, name, rarity, cost, yld, time, size, text, texture, seed_texture, n_targets, n_effects)
+func copy() -> CardData:
+	var new = CardData.new()
+	new.assign(self)
+	return new
+
+func assign(other: CardData) -> void:
+	type = other.type
+	name = other.name
+	rarity = other.rarity
+	cost = other.cost
+	yld = other.yld
+	time = other.time
+	size = other.size
+	text = other.text
+	texture = other.texture
+	seed_texture = other.seed_texture
+	for target in other.targets:
+		targets.append(target)
+	for effect in other.effects:
+		effects.append(effect.copy())
 
 func apply_enhance(enhance: Enhance):
 	var n_card = copy()
@@ -71,6 +82,8 @@ func apply_enhance(enhance: Enhance):
 			n_card.effects.erase(load("res://src/effect/data/obliviate.tres"))
 		"Strength":
 			n_card.apply_strength(enhance)
+		"Size":
+			n_card.size += enhance.strength
 	return n_card
 
 func apply_strength(enhance: Enhance):
