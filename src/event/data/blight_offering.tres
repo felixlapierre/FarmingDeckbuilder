@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://src/upgrade/upgrade.gd" id="1_h54qc"]
 [ext_resource type="Script" path="res://src/event/event.gd" id="1_lxq7k"]
-[ext_resource type="Resource" uid="uid://dl68sh6h4pxy1" path="res://src/event/unique/dark_rose.tres" id="2_ii4dl"]
+[ext_resource type="Resource" uid="uid://c8nu1ehlp245d" path="res://src/event/unique/blight_rose.tres" id="2_gx2fl"]
 
 [sub_resource type="Resource" id="Resource_u5tpo"]
 script = ExtResource("1_h54qc")
@@ -15,7 +15,7 @@ script = ExtResource("1_h54qc")
 type = 5
 text = "Add ${CARDNAME} to your deck"
 strength = 0.0
-card = ExtResource("2_ii4dl")
+card = ExtResource("2_gx2fl")
 
 [sub_resource type="Resource" id="Resource_pgpol"]
 script = ExtResource("1_h54qc")

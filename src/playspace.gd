@@ -27,7 +27,7 @@ var starting_deck = [
 		"count": 1
 	},
 	{
-		"name": "ingrain",
+		"name": "invigorate",
 		"type": "action",
 		"count": 1
 	}
@@ -114,7 +114,10 @@ func on_lose():
 
 func _on_farm_tiles_on_card_draw(number_of_cards, card) -> void:
 	for i in range(number_of_cards):
-		$Cards.drawcard()
+		if card == null:
+			$Cards.drawcard()
+		else:
+			$Cards.draw_specific_card(card)
 
 func on_upgrade(upgrade: Upgrade):
 	match upgrade.type:

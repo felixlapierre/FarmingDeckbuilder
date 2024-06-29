@@ -64,11 +64,19 @@ func drawcard():
 	# If deck is still empty then all cards are in hand and we can't draw
 	if deck_cards.size() == 0:
 		return
-		
+	
+	CardSelected = randi() % deck_cards.size()
+	draw_specific_card(deck_cards[CardSelected])
+
+	# Remove card from deck
+	deck_cards.erase(deck_cards[CardSelected])
+	return deck_cards.size()
+
+func draw_specific_card(card_data: CardData):
 	# Create the new card and initialize its starting values
 	var new_card = CardBase.instantiate()
-	CardSelected = randi() % deck_cards.size()
-	new_card.set_card_info(deck_cards[CardSelected])
+
+	new_card.set_card_info(card_data)
 	new_card.position = $"../UserInterface/UI/Deck".position - CardSize / 2
 	new_card.target_position = new_card.position
 	new_card.starting_position = new_card.position
@@ -80,10 +88,6 @@ func drawcard():
 	# Add it to the hand and call reorganize_hand which will position it
 	$Hand.add_child(new_card);
 	number_of_cards_in_hand += 1
-
-	# Remove card from deck
-	deck_cards.erase(deck_cards[CardSelected])
-	return deck_cards.size()
 
 func play_card():
 	# Find the card in our hand

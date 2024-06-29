@@ -28,7 +28,7 @@ func is_card_eligible(card: CardData):
 	match name:
 		"Discount":
 			return card.cost > 0
-		"GrowSpeed", "FlatYield", "Size":
+		"GrowSpeed", "FlatYield":
 			return card.type == "SEED"
 		"SpreadGrow", "SpreadHarvest":
 			return card.get_effect("spread") == null and card.type == "SEED"
@@ -45,3 +45,5 @@ func is_card_eligible(card: CardData):
 				if effect.strength != 0:
 					return true
 			return false
+		_:
+			return true

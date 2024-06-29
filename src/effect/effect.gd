@@ -90,10 +90,16 @@ func get_short_description():
 			return "Benefits " + str(strength*100) + "% more from irrigation"
 		"destroy_tile":
 			return "Destroy tile" + get_on_text()
+		"destroy_plant":
+			return "Destroy plant" + get_on_text()
 		"replant":
 			return "Replant target plants"
 		"add_recurring":
 			return "Add 'Recurring' to target plants"
+		"draw_target":
+			return "Add " + str(strength) + " cop" + ("y" if strength == 1 else "ies") + " of target plant's seed to your hand"
+		"add_blight_yield":
+			return "Add " + str(strength) + "×Blight to seed base yield"
 		_:
 			return ""
 

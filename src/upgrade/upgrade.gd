@@ -48,6 +48,8 @@ func setup_random_values(card_database: DataFetcher):
 			setup_random_enhance(card_database)
 
 func setup_random_card(card_database: DataFetcher):
+	if card != null:
+		return
 	var cards
 	if type == UpgradeType.AddCommonCard:
 		cards = card_database.get_all_cards_rarity("common")

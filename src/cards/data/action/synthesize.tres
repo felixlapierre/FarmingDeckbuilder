@@ -1,0 +1,34 @@
+[gd_resource type="Resource" script_class="CardData" load_steps=6 format=3 uid="uid://cffoxkimhv5wq"]
+
+[ext_resource type="Script" path="res://src/effect/effect.gd" id="1_aymji"]
+[ext_resource type="Script" path="res://src/cards/card_data.gd" id="1_wfpb1"]
+[ext_resource type="Texture2D" uid="uid://c46q76532nqk" path="res://assets/custom/Temp.png" id="3_fiahd"]
+
+[sub_resource type="Resource" id="Resource_ca8o8"]
+script = ExtResource("1_aymji")
+name = "draw_target"
+strength = 3.0
+on = ""
+range = "self"
+
+[sub_resource type="Resource" id="Resource_gtpo7"]
+script = ExtResource("1_aymji")
+name = "destroy_plant"
+strength = 0.0
+on = ""
+range = "self"
+
+[resource]
+script = ExtResource("1_wfpb1")
+type = "ACTION"
+name = "Synthesize"
+rarity = "uncommon"
+cost = 0
+yld = 0
+time = 0
+size = 1
+text = ""
+texture = ExtResource("3_fiahd")
+seed_texture = 0
+targets = Array[String](["Mature", "Growing"])
+effects = Array[ExtResource("1_aymji")]([SubResource("Resource_ca8o8"), SubResource("Resource_gtpo7")])

@@ -224,12 +224,18 @@ func perform_effect(effect, tile: Tile):
 			tile.increase_permanent_mult(tile.IRRIGATED_MULTIPLIER * effect.strength)
 		"destroy_tile":
 			tile.destroy()
+		"destroy_plant":
+			tile.destroy_plant()
 		"replant":
 			effect_queue.append(Effect.new("plant", 0, "", "self", tile.grid_location, tile.seed.copy()))
 		"add_recurring":
 			var new_seed = tile.seed.copy()
 			new_seed.effects.append(Effect.new("plant", 0, "harvest", "self", Vector2.ZERO, null))
 			tile.seed = new_seed
+		"draw_target":
+			on_card_draw.emit(effect.strength, tile.seed.copy())
+		"add_blight_yield":
+			tile.seed_base_yield += effect.strength * event_manager.turn_manager.blight_damage
 
 func gain_yield(yield_amount, purple, delay):
 	on_yield_gained.emit(int(yield_amount), purple, delay)

@@ -2,7 +2,7 @@ extends Node2D
 
 var current_event: GameEvent
 var completed_events: Array[GameEvent] = []
-var always_do_event: GameEvent = preload("res://src/event/data/druid_enhance.tres")
+var always_do_event: GameEvent = preload("res://src/event/data/blight_offering.tres")
 
 signal on_upgrades_selected
 
@@ -31,7 +31,7 @@ func generate_random_event():
 				and event.check_upgrade_prerequisite(deck, turn_manager):
 				current_event = event
 				break
-		
+
 	completed_events.append(current_event)
 	current_event.maybe_setup_random_card(card_database)
 	update_interface()
