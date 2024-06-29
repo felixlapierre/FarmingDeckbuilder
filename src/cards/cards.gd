@@ -43,7 +43,9 @@ func _process(delta: float) -> void:
 	pass
 	
 func draw_hand(count, week):
-	for i in range(count):
+	if week == 1:
+		draw_springbound_cards(count)
+	while number_of_cards_in_hand < count:
 		drawcard()
 	reorganize_hand()
 
@@ -88,6 +90,17 @@ func draw_specific_card(card_data: CardData):
 	# Add it to the hand and call reorganize_hand which will position it
 	$Hand.add_child(new_card);
 	number_of_cards_in_hand += 1
+
+func draw_springbound_cards(count: int):
+	var springbound_cards = []
+	for card in deck_cards:
+		if card.get_effect("springbound") != null:
+			springbound_cards.append(card)
+	springbound_cards.shuffle()
+	while springbound_cards.size() > 0 and number_of_cards_in_hand < count:
+		var card = springbound_cards.pop_front()
+		draw_specific_card(card)
+		deck_cards.erase(card)
 
 func play_card():
 	# Find the card in our hand
