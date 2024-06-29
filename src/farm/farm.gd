@@ -226,6 +226,10 @@ func perform_effect(effect, tile: Tile):
 			tile.destroy()
 		"replant":
 			effect_queue.append(Effect.new("plant", 0, "", "self", tile.grid_location, tile.seed.copy()))
+		"add_recurring":
+			var new_seed = tile.seed.copy()
+			new_seed.effects.append(Effect.new("plant", 0, "harvest", "self", Vector2.ZERO, null))
+			tile.seed = new_seed
 
 func gain_yield(yield_amount, purple, delay):
 	on_yield_gained.emit(int(yield_amount), purple, delay)

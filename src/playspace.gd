@@ -27,7 +27,7 @@ var starting_deck = [
 		"count": 1
 	},
 	{
-		"name": "warding",
+		"name": "ingrain",
 		"type": "action",
 		"count": 1
 	}
