@@ -145,9 +145,9 @@ func update_plant_sprite():
 	$PlantSprite.offset = Vector2(0, -8 if h == 16 else -14)
 
 func harvest(delay) -> Array[Effect]:
-	var harvest_args = notify_harvest(delay)
 	var effects: Array[Effect] = []
 	if state == Enums.TileState.Mature:
+		var harvest_args = notify_harvest(delay)
 		effects.append_array(get_effects("harvest"))
 		state = Enums.TileState.Empty
 		$'../..'.gain_yield(harvest_args.yld, harvest_args.purple, harvest_args.delay)
@@ -225,8 +225,12 @@ func get_effects(time) -> Array[Effect]:
 	if structure != null:
 		for effect in structure.effects:
 			if effect.on == time:
+				var shape
 				if effect.range == "adjacent":
-					var shape = Helper.get_tile_shape_rotated(structure.size, Enums.CursorShape.Elbow, structure_rotate)
+					shape = Helper.get_tile_shape_rotated(structure.size, Enums.CursorShape.Elbow, structure_rotate)
+				elif effect.range == "nearby":
+					shape = Helper.get_tile_shape_rotated(structure.size, Enums.CursorShape.Elbow, structure_rotate)
+				if shape != null:
 					effects_generated.append_array(get_effects_in_shape(effect, shape))
 	
 	if seed != null:

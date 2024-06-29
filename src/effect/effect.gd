@@ -70,7 +70,7 @@ func get_short_description():
 		"energy":
 			return "Gain " + str(strength) + " energy" + get_on_text()
 		"draw":
-			return "Draw " + str(strength) + " card" + "s" if strength > 1 else "" + get_on_text()
+			return "Draw " + str(strength) + " card" + ("s" if strength > 1 else "") + get_on_text()
 		"spread":
 			return str(strength*100) + "% chance to spread" + get_on_text()
 		"increase_yield":
@@ -89,6 +89,8 @@ func get_short_description():
 			return "Benefits " + str(strength*100) + "% more from irrigation"
 		"destroy_tile":
 			return "Destroy tile" + get_on_text()
+		"replant":
+			return "Replant target plants"
 		_:
 			return ""
 

@@ -222,6 +222,8 @@ func perform_effect(effect, tile: Tile):
 			tile.increase_permanent_mult(tile.IRRIGATED_MULTIPLIER * effect.strength)
 		"destroy_tile":
 			tile.destroy()
+		"replant":
+			effect_queue.append(Effect.new("plant", 0, "", "self", tile.grid_location, tile.seed.copy()))
 
 func gain_yield(yield_amount, purple, delay):
 	on_yield_gained.emit(int(yield_amount), purple, delay)
