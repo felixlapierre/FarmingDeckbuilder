@@ -267,6 +267,7 @@ visible = false
 [connection signal="pressed" from="Winter/FarmUpgradeButton" to="." method="_on_farm_upgrade_button_pressed"]
 [connection signal="on_close" from="FortuneTeller" to="." method="_on_fortune_teller_on_close"]
 [connection signal="on_upgrades_selected" from="GameEventDialog" to="." method="_on_game_event_dialog_on_upgrades_selected"]
+[connection signal="on_blight_removed" from="Shop" to="." method="_on_shop_on_blight_removed"]
 [connection signal="on_card_removed" from="Shop" to="." method="_on_shop_on_card_removed"]
 [connection signal="on_item_bought" from="Shop" to="." method="_on_shop_on_item_bought"]
 [connection signal="on_money_spent" from="Shop" to="." method="_on_shop_on_money_spent"]

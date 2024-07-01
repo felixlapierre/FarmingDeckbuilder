@@ -13,12 +13,14 @@ signal on_item_bought
 signal on_money_spent
 signal on_card_removed
 signal on_structure_place
+signal on_blight_removed
 
 @export var player_money: int
 
 var shop_item_capacity = 4
 
 var player_cards
+var turn_manager
 
 @onready var CHOICE_ONE = $PanelContainer/ShopContainer/ChoiceOne
 @onready var STOCK_ONE = $PanelContainer/ShopContainer/ChoiceOne/Stock
@@ -30,10 +32,10 @@ func _ready() -> void:
 	$RemoveCardContainer.size = Constants.VIEWPORT_SIZE
 	player_money = 500
 	update_labels()
-	fill_shop()
 
-func set_deck(deck):
+func setup(deck, p_turn_manager):
 	player_cards = deck
+	turn_manager = p_turn_manager
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -88,7 +90,11 @@ func fill_row_two():
 	var item2 = generate_random_shop_items(1, selected)[0]
 	while item2 == item1 or item2 == item3:
 		item2 = generate_random_shop_items(1, selected)[0]
-	fill_row(STOCK_TWO, 2, [item1, item2, item3])
+	if turn_manager.blight_damage > 0:
+		fill_row(STOCK_TWO, 2, [item1, item3])
+		STOCK_TWO.add_child(create_remove_blight_option())
+	else:
+		fill_row(STOCK_TWO, 2, [item1, item2, item3])
 	STOCK_TWO.add_child(create_remove_card_option())
 	STOCK_TWO.add_child(create_scrap_option(2, 2))
 
@@ -125,6 +131,14 @@ func create_remove_card_option():
 	remove.row = 2
 	remove.option_selected.connect(_on_remove_card_button_pressed)
 	return remove
+	
+func create_remove_blight_option():
+	var remove_blight = ShopButton.instantiate()
+	remove_blight.text = "Reduce Blight by 1 and restore blighted tiles"
+	remove_blight.cost = 0
+	remove_blight.row = 2
+	remove_blight.option_selected.connect(_on_remove_blight_button_pressed)
+	return remove_blight
 
 # returns an array, items can be either CardData or Enhance
 func generate_random_shop_items(count, options):
@@ -171,6 +185,8 @@ func set_row_visible(row, vis):
 		2:
 			for child in CHOICE_TWO.get_children():
 				child.visible = vis
+	if vis == false:
+		$'../'.update()
 
 func _on_close_button_pressed() -> void:
 	on_shop_closed.emit()
@@ -222,3 +238,8 @@ func on_buy_structure(structure, row):
 	on_structure_place.emit(structure, func(): 	
 		set_row_visible(row, false)
 		update_labels())
+
+func _on_remove_blight_button_pressed(cost, row):
+	on_blight_removed.emit()
+	set_row_visible(row, false)
+	update_labels()

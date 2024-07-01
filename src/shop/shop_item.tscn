@@ -45,6 +45,7 @@ text = "Sprinkler"
 [node name="DescriptionLabel" type="Label" parent="ItemContainer/ItemPanel/ItemPanelBox"]
 layout_mode = 2
 text = "Waters all adjacent tiles"
+autowrap_mode = 2
 
 [node name="BuyButton" type="Button" parent="ItemContainer"]
 layout_mode = 2

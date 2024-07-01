@@ -318,3 +318,8 @@ func get_all_tiles() -> Array[Tile]:
 
 func on_farm_tile_on_event(event_type: EventManager.EventType, specific_args):
 	event_manager.notify_specific_args(event_type, specific_args)
+
+func remove_blight_from_all_tiles():
+	for tile in $Tiles.get_children():
+		if tile.state == Enums.TileState.Blighted:
+			tile.remove_blight()

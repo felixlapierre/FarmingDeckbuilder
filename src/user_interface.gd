@@ -4,6 +4,7 @@ signal apply_upgrade
 signal end_turn_button_pressed
 signal on_skip
 signal on_next_year
+signal on_blight_removed
 
 @export var turn_manager: TurnManager
 
@@ -30,6 +31,7 @@ func setup(p_event_manager: EventManager, p_turn_manager: TurnManager, p_deck: A
 	turn_manager = p_turn_manager
 	deck = p_deck
 	$GameEventDialog.setup(deck, turn_manager)
+	$Shop.setup(deck, turn_manager)
 
 # Start and end year
 func end_year():
@@ -78,7 +80,7 @@ func update():
 	$Shop.update_labels()
 	$Winter/FarmUpgradeButton.disabled = $UpgradeShop.lock or ![4, 7, 10].has(turn_manager.year)
 	# Temporarily disable this QOL for testing
-	$Winter/NextYearButton.disabled = !next_turn_allowed()
+	$Winter/NextYearButton.disabled = !next_year_allowed()
 
 # Fortune Teller
 func _on_fortune_teller_button_pressed() -> void:
@@ -135,7 +137,7 @@ func _on_shop_on_structure_place(structure, callback) -> void:
 	$Shop.visible = false
 
 func _on_shop_button_pressed() -> void:
-	$Shop.set_deck(deck)
+	$Shop.setup(deck, turn_manager)
 	$Shop.visible = true
 	set_winter_visible(false)
 
@@ -151,7 +153,7 @@ func _on_shop_on_money_spent(amount) -> void:
 
 func _on_shop_on_card_removed(card) -> void:
 	deck.erase(card)
-	$Shop.set_deck(deck)
+	$Shop.setup(deck, turn_manager)
 
 # End Turn
 func _on_end_turn_button_pressed() -> void:
@@ -189,7 +191,7 @@ func select_card_to_remove():
 	select_card.select_callback = func(card_data):
 		remove_child(select_card)
 		deck.erase(card_data)
-		$Shop.set_deck(deck)
+		$Shop.setup(deck, turn_manager)
 	add_child(select_card)
 	select_card.do_card_pick(deck, "Select a card to remove")
 
@@ -202,7 +204,7 @@ func select_card_to_copy():
 	select_card.select_callback = func(card_data):
 		remove_child(select_card)
 		deck.append(card_data)
-		$Shop.set_deck(deck)
+		$Shop.setup(deck, turn_manager)
 	add_child(select_card)
 	select_card.do_card_pick(deck, "Select a card to copy")
 
@@ -220,7 +222,18 @@ func select_card_to_enhance(enhance: Enhance):
 	add_child(select_card)
 	select_card.do_enhance_pick(deck, enhance, "Select a card to enhance")
 
-func next_turn_allowed():
-	$Winter/FarmUpgradeButton.disabled && $Winter/EventButton.disabled\
-		&& !$Shop/PanelContainer/ShopContainer/ChoiceOne.visible\
-		&& !$Shop/PanelContainer/ShopContainer/ChoiceTwo.visible
+func next_year_allowed():
+	var choice1 = $Shop/PanelContainer/ShopContainer/ChoiceOne/Stock
+	var choice2 = $Shop/PanelContainer/ShopContainer/ChoiceTwo/Stock
+	var upgradebutton = $Winter/FarmUpgradeButton
+	var eventbutton = $Winter/EventButton
+	return upgradebutton.disabled && eventbutton.disabled\
+		&& !choice1.visible\
+		&& !choice2.visible
+
+
+func _on_shop_on_blight_removed() -> void:
+	turn_manager.blight_damage -= 1
+	on_blight_removed.emit()
+	update_damage()
+	update()

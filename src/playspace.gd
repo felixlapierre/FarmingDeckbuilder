@@ -207,3 +207,7 @@ func on_turn_end():
 	$UserInterface.update()
 	$UserInterface.turn_ending = false
 	$EventManager.notify(EventManager.EventType.BeforeTurnStart)
+
+
+func _on_user_interface_on_blight_removed() -> void:
+	$FarmTiles.remove_blight_from_all_tiles()

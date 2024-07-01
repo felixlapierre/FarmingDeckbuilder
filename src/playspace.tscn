@@ -152,5 +152,6 @@ layer_2/tile_data = PackedInt32Array(720906, 917504, 3, 589834, 917504, 1, 32769
 [connection signal="on_yield_gained" from="FarmTiles" to="." method="_on_farm_tiles_on_yield_gained"]
 [connection signal="apply_upgrade" from="UserInterface" to="." method="on_upgrade"]
 [connection signal="end_turn_button_pressed" from="UserInterface" to="." method="on_turn_end"]
+[connection signal="on_blight_removed" from="UserInterface" to="." method="_on_user_interface_on_blight_removed"]
 [connection signal="on_next_year" from="UserInterface" to="." method="start_year"]
 [connection signal="on_skip" from="UserInterface" to="." method="end_year"]

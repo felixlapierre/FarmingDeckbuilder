@@ -26,6 +26,8 @@ func copy():
 
 func is_card_eligible(card: CardData):
 	match name:
+		"Size":
+			return card.size < 9
 		"Discount":
 			return card.cost > 0
 		"GrowSpeed", "FlatYield":

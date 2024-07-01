@@ -38,9 +38,11 @@ theme = ExtResource("3_btsws")
 layout_mode = 2
 
 [node name="DescriptionLabel" type="Label" parent="HBox/Center/VBox"]
+custom_minimum_size = Vector2(180, 0)
 layout_mode = 2
 text = "Item Name"
 horizontal_alignment = 1
+autowrap_mode = 2
 
 [node name="Image" type="TextureRect" parent="HBox/Center/VBox"]
 layout_mode = 2
@@ -50,10 +52,12 @@ layout_mode = 2
 
 [node name="CostLabel" type="Label" parent="HBox/Center/VBox/CostBox"]
 layout_mode = 2
+size_flags_horizontal = 10
 text = "-1 "
 
 [node name="CostImg" type="TextureRect" parent="HBox/Center/VBox/CostBox"]
 layout_mode = 2
+size_flags_horizontal = 2
 texture = ExtResource("4_rvil2")
 
 [connection signal="gui_input" from="HBox" to="." method="_on_h_box_gui_input"]

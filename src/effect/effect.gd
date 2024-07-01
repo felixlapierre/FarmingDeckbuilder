@@ -64,8 +64,7 @@ func get_short_description():
 	match name:
 		"plant":
 			if on == "harvest":
-				return "Recurring"
-				#return "On harvest, re-plant seed with +%s yield" % strength
+				return "On harvest, re-plant seed with +%s yield" % strength
 		"obliviate", "remembrance", "springbound":
 			return name.capitalize()
 		"energy":

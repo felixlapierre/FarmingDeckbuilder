@@ -286,3 +286,10 @@ func notify_harvest(delay: bool) -> EventArgs.HarvestArgs:
 func notify_destroyed():
 	event_manager.notify_specific_args(EventManager.EventType.OnPlantDestroyed,\
 		EventArgs.SpecificArgs.new(self))
+
+func remove_blight():
+	if structure != null:
+		state = Enums.TileState.Structure
+	else:
+		state = Enums.TileState.Empty
+	$Farmland.modulate = Color8(255, 255, 255)
