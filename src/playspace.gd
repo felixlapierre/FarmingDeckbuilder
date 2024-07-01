@@ -92,12 +92,15 @@ func end_year():
 
 func start_year():
 	victory = false
+	$UserInterface.start_year()
+	$EventManager.notify(EventManager.EventType.BeforeYearStart)
 	$TurnManager.start_new_year()
 	$Cards.set_deck_for_year(deck)
 	$Cards.draw_hand($TurnManager.get_cards_drawn(), $TurnManager.week)
 	$Cards.propagate_call("set_visible", [true])
-	$UserInterface.start_year()
-	$EventManager.notify_year_start()
+	$UserInterface.update()
+	$EventManager.notify(EventManager.EventType.AfterYearStart)
+	$EventManager.notify(EventManager.EventType.BeforeTurnStart)
 
 func _on_farm_tiles_on_energy_gained(amount) -> void:
 	$TurnManager.energy += amount

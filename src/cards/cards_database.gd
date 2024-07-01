@@ -61,3 +61,13 @@ static func get_all_event() -> Array[GameEvent]:
 			print(path)
 		events.append(event)
 	return events
+
+static func get_all_fortunes() -> Array[Fortune]:
+	var fortunes: Array[Fortune] = []
+	var paths =  get_all_file_paths("res://src/fortune/data");
+	for path in paths:
+		var fortune: Fortune = load(path).new()
+		if fortune == null:
+			print(fortune)
+		fortunes.append(fortune)
+	return fortunes

@@ -4,7 +4,7 @@ var callable
 var farm_ref: Farm
 
 func _init() -> void:
-	super("Kaleidoscope", FortuneType.Blank, "Swap purple and yellow zones at end of turn")
+	super("Kaleidoscope", FortuneType.MinorBadFortune, "Swap purple and yellow zones at end of turn")
 
 func register_fortune(event_manager: EventManager):
 	callable = func(args):
@@ -15,7 +15,7 @@ func register_fortune(event_manager: EventManager):
 	event_manager.register_listener(EventManager.EventType.OnTurnEnd, callable)
 
 func unregister_fortune(event_manager: EventManager):
-	event_manager.unregister(EventManager.EventType.OnTurnEnd, callable)
+	event_manager.unregister_listener(EventManager.EventType.OnTurnEnd, callable)
 	if farm_ref != null:
 		for tile: Tile in farm_ref.get_node("Tiles").get_children():
 			tile.purple = tile.grid_location.x >= Constants.PURPLE_GTE_INDEX

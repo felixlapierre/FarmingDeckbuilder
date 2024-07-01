@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="CardData" load_steps=2 format=3 uid="uid://511i5jot3t0"]
+
+[ext_resource type="Script" path="res://src/cards/card_data.gd" id="1_5fbei"]
+
+[resource]
+script = ExtResource("1_5fbei")
+type = "SEED"
+name = "Wildflower"
+rarity = "unique"
+cost = 0
+yld = 5
+time = 1
+size = 1
+text = ""
+seed_texture = 2
+targets = Array[String]([])
+effects = Array[Resource("res://src/effect/effect.gd")]([])

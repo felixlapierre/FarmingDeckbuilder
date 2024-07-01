@@ -155,8 +155,6 @@ func harvest(delay) -> Array[Effect]:
 	return effects
 
 func remove_seed():
-	event_manager.notify_specific_args(EventManager.EventType.OnPlantDestroyed,\
-		EventArgs.SpecificArgs.new(self))
 	if seed != null:
 		seed.unregister_events(event_manager)
 	seed_base_yield = 0
@@ -257,6 +255,7 @@ func set_blight_targeted(value):
 	$BlightTargetOverlay.visible = value
 
 func set_blighted():
+	notify_destroyed()
 	remove_seed()
 	state = Enums.TileState.Blighted
 	$PlantSprite.visible = false
@@ -266,10 +265,12 @@ func destroy():
 	on_event.emit()
 	state = Enums.TileState.Destroyed
 	$Farmland.modulate = Color8(45, 45, 45)
+	notify_destroyed()
 	remove_seed()
 
 func destroy_plant():
 	state = Enums.TileState.Empty
+	notify_destroyed()
 	remove_seed()
 
 func update_purple_overlay():
@@ -281,3 +282,7 @@ func notify_harvest(delay: bool) -> EventArgs.HarvestArgs:
 	specific_args.harvest_args = harvest_args
 	event_manager.notify_specific_args(EventManager.EventType.OnPlantHarvest, specific_args)
 	return harvest_args
+
+func notify_destroyed():
+	event_manager.notify_specific_args(EventManager.EventType.OnPlantDestroyed,\
+		EventArgs.SpecificArgs.new(self))

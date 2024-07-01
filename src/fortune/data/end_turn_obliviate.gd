@@ -3,7 +3,7 @@ extends Fortune
 var callable
 
 func _init() -> void:
-	super("Thoughtless", FortuneType.TargetGrowingPlants, "Obliviate rightmost card in hand at the end of the turn")
+	super("Thoughtless", FortuneType.MajorBadFortune, "Obliviate rightmost card in hand at the end of the turn")
 
 func register_fortune(event_manager: EventManager):
 	callable = func(args: EventArgs):

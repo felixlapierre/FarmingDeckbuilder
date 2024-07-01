@@ -12,7 +12,8 @@ var listeners: Dictionary = {}
 
 enum EventType {
 	# Time-based triggers
-	OnYearStart,
+	BeforeYearStart,
+	AfterYearStart,
 	BeforeTurnStart,
 	AfterTurnStart,
 	BeforeGrow,
@@ -38,24 +39,6 @@ func setup(p_farm: Farm, p_turn_manager: TurnManager, p_cards: Cards):
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
-
-func register_on_year_start(callback: Callable):
-	listeners[EventType.OnYearStart].append(callback)
-
-func unregister_on_year_start(callback: Callable):
-	listeners[EventType.OnYearStart].erase(callback)
-	
-func notify_year_start():
-	notify(EventType.OnYearStart)
-
-func register_on_turn_end(callback: Callable):
-	listeners[EventType.OnTurnEnd].append(callback)
-
-func unregister_on_turn_end(callback: Callable):
-	listeners[EventType.OnTurnEnd].erase(callback)
-	
-func notify_turn_end():
-	notify(EventType.OnTurnEnd)
 
 func register_listener(event_type: EventType, callback: Callable):
 	listeners[event_type].append(callback)

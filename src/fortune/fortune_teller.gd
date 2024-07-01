@@ -1,6 +1,9 @@
 extends Node2D
 
 var event_manager: EventManager
+var data_fetcher = preload("res://src/cards/cards_database.gd")
+
+var fortune_map = {}
 
 var good_fortune: Fortune
 var bad_fortune: Fortune
@@ -13,14 +16,20 @@ func _ready() -> void:
 
 func setup(p_event_manager: EventManager):
 	event_manager = p_event_manager
+	for fortune in data_fetcher.get_all_fortunes():
+		if !fortune_map.has(fortune.type):
+			fortune_map[fortune.type] = []
+		fortune_map[fortune.type].append(fortune)
 
 func create_fortunes():
-	good_fortune = Fortune.new("Fast Ritual", Fortune.FortuneType.ReduceRitualTarget, "Reduce the yield required to finish the ritual by 20")
-	#bad_fortune = preload("res://src/fortune/data/end_turn_swap_colors.gd").new()
-	bad_fortune = preload("res://src/fortune/data/end_turn_obliviate.gd").new()
-	#bad_fortune = preload("res://src/fortune/data/target_growing_plants.gd").new()
-	#bad_fortune = Fortune.new("Weeds", Fortune.FortuneType.Weeds, "Your farm starts with weeds that will take up space until cleared")
-	
+	for type in Fortune.FortuneType.values():
+		fortune_map[type].shuffle()
+	good_fortune = fortune_map[Fortune.FortuneType.GoodFortune][0]
+	if [4, 7, 10].has(event_manager.turn_manager.year+1):
+		bad_fortune = fortune_map[Fortune.FortuneType.MajorBadFortune][0]
+	else:
+		bad_fortune = fortune_map[Fortune.FortuneType.MinorBadFortune][0]
+
 	$PanelContainer/VBox/HBox/GoodFortune/VBox/Name.text = good_fortune.name
 	$PanelContainer/VBox/HBox/GoodFortune/VBox/RichTextLabel.text = good_fortune.text
 	
