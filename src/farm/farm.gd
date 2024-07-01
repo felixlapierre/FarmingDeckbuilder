@@ -214,7 +214,11 @@ func perform_effect(effect, tile: Tile):
 				card.yld += effect.strength
 			effect_queue.append_array(tile.plant_seed(card))
 		"spread":
-			if randf_range(0, 1) <= effect.strength:
+			var i = effect.strength
+			while i >= 1.0:
+				spread(effect.card, tile.grid_location, 8, Enums.CursorShape.Elbow)
+				i -= 1.0
+			if i > 0.0 and randf_range(0, 1) <= effect.strength:
 				spread(effect.card, tile.grid_location, 8, Enums.CursorShape.Elbow)
 		"energy":
 			on_energy_gained.emit(effect.strength)

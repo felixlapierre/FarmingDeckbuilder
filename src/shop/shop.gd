@@ -83,8 +83,12 @@ func fill_row_two():
 	var enhances = card_database.get_all_enhance()
 	for enhance in enhances:
 		selected.append(enhance)
-	var stock = generate_random_shop_items(3, selected)
-	fill_row(STOCK_TWO, 2, stock)
+	var item1 = generate_random_shop_items(1, structures)[0]
+	var item3 = generate_random_shop_items(1, enhances)[0]
+	var item2 = generate_random_shop_items(1, selected)[0]
+	while item2 == item1 or item2 == item3:
+		item2 = generate_random_shop_items(1, selected)[0]
+	fill_row(STOCK_TWO, 2, [item1, item2, item3])
 	STOCK_TWO.add_child(create_remove_card_option())
 	STOCK_TWO.add_child(create_scrap_option(2, 2))
 
@@ -137,8 +141,7 @@ func generate_random_shop_items(count, options):
 	while i < count:
 		var selection = common if randf() > 0.30 else rare
 		var selected = randi_range(0, selection.size() - 1)
-		#if !result.has(selected):
-		result.append(selection[selected])
+		result.append(selection.pop_at(selected))
 		i += 1
 	return result
 

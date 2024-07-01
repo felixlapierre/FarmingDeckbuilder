@@ -100,6 +100,8 @@ func get_short_description():
 			return "Add " + str(strength) + " cop" + ("y" if strength == 1 else "ies") + " of target plant's seed to your hand"
 		"add_blight_yield":
 			return "Add " + str(strength) + "×Blight to seed base yield"
+		"fleeting":
+			return "Obliviate on play or discard"
 		_:
 			return ""
 

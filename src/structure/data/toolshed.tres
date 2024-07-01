@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Toolshed" load_steps=3 format=3 uid="uid://c4vet0i6wvkqd"]
+
+[ext_resource type="Script" path="res://src/structure/custom/toolshed.gd" id="1_vmnur"]
+[ext_resource type="Texture2D" uid="uid://c46q76532nqk" path="res://assets/custom/Temp.png" id="2_h4aeo"]
+
+[resource]
+script = ExtResource("1_vmnur")
+name = "Toolshed"
+rarity = "common"
+cost = 1
+size = 0
+text = "Add a Rusty Hoe to your hand at the start of each turn"
+texture = ExtResource("2_h4aeo")
+effects = Array[Resource("res://src/effect/effect.gd")]([])

@@ -1,0 +1,32 @@
+[gd_resource type="Resource" script_class="CardData" load_steps=5 format=3 uid="uid://cgrjoxctgos0w"]
+
+[ext_resource type="Script" path="res://src/effect/effect.gd" id="1_18lv0"]
+[ext_resource type="Script" path="res://src/cards/card_data.gd" id="1_uu2d6"]
+
+[sub_resource type="Resource" id="Resource_0sicp"]
+script = ExtResource("1_18lv0")
+name = "harvest"
+strength = 0.0
+on = ""
+range = "self"
+
+[sub_resource type="Resource" id="Resource_h1jj2"]
+script = ExtResource("1_18lv0")
+name = "fleeting"
+strength = 0.0
+on = ""
+range = "self"
+
+[resource]
+script = ExtResource("1_uu2d6")
+type = "ACTION"
+name = "Rusty Hoe"
+rarity = ""
+cost = 0
+yld = 0
+time = 0
+size = 3
+text = ""
+seed_texture = 0
+targets = Array[String]([])
+effects = Array[ExtResource("1_18lv0")]([SubResource("Resource_0sicp"), SubResource("Resource_h1jj2")])
