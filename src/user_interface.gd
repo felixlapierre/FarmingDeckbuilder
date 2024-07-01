@@ -76,9 +76,9 @@ func update():
 		 + " <-- " + str(turn_manager.next_turn_blight)
 	$UI/RitualCounter/Label.text = str(turn_manager.ritual_counter)
 	$Shop.update_labels()
-	$Winter/FarmUpgradeButton.disabled = $UpgradeShop.lock
+	$Winter/FarmUpgradeButton.disabled = $UpgradeShop.lock or ![4, 7, 10].has(turn_manager.year)
 	# Temporarily disable this QOL for testing
-	$Winter/NextYearButton.disabled = false #!$UpgradeShop.lock
+	$Winter/NextYearButton.disabled = !next_turn_allowed()
 
 # Fortune Teller
 func _on_fortune_teller_button_pressed() -> void:
@@ -96,6 +96,7 @@ func _on_game_event_dialog_on_upgrades_selected(upgrades: Array[Upgrade]) -> voi
 		apply_upgrade.emit(upgrade)
 	$GameEventDialog.visible = false
 	$Winter/EventButton.disabled = true
+	update()
 
 # Upgrade Shop
 func upgrade_shop_close():
@@ -218,3 +219,8 @@ func select_card_to_enhance(enhance: Enhance):
 		deck.append(new_card)
 	add_child(select_card)
 	select_card.do_enhance_pick(deck, enhance, "Select a card to enhance")
+
+func next_turn_allowed():
+	$Winter/FarmUpgradeButton.disabled && $Winter/EventButton.disabled\
+		&& !$Shop/PanelContainer/ShopContainer/ChoiceOne.visible\
+		&& !$Shop/PanelContainer/ShopContainer/ChoiceTwo.visible

@@ -22,13 +22,8 @@ var starting_deck = [
 		"count": 3
 	},
 	{
-		"name": "papyrus",
+		"name": "pumpkin",
 		"type": "seed",
-		"count": 1
-	},
-	{
-		"name": "invigorate",
-		"type": "action",
 		"count": 1
 	}
 ]
