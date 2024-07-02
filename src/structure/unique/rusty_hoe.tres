@@ -28,5 +28,5 @@ time = 0
 size = 3
 text = ""
 seed_texture = 0
-targets = Array[String]([])
+targets = Array[String](["Mature"])
 effects = Array[ExtResource("1_18lv0")]([SubResource("Resource_0sicp"), SubResource("Resource_h1jj2")])
