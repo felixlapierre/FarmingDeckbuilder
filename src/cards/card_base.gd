@@ -65,7 +65,7 @@ func set_card_info(card_data):
 		$CardBorder.modulate = Color8(135, 206, 250)
 	$HBoxContainer/VBoxContainer/BottomBar/TypeLabel.text = card_info.type
 	$HBoxContainer/VBoxContainer/TopBar/CardNameLabel.text = card_info.name
-	$HBoxContainer/VBoxContainer/TopBar/CardCostLabel.text = str(card_info.cost)
+	$HBoxContainer/VBoxContainer/TopBar/CardCostLabel.text = str(card_info.cost if card_info.cost > 0 else "X")
 	$HBoxContainer/VBoxContainer/DescriptionLabel.text = card_info.get_description()
 	if card_info.size == 0:
 		$HBoxContainer/VBoxContainer/ImageMargin/ImageCont/SizeCont.visible = false

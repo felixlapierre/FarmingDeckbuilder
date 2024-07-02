@@ -22,7 +22,7 @@ var starting_deck = [
 		"count": 3
 	},
 	{
-		"name": "pumpkin",
+		"name": "monstera",
 		"type": "seed",
 		"count": 1
 	}
@@ -53,7 +53,7 @@ func _on_farm_tiles_card_played(card) -> void:
 		$UserInterface.set_winter_visible(true)
 		$UserInterface/Shop.visible = true
 	else:
-		$TurnManager.energy -= card.cost
+		$TurnManager.energy -= card.cost if card.cost > 0 else $TurnManager.energy
 		$UserInterface.update()
 		$Cards.play_card()
 		if victory == true:

@@ -45,15 +45,22 @@ func setup(p_event_manager: EventManager):
 		tile.event_manager = event_manager
 
 func use_card(grid_position):
-	var card = Global.selected_card
+	var card = Global.selected_card.copy()
+	var energy = $"../TurnManager".energy
 	if Global.selected_structure != null:
 		tiles[grid_position.x][grid_position.y]\
 				.build_structure(Global.selected_structure, Global.rotate)
 		clear_overlay()
 		card_played.emit(Global.selected_structure)
 		return
-	if card == null or card.cost > $"../TurnManager".energy:
+	if card == null or card.cost > energy:
 		return
+	# Handle X cost cards
+	if card.cost == -1:
+		for effect in card.effects:
+			if effect.strength < 0:
+				effect.strength = (effect.strength * -1) * energy
+				card.cost = 1
 	var size = Global.selected_card.size
 	var targets = get_targeted_tiles(grid_position, size, Global.shape, Global.rotate)
 	card.register_events(event_manager, null)
@@ -61,7 +68,7 @@ func use_card(grid_position):
 	clear_overlay()
 	process_effect_queue()
 	card.unregister_events(event_manager)
-	card_played.emit(card)
+	card_played.emit(Global.selected_card)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -242,7 +249,7 @@ func perform_effect(effect, tile: Tile):
 			tile.seed_base_yield += effect.strength * event_manager.turn_manager.blight_damage
 
 func gain_yield(yield_amount, purple, delay):
-	on_yield_gained.emit(int(yield_amount), purple, delay)
+	on_yield_gained.emit(int(round(yield_amount)), purple, delay)
 
 func do_winter_clear():
 	for tile in $Tiles.get_children():
@@ -274,8 +281,8 @@ func gain_energy(amount):
 	on_energy_gained.emit(amount)
 
 func preview_yield(card, targeted_tile):
-	var yld_purple = 0
-	var yld_yellow = 0
+	var yld_purple = 0.0
+	var yld_yellow = 0.0
 	if card.get_effect("harvest") != null or card.get_effect("harvest_delay") != null:
 		var yld = targeted_tile.preview_harvest()
 		if targeted_tile.purple:

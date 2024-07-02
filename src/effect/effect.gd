@@ -82,7 +82,7 @@ func get_short_description():
 		"grow":
 			return "Grow targeted plants" + (" " + str(strength) + " times" if strength > 1 else "")
 		"add_yield":
-			return "Add " + str(strength) + " yield to targeted plants"
+			return "Add " + get_strength_text() + " yield" + get_on_text()
 		"irrigate":
 			return "Irrigate tiles for " + str(strength) + " weeks"
 		"absorb":
@@ -96,9 +96,9 @@ func get_short_description():
 		"add_recurring":
 			return "Add 'Recurring' to target plants"
 		"draw_target":
-			return "Add " + str(strength) + " cop" + ("y" if strength == 1 else "ies") + " of target plant's seed to your hand"
+			return "Add " + get_strength_text() + " cop" + ("y" if strength == 1 else "ies") + " of target plant's seed to your hand"
 		"add_blight_yield":
-			return "Add " + str(strength) + "×Blight to seed base yield"
+			return "Add " + get_strength_text() + "×Blight to seed base yield"
 		"fleeting":
 			return "Obliviate on play or discard"
 		_:
@@ -106,6 +106,14 @@ func get_short_description():
 
 func get_on_text():
 	return " on " + on if on.length() > 0 else ""
+
+func get_strength_text():
+	if strength >= 0:
+		return str(strength)
+	elif strength == -1:
+		return "X"
+	else:
+		return str(strength * -1) + "X"
 
 # Only name as property:
 # harvest

@@ -190,7 +190,7 @@ func build_structure(n_structure, rotate):
 	tween.tween_property($PlantSprite, "position", rest_position, 0.6).set_trans(Tween.TRANS_BOUNCE)\
 		.set_ease(Tween.EASE_OUT)
 
-func preview_harvest() -> int:
+func preview_harvest() -> float:
 	return current_yield if state == Enums.TileState.Mature else 0
 
 func do_winter_clear():
