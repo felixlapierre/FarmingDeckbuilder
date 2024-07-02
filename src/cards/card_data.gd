@@ -88,8 +88,11 @@ func apply_enhance(enhance: Enhance):
 
 func apply_strength(enhance: Enhance):
 	for effect in effects:
-		if effect.strength != 0.0:
+		if effect.strength > 0.0:
 			effect.strength += enhance.strength
+			break
+		elif effect.strength < 0.0:
+			effect.strength -= enhance.strength
 			break
 
 func get_description() -> String:
