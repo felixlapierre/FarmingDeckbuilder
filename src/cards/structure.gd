@@ -11,6 +11,7 @@ const CLASS_NAME = "Structure"
 @export var text: String
 @export var texture: Texture2D
 @export var effects: Array[Effect]
+var type = "STRUCTURE"
 
 func _init(p_name = "PlaceholderCardName", p_rarity = "common", p_cost = 1,\
 	p_size = 1, p_text = "", p_texture = null, p_effects = []):
@@ -34,6 +35,9 @@ func copy():
 	for effect in effects:
 		n_effects.append(effect.copy())
 	return Structure.new(name, rarity, cost, size, text, texture, n_effects)
+
+func get_description():
+	return text
 
 # To be overridden by specific script structures
 func register_events(event_manager: EventManager, tile: Tile):
