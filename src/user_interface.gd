@@ -237,3 +237,11 @@ func _on_shop_on_blight_removed() -> void:
 	on_blight_removed.emit()
 	update_damage()
 	update()
+
+
+func _on_farm_tiles_on_show_tile_preview(tile: Tile) -> void:
+	$UI/TilePreview.setup(tile)
+	$UI/TilePreview.visible = true
+
+func _on_farm_tiles_on_hide_tile_preview() -> void:
+	$UI/TilePreview.visible = false

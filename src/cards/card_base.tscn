@@ -7,16 +7,16 @@
 [ext_resource type="FontFile" uid="uid://drlkmr7jve2ep" path="res://assets/m5x7.ttf" id="3_inew6"]
 [ext_resource type="Theme" uid="uid://c21dhy264y6ty" path="res://assets/theme_large.tres" id="4_jm2oq"]
 [ext_resource type="Texture2D" uid="uid://ykuefae3vde0" path="res://assets/custom/Energy.png" id="5_8u4qp"]
-[ext_resource type="Texture2D" uid="uid://djhimhud6ix6o" path="res://assets/1616tinygarden/objects.png" id="5_i4nm1"]
+[ext_resource type="Texture2D" uid="uid://budddmtnr8xsu" path="res://assets/seed/cactus.png" id="6_ju4kb"]
 [ext_resource type="Texture2D" uid="uid://b5gtwrgnirbxg" path="res://assets/custom/YellowMana.png" id="8_md8ou"]
 [ext_resource type="Texture2D" uid="uid://bvk0lh8bp63in" path="res://assets/custom/Time.png" id="9_63ik7"]
 
 [sub_resource type="Theme" id="Theme_xgb3r"]
 default_font = ExtResource("3_inew6")
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_dv1kl"]
-atlas = ExtResource("5_i4nm1")
-region = Rect2(0, 0, 16, 16)
+[sub_resource type="AtlasTexture" id="AtlasTexture_ek5de"]
+atlas = ExtResource("6_ju4kb")
+region = Rect2(48, 16, 16, 16)
 
 [node name="CardBase" type="MarginContainer"]
 texture_filter = 1
@@ -78,7 +78,7 @@ size_flags_horizontal = 3
 texture_filter = 1
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
-texture = SubResource("AtlasTexture_dv1kl")
+texture = SubResource("AtlasTexture_ek5de")
 
 [node name="SizeCont" type="CenterContainer" parent="HBoxContainer/VBoxContainer/ImageMargin/ImageCont"]
 layout_mode = 2

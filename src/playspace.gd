@@ -22,19 +22,9 @@ var starting_deck = [
 		"count": 3
 	},
 	{
-		"name": "monstera",
+		"name": "cactus",
 		"type": "seed",
-		"count": 1
-	},
-	{
-		"name": "propagation",
-		"type": "action",
-		"count": 1
-	},
-	{
-		"name": "synthesize",
-		"type": "action",
-		"count": 1
+		"count": 3
 	}
 ]
 

@@ -96,7 +96,10 @@ func plant_seed(planted_seed) -> Array[Effect]:
 			state = Enums.TileState.Mature
 			current_yield = seed_base_yield
 		$PlantSprite.visible = true
-		$PlantSprite.texture = load(objects_image)
+		if seed.texture != null:
+			$PlantSprite.texture = seed.texture
+		else:
+			$PlantSprite.texture = load(objects_image)
 		$PlantSprite.region_enabled = true
 		update_plant_sprite()
 	event_manager.notify_specific_args(EventManager.EventType.OnPlantPlanted, EventArgs.SpecificArgs.new(self))
@@ -124,25 +127,34 @@ func grow_animation():
 	tween.tween_property($PlantSprite, "scale", Vector2(1, 1), 0.1)
 
 func update_plant_sprite():
-	var stage = 3 if seed_grow_time == 0 else int(current_grow_progress / seed_grow_time * 3)
-	var y
-	var h
-	match stage:
-		0:
-			y = 32
-			h = 16
-		1:
-			h = 16
-			y = 48
-		2:
-			y = 64
-			h = 32
-		3:
-			y = 96
-			h = 32
+	if seed.texture == null:
+		var stage = 3 if seed_grow_time == 0 else int(current_grow_progress / seed_grow_time * 3)
+		var y
+		var h
+		match stage:
+			0:
+				y = 32
+				h = 16
+			1:
+				h = 16
+				y = 48
+			2:
+				y = 64
+				h = 32
+			3:
+				y = 96
+				h = 32
+			
+		$PlantSprite.set_region_rect(Rect2(seed.seed_texture * 16, y, 16, h))
+		$PlantSprite.offset = Vector2(0, -8 if h == 16 else -14)
+	else:
+		var max_stage: int = seed.texture.get_width() / 16 - 1
+		var current_stage = int(current_grow_progress / seed_grow_time * max_stage)
+		var x = 16 * current_stage
+		$PlantSprite.set_region_rect(Rect2(x, 0, 16, 32))
+		$PlantSprite.offset = Vector2(0, -16)
 		
-	$PlantSprite.set_region_rect(Rect2(seed.seed_texture * 16, y, 16, h))
-	$PlantSprite.offset = Vector2(0, -8 if h == 16 else -14)
+		
 
 func harvest(delay) -> Array[Effect]:
 	var effects: Array[Effect] = []
@@ -152,6 +164,7 @@ func harvest(delay) -> Array[Effect]:
 		state = Enums.TileState.Empty
 		$'../..'.gain_yield(harvest_args.yld, harvest_args.purple, harvest_args.delay)
 		remove_seed()
+		$HarvestParticles.emitting = true
 	return effects
 
 func remove_seed():
@@ -293,3 +306,8 @@ func remove_blight():
 	else:
 		state = Enums.TileState.Empty
 	$Farmland.modulate = Color8(255, 255, 255)
+
+func set_tile_size(n_size: Vector2):
+	scale = n_size / Vector2(16, 16)
+	$HarvestParticles.process_material.scale_min = 3.2
+	$HarvestParticles.process_material.scale_max = 3.2

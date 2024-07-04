@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://cswinrop881oo"]
+[gd_scene load_steps=20 format=3 uid="uid://cswinrop881oo"]
 
 [ext_resource type="Script" path="res://src/user_interface.gd" id="1_j28fq"]
 [ext_resource type="Theme" uid="uid://c21dhy264y6ty" path="res://assets/theme_large.tres" id="2_s7754"]
@@ -13,6 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://c8cs8b5ibrdjn" path="res://icon.svg" id="11_cpxin"]
 [ext_resource type="Script" path="res://src/cards/DeckDraw.gd" id="12_73glk"]
 [ext_resource type="FontFile" uid="uid://drlkmr7jve2ep" path="res://assets/m5x7.ttf" id="13_3dxy7"]
+[ext_resource type="PackedScene" uid="uid://bi0v8rdp8e0sq" path="res://src/farm/tile_preview.tscn" id="14_auyx1"]
 [ext_resource type="Texture2D" uid="uid://ddooce1phh2xs" path="res://assets/custom/ShopButton.png" id="14_m3jdw"]
 [ext_resource type="PackedScene" uid="uid://djb7edsvibm5i" path="res://src/fortune/fortune_teller.tscn" id="15_yqxvh"]
 [ext_resource type="PackedScene" uid="uid://cg2lu7ivw8gms" path="res://src/event/game_event_dialog.tscn" id="16_a3egv"]
@@ -184,6 +185,10 @@ offset_right = 1474.0
 offset_bottom = 55.0
 theme = ExtResource("2_s7754")
 text = "Skip"
+
+[node name="TilePreview" parent="UI" instance=ExtResource("14_auyx1")]
+visible = false
+position = Vector2(1595, 123)
 
 [node name="Winter" type="Control" parent="."]
 visible = false

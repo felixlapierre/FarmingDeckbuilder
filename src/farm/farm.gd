@@ -19,6 +19,8 @@ signal on_yield_gained
 signal on_preview_yield
 signal on_energy_gained
 signal on_card_draw
+signal on_show_tile_preview
+signal on_hide_tile_preview
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -30,7 +32,7 @@ func _ready() -> void:
 		for j in Constants.FARM_DIMENSIONS.y:
 			var tile = FarmTile.instantiate()
 			tile.position = TOP_LEFT + TILE_SIZE * Vector2(i, j)
-			tile.scale *= TILE_SIZE / Vector2(16, 16)
+			tile.set_tile_size(TILE_SIZE)
 			tile.grid_location = Vector2(i, j)
 			tiles[i].append(tile)
 			tile.tile_hovered.connect(on_tile_hover)
@@ -45,7 +47,6 @@ func setup(p_event_manager: EventManager):
 		tile.event_manager = event_manager
 
 func use_card(grid_position):
-	var card = Global.selected_card.copy()
 	var energy = $"../TurnManager".energy
 	if Global.selected_structure != null:
 		tiles[grid_position.x][grid_position.y]\
@@ -53,8 +54,9 @@ func use_card(grid_position):
 		clear_overlay()
 		card_played.emit(Global.selected_structure)
 		return
-	if card == null or card.cost > energy:
+	if Global.selected_card == null or Global.selected_card.cost > energy:
 		return
+	var card = Global.selected_card.copy()
 	# Handle X cost cards
 	if card.cost == -1:
 		for effect in card.effects:
@@ -87,9 +89,12 @@ func show_select_overlay():
 	elif Global.selected_structure != null:
 		size = Global.selected_structure.size
 		targets = ["Empty", "Growing", "Mature"]
-	if hovered_tile == null or size == 0:
+	if hovered_tile == null:
 		return
 	clear_overlay()
+	on_show_tile_preview.emit(hovered_tile)
+	if size == 0:
+		return
 	var grid_position = hovered_tile.grid_location
 	var shape = Global.shape
 	if Global.selected_structure != null:
@@ -157,6 +162,7 @@ func clear_overlay():
 		$SelectOverlay.remove_child(node)
 		node.queue_free()
 	on_preview_yield.emit(0, 0) #This signals to clear the preview
+	on_hide_tile_preview.emit()
 
 func process_one_week():
 	for tile in $Tiles.get_children():

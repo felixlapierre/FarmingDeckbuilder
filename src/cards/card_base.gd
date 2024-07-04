@@ -49,8 +49,12 @@ func set_card_info(card_data):
 	match card_info.type:
 		"SEED":
 			var texture = AtlasTexture.new()
-			texture.atlas = load("res://assets/1616tinygarden/objects.png")
-			texture.set_region(Rect2(Vector2(card_data.seed_texture * 16, 0), Vector2(16, 16)))
+			if card_data.texture != null:
+				texture.atlas = card_data.texture
+				texture.set_region(Rect2(Vector2(48, 16), Vector2(16, 16)))
+			else:
+				texture.atlas = load("res://assets/1616tinygarden/objects.png")
+				texture.set_region(Rect2(Vector2(card_data.seed_texture * 16, 0), Vector2(16, 16)))
 			CARD_ICON.texture = texture
 			$HBoxContainer/VBoxContainer/BottomBar/YieldLabel.text = str(card_info.yld)\
 				+ " (" + str(card_info.yld * card_info.size) + ")"
