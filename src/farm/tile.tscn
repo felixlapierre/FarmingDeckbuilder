@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://ccnobfjaguoie"]
+[gd_scene load_steps=13 format=3 uid="uid://ccnobfjaguoie"]
 
 [ext_resource type="Script" path="res://src/farm/tile.gd" id="1_8vnt4"]
 [ext_resource type="Texture2D" uid="uid://cmitvrjj6os0f" path="res://assets/1616tinygarden/Farm.png" id="2_n75y4"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://xioa7pkdc5t0" path="res://assets/custom/Scythe.png" id="5_u7scn"]
 [ext_resource type="Texture2D" uid="uid://dbbhalo3edxpk" path="res://assets/custom/BlightTarget.png" id="6_6m84b"]
 [ext_resource type="Texture2D" uid="uid://cba7uh0mnuoum" path="res://assets/custom/LeafParticle.png" id="7_otjuw"]
+[ext_resource type="Texture2D" uid="uid://jbl8fupoclkv" path="res://assets/custom/GainYieldParticle.png" id="8_hyote"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_0du70"]
 particles_animation = true
@@ -32,6 +33,27 @@ scale_max = 0.35
 hue_variation_max = 0.09
 anim_speed_min = 0.73
 anim_speed_max = 1.66
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_hdtle"]
+particles_animation = true
+particles_anim_h_frames = 4
+particles_anim_v_frames = 1
+particles_anim_loop = true
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_gn4kv"]
+particle_flag_disable_z = true
+emission_shape_offset = Vector3(8, 8, 0)
+emission_shape = 3
+emission_box_extents = Vector3(8, 8, 1)
+direction = Vector3(0, -1, 0)
+initial_velocity_max = 40.23
+gravity = Vector3(0, 42, 0)
+scale_min = 0.75
+scale_max = 0.75
+hue_variation_min = 0.44
+hue_variation_max = 0.58
+anim_speed_min = 3.03
+anim_speed_max = 3.49
 
 [node name="Tile" type="MarginContainer"]
 script = ExtResource("1_8vnt4")
@@ -76,6 +98,16 @@ texture = ExtResource("7_otjuw")
 lifetime = 0.3
 one_shot = true
 explosiveness = 0.91
+
+[node name="AddYieldParticles" type="GPUParticles2D" parent="."]
+texture_filter = 1
+material = SubResource("CanvasItemMaterial_hdtle")
+emitting = false
+process_material = SubResource("ParticleProcessMaterial_gn4kv")
+texture = ExtResource("8_hyote")
+lifetime = 0.3
+one_shot = true
+explosiveness = 0.8
 
 [connection signal="gui_input" from="TileButton" to="." method="_on_tile_button_gui_input"]
 [connection signal="mouse_entered" from="TileButton" to="." method="_on_tile_button_mouse_entered"]

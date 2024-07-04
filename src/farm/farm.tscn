@@ -8,3 +8,5 @@ script = ExtResource("1_1ma26")
 [node name="Tiles" type="Node" parent="."]
 
 [node name="SelectOverlay" type="Node" parent="."]
+
+[node name="Animations" type="Node" parent="."]

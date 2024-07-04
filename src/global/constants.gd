@@ -10,3 +10,8 @@ static var MAX_BLIGHT = 5
 static var CARD_SIZE = Vector2(200, 280)
 
 static var BASE_BLIGHT_DAMAGE = 4
+
+static var HOVER_PREVIEW_DELAY = 0.7
+
+static var MANA_MOVE_TIME = 0.5
+static var MANA_MOVE_VARIANCE = 0.2

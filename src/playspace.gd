@@ -22,9 +22,9 @@ var starting_deck = [
 		"count": 3
 	},
 	{
-		"name": "cactus",
+		"name": "pumpkin",
 		"type": "seed",
-		"count": 3
+		"count": 1
 	}
 ]
 

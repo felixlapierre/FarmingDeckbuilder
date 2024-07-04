@@ -24,6 +24,7 @@ var blight_targeted = false
 
 signal tile_hovered
 signal on_event
+signal on_yield_gained
 
 var event_manager: EventManager
 
@@ -162,7 +163,7 @@ func harvest(delay) -> Array[Effect]:
 		var harvest_args = notify_harvest(delay)
 		effects.append_array(get_effects("harvest"))
 		state = Enums.TileState.Empty
-		$'../..'.gain_yield(harvest_args.yld, harvest_args.purple, harvest_args.delay)
+		on_yield_gained.emit(self, harvest_args)
 		remove_seed()
 		$HarvestParticles.emitting = true
 	return effects
@@ -218,8 +219,10 @@ func do_winter_clear():
 		lose_irrigate()
 
 func multiply_yield(strength):
+	$AddYieldParticles.emitting = true
 	current_yield *= strength
 func add_yield(strength):
+	$AddYieldParticles.emitting = true
 	current_yield += strength
 
 func get_turn_start_effects() -> Array[Effect]: 
@@ -311,3 +314,6 @@ func set_tile_size(n_size: Vector2):
 	scale = n_size / Vector2(16, 16)
 	$HarvestParticles.process_material.scale_min = 3.2
 	$HarvestParticles.process_material.scale_max = 3.2
+	$AddYieldParticles.process_material.scale_min = 2
+	$AddYieldParticles.process_material.scale_max = 2
+	

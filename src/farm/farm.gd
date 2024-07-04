@@ -22,6 +22,8 @@ signal on_card_draw
 signal on_show_tile_preview
 signal on_hide_tile_preview
 
+var hover_time = 0.0
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	# Create the farm tiles
@@ -37,6 +39,7 @@ func _ready() -> void:
 			tiles[i].append(tile)
 			tile.tile_hovered.connect(on_tile_hover)
 			tile.on_event.connect(on_farm_tile_on_event)
+			tile.on_yield_gained.connect(gain_yield)
 			if i >= Constants.PURPLE_GTE_INDEX:
 				tile.purple = true
 			$Tiles.add_child(tile)
@@ -47,6 +50,7 @@ func setup(p_event_manager: EventManager):
 		tile.event_manager = event_manager
 
 func use_card(grid_position):
+	hover_time = 0.0
 	var energy = $"../TurnManager".energy
 	if Global.selected_structure != null:
 		tiles[grid_position.x][grid_position.y]\
@@ -74,6 +78,7 @@ func use_card(grid_position):
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	hover_time += delta
 	if current_shape != Global.shape and hovered_tile != null:
 		show_select_overlay()
 	if hovered_tile == null or (Global.selected_card == null and Global.selected_structure == null) and $SelectOverlay.get_children().size() > 0:
@@ -89,10 +94,13 @@ func show_select_overlay():
 	elif Global.selected_structure != null:
 		size = Global.selected_structure.size
 		targets = ["Empty", "Growing", "Mature"]
+	elif hovered_tile != null and hover_time > Constants.HOVER_PREVIEW_DELAY:
+		clear_overlay()
+		on_show_tile_preview.emit(hovered_tile)
+		return
 	if hovered_tile == null:
 		return
 	clear_overlay()
-	on_show_tile_preview.emit(hovered_tile)
 	if size == 0:
 		return
 	var grid_position = hovered_tile.grid_location
@@ -153,6 +161,7 @@ func pct(num):
 	return float(num)/100.0
 
 func on_tile_hover(tile):
+	hover_time = 0.0
 	hovered_tile = tile
 	if tile != null:
 		show_select_overlay()
@@ -254,8 +263,9 @@ func perform_effect(effect, tile: Tile):
 		"add_blight_yield":
 			tile.seed_base_yield += effect.strength * event_manager.turn_manager.blight_damage
 
-func gain_yield(yield_amount, purple, delay):
-	on_yield_gained.emit(int(round(yield_amount)), purple, delay)
+func gain_yield(tile: Tile, args: EventArgs.HarvestArgs):
+	blight_bubble_animation(tile, args)
+	on_yield_gained.emit(int(round(args.yld)), args.purple, args.delay)
 
 func do_winter_clear():
 	for tile in $Tiles.get_children():
@@ -336,3 +346,27 @@ func remove_blight_from_all_tiles():
 	for tile in $Tiles.get_children():
 		if tile.state == Enums.TileState.Blighted:
 			tile.remove_blight()
+
+func blight_bubble_animation(tile: Tile, args: EventArgs.HarvestArgs):
+	var bubbles = args.yld
+	for i in range(bubbles):
+		var sprite = Sprite2D.new()
+		sprite.texture = load("res://assets/custom/PurpleMana.png") if args.purple else load("res://assets/custom/YellowMana.png")
+		sprite.modulate.a = 0
+		sprite.scale = Vector2.ZERO
+		sprite.position = tile.position + Vector2(TILE_SIZE.x * randf(), TILE_SIZE.y * randf())
+		sprite.z_index = 1
+		sprite.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+		var target_position = Global.MANA_TARGET_LOCATION_PURPLE if args.purple else Global.MANA_TARGET_LOCATION_YELLOW
+		target_position.x += 200.0 if args.delay and args.purple else 0.0
+		target_position += Vector2(-8 + 16 * randf(), -8 + 16 * randf())
+		var time = Constants.MANA_MOVE_TIME + randf() * Constants.MANA_MOVE_VARIANCE
+		var tween = get_tree().create_tween()
+		tween.tween_property(sprite, "modulate:a", 1, 0.3).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+		tween.parallel().tween_property(sprite, "scale", Vector2.ONE, 0.3).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+		tween.parallel().tween_property(sprite, "position", target_position, time).set_trans(Tween.TRANS_EXPO)
+		tween.tween_callback(func():
+			$Animations.remove_child(sprite))
+		#sprite.modulate.a = 0
+
+		$Animations.add_child(sprite)

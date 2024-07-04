@@ -29,14 +29,15 @@ anchors_preset = 0
 
 [node name="RitualCounter" type="HBoxContainer" parent="UI"]
 layout_mode = 0
-offset_left = 522.0
+offset_left = 482.0
 offset_top = 418.0
-offset_right = 615.0
+offset_right = 575.0
 offset_bottom = 459.0
 theme = ExtResource("2_s7754")
 
 [node name="Label" type="Label" parent="UI/RitualCounter"]
 layout_mode = 2
+size_flags_horizontal = 10
 text = "300"
 
 [node name="TextureRect" type="TextureRect" parent="UI/RitualCounter"]
