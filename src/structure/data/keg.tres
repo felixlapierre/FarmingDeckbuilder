@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Keg" load_steps=3 format=3 uid="uid://bdmmecgf7ia4g"]
+
+[ext_resource type="Script" path="res://src/structure/custom/keg.gd" id="1_1v5a0"]
+[ext_resource type="Texture2D" uid="uid://c46q76532nqk" path="res://assets/custom/Temp.png" id="2_ry8uj"]
+
+[resource]
+script = ExtResource("1_1v5a0")
+name = "Keg"
+rarity = "common"
+cost = 1
+size = 0
+text = "Stores yield from nearby harvest to be doubled in two turns"
+texture = ExtResource("2_ry8uj")
+effects = Array[Resource("res://src/effect/effect.gd")]([])

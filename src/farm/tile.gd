@@ -10,10 +10,10 @@ var objects_image = "res://assets/1616tinygarden/objects.png"
 var seed = null # To contain information about the seed being grown here
 var structure: Structure = null
 
-var seed_base_yield
-var seed_grow_time
-var current_yield
-var current_grow_progress
+var seed_base_yield = 0.0
+var seed_grow_time = 0.0
+var current_yield = 0.0
+var current_grow_progress = 0.0
 var current_multiplier = 1.0
 var irrigated = false
 var IRRIGATED_MULTIPLIER = 0.4

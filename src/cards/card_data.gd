@@ -84,6 +84,8 @@ func apply_enhance(enhance: Enhance):
 			n_card.apply_strength(enhance)
 		"Size":
 			n_card.size += enhance.strength
+		"Springbound":
+			n_card.effects.append(load("res://src/effect/data/springbound.tres"))
 	return n_card
 
 func apply_strength(enhance: Enhance):

@@ -45,3 +45,6 @@ func register_events(event_manager: EventManager, tile: Tile):
 
 func unregister_events(event_manager: EventManager):
 	pass
+
+func do_winter_clear():
+	pass

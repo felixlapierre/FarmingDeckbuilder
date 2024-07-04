@@ -264,7 +264,8 @@ func perform_effect(effect, tile: Tile):
 			tile.seed_base_yield += effect.strength * event_manager.turn_manager.blight_damage
 
 func gain_yield(tile: Tile, args: EventArgs.HarvestArgs):
-	blight_bubble_animation(tile, args)
+	var destination = Global.MANA_TARGET_LOCATION_PURPLE if args.purple else Global.MANA_TARGET_LOCATION_YELLOW
+	blight_bubble_animation(tile, args, destination)
 	on_yield_gained.emit(int(round(args.yld)), args.purple, args.delay)
 
 func do_winter_clear():
@@ -347,7 +348,7 @@ func remove_blight_from_all_tiles():
 		if tile.state == Enums.TileState.Blighted:
 			tile.remove_blight()
 
-func blight_bubble_animation(tile: Tile, args: EventArgs.HarvestArgs):
+func blight_bubble_animation(tile: Tile, args: EventArgs.HarvestArgs, destination: Vector2):
 	var bubbles = args.yld
 	for i in range(bubbles):
 		var sprite = Sprite2D.new()
@@ -357,7 +358,7 @@ func blight_bubble_animation(tile: Tile, args: EventArgs.HarvestArgs):
 		sprite.position = tile.position + Vector2(TILE_SIZE.x * randf(), TILE_SIZE.y * randf())
 		sprite.z_index = 1
 		sprite.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
-		var target_position = Global.MANA_TARGET_LOCATION_PURPLE if args.purple else Global.MANA_TARGET_LOCATION_YELLOW
+		var target_position = Vector2(destination)
 		target_position.x += 200.0 if args.delay and args.purple else 0.0
 		target_position += Vector2(-8 + 16 * randf(), -8 + 16 * randf())
 		var time = Constants.MANA_MOVE_TIME + randf() * Constants.MANA_MOVE_VARIANCE

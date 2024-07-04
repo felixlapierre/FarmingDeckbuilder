@@ -207,6 +207,8 @@ func on_turn_end():
 	$UserInterface.update()
 	$UserInterface.turn_ending = false
 	$EventManager.notify(EventManager.EventType.BeforeTurnStart)
+	if victory == true:
+		end_year()
 
 
 func _on_user_interface_on_blight_removed() -> void:
