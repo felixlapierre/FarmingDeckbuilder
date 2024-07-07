@@ -22,12 +22,12 @@ var starting_deck = [
 		"count": 3
 	},
 	{
-		"name": "rite_of_air",
-		"type": "action",
+		"name": "leek",
+		"type": "seed",
 		"count": 1
 	},
 	{
-		"name": "leaf_ward",
+		"name": "inscribe",
 		"type": "action",
 		"count": 1
 	}

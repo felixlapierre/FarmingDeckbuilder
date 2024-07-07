@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="Inscribe" load_steps=4 format=3 uid="uid://dwcjvqh17w6x0"]
+
+[ext_resource type="Script" path="res://src/cards/custom/inscribe.gd" id="1_04rdl"]
+[ext_resource type="Script" path="res://src/effect/effect.gd" id="1_wd1yo"]
+
+[sub_resource type="Resource" id="Resource_clgxc"]
+script = ExtResource("1_wd1yo")
+name = "destroy_plant"
+strength = 0.0
+on = ""
+range = "self"
+
+[resource]
+script = ExtResource("1_04rdl")
+type = "ACTION"
+name = "Inscribe"
+rarity = "common"
+cost = 0
+yld = 0
+time = 0
+size = 4
+text = "Draw a card for each tile destroyed"
+seed_texture = 0
+targets = Array[String](["Growing", "Mature"])
+effects = Array[ExtResource("1_wd1yo")]([SubResource("Resource_clgxc")])
