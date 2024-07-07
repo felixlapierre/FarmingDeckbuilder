@@ -70,9 +70,13 @@ func use_card(grid_position):
 	var size = Global.selected_card.size
 	var targets = get_targeted_tiles(grid_position, size, Global.shape, Global.rotate)
 	card.register_events(event_manager, null)
+	var args = EventArgs.SpecificArgs.new(null)
+	args.play_args = EventArgs.PlayArgs.new(card)
+	event_manager.notify_specific_args(EventManager.EventType.BeforeCardPlayed, args)
 	use_card_on_targets(card, targets, false)
 	clear_overlay()
 	process_effect_queue()
+	event_manager.notify_specific_args(EventManager.EventType.AfterCardPlayed, args)
 	card.unregister_events(event_manager)
 	card_played.emit(Global.selected_card)
 
@@ -297,10 +301,12 @@ func use_card_on_targets(card, targets, only_first):
 func gain_energy(amount):
 	on_energy_gained.emit(amount)
 
-func preview_yield(card, targeted_tile):
+func preview_yield(card, targeted_tile: Tile):
 	var yld_purple = 0.0
 	var yld_yellow = 0.0
-	if card.get_effect("harvest") != null or card.get_effect("harvest_delay") != null:
+	if (card.get_effect("harvest") != null\
+		or card.get_effect("harvest_delay") != null)\
+		and is_eligible(card.targets, targeted_tile):
 		var yld = targeted_tile.preview_harvest()
 		if targeted_tile.purple:
 			yld_purple += yld
@@ -368,6 +374,4 @@ func blight_bubble_animation(tile: Tile, args: EventArgs.HarvestArgs, destinatio
 		tween.parallel().tween_property(sprite, "position", target_position, time).set_trans(Tween.TRANS_EXPO)
 		tween.tween_callback(func():
 			$Animations.remove_child(sprite))
-		#sprite.modulate.a = 0
-
 		$Animations.add_child(sprite)

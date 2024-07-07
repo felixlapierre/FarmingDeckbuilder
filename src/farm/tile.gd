@@ -159,13 +159,12 @@ func update_plant_sprite():
 
 func harvest(delay) -> Array[Effect]:
 	var effects: Array[Effect] = []
-	if state == Enums.TileState.Mature:
-		var harvest_args = notify_harvest(delay)
-		effects.append_array(get_effects("harvest"))
-		state = Enums.TileState.Empty
-		on_yield_gained.emit(self, harvest_args)
-		remove_seed()
-		$HarvestParticles.emitting = true
+	var harvest_args = notify_harvest(delay)
+	effects.append_array(get_effects("harvest"))
+	state = Enums.TileState.Empty
+	on_yield_gained.emit(self, harvest_args)
+	remove_seed()
+	$HarvestParticles.emitting = true
 	return effects
 
 func remove_seed():
@@ -205,7 +204,7 @@ func build_structure(n_structure, rotate):
 		.set_ease(Tween.EASE_OUT)
 
 func preview_harvest() -> float:
-	return current_yield if state == Enums.TileState.Mature else 0
+	return current_yield
 
 func do_winter_clear():
 	if state == Enums.TileState.Growing or state == Enums.TileState.Mature or state == Enums.TileState.Destroyed:

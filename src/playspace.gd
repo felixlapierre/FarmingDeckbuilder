@@ -22,8 +22,13 @@ var starting_deck = [
 		"count": 3
 	},
 	{
-		"name": "pumpkin",
-		"type": "seed",
+		"name": "harvest_immature",
+		"type": "action",
+		"count": 1
+	},
+	{
+		"name": "leaf_ward",
+		"type": "action",
 		"count": 1
 	}
 ]
@@ -197,15 +202,15 @@ func on_turn_end():
 		$UserInterface.update_damage()
 		$TurnManager.destroy_blighted_tiles($FarmTiles)
 	$EventManager.notify(EventManager.EventType.OnTurnEnd)
-	$Cards.draw_hand($TurnManager.get_cards_drawn(), $TurnManager.week)
 	
 	if $TurnManager.blight_damage >= Constants.MAX_BLIGHT:
 		on_lose()
 	$TurnManager.set_blight_targeted_tiles($FarmTiles)
-	$UserInterface.update()
-	await get_tree().create_timer(1).timeout
+	#$UserInterface.update()
+	#await get_tree().create_timer(1).timeout
 	$UserInterface.update()
 	$UserInterface.turn_ending = false
+	$Cards.draw_hand($TurnManager.get_cards_drawn(), $TurnManager.week)
 	$EventManager.notify(EventManager.EventType.BeforeTurnStart)
 	if victory == true:
 		end_year()

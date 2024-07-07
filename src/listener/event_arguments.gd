@@ -17,6 +17,7 @@ class SpecificArgs:
 	var tile: Tile
 	var harvest_args: HarvestArgs
 	var destroy_args: DestroyArgs
+	var play_args: PlayArgs
 	func _init(p_tile: Tile):
 		tile = p_tile
 
@@ -33,3 +34,8 @@ class DestroyArgs:
 	var protect: bool
 	func _init(p_protect: bool = false):
 		protect = p_protect
+
+class PlayArgs:
+	var card: CardData
+	func _init(p_card: CardData = null):
+		card = p_card

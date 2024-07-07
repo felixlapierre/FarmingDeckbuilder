@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="LeafWard" load_steps=3 format=3 uid="uid://j2xmpx0jsi"]
+
+[ext_resource type="Script" path="res://src/cards/custom/leaf_ward.gd" id="1_6pnwr"]
+[ext_resource type="Texture2D" uid="uid://c46q76532nqk" path="res://assets/custom/Temp.png" id="2_m1sgd"]
+
+[resource]
+script = ExtResource("1_6pnwr")
+type = "ACTION"
+name = "Leaf Ward"
+rarity = "common"
+cost = 1
+yld = 0
+time = 0
+size = -1
+text = "Gain 1 purple yield per growing plant"
+texture = ExtResource("2_m1sgd")
+seed_texture = 0
+targets = Array[String](["Growing"])
+effects = Array[Resource("res://src/effect/effect.gd")]([])

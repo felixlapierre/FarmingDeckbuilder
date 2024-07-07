@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="CardData" load_steps=4 format=3 uid="uid://b220qkg3my7lm"]
+
+[ext_resource type="Script" path="res://src/effect/effect.gd" id="1_ltf2n"]
+[ext_resource type="Script" path="res://src/cards/card_data.gd" id="1_ma565"]
+
+[sub_resource type="Resource" id="Resource_itl5y"]
+script = ExtResource("1_ltf2n")
+name = "harvest"
+strength = 0.0
+on = ""
+range = "self"
+
+[resource]
+script = ExtResource("1_ma565")
+type = "ACTION"
+name = "Rite of Air"
+rarity = "common"
+cost = 1
+yld = 0
+time = 0
+size = 6
+text = "Event if they are not mature"
+seed_texture = 0
+targets = Array[String](["Growing", "Mature"])
+effects = Array[ExtResource("1_ltf2n")]([SubResource("Resource_itl5y")])
