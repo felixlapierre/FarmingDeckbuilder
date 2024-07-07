@@ -8,7 +8,7 @@
 script = ExtResource("1_unme5")
 type = "ACTION"
 name = "Scythe"
-rarity = "common"
+rarity = "basic"
 cost = 1
 yld = 3
 time = 3

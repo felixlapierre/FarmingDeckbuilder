@@ -6,7 +6,7 @@
 script = ExtResource("1_8awsu")
 type = "SEED"
 name = "Carrot"
-rarity = "common"
+rarity = "basic"
 cost = 1
 yld = 3
 time = 3

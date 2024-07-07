@@ -76,7 +76,7 @@ func get_short_description():
 		"increase_yield":
 			return "Increase yield by " + str(strength * 100) + "%"
 		"harvest":
-			return "Harvest fully grown plants"
+			return "Harvest target plants"
 		"harvest_delay":
 			return "Harvest fully grown plants and gain the yield next week"
 		"grow":

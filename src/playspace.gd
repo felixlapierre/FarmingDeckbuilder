@@ -22,7 +22,7 @@ var starting_deck = [
 		"count": 3
 	},
 	{
-		"name": "harvest_immature",
+		"name": "rite_of_air",
 		"type": "action",
 		"count": 1
 	},
