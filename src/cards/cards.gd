@@ -47,6 +47,8 @@ func draw_hand(count, week):
 		draw_springbound_cards(count)
 	while number_of_cards_in_hand < count:
 		drawcard()
+		if deck_cards.size() == 0 and discard_pile_cards.size() == 0:
+			break
 	reorganize_hand()
 
 func draw_one_card():
