@@ -1,20 +1,18 @@
 extends Fortune
-class_name WeedsStartDeck
 
 var callback: Callable
 var event_type = EventManager.EventType.AfterYearStart
 var weeds = preload("res://src/fortune/unique/weed.tres")
-
 func _init() -> void:
-	super("Cursed Scrolls", FortuneType.BadFortune, "Add 2 Weeds to your deck for this year", 0)
+	super("Overgrown", FortuneType.BadFortune, "Entire farm is full of weeds", 2)
 
 func register_fortune(event_manager: EventManager):
-	callback = add_daylily
+	callback = plant_weeds
 	event_manager.register_listener(event_type, callback)
 
 func unregister_fortune(event_manager: EventManager):
 	event_manager.unregister_listener(event_type, callback)
 
-func add_daylily(args: EventArgs):
-	args.cards.deck_cards.append(weeds.copy())
-	args.cards.deck_cards.append(weeds.copy())
+func plant_weeds(args: EventArgs):
+	for tile in args.farm.get_all_tiles():
+		tile.plant_seed(weeds.copy())

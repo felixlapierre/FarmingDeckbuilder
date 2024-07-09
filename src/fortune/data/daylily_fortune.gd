@@ -6,7 +6,7 @@ var event_type = EventManager.EventType.BeforeYearStart
 var daylily = preload("res://src/fortune/unique/daylily.tres")
 
 func _init() -> void:
-	super("Daylilies", FortuneType.GoodFortune, "Add 2 Daylilies to your deck for this year")
+	super("Daylilies", FortuneType.GoodFortune, "Add 2 Daylilies to your deck for this year", 0)
 
 func register_fortune(event_manager: EventManager):
 	callback = add_daylily

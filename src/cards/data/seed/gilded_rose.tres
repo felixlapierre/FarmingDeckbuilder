@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="GildedRose" load_steps=2 format=3 uid="uid://bcyjbiwmsdkx3"]
+
+[ext_resource type="Script" path="res://src/cards/custom/gilded_rose.gd" id="1_y2kdt"]
+
+[resource]
+script = ExtResource("1_y2kdt")
+strength = 1.0
+type = "SEED"
+name = "Gilded Rose"
+rarity = "rare"
+cost = 1
+yld = 1
+time = 2
+size = 1
+text = "On harvest, gain +1 yield per Gilded Rose harvested this run"
+seed_texture = 0
+targets = Array[String]([])
+effects = Array[Resource("res://src/effect/effect.gd")]([])

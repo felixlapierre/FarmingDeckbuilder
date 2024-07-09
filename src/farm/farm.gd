@@ -292,7 +292,7 @@ func use_card_on_targets(card, targets, only_first):
 			target_tile):
 			continue
 		if card.type == "SEED":
-			effect_queue.append_array(target_tile.plant_seed_animate(card))
+			effect_queue.append_array(target_tile.plant_seed_animate(card.copy()))
 		elif card.type == "ACTION":
 			use_action_card(card, Vector2(target.x, target.y))
 		if only_first:

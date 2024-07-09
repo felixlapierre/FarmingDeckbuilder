@@ -6,7 +6,7 @@ var event_type = EventManager.EventType.BeforeTurnStart
 var weeds = preload("res://src/fortune/unique/weed.tres")
 
 func _init() -> void:
-	super("Cursed Grimoire", FortuneType.MajorBadFortune, "Add a Weeds card to your deck at the start of each turn")
+	super("Cursed Grimoire", FortuneType.BadFortune, "Add a Weeds card to your deck at the start of each turn", 1)
 
 func register_fortune(event_manager: EventManager):
 	callback = add_weed_to_deck

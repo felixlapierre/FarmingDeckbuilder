@@ -4,7 +4,7 @@ var callback: Callable
 var event_type = EventManager.EventType.AfterYearStart
 
 func _init() -> void:
-	super("Slow Ritual", FortuneType.MinorBadFortune, "Increase ritual target by 10%")
+	super("Slow Ritual", FortuneType.BadFortune, "Increase ritual target by 10%", 0)
 
 func register_fortune(event_manager: EventManager):
 	callback = func(args: EventArgs):

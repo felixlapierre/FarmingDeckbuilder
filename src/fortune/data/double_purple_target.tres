@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="IncreasePurple" load_steps=2 format=3 uid="uid://b7lmo661hkse"]
+
+[ext_resource type="Script" path="res://src/fortune/custom/increase_purple.gd" id="1_m1dex"]
+
+[resource]
+script = ExtResource("1_m1dex")
+strength = 2.0
+name = "Catastrophe"
+type = 1
+text = "Double purple yield requirements"
+rank = 3

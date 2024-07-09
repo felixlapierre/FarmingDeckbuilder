@@ -1,7 +1,7 @@
 extends Fortune
 
 func _init() -> void:
-	super("Focused", FortuneType.MinorBadFortune, "Blight will only target growing plants")
+	super("Focused", FortuneType.BadFortune, "Blight will only target growing plants", 0)
 
 func register_fortune(event_manager: EventManager):
 	Global.BLIGHT_FLAG_THREATEN_GROWING = true

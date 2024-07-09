@@ -97,9 +97,12 @@ func get_ritual_requirements(year):
 	return amount
 
 func get_blight_requirements(week, year):
+	var amt = 0
 	if week > blight_pattern.size():
-		return 40 * get_blight_year_multiplier(year - 1)
-	return blight_pattern[week - 1] * get_blight_year_multiplier(year)
+		amt = 40 * get_blight_year_multiplier(year - 1)
+	else:
+		amt = blight_pattern[week - 1] * get_blight_year_multiplier(year)
+	return amt * Global.BLIGHT_TARGET_MULTIPLIER
 
 func get_blight_year_multiplier(year):
 	return 1.0 + year * 0.1

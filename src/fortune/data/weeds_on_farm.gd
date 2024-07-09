@@ -4,7 +4,7 @@ var callback: Callable
 var event_type = EventManager.EventType.AfterYearStart
 var weeds = preload("res://src/fortune/unique/weed.tres")
 func _init() -> void:
-	super("Weeds", FortuneType.MinorBadFortune, "Start with weeds on your farm")
+	super("Weeds", FortuneType.BadFortune, "Start with weeds on your farm", 0)
 
 func register_fortune(event_manager: EventManager):
 	callback = plant_weeds

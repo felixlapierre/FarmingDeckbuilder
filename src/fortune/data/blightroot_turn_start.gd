@@ -4,7 +4,7 @@ var callback: Callable
 var event_type = EventManager.EventType.BeforeTurnStart
 var blightroot = preload("res://src/fortune/unique/blightroot.tres")
 func _init() -> void:
-	super("Infestation", FortuneType.MajorBadFortune, "Plant a spreading Blightroot on your farm at the start of each turn")
+	super("Infestation", FortuneType.BadFortune, "Plant a spreading Blightroot on your farm at the start of each turn", 1)
 
 func register_fortune(event_manager: EventManager):
 	callback = plant_weeds

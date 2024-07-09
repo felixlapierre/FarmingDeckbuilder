@@ -66,8 +66,10 @@ static func get_all_fortunes() -> Array[Fortune]:
 	var fortunes: Array[Fortune] = []
 	var paths =  get_all_file_paths("res://src/fortune/data");
 	for path in paths:
-		var fortune: Fortune = load(path).new()
-		if fortune == null:
-			print(fortune)
-		fortunes.append(fortune)
+		# Can be script or resource
+		var fortune = load(path)
+		if fortune is Fortune:
+			fortunes.append(fortune)
+		elif fortune is GDScript:
+			fortunes.append(fortune.new())
 	return fortunes

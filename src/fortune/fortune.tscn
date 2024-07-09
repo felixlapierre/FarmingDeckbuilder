@@ -24,7 +24,7 @@ layout_mode = 2
 text = "FortuneName"
 horizontal_alignment = 1
 
-[node name="TextureRect" type="TextureRect" parent="VBox"]
+[node name="Texture" type="TextureRect" parent="VBox"]
 texture_filter = 1
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
@@ -32,7 +32,7 @@ size_flags_horizontal = 4
 texture = ExtResource("2_yio6i")
 stretch_mode = 4
 
-[node name="RichTextLabel" type="RichTextLabel" parent="VBox"]
+[node name="Description" type="RichTextLabel" parent="VBox"]
 layout_mode = 2
 size_flags_vertical = 3
 bbcode_enabled = true

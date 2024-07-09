@@ -113,3 +113,9 @@ func register_events(event_manager: EventManager, tile: Tile):
 
 func unregister_events(event_manager: EventManager):
 	pass
+
+func register_seed_events(event_manager: EventManager, tile: Tile):
+	pass
+
+func unregister_seed_events(event_manager: EventManager):
+	pass

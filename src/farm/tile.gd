@@ -85,7 +85,7 @@ func plant_seed(planted_seed) -> Array[Effect]:
 	var effects: Array[Effect] = []
 	if state == Enums.TileState.Empty:
 		seed = planted_seed
-		seed.register_events(event_manager, self)
+		seed.register_seed_events(event_manager, self)
 		effects.append_array(get_effects("plant"))
 		seed_grow_time = float(seed.time)
 		seed_base_yield = float(seed.yld)
@@ -169,7 +169,7 @@ func harvest(delay) -> Array[Effect]:
 
 func remove_seed():
 	if seed != null:
-		seed.unregister_events(event_manager)
+		seed.unregister_seed_events(event_manager)
 	seed_base_yield = 0
 	seed_grow_time = 0
 	current_grow_progress = 0.0

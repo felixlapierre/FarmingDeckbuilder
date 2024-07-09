@@ -3,7 +3,7 @@ extends Fortune
 var callable
 
 func _init() -> void:
-	super("Energised", FortuneType.GoodFortune, "+1 Energy Fragment this year")
+	super("Energised", FortuneType.GoodFortune, "+1 Energy Fragment this year", 0)
 
 func register_fortune(event_manager: EventManager):
 	Global.ENERGY_FRAGMENTS += 1

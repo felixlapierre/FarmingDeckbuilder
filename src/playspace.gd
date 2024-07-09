@@ -22,13 +22,13 @@ var starting_deck = [
 		"count": 3
 	},
 	{
-		"name": "leek",
+		"name": "gilded_rose",
 		"type": "seed",
 		"count": 1
 	},
 	{
-		"name": "inscribe",
-		"type": "action",
+		"name": "pumpkin",
+		"type": "seed",
 		"count": 1
 	}
 ]

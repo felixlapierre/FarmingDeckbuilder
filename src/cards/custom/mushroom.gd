@@ -12,14 +12,14 @@ func _init(p_name = "PlaceholderCardName", p_rarity = "common", p_cost = 1, p_yl
 	strength = p_strength
 
 # To be overridden by specific code seeds
-func register_events(event_manager: EventManager, p_tile: Tile):
+func register_seed_events(event_manager: EventManager, p_tile: Tile):
 	tile = p_tile
 	callback = func(args: EventArgs):
 		var destroyed_tile: Tile = args.specific.tile
 		tile.add_yield(destroyed_tile.current_yield * strength)
 	event_manager.register_listener(EventManager.EventType.OnPlantDestroyed, callback)
 
-func unregister_events(event_manager: EventManager):
+func unregister_seed_events(event_manager: EventManager):
 	event_manager.unregister_listener(EventManager.EventType.OnPlantDestroyed, callback)
 
 func copy():
