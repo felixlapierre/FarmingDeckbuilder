@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="CardData" load_steps=4 format=3 uid="uid://c1lokrk1ne5i4"]
+
+[ext_resource type="Script" path="res://src/effect/effect.gd" id="1_hx86l"]
+[ext_resource type="Script" path="res://src/cards/card_data.gd" id="1_xy284"]
+
+[sub_resource type="Resource" id="Resource_13y5w"]
+script = ExtResource("1_hx86l")
+name = "grow"
+strength = 1.0
+on = ""
+range = "self"
+
+[resource]
+script = ExtResource("1_xy284")
+type = "ACTION"
+name = "Time Hop"
+rarity = "rare"
+cost = 3
+yld = 0
+time = 0
+size = -1
+text = ""
+seed_texture = 0
+targets = Array[String](["Growing"])
+effects = Array[ExtResource("1_hx86l")]([SubResource("Resource_13y5w")])

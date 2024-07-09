@@ -22,8 +22,8 @@ var starting_deck = [
 		"count": 3
 	},
 	{
-		"name": "gilded_rose",
-		"type": "seed",
+		"name": "time_hop",
+		"type": "action",
 		"count": 1
 	},
 	{
