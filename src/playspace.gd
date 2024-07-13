@@ -41,6 +41,7 @@ func _ready() -> void:
 	for card in starting_deck:
 		for i in range(card.count):
 			deck.append(card_database.get_card_by_name(card.name, card.type))
+	load_game()
 	$UserInterface.update()
 	$FarmTiles.setup($EventManager)
 	start_year()
@@ -88,6 +89,7 @@ func end_year():
 	$FarmTiles.do_winter_clear()
 	$TurnManager.end_year()
 	$UserInterface.end_year()
+	save_game()
 
 
 func start_year():
@@ -218,3 +220,31 @@ func on_turn_end():
 
 func _on_user_interface_on_blight_removed() -> void:
 	$FarmTiles.remove_blight_from_all_tiles()
+
+func save_game():
+	var save_json = {}
+	save_json.deck = []
+	for card in deck:
+		save_json.deck.append(card.save_data())
+	
+	var save_game = FileAccess.open("user://savegame.save", FileAccess.WRITE)
+	save_game.store_line(JSON.stringify(save_json))
+
+func load_game():
+	deck = []
+	if not FileAccess.file_exists("user://savegame.save"):
+		print("No save data found")
+		return
+	var save_game = FileAccess.open("user://savegame.save", FileAccess.READ)
+	var save_data = save_game.get_line()
+	var json = JSON.new()
+	var parse_result = json.parse(save_data)
+	if not parse_result == OK:
+		print("JSON Parse Error: ", json.get_error_message())
+		return
+	var save_json = json.get_data()
+	for entry in save_json.deck:
+		var card = load(entry.path).new();
+		card.load_data(entry)
+		deck.append(card)
+	

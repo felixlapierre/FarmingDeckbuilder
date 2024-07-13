@@ -119,3 +119,39 @@ func register_seed_events(event_manager: EventManager, tile: Tile):
 
 func unregister_seed_events(event_manager: EventManager):
 	pass
+
+func save_data() -> Dictionary:
+	var save_dict = {
+		"path": get_script().get_path(),
+		"type": type,
+		"name": name,
+		"rarity": rarity,
+		"cost": cost,
+		"yld": yld,
+		"time": time,
+		"size": size,
+		"text": text,
+		"texture": texture.resource_path if texture != null else null,
+		"seed_texture": seed_texture,
+		"targets": targets,
+		"effects": effects.map(func(effect):
+			return effect.save_data())
+	}
+	return save_dict
+
+func load_data(data):
+	type = data.type
+	name = data.name
+	rarity = data.rarity
+	cost = data.cost
+	yld = data.yld
+	time = data.time
+	size = data.size
+	text = data.text
+	texture = load(data.texture) if data.texture != null else null
+	seed_texture = data.seed_texture
+	targets.assign(data.targets)
+	effects.assign(data.effects.map(func(effect):
+		var eff = load(effect.path).new()
+		eff.load_data(effect)
+		return eff))

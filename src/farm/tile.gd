@@ -188,11 +188,12 @@ func lose_irrigate():
 	if state != Enums.TileState.Blighted and state != Enums.TileState.Destroyed:
 		$Farmland.modulate = Color8(255, 255, 255)
 
-func build_structure(n_structure, rotate):
+func build_structure(n_structure: Structure, rotate):
 	state = Enums.TileState.Structure
 	structure = n_structure
 	structure_rotate = rotate
 	structure.register_events(event_manager, self)
+	structure.grid_location = grid_location
 	$PlantSprite.texture = n_structure.texture
 	$PlantSprite.visible = true
 	$PlantSprite.region_enabled = false

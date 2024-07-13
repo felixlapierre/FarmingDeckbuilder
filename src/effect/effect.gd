@@ -115,25 +115,17 @@ func get_strength_text():
 	else:
 		return str(strength * -1) + "X"
 
-# Only name as property:
-# harvest
-# obliviate
-# remembrance
+func save_data():
+	return {
+		"path": get_script().get_path(),
+		"name": name,
+		"strength": strength,
+		"on": on,
+		"range": range
+	}
 
-# These ones only have strength as a property
-# increase_yield
-# draw
-# grow
-# add_yield
-# irrigate
-# recurring
-# energy
-# absorb
-
-# spread
-# on: (grow)
-
-# for any structure also add
-# on: (before_grow, after_grow, turn_start)
-# range: (adjacent, nearby)
-
+func load_data(data):
+	name = data.name
+	strength = data.strength
+	on = data.on
+	range = data.range
