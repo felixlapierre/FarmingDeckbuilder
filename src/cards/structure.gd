@@ -13,6 +13,7 @@ const CLASS_NAME = "Structure"
 @export var effects: Array[Effect]
 var grid_location: Vector2
 var type = "STRUCTURE"
+var rotate: int = 0
 
 func _init(p_name = "PlaceholderCardName", p_rarity = "common", p_cost = 1,\
 	p_size = 1, p_text = "", p_texture = null, p_effects = [], p_grid_location = Vector2.ZERO):
@@ -51,7 +52,7 @@ func unregister_events(event_manager: EventManager):
 func do_winter_clear():
 	pass
 
-func save_data(grid_location: Vector2):
+func save_data():
 	return {
 		"path": get_script().get_path(),
 		"name": name,
@@ -63,16 +64,21 @@ func save_data(grid_location: Vector2):
 		"effects": effects.map(func(effect):
 			return effect.save_data()),
 		"x": grid_location.x,
-		"y": grid_location.y
+		"y": grid_location.y,
+		"rotate": rotate
 	}
 
-func load_data(data):
+func load_data(data) -> Structure:
 	name = data.name
 	rarity = data.rarity
 	cost = data.cost
 	size = data.size
 	text = data.text
 	texture = load(data.texture)
-	effects = data.effects.map(func(effect):
-		return load(effect.path).new().load_data(effect))
+	effects.assign(data.effects.map(func(effect):
+		var eff = load(effect.path).new()
+		eff.load_data(effect)
+		return eff))
 	grid_location = Vector2(data.x, data.y)
+	rotate = data.rotate
+	return self

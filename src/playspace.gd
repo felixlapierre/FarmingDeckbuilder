@@ -22,16 +22,14 @@ var starting_deck = [
 		"count": 3
 	},
 	{
-		"name": "time_hop",
-		"type": "action",
-		"count": 1
-	},
-	{
 		"name": "pumpkin",
 		"type": "seed",
 		"count": 1
 	}
 ]
+
+@onready var turn_manager: TurnManager = $TurnManager
+@onready var user_interface: UserInterface = $UserInterface
 
 func _ready() -> void:
 	randomize()
@@ -41,10 +39,13 @@ func _ready() -> void:
 	for card in starting_deck:
 		for i in range(card.count):
 			deck.append(card_database.get_card_by_name(card.name, card.type))
-	load_game()
 	$UserInterface.update()
 	$FarmTiles.setup($EventManager)
-	start_year()
+	var save_json = load_game()
+	if save_json != null and save_json.state.winter == true:
+		$UserInterface.load_data(save_json)
+	else:
+		start_year()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -91,8 +92,8 @@ func end_year():
 	$UserInterface.end_year()
 	save_game()
 
-
 func start_year():
+	save_game()
 	victory = false
 	$UserInterface.start_year()
 	$EventManager.notify(EventManager.EventType.BeforeYearStart)
@@ -227,14 +228,29 @@ func save_game():
 	for card in deck:
 		save_json.deck.append(card.save_data())
 	
+	save_json.structures = []
+	for tile in $FarmTiles.get_all_tiles():
+		if tile.structure != null:
+			save_json.structures.append(tile.structure.save_data())
+	
+	save_json.state = {
+		"year": turn_manager.year,
+		"week": turn_manager.week,
+		"energy_fragments": Global.ENERGY_FRAGMENTS,
+		"draw_fragments": Global.SCROLL_FRAGMENTS,
+		"winter": user_interface.is_winter()
+	}
+	if save_json.state.winter:
+		save_json.winter = user_interface.save_data()
+
 	var save_game = FileAccess.open("user://savegame.save", FileAccess.WRITE)
 	save_game.store_line(JSON.stringify(save_json))
 
 func load_game():
-	deck = []
 	if not FileAccess.file_exists("user://savegame.save"):
 		print("No save data found")
-		return
+		return null
+	deck.clear()
 	var save_game = FileAccess.open("user://savegame.save", FileAccess.READ)
 	var save_data = save_game.get_line()
 	var json = JSON.new()
@@ -247,4 +263,14 @@ func load_game():
 		var card = load(entry.path).new();
 		card.load_data(entry)
 		deck.append(card)
+	for data in save_json.structures:
+		var structure = load(data.path).new()
+		structure.load_data(data)
+		$FarmTiles.tiles[data.x][data.y].build_structure(structure, structure.rotate)
+
+	turn_manager.year = int(save_json.state.year)
+	turn_manager.week = int(save_json.state.week)
+	Global.ENERGY_FRAGMENTS = int(save_json.state.energy_fragments)
+	Global.SCROLL_FRAGMENTS = int(save_json.state.draw_fragments)
 	
+	return save_json

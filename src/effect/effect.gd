@@ -124,8 +124,9 @@ func save_data():
 		"range": range
 	}
 
-func load_data(data):
+func load_data(data) -> Effect:
 	name = data.name
 	strength = data.strength
 	on = data.on
 	range = data.range
+	return self

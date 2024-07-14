@@ -28,3 +28,6 @@ func _process(delta: float) -> void:
 func _on_h_box_gui_input(event: InputEvent) -> void:
 	if event.is_action_pressed("leftclick"):
 		option_selected.emit(cost, row)
+
+func get_data():
+	return null

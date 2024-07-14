@@ -49,3 +49,22 @@ func is_card_eligible(card: CardData):
 			return false
 		_:
 			return true
+
+func save_data() -> Dictionary:
+	var data = {
+		"path": get_script().get_path(),
+		"name": name,
+		"rarity": rarity,
+		"strength": strength,
+		"targets": targets,
+		"texture": texture.resource_path if texture != null else null
+	}
+	return data
+
+func load_data(data: Dictionary) -> Enhance:
+	name = data.name
+	rarity = data.rarity
+	strength = data.strength
+	targets.assign(data.targets)
+	texture = load(data.texture) if data.texture != null else null
+	return self

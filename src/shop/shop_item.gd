@@ -53,3 +53,6 @@ func move_card_to_discard():
 
 func finish_discard(card):
 	$Discarding.remove_child(card)
+
+func get_data():
+	return item

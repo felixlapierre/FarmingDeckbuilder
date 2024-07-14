@@ -139,7 +139,7 @@ func save_data() -> Dictionary:
 	}
 	return save_dict
 
-func load_data(data):
+func load_data(data) -> CardData:
 	type = data.type
 	name = data.name
 	rarity = data.rarity
@@ -155,3 +155,4 @@ func load_data(data):
 		var eff = load(effect.path).new()
 		eff.load_data(effect)
 		return eff))
+	return self

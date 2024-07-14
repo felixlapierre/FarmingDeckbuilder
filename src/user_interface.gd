@@ -1,5 +1,7 @@
 extends Node2D
 
+class_name UserInterface
+
 signal apply_upgrade
 signal end_turn_button_pressed
 signal on_skip
@@ -13,6 +15,8 @@ var deck: Array[CardData]
 var turn_ending = false
 
 var SELECT_CARD = preload("res://src/cards/select_card.tscn")
+
+@onready var shop: Shop = $Shop
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -245,3 +249,24 @@ func _on_farm_tiles_on_show_tile_preview(tile: Tile) -> void:
 
 func _on_farm_tiles_on_hide_tile_preview() -> void:
 	$UI/TilePreview.visible = false
+
+func is_winter():
+	return $Winter.visible
+	
+func save_data() -> Dictionary:
+	var winter = {}
+	winter.upgrade_lock = $UpgradeShop.lock
+	winter.event_disabled = $Winter/EventButton.disabled
+	winter.shop = shop.save_data()
+	return winter
+
+func load_data(save_json: Dictionary):
+	$UI.visible = false
+	$Winter.visible = true
+	$UpgradeShop.lock = save_json.winter.upgrade_lock
+	$Winter/EventButton.disabled = save_json.winter.event_disabled
+	$GameEventDialog.generate_random_event()
+	$Shop.load_data(save_json.winter.shop)
+	$FortuneTeller.unregister_fortunes()
+	$FortuneTeller.create_fortunes()
+	update()

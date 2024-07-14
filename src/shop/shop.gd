@@ -1,4 +1,5 @@
 extends Node2D
+class_name Shop
 
 var stock = []
 var ShopItem = preload("res://src/shop/shop_item.tscn")
@@ -90,11 +91,11 @@ func fill_row_two():
 	var item2 = generate_random_shop_items(1, selected)[0]
 	while item2 == item1 or item2 == item3:
 		item2 = generate_random_shop_items(1, selected)[0]
-	if turn_manager.blight_damage > 0:
-		fill_row(STOCK_TWO, 2, [item1, item3])
-		STOCK_TWO.add_child(create_remove_blight_option())
-	else:
-		fill_row(STOCK_TWO, 2, [item1, item2, item3])
+	#if turn_manager.blight_damage > 0:
+	#	fill_row(STOCK_TWO, 2, [item1, item3])
+	#	STOCK_TWO.add_child(create_remove_blight_option())
+	#else:
+	fill_row(STOCK_TWO, 2, [item1, item2, item3])
 	STOCK_TWO.add_child(create_remove_card_option())
 	STOCK_TWO.add_child(create_scrap_option(2, 2))
 
@@ -243,3 +244,31 @@ func _on_remove_blight_button_pressed(cost, row):
 	on_blight_removed.emit()
 	set_row_visible(row, false)
 	update_labels()
+
+func save_data() -> Dictionary:
+	var data = {}
+	data.row1_visible = CHOICE_ONE.get_child(0).visible
+	data.row2_visible = CHOICE_TWO.get_child(0).visible
+	data.row1 = []
+	data.row2 = []
+	for child in STOCK_ONE.get_children():
+		if child.get_data() != null:
+			data.row1.append(child.get_data().save_data())
+	for child in STOCK_TWO.get_children():
+		if child.get_data() != null:
+			data.row2.append(child.get_data().save_data())
+	return data
+
+func load_data(save_data: Dictionary):
+	clear_row(1)
+	clear_row(2)
+	fill_row(STOCK_ONE, 1, save_data.row1.map(func(data):
+		return load(data.path).new().load_data(data)))
+	fill_row(STOCK_TWO, 2, save_data.row2.map(func(data):
+		return load(data.path).new().load_data(data)))
+	set_row_visible(1, save_data.row1_visible)
+	set_row_visible(2, save_data.row2_visible)
+	STOCK_ONE.add_child(create_scrap_option(1, 1))
+	STOCK_TWO.add_child(create_remove_card_option())
+	STOCK_TWO.add_child(create_scrap_option(2, 2))
+	$PanelContainer.position = Constants.VIEWPORT_SIZE / 2 - $PanelContainer.size / 2

@@ -18,7 +18,6 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_rs2rl")
 script = ExtResource("2_mjvqv")
-callback = null
 
 [node name="Border" type="Sprite2D" parent="."]
 texture = ExtResource("3_233mt")

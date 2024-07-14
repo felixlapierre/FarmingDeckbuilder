@@ -33,3 +33,9 @@ func set_data(data):
 func _on_h_box_container_gui_input(event: InputEvent) -> void:
 	if event.is_action_pressed("leftclick"):
 		callback.call()
+
+func get_data():
+	if structure != null:
+		return structure
+	if enhance != null:
+		return enhance
