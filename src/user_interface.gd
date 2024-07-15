@@ -91,6 +91,8 @@ func update():
 	$Winter/FarmUpgradeButton.disabled = $UpgradeShop.lock or ![4, 7, 10].has(turn_manager.year)
 	# Temporarily disable this QOL for testing
 	$Winter/NextYearButton.disabled = !next_year_allowed()
+	
+	register_tooltips()
 
 # Fortune Teller
 func _on_fortune_teller_button_pressed() -> void:
