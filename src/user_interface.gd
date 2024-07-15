@@ -17,6 +17,11 @@ var turn_ending = false
 var SELECT_CARD = preload("res://src/cards/select_card.tscn")
 
 @onready var shop: Shop = $Shop
+@onready var tooltip: Tooltip = $Tooltip
+@onready var year_label = $UI/Stats/VBox/YearLabel
+@onready var turn_label = $UI/Stats/VBox/TurnLabel
+@onready var energy_hbox = $UI/Stats/VBox/EnergyHbox
+@onready var cards_hbox = $UI/Stats/VBox/CardsHbox
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -36,6 +41,7 @@ func setup(p_event_manager: EventManager, p_turn_manager: TurnManager, p_deck: A
 	deck = p_deck
 	$GameEventDialog.setup(deck, turn_manager)
 	$Shop.setup(deck, turn_manager)
+	register_tooltips()
 
 # Start and end year
 func end_year():
@@ -270,3 +276,23 @@ func load_data(save_json: Dictionary):
 	$FortuneTeller.unregister_fortunes()
 	$FortuneTeller.create_fortunes()
 	update()
+
+func register_tooltips():
+	tooltip.register_tooltip(energy_hbox, tr("ENERGY_TOOLTIP"))
+	tooltip.register_tooltip(year_label, tr("YEAR_TOOLTIP").format({
+		"current_year": turn_manager.year,
+		"max_year": 10
+	}));
+	tooltip.register_tooltip(cards_hbox, tr("CARDS_TOOLTIP"));
+	tooltip.register_tooltip($UI/Deck/DeckDraw, tr("DECK_TOOLTIP").format({"deck_cards": deck.size()}))
+	tooltip.register_tooltip($UI/EndTurnButton, tr("END_TURN_TOOLTIP"))
+	tooltip.register_tooltip($UI/RitualCounter, tr("RITUAL_TARGET_TOOLTIP").format({
+		"count": turn_manager.ritual_counter,
+		"path": "res://assets/custom/YellowMana.png"
+	}))
+	tooltip.register_tooltip($UI/BlightCounter, tr("BLIGHT_ATTACK_TOOLTIP").format({
+		"strength": turn_manager.target_blight,
+		"path": "res://assets/custom/PurpleMana.png"
+	}) if turn_manager.target_blight > 0 else tr("BLIGHT_NO_ATTACK_TOOLTIP").format({
+		"path": "res://assets/custom/PurpleMana.png"
+	}))

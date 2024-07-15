@@ -47,6 +47,10 @@ transform={
 ]
 }
 
+[internationalization]
+
+locale/translations=PackedStringArray("res://assets/localization/localization.en.translation")
+
 [rendering]
 
 renderer/rendering_method="mobile"

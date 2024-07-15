@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://cswinrop881oo"]
+[gd_scene load_steps=21 format=3 uid="uid://cswinrop881oo"]
 
 [ext_resource type="Script" path="res://src/user_interface.gd" id="1_j28fq"]
 [ext_resource type="Theme" uid="uid://c21dhy264y6ty" path="res://assets/theme_large.tres" id="2_s7754"]
@@ -19,6 +19,7 @@
 [ext_resource type="PackedScene" uid="uid://cg2lu7ivw8gms" path="res://src/event/game_event_dialog.tscn" id="16_a3egv"]
 [ext_resource type="PackedScene" uid="uid://ch1l0jofkrynh" path="res://src/shop/shop.tscn" id="17_q7vph"]
 [ext_resource type="PackedScene" uid="uid://dvjkkex6w162i" path="res://src/upgrade/upgrade_shop.tscn" id="18_wm5tb"]
+[ext_resource type="PackedScene" uid="uid://cs4xf7kyndygr" path="res://src/ui/tooltip.tscn" id="20_dvki6"]
 
 [node name="UserInterface" type="Node2D"]
 script = ExtResource("1_j28fq")
@@ -262,6 +263,9 @@ visible = false
 visible = false
 
 [node name="UpgradeShop" parent="." instance=ExtResource("18_wm5tb")]
+visible = false
+
+[node name="Tooltip" parent="." instance=ExtResource("20_dvki6")]
 visible = false
 
 [connection signal="pressed" from="UI/EndTurnButton" to="." method="_on_end_turn_button_pressed"]
