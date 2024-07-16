@@ -54,6 +54,7 @@ text = "CARD NAME"
 [node name="CardCostLabel" type="Label" parent="HBoxContainer/VBoxContainer/TopBar"]
 layout_mode = 2
 size_flags_horizontal = 10
+mouse_filter = 0
 text = "1
 "
 
@@ -83,6 +84,7 @@ texture = SubResource("AtlasTexture_ek5de")
 [node name="SizeCont" type="CenterContainer" parent="HBoxContainer/VBoxContainer/ImageMargin/ImageCont"]
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 0
 
 [node name="SizeLabel" type="Label" parent="HBoxContainer/VBoxContainer/ImageMargin/ImageCont/SizeCont"]
 layout_mode = 2
@@ -98,6 +100,7 @@ texture = ExtResource("3_4ormi")
 texture_filter = 2
 custom_minimum_size = Vector2(0, 135)
 layout_mode = 2
+mouse_filter = 0
 text = "description"
 autowrap_mode = 2
 text_overrun_behavior = 3
@@ -119,10 +122,12 @@ expand_mode = 3
 [node name="YieldLabel" type="Label" parent="HBoxContainer/VBoxContainer/BottomBar"]
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 0
 text = "3"
 
 [node name="TimeLabel" type="Label" parent="HBoxContainer/VBoxContainer/BottomBar"]
 layout_mode = 2
+mouse_filter = 0
 text = "/ 3"
 
 [node name="TimeTexture" type="TextureRect" parent="HBoxContainer/VBoxContainer/BottomBar"]
@@ -132,6 +137,7 @@ expand_mode = 2
 
 [node name="Focus" type="TextureButton" parent="."]
 layout_mode = 2
+mouse_filter = 1
 
 [connection signal="gui_input" from="Focus" to="." method="_on_focus_gui_input"]
 [connection signal="mouse_entered" from="Focus" to="." method="_on_focus_mouse_entered"]

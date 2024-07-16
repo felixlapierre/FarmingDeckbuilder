@@ -3,6 +3,7 @@ extends MarginContainer
 @export var structure: Structure
 @export var enhance: Enhance
 @export var callback: Callable
+var tooltip: Tooltip
 
 # Just display the data of the passed structure and enhance
 # and accept a callback to be invoked when this is clicked
@@ -39,3 +40,6 @@ func get_data():
 		return structure
 	if enhance != null:
 		return enhance
+
+func register_tooltips():
+	pass

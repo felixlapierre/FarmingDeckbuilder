@@ -64,8 +64,8 @@ func get_short_description():
 	match name:
 		"plant":
 			if on == "harvest":
-				return "On harvest, re-plant seed with +%s yield" % strength
-		"obliviate", "remembrance", "springbound":
+				return "Regrow " + str(strength) if strength > 0 else ""
+		"obliviate", "remembrance", "springbound", "fleeting":
 			return name.capitalize()
 		"energy":
 			return "Gain " + str(strength) + " energy" + get_on_text()
@@ -94,13 +94,35 @@ func get_short_description():
 		"replant":
 			return "Replant target plants"
 		"add_recurring":
-			return "Add 'Recurring' to target plants"
+			return "Add 'Regrow' to target plants"
 		"draw_target":
 			return "Add " + get_strength_text() + " cop" + ("y" if strength == 1 else "ies") + " of target plant's seed to your hand"
 		"add_blight_yield":
 			return "Add " + get_strength_text() + "×Blight to seed base yield"
+		_:
+			return ""
+
+func get_long_description():
+	match name:
+		"plant":
+			if on == "harvest":
+				return "Regrow: On harvest, re-plant seed" + (" with +%s yield" % strength if strength > 0 else "")
+		"add_recurring":
+			return "Regrow: On harvest, re-plant seed"
+		"obliviate":
+			return "Obliviate: Destroy card when played. (Your deck will be restored at the end of the year)"
+		"remembrance":
+			return "Remembrance: Card is not discarded at the end of the turn"
+		"springbound":
+			return "Springbound: Card is always drawn on the first week of the year"
+		"spread":
+			return "Spread: Plant a copy of this plant on an adjacent tile"
+		"harvest", "harvest_delay":
+			return "Harvest: Gain [img]res://assets/custom/YellowMana.png[/img] or [img]res://assets/custom/PurpleMana.png[/img] equal to the plant's Yield, then remove it"
+		"irrigate", "absorb":
+			return "Irrigate: Irrigated tiles yield 40% more"
 		"fleeting":
-			return "Obliviate on play or discard"
+			return "Fleeting: Destroy card when played or discarded"
 		_:
 			return ""
 

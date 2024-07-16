@@ -196,6 +196,7 @@ func _on_upgrade_shop_on_upgrade(upgrade: Upgrade) -> void:
 
 func select_card_to_remove():
 	var select_card = SELECT_CARD.instantiate()
+	select_card.tooltip = tooltip
 	select_card.size = Constants.VIEWPORT_SIZE
 	select_card.z_index = 2
 	select_card.theme = load("res://assets/theme_large.tres")
@@ -209,6 +210,7 @@ func select_card_to_remove():
 
 func select_card_to_copy():
 	var select_card = SELECT_CARD.instantiate()
+	select_card.tooltip = tooltip
 	select_card.size = Constants.VIEWPORT_SIZE
 	select_card.z_index = 2
 	select_card.theme = load("res://assets/theme_large.tres")
@@ -222,6 +224,7 @@ func select_card_to_copy():
 
 func select_card_to_enhance(enhance: Enhance):
 	var select_card = SELECT_CARD.instantiate()
+	select_card.tooltip = tooltip
 	select_card.size = Constants.VIEWPORT_SIZE
 	select_card.z_index = 2
 	select_card.theme = load("res://assets/theme_large.tres")
@@ -285,6 +288,10 @@ func register_tooltips():
 		"current_year": turn_manager.year,
 		"max_year": 10
 	}));
+	tooltip.register_tooltip($UI/Stats/VBox/TurnLabel, tr("WEEK_TOOLTIP").format({
+		"current_week": turn_manager.week,
+		"year_winter": 12
+	}))
 	tooltip.register_tooltip(cards_hbox, tr("CARDS_TOOLTIP"));
 	tooltip.register_tooltip($UI/Deck/DeckDraw, tr("DECK_TOOLTIP").format({"deck_cards": deck.size()}))
 	tooltip.register_tooltip($UI/EndTurnButton, tr("END_TURN_TOOLTIP"))

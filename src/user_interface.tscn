@@ -82,6 +82,7 @@ layout_mode = 2
 
 [node name="YearLabel" type="Label" parent="UI/Stats/VBox"]
 layout_mode = 2
+mouse_filter = 0
 text = "Year 1"
 
 [node name="TurnLabel" type="Label" parent="UI/Stats/VBox"]
@@ -133,7 +134,8 @@ texture_pressed = ExtResource("8_fmhkd")
 texture_hover = ExtResource("9_y4jq3")
 
 [node name="Deck" type="Node2D" parent="UI"]
-position = Vector2(50, 400)
+position = Vector2(24, 914)
+scale = Vector2(0.439903, 0.409635)
 
 [node name="DeckDraw" type="TextureButton" parent="UI/Deck"]
 offset_right = 250.0

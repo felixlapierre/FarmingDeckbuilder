@@ -42,7 +42,7 @@ func _ready() -> void:
 	$UserInterface.update()
 	$FarmTiles.setup($EventManager)
 	var save_json = load_game()
-	if save_json != null and save_json.state.winter == true:
+	if false and save_json != null and save_json.state.winter == true:
 		$UserInterface.load_data(save_json)
 	else:
 		start_year()
@@ -86,7 +86,7 @@ func end_year():
 	$Cards.do_winter_clear()
 	await get_tree().create_timer(1.5).timeout
 	
-	$Cards.propagate_call("set_visible", [false])
+	$Cards.set_cards_visible(false)
 	$FarmTiles.do_winter_clear()
 	$TurnManager.end_year()
 	$UserInterface.end_year()
@@ -100,7 +100,7 @@ func start_year():
 	$TurnManager.start_new_year()
 	$Cards.set_deck_for_year(deck)
 	$Cards.draw_hand($TurnManager.get_cards_drawn(), $TurnManager.week)
-	$Cards.propagate_call("set_visible", [true])
+	$Cards.set_cards_visible(true)
 	$UserInterface.update()
 	$EventManager.notify(EventManager.EventType.AfterYearStart)
 	$EventManager.notify(EventManager.EventType.BeforeTurnStart)

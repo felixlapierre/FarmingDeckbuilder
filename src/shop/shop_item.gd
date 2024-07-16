@@ -5,6 +5,7 @@ signal on_purchase
 var CardBase = preload("res://src/cards/card_base.tscn")
 var card_database = preload("res://src/cards/cards_database.gd")
 var ITEM_SIZE = Vector2()
+var tooltip: Tooltip
 # Format:
 # type: CARD or STRUCTURE
 # data: Data of the card or structure from the database
@@ -26,6 +27,7 @@ func _process(delta: float) -> void:
 func set_item(new_item):
 	item = new_item
 	card = CardBase.instantiate()
+	card.tooltip = tooltip
 	card.state = Enums.CardState.InShop
 	card.set_card_info(item.data)
 	$ItemContainer.add_child(card)

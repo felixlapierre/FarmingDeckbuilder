@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://ch1l0jofkrynh"]
+[gd_scene load_steps=10 format=3 uid="uid://ch1l0jofkrynh"]
 
 [ext_resource type="Script" path="res://src/shop/shop.gd" id="1_xytou"]
 [ext_resource type="Theme" uid="uid://c21dhy264y6ty" path="res://assets/theme_large.tres" id="2_1d7hg"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://p2ueg06qde5w" path="res://src/shop/shop_card.tscn" id="5_16agq"]
 [ext_resource type="Resource" uid="uid://bx8fp28p3g0k3" path="res://src/cards/data/seed/blueberry.tres" id="6_h3kp4"]
 [ext_resource type="PackedScene" uid="uid://c71om0knvcngh" path="res://src/cards/select_card.tscn" id="7_g6flp"]
+[ext_resource type="PackedScene" uid="uid://cs4xf7kyndygr" path="res://src/ui/tooltip.tscn" id="8_r2vns"]
 
 [sub_resource type="Theme" id="Theme_55f4u"]
 
@@ -91,6 +92,9 @@ theme = ExtResource("2_1d7hg")
 
 [node name="SelectCard" parent="RemoveCardContainer" instance=ExtResource("7_g6flp")]
 layout_mode = 2
+
+[node name="Tooltip" parent="." instance=ExtResource("8_r2vns")]
+visible = false
 
 [connection signal="pressed" from="ClickOutButton" to="." method="_on_close_button_pressed"]
 [connection signal="pressed" from="PanelContainer/ShopContainer/Header/CloseButton" to="." method="_on_close_button_pressed"]

@@ -16,6 +16,7 @@ var enhance: Enhance
 signal select_cancelled
 
 var select_callback: Callable
+var tooltip: Tooltip
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -32,6 +33,7 @@ func do_card_pick(cards_input, prompt_text):
 	$ConfirmContainer.visible = false
 	for card in cards:
 		var display_card = CardBase.instantiate()
+		display_card.tooltip = tooltip
 		display_card.state = Enums.CardState.InShop
 		display_card.set_card_info(card)
 		display_card.on_clicked.connect(on_card_selected)
@@ -63,6 +65,7 @@ func on_card_selected(card):
 			if enhance != null:
 				var enhanced_card = card.card_info.apply_enhance(enhance)
 				var display_card = CardBase.instantiate()
+				display_card.tooltip = tooltip
 				display_card.state = Enums.CardState.InShop
 				display_card.set_card_info(enhanced_card)
 				$ConfirmContainer/ConfirmVbox/ConfirmCards.add_child(display_card)

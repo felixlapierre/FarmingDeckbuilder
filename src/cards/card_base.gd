@@ -1,6 +1,6 @@
 extends MarginContainer
 
-var card_info;
+var card_info: CardData;
 var card_image = "res://assets/1616tinygarden/objects.png"
 var card_database
 var card_size = Vector2(200, 280)
@@ -33,14 +33,26 @@ var HAND_TOP_Y
 var state = Enums.CardState.InHand
 
 signal on_clicked
+var tooltip: Tooltip
 
 var CARD_ICON
 var SIZE_LABEL
+
+@onready var COST_LABEL = $HBoxContainer/VBoxContainer/TopBar/CardCostLabel
+@onready var COST_TEXTURE = $HBoxContainer/VBoxContainer/TopBar/TextureRect
+@onready var SIZE_CONTAINER = $HBoxContainer/VBoxContainer/ImageMargin/ImageCont/SizeCont
+@onready var DESCRIPTION_LABEL = $HBoxContainer/VBoxContainer/DescriptionLabel
+@onready var YIELD_TEXTURE = $HBoxContainer/VBoxContainer/BottomBar/YieldTexture
+@onready var YIELD_LABEL = $HBoxContainer/VBoxContainer/BottomBar/YieldLabel
+@onready var TIME_LABEL = $HBoxContainer/VBoxContainer/BottomBar/TimeLabel
+@onready var TIME_TEXTURE = $HBoxContainer/VBoxContainer/BottomBar/TimeTexture
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:	
 	var card_size = size
 	HAND_TOP_Y = Constants.VIEWPORT_SIZE.y - card_size.y
 	$Focus.scale *= card_size / $Focus.size
+	register_tooltips()
 
 func set_card_info(card_data):
 	card_info = card_data
@@ -105,6 +117,7 @@ func _process(delta: float) -> void:
 				state = Enums.CardState.InHand
 			process_move_linear(delta, DRAWTIME)
 		Enums.CardState.ReOrganiseHand:
+			$Focus.visible = true
 			if t > 1:
 				state = Enums.CardState.InHand
 			process_move_linear(delta, 0.3)
@@ -231,9 +244,46 @@ func _on_focus_gui_input(event: InputEvent) -> void:
 				Global.selected_card = null
 			Enums.CardState.InShop:
 				on_clicked.emit(self)
+		$Focus.visible = false
 
 func _input(event: InputEvent) -> void:
 	if state == Enums.CardState.InMouse and event.is_action_pressed("rightclick"):
 		set_state(Enums.CardState.ReOrganiseHand, resting_position, resting_rotation, resting_scale)
 		reset_neighbors()
 		Global.selected_card = null
+		$Focus.visible = true
+
+func register_tooltips():
+	if tooltip == null:
+		return
+	if card_info.type == "SEED":
+		tooltip.register_tooltip(SIZE_CONTAINER, tr("SIZE_TOOLTIP_SEED").format({"size": card_info.size}))
+	elif card_info.type == "ACTION":
+		tooltip.register_tooltip(SIZE_CONTAINER, tr("SIZE_TOOLTIP_ACTION").format({"size": card_info.size}))
+	tooltip.register_tooltip(COST_LABEL, tr("CARD_ENERGY_COST_TOOLTIP").format({"cost": card_info.cost}))
+	tooltip.register_tooltip(COST_TEXTURE, tr("CARD_ENERGY_COST_TOOLTIP").format({"cost": card_info.cost}))
+	tooltip.register_tooltip(YIELD_LABEL, tr("CARD_YIELD_TOOLTIP").format({
+		"yield": card_info.yld,
+		"size": card_info.size,
+		"total_yield": card_info.yld * card_info.size
+	}))
+	tooltip.register_tooltip(YIELD_TEXTURE, tr("CARD_YIELD_TOOLTIP").format({
+		"yield": card_info.yld,
+		"size": card_info.size,
+		"total_yield": card_info.yld * card_info.size
+	}))
+	tooltip.register_tooltip(TIME_LABEL, tr("CARD_DURATION_TOOLTIP").format({
+		"duration": card_info.time
+	}))
+	tooltip.register_tooltip(TIME_TEXTURE, tr("CARD_DURATION_TOOLTIP").format({
+		"duration": card_info.time
+	}))
+	var description_tooltip = ""
+	for effect in card_info.effects:
+		if description_tooltip.length() > 0:
+			description_tooltip += "\n"
+		description_tooltip += effect.get_long_description()
+	if description_tooltip.length() > 0:
+		tooltip.register_tooltip(DESCRIPTION_LABEL, description_tooltip)
+		if state == Enums.CardState.InShop:
+			tooltip.register_tooltip($Focus, description_tooltip)

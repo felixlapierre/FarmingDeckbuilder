@@ -22,6 +22,8 @@ func _process(delta):
 			self.visible = true
 			var mouse_position = get_global_mouse_position()
 			position = mouse_position + Vector2(15, 15)
+	else:
+		t = 0.0
 
 func display_tooltip(node: Control):
 	label.clear()
@@ -35,7 +37,6 @@ func display_tooltip(node: Control):
 func clear_tooltip():
 	self.visible = false
 	hovered = false
-	t = 0.0
 
 func register_tooltip(node: Control, text: String):
 	# Need to be able to update the tooltip with new string

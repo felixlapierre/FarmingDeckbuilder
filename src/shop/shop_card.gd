@@ -6,10 +6,12 @@ extends Control
 signal on_clicked
 
 var CardBase = preload("res://src/cards/card_base.tscn")
+var tooltip: Tooltip
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	var card_node = CardBase.instantiate()
+	card_node.tooltip = tooltip
 	card_node.set_card_info(card_data)
 	card_node.on_clicked.connect(on_card_clicked)
 	card_node.set_state(Enums.CardState.InShop, null, null, null)

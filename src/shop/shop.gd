@@ -27,16 +27,19 @@ var turn_manager
 @onready var STOCK_ONE = $PanelContainer/ShopContainer/ChoiceOne/Stock
 @onready var CHOICE_TWO = $PanelContainer/ShopContainer/ChoiceTwo
 @onready var STOCK_TWO = $PanelContainer/ShopContainer/ChoiceTwo/Stock
+@onready var tooltip: Tooltip = $Tooltip
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	$RemoveCardContainer.size = Constants.VIEWPORT_SIZE
+	$Tooltip/Panel.theme = load("res://assets/game_theme.tres")
 	player_money = 500
 	update_labels()
 
 func setup(deck, p_turn_manager):
 	player_cards = deck
 	turn_manager = p_turn_manager
+	$RemoveCardContainer/SelectCard.tooltip = tooltip
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -103,16 +106,19 @@ func fill_row(node, row_number, stock):
 	for item in stock:
 		if item.CLASS_NAME == "CardData":
 			var new_node = ShopCard.instantiate()
+			new_node.tooltip = tooltip
 			new_node.card_data = item
 			new_node.on_clicked.connect(func(option): on_buy(option, row_number))
 			node.add_child(new_node)
 		elif item.CLASS_NAME == "Structure":
 			var new_node = ShopDisplay.instantiate()
+			new_node.tooltip = tooltip
 			new_node.set_data(item)
 			new_node.callback = func(): on_buy_structure(item, row_number)
 			node.add_child(new_node)
 		elif item.CLASS_NAME == "Enhance":
 			var new_node = ShopDisplay.instantiate()
+			new_node.tooltip = tooltip
 			new_node.set_data(item)
 			new_node.callback = func(): on_enhance_selected(item, row_number)
 			node.add_child(new_node)

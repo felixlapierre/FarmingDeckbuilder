@@ -17,6 +17,8 @@ var number_of_cards_in_hand = 0
 var deck_cards = []
 var discard_pile_cards = []
 
+@onready var tooltip = $Tooltip
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	CardBase = preload("res://src/cards/card_base.tscn")
@@ -80,6 +82,7 @@ func draw_specific_card(card_data: CardData):
 	# Create the new card and initialize its starting values
 	var new_card = CardBase.instantiate()
 
+	new_card.tooltip = tooltip
 	new_card.set_card_info(card_data)
 	new_card.position = $"../UserInterface/UI/Deck".position - CardSize / 2
 	new_card.target_position = new_card.position
@@ -198,3 +201,7 @@ func remove_hand_card(card):
 	card.set_state(Enums.CardState.MoveToDiscard, null, null, card.resting_scale * 0.1)
 	card.move_using_tween(0.5)
 	number_of_cards_in_hand -= 1
+
+func set_cards_visible(visible: bool):
+	$Hand.propagate_call("set_visible", [visible])
+	$Discarding.propagate_call("set_visible", [visible])
