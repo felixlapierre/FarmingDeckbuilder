@@ -47,12 +47,11 @@ func end_turn():
 		damage = true
 		blight_damage += 1
 	
-	purple_mana = 0
-	
 	var blight_remaining = target_blight - purple_mana
 	blight_remaining = 0 if blight_remaining < 0 else blight_remaining
 	week += 1
-	target_blight = next_turn_blight
+	purple_mana = 0
+	target_blight = next_turn_blight + blight_remaining
 	next_turn_blight = get_blight_requirements(week + 1, year)
 	energy = get_max_energy()
 	return damage
@@ -72,22 +71,25 @@ func end_year():
 	pass
 
 func compute_blight_pattern(week, year):
-	blight_pattern = []
-	if year < 3:
-		blight_pattern.append_array([0, 0, 0, 0])
-	elif year < 6:
-		blight_pattern.append_array([0, 0, 0])
-	else:
-		blight_pattern.append_array([0, 0])
-	
-	var choice = randi_range(1, 3)
-	match choice:
-		1:
-			blight_pattern.append_array([10, 0, 20, 0, 30, 0, 10, 0, 30])
-		2:
-			blight_pattern.append_array([20, 10, 0, 0, 30, 0, 10, 30, 0])
-		3:
-			blight_pattern.append_array([0, 10, 0, 20, 10, 0, 30, 0, 30])
+	blight_pattern = [0]
+	var charge: float = 0.0
+	var chance = 0.0
+	for i in range(1, Global.FINAL_WEEK + 1):
+		charge += 10.0
+		chance += 0.3
+		if (year < 4 and i < 3) or i < 2:
+			blight_pattern.append(0)
+		elif i == Global.FINAL_WEEK:
+			blight_pattern.append(charge)
+			charge = 0.0
+		elif randf() < chance:
+			chance = 0.0
+			var amount = int(randf_range(0.4, 0.8) * charge)
+			charge -= amount
+			blight_pattern.append(amount)
+		else:
+			blight_pattern.append(0)
+	return
 
 func get_ritual_requirements(year):
 	var amount = 20
