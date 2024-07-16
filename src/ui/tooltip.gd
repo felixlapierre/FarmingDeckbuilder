@@ -10,6 +10,7 @@ var HOVER_DELAY = 0.5
 
 var tooltip_dict = {}
 
+@onready var panel = $Panel
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
@@ -20,8 +21,17 @@ func _process(delta):
 		t += delta
 		if t > HOVER_DELAY:
 			self.visible = true
-			var mouse_position = get_global_mouse_position()
-			position = mouse_position + Vector2(15, 15)
+			var target_position = get_global_mouse_position()
+			if target_position.x + panel.size.x > Constants.VIEWPORT_SIZE.x:
+				target_position.x -= panel.size.x + 15
+			else:
+				target_position.x += 15
+			if target_position.y + panel.size.y > Constants.VIEWPORT_SIZE.y:
+				target_position.y -= panel.size.y + 15
+			else:
+				target_position.y += 15
+			position = target_position
+			
 	else:
 		t = 0.0
 

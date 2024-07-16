@@ -2,10 +2,10 @@
 
 [ext_resource type="Script" path="res://src/farm/farm.gd" id="1_1ma26"]
 
-[node name="Farm" type="Node"]
+[node name="Farm" type="Node2D"]
 script = ExtResource("1_1ma26")
 
-[node name="Tiles" type="Node" parent="."]
+[node name="Tiles" type="Node2D" parent="."]
 
 [node name="SelectOverlay" type="Node" parent="."]
 

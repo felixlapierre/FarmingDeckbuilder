@@ -41,16 +41,10 @@ func _ready() -> void:
 			deck.append(card_database.get_card_by_name(card.name, card.type))
 	$UserInterface.update()
 	$FarmTiles.setup($EventManager)
-	var save_json = load_game()
-	if false and save_json != null and save_json.state.winter == true:
-		$UserInterface.load_data(save_json)
-	else:
-		start_year()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
-
 
 func _on_farm_tiles_card_played(card) -> void:
 	if card.CLASS_NAME == "Structure":
@@ -93,9 +87,9 @@ func end_year():
 	save_game()
 
 func start_year():
-	save_game()
 	victory = false
 	$UserInterface.start_year()
+	save_game()
 	$EventManager.notify(EventManager.EventType.BeforeYearStart)
 	$TurnManager.start_new_year()
 	$Cards.set_deck_for_year(deck)
@@ -223,6 +217,7 @@ func _on_user_interface_on_blight_removed() -> void:
 	$FarmTiles.remove_blight_from_all_tiles()
 
 func save_game():
+	print("Saving game")
 	var save_json = {}
 	save_json.deck = []
 	for card in deck:
@@ -242,6 +237,7 @@ func save_game():
 	}
 	if save_json.state.winter:
 		save_json.winter = user_interface.save_data()
+		print("Saving as winter")
 
 	var save_game = FileAccess.open("user://savegame.save", FileAccess.WRITE)
 	save_game.store_line(JSON.stringify(save_json))
@@ -250,6 +246,7 @@ func load_game():
 	if not FileAccess.file_exists("user://savegame.save"):
 		print("No save data found")
 		return null
+	print("Loading game")
 	deck.clear()
 	var save_game = FileAccess.open("user://savegame.save", FileAccess.READ)
 	var save_data = save_game.get_line()
@@ -273,4 +270,13 @@ func load_game():
 	Global.ENERGY_FRAGMENTS = int(save_json.state.energy_fragments)
 	Global.SCROLL_FRAGMENTS = int(save_json.state.draw_fragments)
 	
-	return save_json
+	if save_json.state.winter == true:
+		print("Loading as winter")
+		$UserInterface.load_data(save_json)
+	else:
+		start_year()
+
+func start_new_game():
+	if FileAccess.file_exists("user://savegame.save"):
+		DirAccess.remove_absolute("user://savegame.save")
+	start_year()

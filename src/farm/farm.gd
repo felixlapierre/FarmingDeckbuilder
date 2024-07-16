@@ -26,6 +26,9 @@ var hover_time = 0.0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	pass
+
+func setup(p_event_manager: EventManager):
 	# Create the farm tiles
 	var x = Constants.VIEWPORT_SIZE.x/2 - TILE_SIZE.x * Constants.FARM_DIMENSIONS.x / 2
 	TOP_LEFT = Vector2(x, TILE_SIZE.y * 0.5)
@@ -43,11 +46,10 @@ func _ready() -> void:
 			if i >= Constants.PURPLE_GTE_INDEX:
 				tile.purple = true
 			$Tiles.add_child(tile)
-
-func setup(p_event_manager: EventManager):
 	event_manager = p_event_manager
 	for tile in $Tiles.get_children():
 		tile.event_manager = event_manager
+	
 
 func use_card(grid_position):
 	hover_time = 0.0
