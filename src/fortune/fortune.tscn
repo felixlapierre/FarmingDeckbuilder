@@ -7,6 +7,7 @@
 custom_minimum_size = Vector2(200, 280)
 offset_right = 108.0
 offset_bottom = 23.0
+size_flags_horizontal = 6
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10

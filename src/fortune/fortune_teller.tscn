@@ -19,6 +19,7 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="PanelContainer" type="PanelContainer" parent="CenterContainer"]
+custom_minimum_size = Vector2(450, 0)
 layout_mode = 2
 theme = ExtResource("2_5j5u6")
 

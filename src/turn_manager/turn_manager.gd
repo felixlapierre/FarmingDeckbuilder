@@ -102,7 +102,7 @@ func get_blight_requirements(week, year):
 		amt = 40 * get_blight_year_multiplier(year - 1)
 	else:
 		amt = blight_pattern[week - 1] * get_blight_year_multiplier(year)
-	return amt * Global.BLIGHT_TARGET_MULTIPLIER
+	return amt * Global.BLIGHT_TARGET_MULTIPLIER * (1.2 if Global.DIFFICULTY > Constants.DIFFICULTY_INCREASE_TARGETS else 1.0)
 
 func get_blight_year_multiplier(year):
 	return 1.0 + year * 0.1

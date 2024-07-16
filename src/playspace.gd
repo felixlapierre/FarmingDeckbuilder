@@ -76,6 +76,9 @@ func _input(event: InputEvent) -> void:
 		Global.rotate = (Global.rotate + 1) % 4
 	
 func end_year():
+	if turn_manager.year >= (Global.FINAL_YEAR if Global.DIFFICULTY < Constants.DIFFICULTY_FINAL_RITUAL else Global.FINAL_YEAR + 1):
+		on_win()
+		return
 	$Cards.discard_hand()
 	$Cards.do_winter_clear()
 	await get_tree().create_timer(1.5).timeout
@@ -107,10 +110,18 @@ func on_lose():
 	$Cards.discard_hand()
 	$Cards.do_winter_clear()
 	$UserInterface/UI/EndTurnButton.visible = false
-	$LoseContainer.visible = true
+	$UserInterface/LoseContainer.visible = true
 	$UserInterface/UI/Deck.visible = false
 	$UserInterface/UI/RitualCounter.visible = false
 
+func on_win():
+	$Cards.discard_hand()
+	$Cards.do_winter_clear()
+	$UserInterface/UI/EndTurnButton.visible = false
+	$UserInterface/GameEndContainer.visible = true
+	$UserInterface/GameEndContainer/ResultLabel.text = "You Win! The Blight has been cleansed!"
+	$UserInterface/UI/Deck.visible = false
+	$UserInterface/UI/RitualCounter.visible = false
 
 func _on_farm_tiles_on_card_draw(number_of_cards, card) -> void:
 	for i in range(number_of_cards):
@@ -217,7 +228,6 @@ func _on_user_interface_on_blight_removed() -> void:
 	$FarmTiles.remove_blight_from_all_tiles()
 
 func save_game():
-	print("Saving game")
 	var save_json = {}
 	save_json.deck = []
 	for card in deck:
@@ -233,20 +243,18 @@ func save_game():
 		"week": turn_manager.week,
 		"energy_fragments": Global.ENERGY_FRAGMENTS,
 		"draw_fragments": Global.SCROLL_FRAGMENTS,
-		"winter": user_interface.is_winter()
+		"winter": user_interface.is_winter(),
+		"difficulty": Global.DIFFICULTY
 	}
 	if save_json.state.winter:
 		save_json.winter = user_interface.save_data()
-		print("Saving as winter")
 
 	var save_game = FileAccess.open("user://savegame.save", FileAccess.WRITE)
 	save_game.store_line(JSON.stringify(save_json))
 
 func load_game():
 	if not FileAccess.file_exists("user://savegame.save"):
-		print("No save data found")
 		return null
-	print("Loading game")
 	deck.clear()
 	var save_game = FileAccess.open("user://savegame.save", FileAccess.READ)
 	var save_data = save_game.get_line()
@@ -269,9 +277,9 @@ func load_game():
 	turn_manager.week = int(save_json.state.week)
 	Global.ENERGY_FRAGMENTS = int(save_json.state.energy_fragments)
 	Global.SCROLL_FRAGMENTS = int(save_json.state.draw_fragments)
+	Global.DIFFICULTY = int(save_json.state.difficulty)
 	
 	if save_json.state.winter == true:
-		print("Loading as winter")
 		$UserInterface.load_data(save_json)
 	else:
 		start_year()

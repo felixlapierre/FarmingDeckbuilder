@@ -275,10 +275,20 @@ func gain_yield(tile: Tile, args: EventArgs.HarvestArgs):
 	on_yield_gained.emit(int(round(args.yld)), args.purple, args.delay)
 
 func do_winter_clear():
-	for tile in $Tiles.get_children():
+	var blighted_tiles: Array[Tile] = []
+	for tile: Tile in $Tiles.get_children():
 		tile.do_winter_clear()
 		tile.set_blight_targeted(false)
 		tile.lose_irrigate()
+		if tile.state == Enums.TileState.Blighted:
+			blighted_tiles.append(tile)
+	if Global.DIFFICULTY < Constants.DIFFICULTY_HEAL_SLOWER:
+		remove_blight_from_all_tiles()
+	else:
+		blighted_tiles.shuffle()
+		for i in range(0, blighted_tiles.size()):
+			if i < blighted_tiles.size() / 2:
+				blighted_tiles[i].remove_blight()
 
 func spread(card, grid_position, size, shape):
 	var targets = get_targeted_tiles(grid_position, size, shape, 0)

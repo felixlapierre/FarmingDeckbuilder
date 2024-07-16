@@ -29,6 +29,7 @@ func _on_diff_options_item_selected(index):
 	else:
 		for i in range(1, index + 1):
 			difficulty_description.append_text(difficulty_text[i])
+	Global.DIFFICULTY = index
 
 
 func _on_start_button_pressed():

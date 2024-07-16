@@ -20,3 +20,6 @@ static var MANA_TARGET_LOCATION_YELLOW: Vector2 = Vector2(558, 442)
 static var MANA_TARGET_LOCATION_PURPLE: Vector2 = Vector2(1350, 438)
 
 static var GILDED_ROSE_TALLY: float = 0.0
+
+static var DIFFICULTY: int = 0
+static var FINAL_YEAR = 13
