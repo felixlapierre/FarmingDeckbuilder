@@ -1,6 +1,6 @@
 extends MarginContainer
 
-var card_info: CardData;
+var card_info;
 var card_image = "res://assets/1616tinygarden/objects.png"
 var card_database
 var card_size = Vector2(200, 280)

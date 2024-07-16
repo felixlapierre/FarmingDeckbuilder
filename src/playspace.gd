@@ -110,7 +110,8 @@ func on_lose():
 	$Cards.discard_hand()
 	$Cards.do_winter_clear()
 	$UserInterface/UI/EndTurnButton.visible = false
-	$UserInterface/LoseContainer.visible = true
+	$UserInterface/GameEndContainer.visible = true
+	$UserInterface/GameEndContainer/ResultLabel.text = "You Lose :("
 	$UserInterface/UI/Deck.visible = false
 	$UserInterface/UI/RitualCounter.visible = false
 
