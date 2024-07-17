@@ -41,3 +41,15 @@ func _on_continue_button_pressed():
 	menu_root.visible = false
 	playspace.visible = true
 	playspace.load_game()
+
+
+func _on_type_options_item_selected(index):
+	match index:
+		0:
+			Global.FARM_TYPE = "FOREST"
+		1:
+			Global.FARM_TYPE = "RIVERLANDS"
+		2:
+			Global.FARM_TYPE = "WILDERNESS"
+		3:
+			Global.FARM_TYPE = "MOUNTAINS"

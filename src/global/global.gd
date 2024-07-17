@@ -24,3 +24,5 @@ static var GILDED_ROSE_TALLY: float = 0.0
 static var DIFFICULTY: int = 0
 static var FINAL_YEAR = 10
 static var FINAL_WEEK = 12
+
+static var FARM_TYPE = "FOREST"

@@ -5,40 +5,15 @@ var victory = false
 var card_database
 var deck: Array[CardData] = []
 
-var starting_deck = [
-	{
-		"name": "carrot",
-		"type": "seed",
-		"count": 3
-	},
-	{
-		"name": "blueberry",
-		"type": "seed",
-		"count": 3
-	},
-	{
-		"name": "scythe",
-		"type": "action",
-		"count": 3
-	},
-	{
-		"name": "pumpkin",
-		"type": "seed",
-		"count": 1
-	}
-]
-
 @onready var turn_manager: TurnManager = $TurnManager
 @onready var user_interface: UserInterface = $UserInterface
+var helper = preload("res://src/farm/startup_helper.gd")
 
 func _ready() -> void:
 	randomize()
 	card_database = preload("res://src/cards/cards_database.gd")
 	$EventManager.setup($FarmTiles, $TurnManager, $Cards)
 	$UserInterface.setup($EventManager, $TurnManager, deck)
-	for card in starting_deck:
-		for i in range(card.count):
-			deck.append(card_database.get_card_by_name(card.name, card.type))
 	$UserInterface.update()
 	$FarmTiles.setup($EventManager)
 
@@ -279,7 +254,7 @@ func load_game():
 	Global.ENERGY_FRAGMENTS = int(save_json.state.energy_fragments)
 	Global.SCROLL_FRAGMENTS = int(save_json.state.draw_fragments)
 	Global.DIFFICULTY = int(save_json.state.difficulty)
-	
+	setup_game()
 	if save_json.state.winter == true:
 		$UserInterface.load_data(save_json)
 	else:
@@ -288,4 +263,10 @@ func load_game():
 func start_new_game():
 	if FileAccess.file_exists("user://savegame.save"):
 		DirAccess.remove_absolute("user://savegame.save")
+	for card in StartupHelper.get_starter_deck():
+		deck.append(card)
+	setup_game()
 	start_year()
+
+func setup_game():
+	StartupHelper.setup_farm($FarmTiles, $EventManager)

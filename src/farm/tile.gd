@@ -30,16 +30,18 @@ var event_manager: EventManager
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	do_active_check()
-
-func do_active_check():
 	if grid_location.x < Global.FARM_TOPLEFT.x\
 		or grid_location.x > Global.FARM_BOTRIGHT.x\
 		or grid_location.y < Global.FARM_TOPLEFT.y\
 		or grid_location.y > Global.FARM_BOTRIGHT.y:
 		state = Enums.TileState.Inactive
+	do_active_check()
+
+func do_active_check():
+	if state == Enums.TileState.Inactive:
 		$Farmland.visible = false
 		$TileButton.visible = false
+		$PurpleOverlay.visible = false
 		return
 	$PurpleOverlay.visible = purple
 	$Farmland.visible = true
@@ -317,3 +319,6 @@ func set_tile_size(n_size: Vector2):
 	$AddYieldParticles.process_material.scale_min = 2
 	$AddYieldParticles.process_material.scale_max = 2
 	
+func disable():
+	state = Enums.TileState.Inactive
+	do_active_check()
