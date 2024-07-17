@@ -9,7 +9,9 @@ func _init():
 	super()
 
 func copy():
-	return Beehive.new()
+	var copy = Beehive.new()
+	copy.assign(self)
+	return copy
 
 func register_events(event_manager: EventManager, tile: Tile):
 	callback = func(args: EventArgs):

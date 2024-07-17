@@ -220,7 +220,16 @@ func save_game():
 		"energy_fragments": Global.ENERGY_FRAGMENTS,
 		"draw_fragments": Global.SCROLL_FRAGMENTS,
 		"winter": user_interface.is_winter(),
-		"difficulty": Global.DIFFICULTY
+		"difficulty": Global.DIFFICULTY,
+		"farm_type": Global.FARM_TYPE,
+		"farm_topleft": {
+			"x": Global.FARM_TOPLEFT.x,
+			"y": Global.FARM_TOPLEFT.y
+		},
+		"farm_botright": {
+			"x": Global.FARM_BOTRIGHT.x,
+			"y": Global.FARM_BOTRIGHT.y
+		}
 	}
 	if save_json.state.winter:
 		save_json.winter = user_interface.save_data()
@@ -254,7 +263,11 @@ func load_game():
 	Global.ENERGY_FRAGMENTS = int(save_json.state.energy_fragments)
 	Global.SCROLL_FRAGMENTS = int(save_json.state.draw_fragments)
 	Global.DIFFICULTY = int(save_json.state.difficulty)
-	setup_game()
+	Global.FARM_TYPE = save_json.state.farm_type
+	Global.FARM_TOPLEFT = Vector2(save_json.state.farm_topleft.x, save_json.state.farm_topleft.y)
+	Global.FARM_BOTRIGHT = Vector2(save_json.state.farm_botright.x, save_json.state.farm_botright.y)
+
+	StartupHelper.load_farm($FarmTiles, $EventManager)
 	if save_json.state.winter == true:
 		$UserInterface.load_data(save_json)
 	else:
@@ -265,8 +278,5 @@ func start_new_game():
 		DirAccess.remove_absolute("user://savegame.save")
 	for card in StartupHelper.get_starter_deck():
 		deck.append(card)
-	setup_game()
-	start_year()
-
-func setup_game():
 	StartupHelper.setup_farm($FarmTiles, $EventManager)
+	start_year()

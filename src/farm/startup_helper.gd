@@ -3,6 +3,13 @@ class_name StartupHelper
 
 static var card_database = preload("res://src/cards/cards_database.gd")
 
+static var Blueberry = preload("res://src/cards/data/seed/blueberry.tres")
+static var Carrot = preload("res://src/cards/data/seed/carrot.tres")
+static var Radish = preload("res://src/cards/data/seed/radish.tres")
+static var Potato = preload("res://src/cards/data/seed/potato.tres")
+static var Cactus = preload("res://src/cards/data/seed/cactus.tres")
+static var Water = preload("res://src/structure/data/river.tres")
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
@@ -32,16 +39,38 @@ static func get_starter_deck():
 static func setup_farm(farm: Farm, event_manager: EventManager):
 	match Global.FARM_TYPE:
 		"RIVERLANDS":
-			pass
+			for i in range(0, 5):
+				farm.tiles[3][i].build_structure(Water, 0)
+			for i in range(3, 8):
+				farm.tiles[4][i].build_structure(Water, 0)
 		"WILDERNESS":
-			pass
+			setup_wilderness_farm_callback(farm, event_manager)
 		"MOUNTAINS":
+			Global.FARM_TOPLEFT = Vector2(2, 2)
+			Global.FARM_BOTRIGHT = Vector2(5, 5)
 			for tile in farm.get_all_tiles():
-				if tile.grid_location.x == 1 or tile.grid_location.x == 6 \
-					or tile.grid_location.y == 1 or tile.grid_location.y == 6:
-					tile.disable()
+				tile.do_active_check()
 			pass
 
+static func load_farm(farm: Farm, event_manager: EventManager):
+	if Global.FARM_TYPE == "WILDERNESS":
+		setup_wilderness_farm_callback(farm, event_manager)
+	for tile in farm.get_all_tiles():
+		tile.do_active_check()
+
+static func setup_wilderness_farm_callback(farm: Farm, event_manager: EventManager):
+	event_manager.register_listener(EventManager.EventType.BeforeYearStart, wilderness_callable)
+
+static func teardown_wilderness_farm_callback(event_manager: EventManager):
+	event_manager.unregister_listener(EventManager.EventType.BeforeYearStart, wilderness_callable)
+
+static var wilderness_callable = func(event_args: EventArgs):
+	event_args.farm.use_card_random_tile(Carrot, 5)
+	event_args.farm.use_card_random_tile(Blueberry, 5)
+	event_args.farm.use_card_random_tile(Potato, 5)
+	event_args.farm.use_card_random_tile(Radish, 5)
+	event_args.farm.use_card_random_tile(Cactus, 5)
+	
 static var forest_deck = [
 	{
 		"name": "carrot",
@@ -90,7 +119,7 @@ static var riverlands_deck = [
 
 static var wilderness_deck = [
 	{
-		"name": "propagate",
+		"name": "propagation",
 		"type": "action",
 		"count": 3
 	},

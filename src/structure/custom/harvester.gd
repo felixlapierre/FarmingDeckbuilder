@@ -9,7 +9,9 @@ func _init():
 	super()
 
 func copy():
-	return Harvester.new()
+	var copy = Harvester.new()
+	copy.assign(self)
+	return copy
 
 func register_events(event_manager: EventManager, tile: Tile):
 	callback = func(args: EventArgs):

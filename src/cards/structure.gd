@@ -39,6 +39,17 @@ func copy():
 		n_effects.append(effect.copy())
 	return Structure.new(name, rarity, cost, size, text, texture, n_effects)
 
+func assign(s: Structure):
+	name = s.name
+	rarity = s.rarity
+	cost = s.cost
+	size = s.size
+	text = s.text
+	texture = s.texture
+	effects.assign(s.effects)
+	grid_location = s.grid_location
+	rotate = s.rotate
+
 func get_description():
 	return text
 
@@ -60,7 +71,7 @@ func save_data():
 		"cost": cost,
 		"size": size,
 		"text": text,
-		"texture": texture.resource_path,
+		"texture": texture.resource_path if texture != null else null,
 		"effects": effects.map(func(effect):
 			return effect.save_data()),
 		"x": grid_location.x,

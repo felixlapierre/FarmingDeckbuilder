@@ -10,7 +10,9 @@ func _init():
 	super()
 
 func copy():
-	return Toolshed.new()
+	var copy = Toolshed.new()
+	copy.assign(self)
+	return copy
 
 func register_events(event_manager: EventManager, tile: Tile):
 	callback = func(args: EventArgs):

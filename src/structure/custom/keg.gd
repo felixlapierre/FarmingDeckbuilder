@@ -18,7 +18,9 @@ func _init():
 	super()
 
 func copy():
-	return Keg.new()
+	var copy = Keg.new()
+	copy.assign(self)
+	return copy
 
 func register_events(event_manager: EventManager, tile: Tile):
 	my_tile = tile

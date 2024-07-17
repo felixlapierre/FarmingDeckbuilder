@@ -30,15 +30,14 @@ var event_manager: EventManager
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	do_active_check()
+
+func do_active_check():
 	if grid_location.x < Global.FARM_TOPLEFT.x\
 		or grid_location.x > Global.FARM_BOTRIGHT.x\
 		or grid_location.y < Global.FARM_TOPLEFT.y\
 		or grid_location.y > Global.FARM_BOTRIGHT.y:
 		state = Enums.TileState.Inactive
-	do_active_check()
-
-func do_active_check():
-	if state == Enums.TileState.Inactive:
 		$Farmland.visible = false
 		$TileButton.visible = false
 		$PurpleOverlay.visible = false
@@ -192,7 +191,7 @@ func lose_irrigate():
 
 func build_structure(n_structure: Structure, rotate):
 	state = Enums.TileState.Structure
-	structure = n_structure
+	structure = n_structure.copy()
 	structure_rotate = rotate
 	structure.register_events(event_manager, self)
 	structure.grid_location = grid_location
@@ -318,7 +317,3 @@ func set_tile_size(n_size: Vector2):
 	$HarvestParticles.process_material.scale_max = 3.2
 	$AddYieldParticles.process_material.scale_min = 2
 	$AddYieldParticles.process_material.scale_max = 2
-	
-func disable():
-	state = Enums.TileState.Inactive
-	do_active_check()
