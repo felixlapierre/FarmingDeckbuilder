@@ -73,3 +73,15 @@ static func get_all_fortunes() -> Array[Fortune]:
 		elif fortune is GDScript:
 			fortunes.append(fortune.new())
 	return fortunes
+
+# pass null rarity for random card
+static func get_random_cards(rarity: String, count: int):
+	var result = []
+	var cards = get_all_cards_rarity(rarity)
+	cards.shuffle()
+	for n_card in cards:
+		if result.size() >= count:
+			return result
+		if n_card.type != "STRUCTURE":
+			result.append(n_card)
+	return result

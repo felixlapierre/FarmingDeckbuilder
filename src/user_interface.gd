@@ -15,6 +15,8 @@ var deck: Array[CardData]
 var turn_ending = false
 
 var SELECT_CARD = preload("res://src/cards/select_card.tscn")
+var cards_database = preload("res://src/cards/cards_database.gd")
+var PickOption = preload("res://src/ui/pick_option.tscn")
 
 @onready var shop: Shop = $Shop
 @onready var tooltip: Tooltip = $Tooltip
@@ -107,7 +109,20 @@ func _on_event_button_pressed() -> void:
 	
 func _on_game_event_dialog_on_upgrades_selected(upgrades: Array[Upgrade]) -> void:
 	for upgrade in upgrades:
-		apply_upgrade.emit(upgrade)
+		if upgrade.type == Upgrade.UpgradeType.AddCommonCard or upgrade.type == Upgrade.UpgradeType.AddRareCard:
+				var cards = cards_database.get_random_cards("common" if upgrade.type == Upgrade.UpgradeType.AddCommonCard else "rare", 3)
+				var pick_option_ui = PickOption.instantiate()
+				self.add_child(pick_option_ui)
+				var prompt = "Pick a card to add to your deck"
+				pick_option_ui.setup(prompt, cards, func(selected):
+					var add_card_upgrade = Upgrade.new()
+					add_card_upgrade.type = Upgrade.UpgradeType.AddSpecificCard
+					add_card_upgrade.card = selected.card_info
+					apply_upgrade.emit(add_card_upgrade)
+					self.remove_child(pick_option_ui), func():
+						self.remove_child(pick_option_ui))
+		else:
+			apply_upgrade.emit(upgrade)
 	$GameEventDialog.visible = false
 	$Winter/EventButton.disabled = true
 	update()
