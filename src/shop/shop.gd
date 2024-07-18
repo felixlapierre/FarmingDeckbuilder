@@ -174,7 +174,9 @@ func on_buy_row2(option):
 
 func on_buy(option, row):
 	if option.card_info.type == "STRUCTURE":
-		on_structure_place.emit(option.card_info, func(): finish_item_bought(option, option.card_info, row))
+		on_structure_place.emit(option.card_info, func(): 
+			visible = true
+			finish_item_bought(option, option.card_info, row))
 		return
 	finish_item_bought(option, option.card_info, row)
 
@@ -242,7 +244,8 @@ func on_enhance_selected(enhance: Enhance, row):
 	$RemoveCardContainer/SelectCard.do_enhance_pick(player_cards, enhance, "Select a card to enhance")
 
 func on_buy_structure(structure, row):
-	on_structure_place.emit(structure, func(): 	
+	on_structure_place.emit(structure, func(): 
+		visible = true
 		set_row_visible(row, false)
 		update_labels())
 

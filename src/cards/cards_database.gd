@@ -85,3 +85,23 @@ static func get_random_cards(rarity: String, count: int):
 		if n_card.type != "STRUCTURE":
 			result.append(n_card)
 	return result
+
+static func get_random_enhance(rarity: String, count: int):
+	var result = []
+	var enhances = get_all_enhance()
+	enhances.shuffle()
+	for enh in enhances:
+		if result.size() >= count:
+			return result
+		result.append(enh)
+	return result
+
+static func get_random_structures(count: int):
+	var result = []
+	var structures = get_all_structure()
+	structures.shuffle()
+	for str in structures:
+		if result.size() >= count:
+			return result
+		result.append(str)
+	return result

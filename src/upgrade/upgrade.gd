@@ -25,7 +25,8 @@ enum UpgradeType {
 	RemoveBlight,
 	AddEnhance,
 	AddEnhanceToRandom,
-	AddEnhanceToAll
+	AddEnhanceToAll,
+	AddStructure
 }
 
 func _init(p_type = UpgradeType.Nothing, p_text = "text", p_strength = 1.0, p_card = null, p_enhance = null):
@@ -39,36 +40,6 @@ func copy():
 	var n_card = card.copy() if card != null else null
 	var n_enhance = enhance.copy() if enhance != null else null
 	return Upgrade.new(type, text, strength, n_card, n_enhance)
-
-func setup_random_values(card_database: DataFetcher):
-	match type:
-		UpgradeType.AddCommonCard, UpgradeType.AddRareCard:
-			setup_random_card(card_database)
-		UpgradeType.AddEnhance, UpgradeType.AddEnhanceToRandom, UpgradeType.AddEnhanceToAll:
-			setup_random_enhance(card_database)
-
-func setup_random_card(card_database: DataFetcher):
-	if card != null:
-		return
-	var cards
-	if type == UpgradeType.AddCommonCard:
-		cards = card_database.get_all_cards_rarity("common")
-	elif type == UpgradeType.AddRareCard:
-		cards = card_database.get_all_cards_rarity("rare")
-	else:
-		return
-	cards.shuffle()
-	for n_card in cards:
-		if n_card.type != "STRUCTURE":
-			card = n_card
-			break
-
-func setup_random_enhance(card_database: DataFetcher):
-	if enhance != null:
-		return
-	var enhances: Array[Enhance] = card_database.get_all_enhance()
-	enhances.shuffle()
-	enhance = enhances[0].copy()
 
 func get_text() -> String:
 	var result: String = text

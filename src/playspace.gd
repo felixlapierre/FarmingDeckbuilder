@@ -24,10 +24,9 @@ func _process(delta: float) -> void:
 func _on_farm_tiles_card_played(card) -> void:
 	if card.CLASS_NAME == "Structure":
 		Global.selected_structure = null
-		$UserInterface.shop_structure_place_callback.call()
 		await get_tree().create_timer(1).timeout
+		$UserInterface.shop_structure_place_callback.call()
 		$UserInterface.set_winter_visible(true)
-		$UserInterface/Shop.visible = true
 	else:
 		$TurnManager.energy -= card.cost if card.cost >= 0 else $TurnManager.energy
 		$UserInterface.update()
@@ -123,8 +122,6 @@ func on_upgrade(upgrade: Upgrade):
 			$UserInterface.select_card_to_remove()
 		Upgrade.UpgradeType.CopyAnyCard:
 			$UserInterface.select_card_to_copy()
-		Upgrade.UpgradeType.AddSpecificCard, Upgrade.UpgradeType.AddCommonCard, Upgrade.UpgradeType.AddRareCard:
-			deck.append(upgrade.card)
 		Upgrade.UpgradeType.RemoveSpecificCard:
 			deck.erase(upgrade.card)
 		Upgrade.UpgradeType.EnergyFragment:
@@ -143,30 +140,6 @@ func on_upgrade(upgrade: Upgrade):
 		Upgrade.UpgradeType.RemoveBlight:
 			$TurnManager.blight_damage -= int(upgrade.strength)
 			$UserInterface.update_damage()
-		Upgrade.UpgradeType.AddEnhance:
-			$UserInterface.select_card_to_enhance(upgrade.enhance)
-		Upgrade.UpgradeType.AddEnhanceToRandom:
-			var cards = []
-			for card in deck:
-				if upgrade.enhance.is_card_eligible(card):
-					cards.append(card)
-			cards.shuffle()
-			var card = cards[0]
-			var new_card = card.apply_enhance(upgrade.enhance.copy())
-			deck.erase(card)
-			deck.append(new_card)
-		Upgrade.UpgradeType.AddEnhanceToAll:
-			var old_cards = []
-			var new_cards = []
-			for card in deck:
-				if upgrade.enhance.is_card_eligible(card):
-					old_cards.append(card)
-					var new_card = card.apply_enhance(upgrade.enhance.copy())
-					new_cards.append(new_card)
-			for card in old_cards:
-				deck.erase(card)
-			for card in new_cards:
-				deck.append(card)
 		_:
 			print(upgrade.text)
 

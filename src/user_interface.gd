@@ -110,16 +110,61 @@ func _on_event_button_pressed() -> void:
 func _on_game_event_dialog_on_upgrades_selected(upgrades: Array[Upgrade]) -> void:
 	for upgrade in upgrades:
 		if upgrade.type == Upgrade.UpgradeType.AddCommonCard or upgrade.type == Upgrade.UpgradeType.AddRareCard:
-				var cards = cards_database.get_random_cards("common" if upgrade.type == Upgrade.UpgradeType.AddCommonCard else "rare", 3)
-				var pick_option_ui = PickOption.instantiate()
-				self.add_child(pick_option_ui)
-				var prompt = "Pick a card to add to your deck"
-				pick_option_ui.setup(prompt, cards, func(selected):
-					var add_card_upgrade = Upgrade.new()
-					add_card_upgrade.type = Upgrade.UpgradeType.AddSpecificCard
-					add_card_upgrade.card = selected.card_info
-					apply_upgrade.emit(add_card_upgrade)
-					self.remove_child(pick_option_ui), func():
+			var cards = cards_database.get_random_cards("common" if upgrade.type == Upgrade.UpgradeType.AddCommonCard else "rare", 3)
+			var pick_option_ui = PickOption.instantiate()
+			self.add_child(pick_option_ui)
+			var prompt = "Pick a card to add to your deck"
+			pick_option_ui.setup(prompt, cards, func(selected):
+				var add_card_upgrade = Upgrade.new()
+				add_card_upgrade.type = Upgrade.UpgradeType.AddSpecificCard
+				add_card_upgrade.card = selected.card_info
+				apply_upgrade.emit(add_card_upgrade)
+				self.remove_child(pick_option_ui), func():
+					self.remove_child(pick_option_ui))
+		elif upgrade.type == Upgrade.UpgradeType.AddEnhance\
+			or upgrade.type == Upgrade.UpgradeType.AddEnhanceToRandom\
+			or upgrade.type == Upgrade.UpgradeType.AddEnhanceToAll:
+			var enhances = cards_database.get_random_enhance("", 3)
+			var pick_option_ui = PickOption.instantiate()
+			self.add_child(pick_option_ui)
+			var prompt = "Pick an enhance to apply"
+			pick_option_ui.setup(prompt, enhances, func(selected):
+				if upgrade.type == Upgrade.UpgradeType.AddEnhance:
+					select_card_to_enhance(selected)
+				elif upgrade.type == Upgrade.UpgradeType.AddEnhanceToRandom:
+					var cards = []
+					for card in deck:
+						if selected.is_card_eligible(card):
+							cards.append(card)
+					cards.shuffle()
+					var card = cards[0]
+					var new_card = card.apply_enhance(selected.copy())
+					deck.erase(card)
+					deck.append(new_card)
+				elif upgrade.type == Upgrade.UpgradeType.AddEnhanceToAll:
+					var old_cards = []
+					var new_cards = []
+					for card in deck:
+						if selected.is_card_eligible(card):
+							old_cards.append(card)
+							var new_card = card.apply_enhance(selected.copy())
+							new_cards.append(new_card)
+					for card in old_cards:
+						deck.erase(card)
+					for card in new_cards:
+						deck.append(card)
+				self.remove_child(pick_option_ui),
+				func():
+					self.remove_child(pick_option_ui))
+		elif upgrade.type == Upgrade.UpgradeType.AddStructure:
+			var structures = cards_database.get_random_structures(3)
+			var pick_option_ui = PickOption.instantiate()
+			self.add_child(pick_option_ui)
+			var prompt = "Pick a structure to add to your farm"
+			pick_option_ui.setup(prompt, structures, func(selected):
+				self.remove_child(pick_option_ui)
+				_on_shop_on_structure_place(selected, func():
+					pass), func():
 						self.remove_child(pick_option_ui))
 		else:
 			apply_upgrade.emit(upgrade)
