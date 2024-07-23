@@ -7,7 +7,16 @@ var deck: Array[CardData] = []
 
 @onready var turn_manager: TurnManager = $TurnManager
 @onready var user_interface: UserInterface = $UserInterface
+@onready var background = $Background
+@onready var background2 = $Background2
+
 var helper = preload("res://src/farm/startup_helper.gd")
+
+var spring_tileset = preload("res://assets/1616tinygarden/tileset.png")
+var summer_tileset = preload("res://assets/1616tinygarden/tileset-summer.png")
+var fall_tileset = preload("res://assets/1616tinygarden/tileset-fall.png")
+var winter_tileset = preload("res://assets/1616tinygarden/tileset-winter.png")
+var winter_night_tileset = preload("res://assets/1616tinygarden/tileset-winter-night.png")
 
 func _ready() -> void:
 	randomize()
@@ -16,6 +25,7 @@ func _ready() -> void:
 	$UserInterface.setup($EventManager, $TurnManager, deck)
 	$UserInterface.update()
 	$FarmTiles.setup($EventManager)
+	background2.unique_tileset()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -61,6 +71,7 @@ func end_year():
 	$FarmTiles.do_winter_clear()
 	$TurnManager.end_year()
 	$UserInterface.end_year()
+	set_background_texture()
 	save_game()
 
 func start_year():
@@ -75,6 +86,7 @@ func start_year():
 	$UserInterface.update()
 	$EventManager.notify(EventManager.EventType.AfterYearStart)
 	$EventManager.notify(EventManager.EventType.BeforeTurnStart)
+	set_background_texture()
 
 func _on_farm_tiles_on_energy_gained(amount) -> void:
 	$TurnManager.energy += amount
@@ -87,7 +99,7 @@ func on_lose():
 	$UserInterface/GameEndContainer.visible = true
 	$UserInterface/GameEndContainer/ResultLabel.text = "You Lose :("
 	$UserInterface/UI/Deck.visible = false
-	$UserInterface/UI/RitualCounter.visible = false
+	$UserInterface/UI/RitualPanel.visible = false
 
 func on_win():
 	$Cards.discard_hand()
@@ -96,7 +108,7 @@ func on_win():
 	$UserInterface/GameEndContainer.visible = true
 	$UserInterface/GameEndContainer/ResultLabel.text = "You Win! The Blight has been cleansed!"
 	$UserInterface/UI/Deck.visible = false
-	$UserInterface/UI/RitualCounter.visible = false
+	$UserInterface/UI/RitualPanel.visible = false
 
 func _on_farm_tiles_on_card_draw(number_of_cards, card) -> void:
 	for i in range(number_of_cards):
@@ -147,7 +159,7 @@ func on_turn_end():
 	$EventManager.notify(EventManager.EventType.BeforeGrow)
 	$Cards.discard_hand()
 	await get_tree().create_timer(0.3).timeout
-	await $FarmTiles.process_one_week()
+	await $FarmTiles.process_one_week(turn_manager.week)
 	await get_tree().create_timer(0.1).timeout
 	$EventManager.notify(EventManager.EventType.AfterGrow)
 	if victory == true:
@@ -171,7 +183,7 @@ func on_turn_end():
 	$EventManager.notify(EventManager.EventType.BeforeTurnStart)
 	if victory == true:
 		end_year()
-
+	set_background_texture()
 
 func _on_user_interface_on_blight_removed() -> void:
 	$FarmTiles.remove_blight_from_all_tiles()
@@ -253,3 +265,26 @@ func start_new_game():
 		deck.append(card)
 	StartupHelper.setup_farm($FarmTiles, $EventManager)
 	start_year()
+
+func set_background_texture():
+	var old_texture
+	var new_texture
+	if $UserInterface/Winter.visible == true:
+		old_texture = background2.get_background_texture()
+		new_texture = spring_tileset
+	if turn_manager.week == Global.SPRING_WEEK:
+		old_texture = background2.get_background_texture()
+		new_texture = spring_tileset
+	elif turn_manager.week == Global.SUMMER_WEEK:
+		old_texture = spring_tileset
+		new_texture = summer_tileset
+	elif turn_manager.week == Global.FALL_WEEK:
+		old_texture = summer_tileset
+		new_texture = fall_tileset
+	elif turn_manager.week == Global.WINTER_WEEK:
+		old_texture = fall_tileset
+		new_texture = winter_tileset
+	if new_texture != old_texture:
+		background.set_background_texture(old_texture)
+		background2.set_background_texture(new_texture)
+		background2.tween_to_visible(1.0)

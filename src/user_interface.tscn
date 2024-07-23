@@ -28,48 +28,53 @@ script = ExtResource("1_j28fq")
 layout_mode = 3
 anchors_preset = 0
 
-[node name="RitualCounter" type="HBoxContainer" parent="UI"]
+[node name="RitualPanel" type="PanelContainer" parent="UI"]
 layout_mode = 0
-offset_left = 482.0
-offset_top = 418.0
-offset_right = 575.0
-offset_bottom = 459.0
+offset_left = 502.0
+offset_top = 416.0
+offset_right = 595.0
+offset_bottom = 457.0
+
+[node name="RitualCounter" type="HBoxContainer" parent="UI/RitualPanel"]
+layout_mode = 2
 theme = ExtResource("2_s7754")
 
-[node name="Label" type="Label" parent="UI/RitualCounter"]
+[node name="Label" type="Label" parent="UI/RitualPanel/RitualCounter"]
 layout_mode = 2
 size_flags_horizontal = 10
 text = "300"
 
-[node name="TextureRect" type="TextureRect" parent="UI/RitualCounter"]
+[node name="TextureRect" type="TextureRect" parent="UI/RitualPanel/RitualCounter"]
 layout_mode = 2
 texture = ExtResource("3_x0b3x")
 stretch_mode = 5
 
-[node name="BlightCounter" type="HBoxContainer" parent="UI"]
+[node name="BlightPanel" type="PanelContainer" parent="UI"]
 layout_mode = 0
-offset_left = 1336.0
-offset_top = 416.0
-offset_right = 1410.0
-offset_bottom = 457.0
+offset_left = 1346.0
+offset_top = 412.0
+offset_right = 1420.0
+offset_bottom = 453.0
+
+[node name="VBox" type="VBoxContainer" parent="UI/BlightPanel"]
+layout_mode = 2
+
+[node name="BlightCounter" type="HBoxContainer" parent="UI/BlightPanel/VBox"]
+layout_mode = 2
 theme = ExtResource("2_s7754")
 
-[node name="TextureRect" type="TextureRect" parent="UI/BlightCounter"]
+[node name="TextureRect" type="TextureRect" parent="UI/BlightPanel/VBox/BlightCounter"]
 layout_mode = 2
 texture = ExtResource("4_o6t76")
 stretch_mode = 5
 
-[node name="Label" type="Label" parent="UI/BlightCounter"]
+[node name="Label" type="Label" parent="UI/BlightPanel/VBox/BlightCounter"]
 layout_mode = 2
 text = "42"
 
-[node name="BlightDamage" type="HBoxContainer" parent="UI"]
+[node name="BlightDamage" type="HBoxContainer" parent="UI/BlightPanel/VBox"]
 visible = false
-layout_mode = 0
-offset_left = 1337.0
-offset_top = 464.0
-offset_right = 1377.0
-offset_bottom = 504.0
+layout_mode = 2
 
 [node name="Stats" type="PanelContainer" parent="UI"]
 layout_mode = 0

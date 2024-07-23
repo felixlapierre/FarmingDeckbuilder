@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="GameEvent" load_steps=5 format=3 uid="uid://b8im0gjnaq4ok"]
+[gd_resource type="Resource" script_class="GameEvent" load_steps=5 format=3 uid="uid://bqy73n1g746m6"]
 
 [ext_resource type="Script" path="res://src/upgrade/upgrade.gd" id="1_o3lt4"]
 [ext_resource type="Script" path="res://src/event/event.gd" id="1_rkamb"]

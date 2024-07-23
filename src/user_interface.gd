@@ -31,7 +31,7 @@ func _ready() -> void:
 		var sprite = TextureRect.new()
 		sprite.texture = load("res://assets/custom/BlightEmpty.png")
 		sprite.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
-		$UI/BlightDamage.add_child(sprite)
+		$UI/BlightPanel/VBox/BlightDamage.add_child(sprite)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -66,7 +66,7 @@ func start_year():
 # Update UI display
 func update():
 	$UI/Stats/VBox/YearLabel.text = "Year: " + str(turn_manager.year) + " / 10"
-	$UI/Stats/VBox/TurnLabel.text = "Week: " + str(turn_manager.week)
+	$UI/Stats/VBox/TurnLabel.text = "Week: " + str(turn_manager.week) + " / 12"
 	$UI/Stats/VBox/EnergyHbox/EnergyLabel.text = "Energy: " + str(turn_manager.energy) + " / " + str(Constants.MAX_ENERGY + int(float(Global.ENERGY_FRAGMENTS) / 3))
 	for child in $UI/Stats/VBox/EnergyHbox/Fragments.get_children():
 		$UI/Stats/VBox/EnergyHbox/Fragments.remove_child(child)
@@ -85,10 +85,10 @@ func update():
 		fragment.expand_mode = TextureRect.EXPAND_FIT_WIDTH
 		$UI/Stats/VBox/CardsHbox/Fragments.add_child(fragment)
 		
-	$UI/BlightCounter/Label.text = str(turn_manager.purple_mana)\
+	$UI/BlightPanel/VBox/BlightCounter/Label.text = str(turn_manager.purple_mana)\
 		 + " / " + str(turn_manager.target_blight)\
 		 + " <-- " + str(turn_manager.next_turn_blight)
-	$UI/RitualCounter/Label.text = str(turn_manager.ritual_counter)
+	$UI/RitualPanel/RitualCounter/Label.text = str(turn_manager.ritual_counter)
 	$Shop.update_labels()
 	$Winter/FarmUpgradeButton.disabled = $UpgradeShop.lock or ![4, 7, 10].has(turn_manager.year)
 	# Temporarily disable this QOL for testing
@@ -197,8 +197,8 @@ func set_ui_visible(visible):
 	$UI/Deck.visible = visible
 	$UI/EndTurnButton.visible = visible
 	$Shop.visible = visible
-	$UI/BlightCounter.visible = visible
-	$UI/RitualCounter.visible = visible
+	$UI/BlightPanel/VBox/BlightCounter.visible = visible
+	$UI/RitualPanel/RitualCounter.visible = visible
 
 # Shop
 func _on_shop_on_structure_place(structure, callback) -> void:
@@ -236,9 +236,9 @@ func _on_end_turn_button_pressed() -> void:
 	end_turn_button_pressed.emit()
 
 func update_damage():
-	$UI/BlightDamage.visible = turn_manager.blight_damage != 0
-	for i in $UI/BlightDamage.get_child_count():
-		var img = $UI/BlightDamage.get_child(i)
+	$UI/BlightPanel/VBox/BlightDamage.visible = turn_manager.blight_damage != 0
+	for i in $UI/BlightPanel/VBox/BlightDamage.get_child_count():
+		var img = $UI/BlightPanel/VBox/BlightDamage.get_child(i)
 		if turn_manager.blight_damage > i:
 			img.texture = load("res://assets/custom/Blight.png")
 		else:
@@ -355,11 +355,11 @@ func register_tooltips():
 	tooltip.register_tooltip(cards_hbox, tr("CARDS_TOOLTIP"));
 	tooltip.register_tooltip($UI/Deck/DeckDraw, tr("DECK_TOOLTIP").format({"deck_cards": deck.size()}))
 	tooltip.register_tooltip($UI/EndTurnButton, tr("END_TURN_TOOLTIP"))
-	tooltip.register_tooltip($UI/RitualCounter, tr("RITUAL_TARGET_TOOLTIP").format({
+	tooltip.register_tooltip($UI/RitualPanel/RitualCounter, tr("RITUAL_TARGET_TOOLTIP").format({
 		"count": turn_manager.ritual_counter,
 		"path": "res://assets/custom/YellowMana.png"
 	}))
-	tooltip.register_tooltip($UI/BlightCounter, tr("BLIGHT_ATTACK_TOOLTIP").format({
+	tooltip.register_tooltip($UI/BlightPanel/VBox/BlightCounter, tr("BLIGHT_ATTACK_TOOLTIP").format({
 		"strength": turn_manager.target_blight,
 		"path": "res://assets/custom/PurpleMana.png"
 	}) if turn_manager.target_blight > 0 else tr("BLIGHT_NO_ATTACK_TOOLTIP").format({

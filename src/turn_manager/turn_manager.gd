@@ -45,7 +45,10 @@ func end_turn():
 	var damage = false
 	if purple_mana < target_blight:
 		damage = true
-		blight_damage += 1
+		if week < Global.FINAL_WEEK:
+			blight_damage += 1
+		else:
+			blight_damage = 5
 	
 	var blight_remaining = target_blight - purple_mana
 	blight_remaining = 0 if blight_remaining < 0 else blight_remaining
@@ -74,12 +77,12 @@ func compute_blight_pattern(week, year):
 	blight_pattern = [0]
 	var charge: float = 0.0
 	var chance = 0.0
-	for i in range(1, Global.FINAL_WEEK + 1):
+	for i in range(1, Global.FINAL_WEEK):
 		charge += 10.0
 		chance += 0.3
 		if (year < 4 and i < 3) or i < 2:
 			blight_pattern.append(0)
-		elif i == Global.FINAL_WEEK:
+		elif i == Global.FINAL_WEEK - 1:
 			blight_pattern.append(charge)
 			charge = 0.0
 		elif randf() < chance:

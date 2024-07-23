@@ -179,20 +179,21 @@ func clear_overlay():
 	on_preview_yield.emit(0, 0) #This signals to clear the preview
 	on_hide_tile_preview.emit()
 
-func process_one_week():
+func process_one_week(week: int):
 	for tile in $Tiles.get_children():
 		effect_queue.append_array(tile.get_before_grow_effects())
 	process_effect_queue()
 
-	var growing_tiles = []
-	for tile in $Tiles.get_children():
-		if tile.state == Enums.TileState.Growing:
-			growing_tiles.append(tile)
-	growing_tiles.shuffle()
-	for tile in growing_tiles:
-		effect_queue.append_array(tile.grow_one_week())
-		await get_tree().create_timer(0.01).timeout
-	process_effect_queue()
+	if week < Global.WINTER_WEEK:
+		var growing_tiles = []
+		for tile in $Tiles.get_children():
+			if tile.state == Enums.TileState.Growing:
+				growing_tiles.append(tile)
+		growing_tiles.shuffle()
+		for tile in growing_tiles:
+			effect_queue.append_array(tile.grow_one_week())
+			await get_tree().create_timer(0.01).timeout
+		process_effect_queue()
 	for tile in $Tiles.get_children():
 		effect_queue.append_array(tile.get_after_grow_effects())
 	process_effect_queue()
