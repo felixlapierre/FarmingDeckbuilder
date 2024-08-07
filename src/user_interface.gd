@@ -17,6 +17,7 @@ var turn_ending = false
 var SELECT_CARD = preload("res://src/cards/select_card.tscn")
 var cards_database = preload("res://src/cards/cards_database.gd")
 var PickOption = preload("res://src/ui/pick_option.tscn")
+var FORTUNE_HOVER = preload("res://src/fortune/fortune_hover.tscn")
 
 @onready var shop: Shop = $Shop
 @onready var tooltip: Tooltip = $Tooltip
@@ -55,6 +56,7 @@ func end_year():
 	$Shop.fill_shop()
 	$FortuneTeller.unregister_fortunes()
 	$FortuneTeller.create_fortunes()
+	create_fortune_display()
 	update()
 	
 func start_year():
@@ -95,6 +97,8 @@ func update():
 	$Winter/NextYearButton.disabled = !next_year_allowed()
 	
 	register_tooltips()
+	
+
 
 # Fortune Teller
 func _on_fortune_teller_button_pressed() -> void:
@@ -323,6 +327,17 @@ func _on_farm_tiles_on_hide_tile_preview() -> void:
 
 func is_winter():
 	return $Winter.visible
+
+func create_fortune_display():
+	for child in $UI/FortuneDisplay.get_children():
+		$UI/FortuneDisplay.remove_child(child)
+	var fortune_count = 0
+	for fortune: Fortune in $FortuneTeller.current_fortunes:
+		var fortune_hover = FORTUNE_HOVER.instantiate()
+		fortune_hover.position += Vector2(50, 0) * fortune_count
+		$UI/FortuneDisplay.add_child(fortune_hover)
+		fortune_hover.setup(fortune)
+		fortune_count += 1
 	
 func save_data() -> Dictionary:
 	var winter = {}
@@ -340,6 +355,7 @@ func load_data(save_json: Dictionary):
 	$Shop.load_data(save_json.winter.shop)
 	$FortuneTeller.unregister_fortunes()
 	$FortuneTeller.create_fortunes()
+	create_fortune_display()
 	update()
 
 func register_tooltips():

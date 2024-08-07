@@ -1,6 +1,7 @@
-[gd_resource type="Resource" script_class="Piercing" load_steps=2 format=3 uid="uid://cr38iws7prcl1"]
+[gd_resource type="Resource" script_class="Piercing" load_steps=3 format=3 uid="uid://cr38iws7prcl1"]
 
 [ext_resource type="Script" path="res://src/fortune/custom/piercing.gd" id="1_e8xxe"]
+[ext_resource type="Texture2D" uid="uid://dbbhalo3edxpk" path="res://assets/custom/BlightTarget.png" id="2_8wer4"]
 
 [resource]
 script = ExtResource("1_e8xxe")
@@ -10,3 +11,4 @@ name = "Shatter"
 type = 1
 text = "Even if blocked, blight will destroy two targeted tiles"
 rank = 3
+texture = ExtResource("2_8wer4")

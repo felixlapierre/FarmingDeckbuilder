@@ -44,6 +44,7 @@ func create_fortunes():
 		var display: Control = fortune_display_scene.instantiate()
 		display.find_child("Name").text = fortune.name
 		display.find_child("Description").text = fortune.text
+		display.find_child("Texture").texture = fortune.texture
 		$CenterContainer/PanelContainer/VBox/Fortunes.add_child(display)
 
 func get_current_fortunes_regular():

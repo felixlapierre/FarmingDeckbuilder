@@ -199,6 +199,9 @@ text = "Skip"
 visible = false
 position = Vector2(1595, 123)
 
+[node name="FortuneDisplay" type="Node2D" parent="UI"]
+position = Vector2(1346, 360)
+
 [node name="Winter" type="Control" parent="."]
 visible = false
 layout_mode = 3

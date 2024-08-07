@@ -2,7 +2,7 @@ extends Node2D
 
 var current_event: GameEvent
 var completed_events: Array[GameEvent] = []
-var always_do_event: GameEvent = preload("res://src/event/data/artificer.tres")
+var always_do_event: GameEvent = null#preload("res://src/event/data/artificer.tres")
 
 signal on_upgrades_selected
 
