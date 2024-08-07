@@ -96,7 +96,7 @@ func get_short_description():
 		"add_recurring":
 			return "Add 'Regrow' to target plants"
 		"draw_target":
-			return "Add " + get_strength_text() + " cop" + ("y" if strength == 1 else "ies") + " of target plant's seed to your hand"
+			return "Add " + get_strength_text() + " Fleeting cop" + ("y" if strength == 1 else "ies") + " of target plant's seed to your hand"
 		"add_blight_yield":
 			return "Add " + get_strength_text() + "×Blight to seed base yield"
 		_:
@@ -121,7 +121,7 @@ func get_long_description():
 			return "Harvest: Gain [img]res://assets/custom/YellowMana.png[/img] or [img]res://assets/custom/PurpleMana.png[/img] equal to the plant's Yield, then remove it"
 		"irrigate", "absorb":
 			return "Irrigate: Irrigated tiles yield 40% more"
-		"fleeting":
+		"fleeting", "draw_target":
 			return "Fleeting: Destroy card when played or discarded"
 		_:
 			return ""
