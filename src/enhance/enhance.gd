@@ -50,6 +50,33 @@ func is_card_eligible(card: CardData):
 		_:
 			return true
 
+func get_description():
+	match name:
+		"Size":
+			return "Increase the size of the area affected by a card"
+		"Discount":
+			return "Reduce a card's Cost by 1"
+		"GrowSpeed":
+			return "Make a seed grow 1 week faster"
+		"FlatYield":
+			return "Increase a seed's yield by 1"
+		"SpreadGrow":
+			return "Give a seed 50% chance to spread on grow"
+		"SpreadHarvest":
+			return "Give a seed 100% chance to spread on harvest"
+		"Remembrance":
+			return "Add Remembrance to a card (Card is not discarded at the end of the turn)"
+		"Springbound":
+			return "Add Springbound to a card (Card will always be drawn on the first week of Spring)"
+		"Obliviate":
+			return "Add Obliviate to a card (Card is removed from your deck when played)"
+		"RemoveObliviate":
+			return "Remove Obliviate from a card"
+		"Strength":
+			return "Increase the strength of a card's special effects"
+		_:
+			return "TODO"
+
 func save_data() -> Dictionary:
 	var data = {
 		"path": get_script().get_path(),

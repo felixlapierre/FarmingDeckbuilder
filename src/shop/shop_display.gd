@@ -14,7 +14,7 @@ func _ready() -> void:
 		set_labels(structure.name, str(structure.cost), structure.text, "Structure",\
 			structure.texture)
 	elif enhance != null:
-		set_labels(enhance.name, "", "TODO", "Enhance", enhance.texture)
+		set_labels(enhance.name, "", enhance.get_description(), "Enhance", enhance.texture)
 	$Icon.position = Constants.CARD_SIZE / 2
 	$Icon.position.y /= 2
 
