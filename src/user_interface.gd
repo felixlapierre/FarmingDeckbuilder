@@ -347,14 +347,15 @@ func save_data() -> Dictionary:
 	return winter
 
 func load_data(save_json: Dictionary):
-	$UI.visible = false
-	$Winter.visible = true
-	$UpgradeShop.lock = save_json.winter.upgrade_lock
-	$Winter/EventButton.disabled = save_json.winter.event_disabled
-	$GameEventDialog.generate_random_event()
-	$Shop.load_data(save_json.winter.shop)
+	if save_json.state.winter == true:
+		$UI.visible = false
+		$Winter.visible = true
+		$UpgradeShop.lock = save_json.winter.upgrade_lock
+		$Winter/EventButton.disabled = save_json.winter.event_disabled
+		$GameEventDialog.generate_random_event()
+		$Shop.load_data(save_json.winter.shop)
 	$FortuneTeller.unregister_fortunes()
-	$FortuneTeller.create_fortunes()
+	$FortuneTeller.load_fortunes(save_json.fortunes)
 	create_fortune_display()
 	update()
 
@@ -381,3 +382,6 @@ func register_tooltips():
 	}) if turn_manager.target_blight > 0 else tr("BLIGHT_NO_ATTACK_TOOLTIP").format({
 		"path": "res://assets/custom/PurpleMana.png"
 	}))
+	
+func get_fortunes() -> Array[Fortune]:
+	return $FortuneTeller.current_fortunes

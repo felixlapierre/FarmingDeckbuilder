@@ -218,6 +218,10 @@ func save_game():
 	}
 	if save_json.state.winter:
 		save_json.winter = user_interface.save_data()
+	
+	save_json.fortunes = []
+	for fortune: Fortune in user_interface.get_fortunes():
+		save_json.fortunes.append(fortune.save_data())
 
 	var save_game = FileAccess.open("user://savegame.save", FileAccess.WRITE)
 	save_game.store_line(JSON.stringify(save_json))
@@ -253,9 +257,8 @@ func load_game():
 	Global.FARM_BOTRIGHT = Vector2(save_json.state.farm_botright.x, save_json.state.farm_botright.y)
 
 	StartupHelper.load_farm($FarmTiles, $EventManager)
-	if save_json.state.winter == true:
-		$UserInterface.load_data(save_json)
-	else:
+	$UserInterface.load_data(save_json)
+	if !save_json.state.winter:
 		start_year()
 
 func start_new_game():

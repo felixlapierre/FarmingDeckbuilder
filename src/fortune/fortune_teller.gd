@@ -40,12 +40,7 @@ func create_fortunes():
 		get_current_fortunes_misfortune()
 
 	# Display the fortunes
-	for fortune in current_fortunes:
-		var display: Control = fortune_display_scene.instantiate()
-		display.find_child("Name").text = fortune.name
-		display.find_child("Description").text = fortune.text
-		display.find_child("Texture").texture = fortune.texture
-		$CenterContainer/PanelContainer/VBox/Fortunes.add_child(display)
+	display_fortunes()
 
 func get_current_fortunes_regular():
 	match event_manager.turn_manager.year + 1:
@@ -124,3 +119,18 @@ func unregister_fortunes():
 
 func _on_click_out_button_pressed() -> void:
 	on_close.emit()
+
+func load_fortunes(fortunes):
+	for data in fortunes:
+		var fortune = load(data.path).new()
+		fortune.load_data(data)
+		current_fortunes.append(fortune)
+	display_fortunes()
+
+func display_fortunes():
+	for fortune in current_fortunes:
+		var display: Control = fortune_display_scene.instantiate()
+		display.find_child("Name").text = fortune.name
+		display.find_child("Description").text = fortune.text
+		display.find_child("Texture").texture = fortune.texture
+		$CenterContainer/PanelContainer/VBox/Fortunes.add_child(display)

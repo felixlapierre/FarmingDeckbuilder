@@ -26,3 +26,22 @@ func register_fortune(event_manager: EventManager):
 
 func unregister_fortune(event_manager: EventManager):
 	pass
+
+func save_data() -> Dictionary:
+	var save_dict = {
+		"path": get_script().get_path(),
+		"name": name,
+		"type": type,
+		"text": text,
+		"rank": rank,
+		"texture": texture.resource_path if texture != null else null
+	}
+	return save_dict
+
+func load_data(data) -> Fortune:
+	name = data.name
+	type = data.type
+	text = data.text
+	rank = data.rank
+	texture = load(data.texture) if data.texture != null else null
+	return self
