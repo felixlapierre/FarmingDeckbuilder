@@ -33,4 +33,6 @@ func check_option_prerequisite(option: Array[Upgrade], deck: Array[CardData], tu
 		if upgrade.check_prerequisite(deck, turn_manager) == false:
 			return false
 	return true
-	
+
+func save_data() -> String:
+	return resource_path

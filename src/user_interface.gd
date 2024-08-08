@@ -339,12 +339,21 @@ func create_fortune_display():
 		fortune_hover.setup(fortune)
 		fortune_count += 1
 	
-func save_data() -> Dictionary:
-	var winter = {}
-	winter.upgrade_lock = $UpgradeShop.lock
-	winter.event_disabled = $Winter/EventButton.disabled
-	winter.shop = shop.save_data()
-	return winter
+func save_data(save_json):
+	if save_json.state.winter:
+		var winter = {}
+		winter.upgrade_lock = $UpgradeShop.lock
+		winter.event_disabled = $Winter/EventButton.disabled
+		winter.shop = shop.save_data()
+		save_json.winter = winter
+	save_json.fortunes = []
+	for fortune: Fortune in get_fortunes():
+		save_json.fortunes.append(fortune.save_data())
+	
+	save_json.events = {
+		"current": $GameEventDialog.current_event.save_data() if $GameEventDialog.current_event != null else null,
+		"completed": get_completed_events()
+	}
 
 func load_data(save_json: Dictionary):
 	if save_json.state.winter == true:
@@ -352,10 +361,13 @@ func load_data(save_json: Dictionary):
 		$Winter.visible = true
 		$UpgradeShop.lock = save_json.winter.upgrade_lock
 		$Winter/EventButton.disabled = save_json.winter.event_disabled
-		$GameEventDialog.generate_random_event()
+		$GameEventDialog.current_event = load(save_json.events.current) if save_json.events.current != null else null
+		$GameEventDialog.update_interface()
 		$Shop.load_data(save_json.winter.shop)
 	$FortuneTeller.unregister_fortunes()
 	$FortuneTeller.load_fortunes(save_json.fortunes)
+	for event_path: String in save_json.events.completed:
+		$GameEventDialog.completed_events.append(load(event_path))
 	create_fortune_display()
 	update()
 
@@ -385,3 +397,9 @@ func register_tooltips():
 	
 func get_fortunes() -> Array[Fortune]:
 	return $FortuneTeller.current_fortunes
+
+func get_completed_events() -> Array[String]:
+	var events: Array[String] = []
+	for event in $GameEventDialog.completed_events:
+		events.append(event.save_data())
+	return events

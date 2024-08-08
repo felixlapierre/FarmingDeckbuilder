@@ -216,12 +216,7 @@ func save_game():
 			"y": Global.FARM_BOTRIGHT.y
 		}
 	}
-	if save_json.state.winter:
-		save_json.winter = user_interface.save_data()
-	
-	save_json.fortunes = []
-	for fortune: Fortune in user_interface.get_fortunes():
-		save_json.fortunes.append(fortune.save_data())
+	user_interface.save_data(save_json)
 
 	var save_game = FileAccess.open("user://savegame.save", FileAccess.WRITE)
 	save_game.store_line(JSON.stringify(save_json))
