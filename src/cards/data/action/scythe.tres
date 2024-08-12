@@ -2,7 +2,7 @@
 
 [ext_resource type="Resource" uid="uid://cqfvdr8thdmfu" path="res://src/effect/data/harvest.tres" id="1_2opsp"]
 [ext_resource type="Script" path="res://src/cards/card_data.gd" id="1_unme5"]
-[ext_resource type="Texture2D" uid="uid://xioa7pkdc5t0" path="res://assets/custom/Scythe.png" id="2_kn00x"]
+[ext_resource type="Texture2D" uid="uid://cx7x7dmvdxw1p" path="res://assets/card/scythe.png" id="3_yw3tt"]
 
 [resource]
 script = ExtResource("1_unme5")
@@ -14,7 +14,7 @@ yld = 3
 time = 3
 size = 9
 text = ""
-texture = ExtResource("2_kn00x")
+texture = ExtResource("3_yw3tt")
 seed_texture = 3
 targets = Array[String](["Mature"])
 effects = Array[Resource("res://src/effect/effect.gd")]([ExtResource("1_2opsp")])

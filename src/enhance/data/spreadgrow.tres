@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="Enhance" load_steps=3 format=3 uid="uid://do810qfreqs47"]
 
 [ext_resource type="Script" path="res://src/enhance/enhance.gd" id="1_6gso1"]
-[ext_resource type="Texture2D" uid="uid://c46q76532nqk" path="res://assets/custom/Temp.png" id="2_opvy4"]
+[ext_resource type="Texture2D" uid="uid://bbaesh6tuemys" path="res://assets/enhance/spread-grow.png" id="2_iwjnt"]
 
 [resource]
 script = ExtResource("1_6gso1")
@@ -9,4 +9,4 @@ name = "SpreadGrow"
 rarity = "rare"
 strength = 0.0
 targets = Array[String]([])
-texture = ExtResource("2_opvy4")
+texture = ExtResource("2_iwjnt")

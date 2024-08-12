@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="Enhance" load_steps=3 format=3 uid="uid://bqfd7k0wwhfd7"]
 
 [ext_resource type="Script" path="res://src/enhance/enhance.gd" id="1_3kqge"]
-[ext_resource type="Texture2D" uid="uid://c46q76532nqk" path="res://assets/custom/Temp.png" id="2_tsnqr"]
+[ext_resource type="Texture2D" uid="uid://busq6ov3naka0" path="res://assets/enhance/obliviate.png" id="2_bwpcb"]
 
 [resource]
 script = ExtResource("1_3kqge")
@@ -9,4 +9,4 @@ name = "Obliviate"
 rarity = "rare"
 strength = 0.0
 targets = Array[String]([])
-texture = ExtResource("2_tsnqr")
+texture = ExtResource("2_bwpcb")

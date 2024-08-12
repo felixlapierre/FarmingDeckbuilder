@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="EarthWard" load_steps=3 format=3 uid="uid://dey5rmdro05hw"]
 
 [ext_resource type="Script" path="res://src/cards/custom/earth_ward.gd" id="1_3kl8v"]
-[ext_resource type="Texture2D" uid="uid://c46q76532nqk" path="res://assets/custom/Temp.png" id="2_3g5km"]
+[ext_resource type="Texture2D" uid="uid://des6dcog7cdhr" path="res://assets/card/earthward.png" id="2_87j4e"]
 
 [resource]
 script = ExtResource("1_3kl8v")
@@ -13,7 +13,7 @@ yld = 0
 time = 0
 size = -1
 text = "Gain 1 purple yield per empty tile"
-texture = ExtResource("2_3g5km")
+texture = ExtResource("2_87j4e")
 seed_texture = 0
 targets = Array[String](["Empty"])
 effects = Array[Resource("res://src/effect/effect.gd")]([])

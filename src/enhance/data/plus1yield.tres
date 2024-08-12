@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="Enhance" load_steps=3 format=3 uid="uid://r2j10bxlplop"]
 
 [ext_resource type="Script" path="res://src/enhance/enhance.gd" id="1_hsqm4"]
-[ext_resource type="Texture2D" uid="uid://c46q76532nqk" path="res://assets/custom/Temp.png" id="2_3r7vg"]
+[ext_resource type="Texture2D" uid="uid://70awk28swr3m" path="res://assets/custom/YellowManaSmall.png" id="2_nhwer"]
 
 [resource]
 script = ExtResource("1_hsqm4")
@@ -9,4 +9,4 @@ name = "FlatYield"
 rarity = "common"
 strength = 1.0
 targets = Array[String](["SEED"])
-texture = ExtResource("2_3r7vg")
+texture = ExtResource("2_nhwer")
