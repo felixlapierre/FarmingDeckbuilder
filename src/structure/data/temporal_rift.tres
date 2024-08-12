@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="TemporalRift" load_steps=3 format=3 uid="uid://druhppqt5s53b"]
 
 [ext_resource type="Script" path="res://src/structure/custom/temp_rift.gd" id="1_5jb5e"]
-[ext_resource type="Texture2D" uid="uid://c46q76532nqk" path="res://assets/custom/Temp.png" id="2_dbjo3"]
+[ext_resource type="Texture2D" uid="uid://c7erjo65l8u4t" path="res://assets/structure/temporal_rift.png" id="2_u0vna"]
 
 [resource]
 script = ExtResource("1_5jb5e")
@@ -10,5 +10,5 @@ rarity = "rare"
 cost = 1
 size = 24
 text = "Purple yield from harvesting nearby plants is gained next turn"
-texture = ExtResource("2_dbjo3")
+texture = ExtResource("2_u0vna")
 effects = Array[Resource("res://src/effect/effect.gd")]([])

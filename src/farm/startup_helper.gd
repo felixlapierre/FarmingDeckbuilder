@@ -8,7 +8,7 @@ static var Carrot = preload("res://src/cards/data/seed/carrot.tres")
 static var Radish = preload("res://src/cards/data/seed/radish.tres")
 static var Potato = preload("res://src/cards/data/seed/potato.tres")
 static var Cactus = preload("res://src/cards/data/seed/cactus.tres")
-static var Water = preload("res://src/structure/data/river.tres")
+static var Water = preload("res://src/structure/unique/river.tres")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

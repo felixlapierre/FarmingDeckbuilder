@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="Enhance" load_steps=3 format=3 uid="uid://cq0pdoi25nb2y"]
 
 [ext_resource type="Script" path="res://src/enhance/enhance.gd" id="1_kmluc"]
-[ext_resource type="Texture2D" uid="uid://c46q76532nqk" path="res://assets/custom/Temp.png" id="2_uxn46"]
+[ext_resource type="Texture2D" uid="uid://c5d5tfh6v0kss" path="res://assets/enhance/remembrance.png" id="2_1rw0i"]
 
 [resource]
 script = ExtResource("1_kmluc")
@@ -9,4 +9,4 @@ name = "Remembrance"
 rarity = "rare"
 strength = 0.0
 targets = Array[String]([])
-texture = ExtResource("2_uxn46")
+texture = ExtResource("2_1rw0i")

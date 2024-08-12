@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://src/effect/effect.gd" id="1_sy7m2"]
 [ext_resource type="Resource" uid="uid://cqfvdr8thdmfu" path="res://src/effect/data/harvest.tres" id="2_laiyt"]
 [ext_resource type="Resource" uid="uid://bhqfoxamlgo2g" path="res://src/effect/data/destroy.tres" id="3_nq72m"]
-[ext_resource type="Texture2D" uid="uid://c46q76532nqk" path="res://assets/custom/Temp.png" id="5_4iw54"]
+[ext_resource type="Texture2D" uid="uid://d0wew22tfsk6x" path="res://assets/card/abundance.png" id="5_sotox"]
 
 [sub_resource type="Resource" id="Resource_j36iy"]
 script = ExtResource("1_sy7m2")
@@ -23,7 +23,7 @@ yld = 0
 time = 0
 size = 9
 text = ""
-texture = ExtResource("5_4iw54")
+texture = ExtResource("5_sotox")
 seed_texture = 0
 targets = Array[String](["Mature"])
 effects = Array[ExtResource("1_sy7m2")]([SubResource("Resource_j36iy"), ExtResource("2_laiyt"), ExtResource("3_nq72m")])

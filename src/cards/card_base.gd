@@ -63,7 +63,7 @@ func set_card_info(card_data):
 			var texture = AtlasTexture.new()
 			if card_data.texture != null:
 				texture.atlas = card_data.texture
-				texture.set_region(Rect2(Vector2(48, 16), Vector2(16, 16)))
+				texture.set_region(Rect2(Vector2(texture.get_width() - 16, 16), Vector2(16, 16)))
 			else:
 				texture.atlas = load("res://assets/1616tinygarden/objects.png")
 				texture.set_region(Rect2(Vector2(card_data.seed_texture * 16, 0), Vector2(16, 16)))

@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="Beehive" load_steps=3 format=3 uid="uid://cxhcsrd7p1ysu"]
 
 [ext_resource type="Script" path="res://src/structure/custom/beehive.gd" id="1_5h5di"]
-[ext_resource type="Texture2D" uid="uid://c46q76532nqk" path="res://assets/custom/Temp.png" id="2_417y0"]
+[ext_resource type="Texture2D" uid="uid://b687ymofgnkvc" path="res://assets/structure/beehive.png" id="2_xl6x3"]
 
 [resource]
 script = ExtResource("1_5h5di")
@@ -10,5 +10,5 @@ rarity = "common"
 cost = 0
 size = 0
 text = "Grow 3 random adjacent tiles at start of turn"
-texture = ExtResource("2_417y0")
+texture = ExtResource("2_xl6x3")
 effects = Array[Resource("res://src/effect/effect.gd")]([])
