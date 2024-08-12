@@ -1,14 +1,21 @@
-[gd_resource type="Resource" script_class="CardData" load_steps=5 format=3 uid="uid://cjlt0pkdf6lyb"]
+[gd_resource type="Resource" script_class="CardData" load_steps=6 format=3 uid="uid://cjlt0pkdf6lyb"]
 
 [ext_resource type="Script" path="res://src/cards/card_data.gd" id="1_c5yxm"]
 [ext_resource type="Script" path="res://src/effect/effect.gd" id="1_tftdn"]
-[ext_resource type="Texture2D" uid="uid://xioa7pkdc5t0" path="res://assets/custom/Scythe.png" id="2_if2l6"]
+[ext_resource type="Texture2D" uid="uid://dau5clxh37urh" path="res://assets/card/gather.png" id="3_qtugd"]
 
 [sub_resource type="Resource" id="Resource_k4tb7"]
 script = ExtResource("1_tftdn")
 name = "harvest"
 strength = 0.0
 on = ""
+range = "self"
+
+[sub_resource type="Resource" id="Resource_g3occ"]
+script = ExtResource("1_tftdn")
+name = "draw"
+strength = 1.0
+on = "play"
 range = "self"
 
 [resource]
@@ -21,7 +28,7 @@ yld = 3
 time = 3
 size = 3
 text = ""
-texture = ExtResource("2_if2l6")
+texture = ExtResource("3_qtugd")
 seed_texture = 3
 targets = Array[String](["Mature"])
-effects = Array[ExtResource("1_tftdn")]([SubResource("Resource_k4tb7")])
+effects = Array[ExtResource("1_tftdn")]([SubResource("Resource_k4tb7"), SubResource("Resource_g3occ")])

@@ -1,7 +1,8 @@
-[gd_resource type="Resource" script_class="Inscribe" load_steps=4 format=3 uid="uid://dwcjvqh17w6x0"]
+[gd_resource type="Resource" script_class="Inscribe" load_steps=5 format=3 uid="uid://dwcjvqh17w6x0"]
 
 [ext_resource type="Script" path="res://src/cards/custom/inscribe.gd" id="1_04rdl"]
 [ext_resource type="Script" path="res://src/effect/effect.gd" id="1_wd1yo"]
+[ext_resource type="Texture2D" uid="uid://cvct3ak02uwin" path="res://assets/card/inscribe.png" id="3_km15a"]
 
 [sub_resource type="Resource" id="Resource_clgxc"]
 script = ExtResource("1_wd1yo")
@@ -20,6 +21,7 @@ yld = 0
 time = 0
 size = 4
 text = "Draw a card for each tile destroyed"
+texture = ExtResource("3_km15a")
 seed_texture = 0
 targets = Array[String](["Growing", "Mature"])
 effects = Array[ExtResource("1_wd1yo")]([SubResource("Resource_clgxc")])

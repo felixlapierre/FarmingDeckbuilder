@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://src/effect/effect.gd" id="1_aymji"]
 [ext_resource type="Script" path="res://src/cards/card_data.gd" id="1_wfpb1"]
-[ext_resource type="Texture2D" uid="uid://c46q76532nqk" path="res://assets/custom/Temp.png" id="3_fiahd"]
+[ext_resource type="Texture2D" uid="uid://w15hqy0w34a3" path="res://assets/card/synthesize.png" id="3_is3vc"]
 
 [sub_resource type="Resource" id="Resource_ca8o8"]
 script = ExtResource("1_aymji")
@@ -28,7 +28,7 @@ yld = 0
 time = 0
 size = 1
 text = ""
-texture = ExtResource("3_fiahd")
+texture = ExtResource("3_is3vc")
 seed_texture = 0
 targets = Array[String](["Mature", "Growing"])
 effects = Array[ExtResource("1_aymji")]([SubResource("Resource_ca8o8"), SubResource("Resource_gtpo7")])

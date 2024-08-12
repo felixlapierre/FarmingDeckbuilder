@@ -252,7 +252,8 @@ func perform_effect(effect, tile: Tile):
 		"energy":
 			on_energy_gained.emit(effect.strength)
 		"draw":
-			on_card_draw.emit(effect.strength, null)
+			if effect.on != "play":
+				on_card_draw.emit(effect.strength, null)
 		"absorb":
 			tile.increase_permanent_mult(tile.IRRIGATED_MULTIPLIER * effect.strength)
 		"destroy_tile":
