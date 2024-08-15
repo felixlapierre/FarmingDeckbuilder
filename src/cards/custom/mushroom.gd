@@ -16,7 +16,8 @@ func register_seed_events(event_manager: EventManager, p_tile: Tile):
 	tile = p_tile
 	callback = func(args: EventArgs):
 		var destroyed_tile: Tile = args.specific.tile
-		tile.add_yield(destroyed_tile.current_yield * strength)
+		if destroyed_tile.current_yield > 0:
+			tile.add_yield(destroyed_tile.current_yield * strength)
 	event_manager.register_listener(EventManager.EventType.OnPlantDestroyed, callback)
 
 func unregister_seed_events(event_manager: EventManager):

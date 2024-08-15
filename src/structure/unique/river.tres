@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="Structure" load_steps=5 format=3 uid="uid://dqfldqe3ycfxl"]
+[gd_resource type="Resource" script_class="Structure" load_steps=5 format=3 uid="uid://chdlqixgt7wem"]
 
 [ext_resource type="Script" path="res://src/effect/effect.gd" id="1_yjkub"]
 [ext_resource type="Script" path="res://src/cards/structure.gd" id="2_7k386"]

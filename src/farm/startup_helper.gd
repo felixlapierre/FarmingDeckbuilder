@@ -91,6 +91,16 @@ static var forest_deck = [
 		"name": "pumpkin",
 		"type": "seed",
 		"count": 1
+	},
+	{
+		"name": "inscribe",
+		"type": "action",
+		"count": 1
+	},
+	{
+		"name": "inky_cap",
+		"type": "seed",
+		"count": 1
 	}
 ]
 

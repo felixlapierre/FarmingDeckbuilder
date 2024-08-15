@@ -211,12 +211,8 @@ func preview_harvest() -> float:
 func do_winter_clear():
 	if state == Enums.TileState.Growing or state == Enums.TileState.Mature or state == Enums.TileState.Destroyed:
 		state = Enums.TileState.Empty
-		seed = null
-		current_grow_progress = 0.0
-		current_yield = 0.0
+		remove_seed()
 		var current_multiplier = 1.0
-		var irrigated = false
-		$PlantSprite.visible = false
 		lose_irrigate()
 
 func multiply_yield(strength):
@@ -277,6 +273,7 @@ func set_blighted():
 	state = Enums.TileState.Blighted
 	$PlantSprite.visible = false
 	$Farmland.modulate = Color8(102, 0, 102)
+	$DestroyParticles.emitting = true
 
 func destroy():
 	on_event.emit()
@@ -284,11 +281,13 @@ func destroy():
 	$Farmland.modulate = Color8(45, 45, 45)
 	notify_destroyed()
 	remove_seed()
+	$DestroyParticles.emitting = true
 
 func destroy_plant():
 	state = Enums.TileState.Empty
 	notify_destroyed()
 	remove_seed()
+	$DestroyParticles.emitting = true
 
 func update_purple_overlay():
 	$PurpleOverlay.visible = purple and state != Enums.TileState.Inactive
@@ -317,3 +316,6 @@ func set_tile_size(n_size: Vector2):
 	$HarvestParticles.process_material.scale_max = 3.2
 	$AddYieldParticles.process_material.scale_min = 2
 	$AddYieldParticles.process_material.scale_max = 2
+	$DestroyParticles.process_material.scale_min = 5
+	$DestroyParticles.process_material.scale_max = 5
+	
