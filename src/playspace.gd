@@ -152,6 +152,9 @@ func on_upgrade(upgrade: Upgrade):
 		Upgrade.UpgradeType.RemoveBlight:
 			$TurnManager.blight_damage -= int(upgrade.strength)
 			$UserInterface.update_damage()
+		Upgrade.UpgradeType.AddSpecificCard:
+			deck.append(upgrade.card)
+			pass
 		_:
 			print(upgrade.text)
 
@@ -204,6 +207,7 @@ func save_game():
 		"week": turn_manager.week,
 		"energy_fragments": Global.ENERGY_FRAGMENTS,
 		"draw_fragments": Global.SCROLL_FRAGMENTS,
+		"blight": turn_manager.blight_damage,
 		"winter": user_interface.is_winter(),
 		"difficulty": Global.DIFFICULTY,
 		"farm_type": Global.FARM_TYPE,
@@ -244,6 +248,7 @@ func load_game():
 
 	turn_manager.year = int(save_json.state.year)
 	turn_manager.week = int(save_json.state.week)
+	turn_manager.blight_damage = int(save_json.state.blight)
 	Global.ENERGY_FRAGMENTS = int(save_json.state.energy_fragments)
 	Global.SCROLL_FRAGMENTS = int(save_json.state.draw_fragments)
 	Global.DIFFICULTY = int(save_json.state.difficulty)
