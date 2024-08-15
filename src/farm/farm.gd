@@ -283,6 +283,7 @@ func do_winter_clear():
 	for tile: Tile in $Tiles.get_children():
 		tile.do_winter_clear()
 		tile.set_blight_targeted(false)
+		tile.set_destroy_targeted(false)
 		tile.lose_irrigate()
 		if tile.state == Enums.TileState.Blighted:
 			blighted_tiles.append(tile)
@@ -345,6 +346,8 @@ func destroy_blighted_tiles():
 	for tile in $Tiles.get_children():
 		if tile.blight_targeted == true:
 			tile.set_blighted()
+		elif tile.destroy_targeted == true:
+			tile.destroy()
 
 func use_card_random_tile(card: CardData, times: int):
 	var tiles = []

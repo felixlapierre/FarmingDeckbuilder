@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="DestroyPlants" load_steps=2 format=3 uid="uid://bgjx2gk6lgjsq"]
+
+[ext_resource type="Script" path="res://src/fortune/custom/destroy_plants.gd" id="1_1ecwd"]
+
+[resource]
+script = ExtResource("1_1ecwd")
+count = 2
+name = "Destroy"
+type = 1
+text = "Destroy 2 plants at the end of each turn"
+rank = 1

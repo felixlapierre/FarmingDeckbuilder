@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://src/effect/effect.gd" id="1_ygd83"]
 [ext_resource type="Script" path="res://src/cards/card_data.gd" id="2_t0jwe"]
-[ext_resource type="Texture2D" uid="uid://rli016omoh17" path="res://assets/card/blueberry.png" id="3_wd52j"]
+[ext_resource type="Texture2D" uid="uid://c5ow6tj1ja3m" path="res://assets/seed/blueberry.png" id="3_fneuo"]
 
 [sub_resource type="Resource" id="Resource_rown8"]
 script = ExtResource("1_ygd83")
@@ -21,7 +21,7 @@ yld = 4
 time = 2
 size = 3
 text = ""
-texture = ExtResource("3_wd52j")
+texture = ExtResource("3_fneuo")
 seed_texture = 3
 targets = Array[String]([])
 effects = Array[ExtResource("1_ygd83")]([SubResource("Resource_rown8")])

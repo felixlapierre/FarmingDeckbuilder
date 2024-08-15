@@ -15,6 +15,7 @@ static var BLIGHT_TILES_THREATENED = 4
 static var BLIGHT_FLAG_PIERCING = false
 static var BLIGHT_FLAG_THREATEN_GROWING = false
 static var BLIGHT_TARGET_MULTIPLIER: float = 1.0
+static var DESTROY_TILES_THIS_TURN: int = 1
 
 static var MANA_TARGET_LOCATION_YELLOW: Vector2 = Vector2(558, 442)
 static var MANA_TARGET_LOCATION_PURPLE: Vector2 = Vector2(1350, 438)

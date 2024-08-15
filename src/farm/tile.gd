@@ -21,6 +21,7 @@ var purple = false
 var structure_rotate = 0
 var permanent_multiplier = 0.0
 var blight_targeted = false
+var destroy_targeted = false
 
 signal tile_hovered
 signal on_event
@@ -77,9 +78,9 @@ func _on_tile_button_gui_input(event: InputEvent) -> void:
 
 func plant_seed_animate(planted_seed) -> Array[Effect]:
 	var effects = plant_seed(planted_seed)
-	$PlantSprite.scale = Vector2(0, 0)
 	var tween = get_tree().create_tween()
-	tween.tween_property($PlantSprite, "scale", Vector2(1, 1), 0.1);
+	tween.tween_property($PlantSprite, "scale", $PlantSprite.scale, 0.1);
+	$PlantSprite.scale = Vector2(0, 0)
 	return effects
 
 func plant_seed(planted_seed) -> Array[Effect]:
@@ -125,8 +126,8 @@ func grow_one_week() -> Array[Effect]:
 
 func grow_animation():
 	var tween = get_tree().create_tween()
-	tween.tween_property($PlantSprite, "scale", Vector2(0.8, 1.2), 0.1)
-	tween.tween_property($PlantSprite, "scale", Vector2(1, 1), 0.1)
+	tween.tween_property($PlantSprite, "scale", $PlantSprite.scale * Vector2(0.8, 1.2), 0.1)
+	tween.tween_property($PlantSprite, "scale", $PlantSprite.scale * Vector2(1, 1), 0.1)
 
 func update_plant_sprite():
 	if seed.texture == null:
@@ -149,14 +150,15 @@ func update_plant_sprite():
 			
 		$PlantSprite.set_region_rect(Rect2(seed.seed_texture * 16, y, 16, h))
 		$PlantSprite.offset = Vector2(0, -8 if h == 16 else -14)
+		$PlantSprite.scale = Vector2(1, 1)
 	else:
-		var max_stage: int = seed.texture.get_width() / 16 - 1
+		var resolution = seed.texture.get_height() / 2
+		var max_stage: int = seed.texture.get_width() / resolution - 1
 		var current_stage = int(current_grow_progress / seed_grow_time * max_stage)
-		var x = 16 * current_stage
-		$PlantSprite.set_region_rect(Rect2(x, 0, 16, 32))
-		$PlantSprite.offset = Vector2(0, -16)
-		
-		
+		var x = resolution * current_stage
+		$PlantSprite.set_region_rect(Rect2(x, 0, resolution, resolution*2))
+		$PlantSprite.offset = Vector2(0, -resolution)
+		$PlantSprite.scale = Vector2(16.0 / resolution, 16.0 / resolution)
 
 func harvest(delay) -> Array[Effect]:
 	var effects: Array[Effect] = []
@@ -266,6 +268,10 @@ func increase_permanent_mult(factor):
 func set_blight_targeted(value):
 	blight_targeted = value
 	$BlightTargetOverlay.visible = value
+
+func set_destroy_targeted(value):
+	destroy_targeted = value
+	$DestroyTargetOverlay.visible = value
 
 func set_blighted():
 	notify_destroyed()

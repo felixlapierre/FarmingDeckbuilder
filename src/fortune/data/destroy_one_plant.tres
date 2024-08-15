@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="DestroyPlants" load_steps=3 format=3 uid="uid://bb5sihtu2p5v7"]
+
+[ext_resource type="Script" path="res://src/fortune/custom/destroy_plants.gd" id="1_bjhlh"]
+[ext_resource type="Texture2D" uid="uid://bjygvp3da0050" path="res://assets/custom/destroy_target.png" id="2_w0u1v"]
+
+[resource]
+script = ExtResource("1_bjhlh")
+count = 1
+name = "Destroy"
+type = 1
+text = "Destroy one plant at the end of each turn"
+rank = 0
+texture = ExtResource("2_w0u1v")

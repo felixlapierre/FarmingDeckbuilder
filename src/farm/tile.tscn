@@ -1,11 +1,12 @@
-[gd_scene load_steps=16 format=3 uid="uid://ccnobfjaguoie"]
+[gd_scene load_steps=17 format=3 uid="uid://ccnobfjaguoie"]
 
 [ext_resource type="Script" path="res://src/farm/tile.gd" id="1_8vnt4"]
 [ext_resource type="Texture2D" uid="uid://cmitvrjj6os0f" path="res://assets/1616tinygarden/Farm.png" id="2_n75y4"]
 [ext_resource type="Texture2D" uid="uid://kpujc3kdexl3" path="res://assets/custom/PurpleOverlay.png" id="3_jwute"]
 [ext_resource type="Texture2D" uid="uid://bofm5pndld7ww" path="res://assets/custom/FarmTile2.png" id="4_bvg7e"]
-[ext_resource type="Texture2D" uid="uid://xioa7pkdc5t0" path="res://assets/custom/Scythe.png" id="5_u7scn"]
+[ext_resource type="Texture2D" uid="uid://cd1h6bwxdmv25" path="res://assets/seed/weed.png" id="5_et8s8"]
 [ext_resource type="Texture2D" uid="uid://dbbhalo3edxpk" path="res://assets/custom/BlightTarget.png" id="6_6m84b"]
+[ext_resource type="Texture2D" uid="uid://bjygvp3da0050" path="res://assets/custom/destroy_target.png" id="7_023dm"]
 [ext_resource type="Texture2D" uid="uid://cba7uh0mnuoum" path="res://assets/custom/LeafParticle.png" id="7_otjuw"]
 [ext_resource type="Texture2D" uid="uid://jbl8fupoclkv" path="res://assets/custom/GainYieldParticle.png" id="8_hyote"]
 [ext_resource type="Texture2D" uid="uid://clf1ovfisrdg0" path="res://assets/animation/destroy.png" id="9_cvalt"]
@@ -96,13 +97,22 @@ texture_normal = ExtResource("4_bvg7e")
 visible = false
 texture_filter = 1
 position = Vector2(8, 16)
-texture = ExtResource("5_u7scn")
-offset = Vector2(0, -8)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("5_et8s8")
+offset = Vector2(0, -16)
+region_enabled = true
+region_rect = Rect2(0, 32, 32, 32)
 
 [node name="BlightTargetOverlay" type="Sprite2D" parent="."]
 visible = false
 texture_filter = 1
 texture = ExtResource("6_6m84b")
+offset = Vector2(8, 8)
+
+[node name="DestroyTargetOverlay" type="Sprite2D" parent="."]
+visible = false
+texture_filter = 1
+texture = ExtResource("7_023dm")
 offset = Vector2(8, 8)
 
 [node name="HarvestParticles" type="GPUParticles2D" parent="."]
