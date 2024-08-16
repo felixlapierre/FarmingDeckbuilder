@@ -7,7 +7,7 @@
 [sub_resource type="Resource" id="Resource_rown8"]
 script = ExtResource("1_ygd83")
 name = "plant"
-strength = 1.0
+strength = 2.0
 on = "harvest"
 range = "self"
 
@@ -21,6 +21,8 @@ yld = 4
 time = 2
 size = 3
 text = ""
+strength_increment = 2.0
+size_increment = 3
 texture = ExtResource("3_fneuo")
 seed_texture = 3
 targets = Array[String]([])

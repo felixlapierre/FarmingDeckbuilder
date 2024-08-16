@@ -3,8 +3,9 @@ extends Fortune
 var callback: Callable
 var event_type = EventManager.EventType.AfterYearStart
 var weeds = preload("res://src/fortune/unique/weed.tres")
+var weeds_texture = preload("res://assets/fortune/weed_fortune.png")
 func _init() -> void:
-	super("Overgrown", FortuneType.BadFortune, "Entire farm is full of weeds", 1)
+	super("Overgrown", FortuneType.BadFortune, "Entire farm is full of weeds", 1, weeds_texture)
 
 func register_fortune(event_manager: EventManager):
 	callback = plant_weeds

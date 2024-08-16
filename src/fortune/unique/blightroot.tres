@@ -1,7 +1,8 @@
-[gd_resource type="Resource" script_class="CardData" load_steps=4 format=3 uid="uid://wpxt1q4rwgvv"]
+[gd_resource type="Resource" script_class="CardData" load_steps=5 format=3 uid="uid://wpxt1q4rwgvv"]
 
 [ext_resource type="Script" path="res://src/cards/card_data.gd" id="1_ea0r0"]
 [ext_resource type="Script" path="res://src/effect/effect.gd" id="1_ojs3i"]
+[ext_resource type="Texture2D" uid="uid://cpjbb6fmti2s5" path="res://assets/seed/blightroot.png" id="3_pid0k"]
 
 [sub_resource type="Resource" id="Resource_qlklo"]
 script = ExtResource("1_ojs3i")
@@ -20,6 +21,7 @@ yld = 1
 time = 1
 size = 0
 text = ""
+texture = ExtResource("3_pid0k")
 seed_texture = 0
 targets = Array[String]([])
 effects = Array[ExtResource("1_ojs3i")]([SubResource("Resource_qlklo")])

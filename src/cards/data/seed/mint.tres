@@ -7,12 +7,14 @@
 script = ExtResource("2_p7hwa")
 type = "SEED"
 name = "Mint"
-rarity = "rare"
+rarity = "uncommon"
 cost = 1
 yld = 2
 time = 2
 size = 2
 text = ""
+strength_increment = 1.0
+size_increment = 1
 seed_texture = 2
 targets = Array[String]([])
 effects = Array[Resource("res://src/effect/effect.gd")]([ExtResource("1_kxehu")])

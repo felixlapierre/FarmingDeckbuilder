@@ -3,8 +3,9 @@ extends Fortune
 var callable
 var farm_ref: Farm
 
+var kaleidoscope_texture = preload("res://assets/fortune/kaleidoscope1.png")
 func _init() -> void:
-	super("Kaleidoscope", FortuneType.BadFortune, "Swap purple and yellow zones at end of turn", 1)
+	super("Kaleidoscope", FortuneType.BadFortune, "Swap purple and yellow zones at end of turn", 1, kaleidoscope_texture)
 
 func register_fortune(event_manager: EventManager):
 	callable = func(args):

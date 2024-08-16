@@ -1,6 +1,7 @@
-[gd_resource type="Resource" script_class="CardData" load_steps=2 format=3 uid="uid://511i5jot3t0"]
+[gd_resource type="Resource" script_class="CardData" load_steps=3 format=3 uid="uid://511i5jot3t0"]
 
 [ext_resource type="Script" path="res://src/cards/card_data.gd" id="1_5fbei"]
+[ext_resource type="Texture2D" uid="uid://cb0gpq5358pex" path="res://assets/seed/wildflowers.png" id="2_resm3"]
 
 [resource]
 script = ExtResource("1_5fbei")
@@ -12,6 +13,7 @@ yld = 5
 time = 1
 size = 1
 text = ""
+texture = ExtResource("2_resm3")
 seed_texture = 2
 targets = Array[String]([])
 effects = Array[Resource("res://src/effect/effect.gd")]([])

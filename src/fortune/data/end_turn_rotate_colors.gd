@@ -4,8 +4,9 @@ var callable
 var farm_ref: Farm
 
 var rotation: int = 3
+var kaleidoscope_texture = preload("res://assets/fortune/kaleidoscope2.png")
 func _init() -> void:
-	super("Kaleidoscope 2", FortuneType.BadFortune, "Purple and yellow zones rotate at end of turn", 2)
+	super("Kaleidoscope 2", FortuneType.BadFortune, "Purple and yellow zones rotate at end of turn", 2, kaleidoscope_texture)
 
 func register_fortune(event_manager: EventManager):
 	callable = func(args):

@@ -4,8 +4,9 @@ class_name Wildflowers
 var callback: Callable
 var event_type = EventManager.EventType.AfterYearStart
 var wildflower = preload("res://src/fortune/unique/wildflower.tres")
+var fortune_icon = preload("res://assets/fortune/wildflowers-fortune.png")
 func _init() -> void:
-	super("Wildflowers", FortuneType.GoodFortune, "Start with wildflowers on your farm", 0)
+	super("Wildflowers", FortuneType.GoodFortune, "Start with wildflowers on your farm", 0, fortune_icon)
 
 func register_fortune(event_manager: EventManager):
 	callback = plant_wildflowers

@@ -1,9 +1,9 @@
 extends Fortune
 
 var callable
-
+var obliviate_texture = preload("res://assets/enhance/obliviate.png")
 func _init() -> void:
-	super("Thoughtless", FortuneType.BadFortune, "Obliviate rightmost card in hand at the end of the turn", 2)
+	super("Thoughtless", FortuneType.BadFortune, "Obliviate rightmost card in hand at the end of the turn", 2, obliviate_texture)
 
 func register_fortune(event_manager: EventManager):
 	callable = func(args: EventArgs):

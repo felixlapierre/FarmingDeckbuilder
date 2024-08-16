@@ -4,9 +4,9 @@ class_name WeedsStartDeck
 var callback: Callable
 var event_type = EventManager.EventType.AfterYearStart
 var weeds = preload("res://src/fortune/unique/weed.tres")
-
+var weeds_texture = preload("res://assets/fortune/weed_card_fortune.png")
 func _init() -> void:
-	super("Cursed Scrolls", FortuneType.BadFortune, "Add 2 Weeds to your deck for this year", 0)
+	super("Cursed Scrolls", FortuneType.BadFortune, "Add 2 Weeds to your deck for this year", 0, weeds_texture)
 
 func register_fortune(event_manager: EventManager):
 	callback = add_daylily

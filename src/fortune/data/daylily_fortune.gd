@@ -4,9 +4,10 @@ class_name DaylilyFortune
 var callback: Callable
 var event_type = EventManager.EventType.BeforeYearStart
 var daylily = preload("res://src/fortune/unique/daylily.tres")
+var daylily_texture = preload("res://assets/fortune/daylily_fortune.png")
 
 func _init() -> void:
-	super("Daylilies", FortuneType.GoodFortune, "Add 2 Daylilies to your deck for this year", 0)
+	super("Daylilies", FortuneType.GoodFortune, "Add 2 Daylilies to your deck for this year", 0, daylily_texture)
 
 func register_fortune(event_manager: EventManager):
 	callback = add_daylily

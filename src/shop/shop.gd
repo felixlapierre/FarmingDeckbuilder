@@ -27,6 +27,8 @@ var turn_manager
 @onready var STOCK_ONE = $PanelContainer/ShopContainer/ChoiceOne/Stock
 @onready var CHOICE_TWO = $PanelContainer/ShopContainer/ChoiceTwo
 @onready var STOCK_TWO = $PanelContainer/ShopContainer/ChoiceTwo/Stock
+@onready var CHOICE_THREE = $PanelContainer/ShopContainer/ChoiceThree
+@onready var STOCK_THREE = $PanelContainer/ShopContainer/ChoiceThree/Stock
 @onready var tooltip: Tooltip = $Tooltip
 
 # Called when the node enters the scene tree for the first time.
@@ -46,12 +48,13 @@ func _process(delta: float) -> void:
 	pass
 
 func fill_shop():
-	set_row_visible(1, true)
-	set_row_visible(2, true)
-	clear_row(1)
-	clear_row(2)
-	fill_row_one()
-	fill_row_two()
+	for i in range(1, 4):
+		set_row_visible(i, true)
+		clear_row(i)
+		fill_row_number(i)
+	if ![5, 8, 11].has(turn_manager.week):
+		set_row_visible(3, false)
+		CHOICE_THREE.visible = false
 	$PanelContainer.position = Constants.VIEWPORT_SIZE / 2 - $PanelContainer.size / 2
 
 func clear_row(row):
@@ -61,6 +64,8 @@ func clear_row(row):
 			node = STOCK_ONE
 		2:
 			node = STOCK_TWO
+		3:
+			node = STOCK_THREE
 	for child in node.get_children():
 		node.remove_child(child)
 
@@ -70,6 +75,8 @@ func fill_row_number(row):
 			fill_row_one()
 		2:
 			fill_row_two()
+		3:
+			fill_row_three()
 
 func fill_row_one():
 	var options = card_database.get_all_cards()
@@ -101,6 +108,16 @@ func fill_row_two():
 	fill_row(STOCK_TWO, 2, [item1, item2, item3])
 	STOCK_TWO.add_child(create_remove_card_option())
 	STOCK_TWO.add_child(create_scrap_option(2, 2))
+
+func fill_row_three():
+	var options = card_database.get_all_cards()
+	var selected = []
+	for option in options:
+		if option.type == "SEED" or option.type == "ACTION":
+			selected.append(option)
+	var stock = generate_random_shop_items(shop_item_capacity, selected)
+	fill_row(STOCK_THREE, 3, stock)
+	STOCK_THREE.add_child(create_scrap_option(1, 3))
 
 func fill_row(node, row_number, stock):
 	for item in stock:
@@ -150,20 +167,29 @@ func create_remove_blight_option():
 # returns an array, items can be either CardData or Enhance
 func generate_random_shop_items(count, options):
 	var common = []
+	var uncommon = []
 	var rare = []
 	for option in options:
 		if option.rarity == "common":
 			common.append(option)
+		elif option.rarity == "uncommon":
+			uncommon.append(option)
 		elif option.rarity == "rare":
 			rare.append(option)
 
 	var result = []
 	var i = 0
 	while i < count:
-		var selection = common if randf() > 0.30 else rare
-		var selected = randi_range(0, selection.size() - 1)
-		result.append(selection.pop_at(selected))
-		i += 1
+		var r = randf()
+		var selection = common
+		if r >= 0.40 and r < 0.75:
+			selection = uncommon
+		elif r >= 0.75:
+			selection = rare
+		if selection.size() > 0:
+			var selected = randi_range(0, selection.size() - 1)
+			result.append(selection.pop_at(selected))
+			i += 1
 	return result
 
 func on_buy_row1(option):
@@ -193,6 +219,9 @@ func set_row_visible(row, vis):
 				child.visible = vis
 		2:
 			for child in CHOICE_TWO.get_children():
+				child.visible = vis
+		3:
+			for child in CHOICE_THREE.get_children():
 				child.visible = vis
 	if vis == false:
 		$'../'.update()
@@ -258,26 +287,36 @@ func save_data() -> Dictionary:
 	var data = {}
 	data.row1_visible = CHOICE_ONE.get_child(0).visible
 	data.row2_visible = CHOICE_TWO.get_child(0).visible
+	data.row3_visible = CHOICE_THREE.get_child(0).visible
 	data.row1 = []
 	data.row2 = []
+	data.row3 = []
 	for child in STOCK_ONE.get_children():
 		if child.get_data() != null:
 			data.row1.append(child.get_data().save_data())
 	for child in STOCK_TWO.get_children():
 		if child.get_data() != null:
 			data.row2.append(child.get_data().save_data())
+	for child in STOCK_THREE.get_children():
+		if child.get_data() != null:
+			data.row3.append(child.get_data().save_data())
 	return data
 
 func load_data(save_data: Dictionary):
 	clear_row(1)
 	clear_row(2)
+	clear_row(3)
 	fill_row(STOCK_ONE, 1, save_data.row1.map(func(data):
 		return load(data.path).new().load_data(data)))
 	fill_row(STOCK_TWO, 2, save_data.row2.map(func(data):
 		return load(data.path).new().load_data(data)))
+	fill_row(STOCK_THREE, 3, save_data.row3.map(func(data):
+		return load(data.path).new().load_data(data)))
 	set_row_visible(1, save_data.row1_visible)
 	set_row_visible(2, save_data.row2_visible)
+	set_row_visible(3, save_data.row3_visible)
 	STOCK_ONE.add_child(create_scrap_option(1, 1))
 	STOCK_TWO.add_child(create_remove_card_option())
 	STOCK_TWO.add_child(create_scrap_option(2, 2))
+	STOCK_THREE.add_child(create_scrap_option(1, 3))
 	$PanelContainer.position = Constants.VIEWPORT_SIZE / 2 - $PanelContainer.size / 2

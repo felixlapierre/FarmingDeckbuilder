@@ -6,7 +6,7 @@
 script = ExtResource("1_ywban")
 type = "SEED"
 name = "Honey Melon"
-rarity = "rare"
+rarity = "common"
 cost = 1
 yld = 100
 time = 10

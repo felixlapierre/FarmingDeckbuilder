@@ -4,9 +4,10 @@ class_name WeedsDeckTurnStart
 var callback: Callable
 var event_type = EventManager.EventType.BeforeTurnStart
 var weeds = preload("res://src/fortune/unique/weed.tres")
+var weeds_texture = preload("res://assets/fortune/weed_card_fortune.png")
 
 func _init() -> void:
-	super("Cursed Grimoire", FortuneType.BadFortune, "Add a Weeds card to your deck at the start of each turn", 1)
+	super("Cursed Grimoire", FortuneType.BadFortune, "Add a Weeds card to your deck at the start of each turn", 1, weeds_texture)
 
 func register_fortune(event_manager: EventManager):
 	callback = add_weed_to_deck

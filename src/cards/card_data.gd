@@ -12,13 +12,16 @@ const CLASS_NAME = "CardData"
 @export var time: int
 @export var size: int
 @export var text: String
+@export var strength_increment: float = 1.0
+@export var size_increment: int = 1
 @export var texture: Texture2D
 @export var seed_texture: int
 @export var targets: Array[String]
 @export var effects: Array[Effect]
 
 func _init(p_type = "CARD", p_name = "PlaceholderCardName", p_rarity = "common", p_cost = 1, p_yld = 1,\
-	p_time = 1, p_size = 1, p_text = "", p_texture = null, p_seed_texture = 1, p_targets = [], p_effects = []):
+	p_time = 1, p_size = 1, p_text = "", p_texture = null, p_seed_texture = 1, p_targets = [], p_effects = [],\
+	p_strength_increment = 1.0, p_size_increment = 1):
 		type = p_type
 		name = p_name
 		rarity = p_rarity
@@ -31,6 +34,8 @@ func _init(p_type = "CARD", p_name = "PlaceholderCardName", p_rarity = "common",
 		seed_texture = p_seed_texture
 		targets.assign(p_targets)
 		effects.assign(p_effects)
+		strength_increment = p_strength_increment
+		size_increment = p_size_increment
 
 func get_effect(effect_name):
 	for effect in effects:
@@ -58,6 +63,8 @@ func assign(other: CardData) -> void:
 		targets.append(target)
 	for effect in other.effects:
 		effects.append(effect.copy())
+	strength_increment = other.strength_increment
+	size_increment = other.size_increment
 
 func apply_enhance(enhance: Enhance):
 	var n_card = copy()
@@ -83,7 +90,7 @@ func apply_enhance(enhance: Enhance):
 		"Strength":
 			n_card.apply_strength(enhance)
 		"Size":
-			n_card.size += enhance.strength
+			n_card.size += enhance.strength * size_increment
 		"Springbound":
 			n_card.effects.append(load("res://src/effect/data/springbound.tres"))
 	return n_card
@@ -91,10 +98,10 @@ func apply_enhance(enhance: Enhance):
 func apply_strength(enhance: Enhance):
 	for effect in effects:
 		if effect.strength > 0.0:
-			effect.strength += enhance.strength
+			effect.strength += enhance.strength * strength_increment
 			break
 		elif effect.strength < 0.0:
-			effect.strength -= enhance.strength
+			effect.strength -= enhance.strength * strength_increment
 			break
 
 func get_description() -> String:

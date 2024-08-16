@@ -67,6 +67,19 @@ text = "Reroll"
 cost = -1
 row = 1
 
+[node name="ChoiceThree" type="HBoxContainer" parent="PanelContainer/ShopContainer"]
+visible = false
+layout_mode = 2
+
+[node name="Stock" type="HBoxContainer" parent="PanelContainer/ShopContainer/ChoiceThree"]
+layout_mode = 2
+
+[node name="Reroll" parent="PanelContainer/ShopContainer/ChoiceThree" instance=ExtResource("4_a7s51")]
+layout_mode = 2
+text = "Reroll"
+cost = -1
+row = 3
+
 [node name="ChoiceTwo" type="HBoxContainer" parent="PanelContainer/ShopContainer"]
 custom_minimum_size = Vector2(0, 350)
 layout_mode = 2
@@ -99,5 +112,6 @@ visible = false
 [connection signal="pressed" from="ClickOutButton" to="." method="_on_close_button_pressed"]
 [connection signal="pressed" from="PanelContainer/ShopContainer/Header/CloseButton" to="." method="_on_close_button_pressed"]
 [connection signal="option_selected" from="PanelContainer/ShopContainer/ChoiceOne/Reroll" to="." method="on_reroll"]
+[connection signal="option_selected" from="PanelContainer/ShopContainer/ChoiceThree/Reroll" to="." method="on_reroll"]
 [connection signal="option_selected" from="PanelContainer/ShopContainer/ChoiceTwo/Reroll" to="." method="on_reroll"]
 [connection signal="select_cancelled" from="RemoveCardContainer/SelectCard" to="." method="_on_card_remove_cancelled"]
