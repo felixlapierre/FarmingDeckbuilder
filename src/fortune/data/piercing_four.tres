@@ -10,5 +10,5 @@ also_destroy_tile = false
 name = "Piercing"
 type = 1
 text = "Even if blocked, blight will destroy the plants on 4 targeted tiles"
-rank = 3
+rank = 1
 texture = ExtResource("2_fir6k")

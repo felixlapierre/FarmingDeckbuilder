@@ -15,7 +15,8 @@ func register_fortune(event_manager: EventManager):
 	callback_turn_start = func(args: EventArgs):
 		var targeted_tiles = []
 		for tile in args.farm.get_all_tiles():
-			if !tile.blight_targeted and [Enums.TileState.Growing, Enums.TileState.Mature].has(tile.state):
+			if !tile.blight_targeted and [Enums.TileState.Growing, Enums.TileState.Mature].has(tile.state)\
+				and tile.seed_base_yield != 0.0:
 				targeted_tiles.append(tile)
 		targeted_tiles.shuffle()
 		for i in range(min(count, targeted_tiles.size())):

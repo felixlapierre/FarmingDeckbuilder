@@ -130,7 +130,6 @@ func get_blight_at_week(week):
 	return 0 if week < 5 else randi_range(0, 1) * (week * randi_range(1,3))
 
 func set_blight_targeted_tiles(farm: Farm):
-	print(Global.BLIGHT_FLAG_THREATEN_GROWING)
 	var number_tiles = Constants.BASE_BLIGHT_DAMAGE if target_blight > 0 else 0
 	var all_tiles = farm.get_all_tiles()
 	all_tiles.shuffle()

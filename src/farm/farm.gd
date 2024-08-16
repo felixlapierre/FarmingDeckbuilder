@@ -352,10 +352,12 @@ func destroy_blighted_tiles():
 func use_card_random_tile(card: CardData, times: int):
 	var tiles = []
 	for tile in $Tiles.get_children():
-		if tile.state != Enums.TileState.Inactive:
+		if tile.state == Enums.TileState.Empty:
 			tiles.append(tile)
 	tiles.shuffle()
 	var locations = []
+	if tiles.size() == 0:
+		return
 	for i in range(times):
 		locations.append(tiles[i].grid_location)
 	use_card_on_targets(card, locations, false)

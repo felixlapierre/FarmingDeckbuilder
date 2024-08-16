@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="CardData" load_steps=4 format=3 uid="uid://cuesoig50bix"]
+[gd_resource type="Resource" script_class="CardData" load_steps=4 format=3 uid="uid://c4g62lgvuqw8e"]
 
 [ext_resource type="Script" path="res://src/effect/effect.gd" id="1_48b7n"]
 [ext_resource type="Script" path="res://src/cards/card_data.gd" id="1_grwbu"]
@@ -17,8 +17,8 @@ name = "Cranberry"
 rarity = "uncommon"
 cost = 1
 yld = 4
-time = 0
-size = 0
+time = 2
+size = 4
 text = ""
 strength_increment = 1.0
 size_increment = 1

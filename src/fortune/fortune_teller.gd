@@ -27,11 +27,11 @@ func create_fortunes():
 	current_fortunes.clear()
 	for child in $CenterContainer/PanelContainer/VBox/Fortunes.get_children():
 		$CenterContainer/PanelContainer/VBox/Fortunes.remove_child(child)
-		
+
 	# Ensure we get a random fortune
 	for type in Fortune.FortuneType.values():
 		fortune_map[type].shuffle()
-	
+
 	# Select the fortunes based on week
 	if Global.DIFFICULTY < Constants.DIFFICULTY_MISFORTUNE:
 		current_fortunes.append(get_fortune(Fortune.FortuneType.GoodFortune, 0))
@@ -44,55 +44,64 @@ func create_fortunes():
 
 func get_current_fortunes_regular():
 	match event_manager.turn_manager.year + 1:
-		2, 3, 5, 6:
-			current_fortunes.append(get_fortune(Fortune.FortuneType.BadFortune, 0))
-		4:
-			current_fortunes.append(get_fortune(Fortune.FortuneType.BadFortune, 1))
+		2, 3:
+			bad_fortune(0)
+		4, 5:
+			bad_fortune(1)
+		6:
+			bad_fortune(1)
+			bad_fortune(0)
 		7:
-			current_fortunes.append(get_fortune(Fortune.FortuneType.BadFortune, 2))
-		8, 9:
-			current_fortunes.append(get_fortune(Fortune.FortuneType.BadFortune, 1))
+			bad_fortune(2)
+		8:
+			bad_fortune(2)
+			bad_fortune(0)
+		9:
+			bad_fortune(2)
+			bad_fortune(1)
 		10:
-			current_fortunes.append(get_fortune(Fortune.FortuneType.BadFortune, 3))
-		11:
-			current_fortunes.append(get_fortune(Fortune.FortuneType.BadFortune, 0))
-			current_fortunes.append(get_fortune(Fortune.FortuneType.BadFortune, 1))
-			current_fortunes.append(get_fortune(Fortune.FortuneType.BadFortune, 3))
-			
+			bad_fortune(3)
 		_:
-			current_fortunes.append(get_fortune(Fortune.FortuneType.BadFortune, randi_range(0, 3)))
+			bad_fortune(3)
+			bad_fortune(2)
+			bad_fortune(1)
+
+func bad_fortune(rank: int):
+	current_fortunes.append(get_fortune(Fortune.FortuneType.BadFortune, rank))
 
 func get_current_fortunes_misfortune():
 	match event_manager.turn_manager.year + 1:
 		2, 3:
-			current_fortunes.append(get_fortune(Fortune.FortuneType.BadFortune, 0))
+			bad_fortune(0)
 		4:
-			current_fortunes.append(get_fortune(Fortune.FortuneType.BadFortune, 1))
+			bad_fortune(1)
 		5:
-			current_fortunes.append(get_fortune(Fortune.FortuneType.BadFortune, 0))
-			current_fortunes.append(get_fortune(Fortune.FortuneType.BadFortune, 0))
+			bad_fortune(1)
+			bad_fortune(0)
 		6:
-			current_fortunes.append(get_fortune(Fortune.FortuneType.BadFortune, 1))
+			bad_fortune(1)
+			bad_fortune(1)
 		7:
-			current_fortunes.append(get_fortune(Fortune.FortuneType.BadFortune, 0))
-			current_fortunes.append(get_fortune(Fortune.FortuneType.BadFortune, 2))
+			bad_fortune(2)
+			bad_fortune(0)
 		8:
-			current_fortunes.append(get_fortune(Fortune.FortuneType.BadFortune, 0))
-			current_fortunes.append(get_fortune(Fortune.FortuneType.BadFortune, 1))
+			bad_fortune(2)
+			bad_fortune(1)
 		9:
-			current_fortunes.append(get_fortune(Fortune.FortuneType.BadFortune, 1))
-			current_fortunes.append(get_fortune(Fortune.FortuneType.BadFortune, 2))
+			bad_fortune(2)
+			bad_fortune(2)
 		10:
-			current_fortunes.append(get_fortune(Fortune.FortuneType.BadFortune, 2))
-			current_fortunes.append(get_fortune(Fortune.FortuneType.BadFortune, 3))
+			bad_fortune(3)
+			bad_fortune(1)
 		11:
-			current_fortunes.append(get_fortune(Fortune.FortuneType.BadFortune, 0))
-			current_fortunes.append(get_fortune(Fortune.FortuneType.BadFortune, 1))
-			current_fortunes.append(get_fortune(Fortune.FortuneType.BadFortune, 2))
-			current_fortunes.append(get_fortune(Fortune.FortuneType.BadFortune, 3))
-			
+			bad_fortune(3)
+			bad_fortune(2)
+			bad_fortune(2)
 		_:
-			current_fortunes.append(get_fortune(Fortune.FortuneType.BadFortune, randi_range(0, 3)))
+			bad_fortune(2)
+			bad_fortune(2)
+			bad_fortune(1)
+			bad_fortune(1)
 
 func add_bad_fortune(rank: int):
 	current_fortunes.append(get_fortune(Fortune.FortuneType.BadFortune, rank))
