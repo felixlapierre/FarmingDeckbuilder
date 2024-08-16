@@ -96,8 +96,8 @@ func on_lose():
 	$Cards.discard_hand()
 	$Cards.do_winter_clear()
 	$UserInterface/UI/EndTurnButton.visible = false
-	$UserInterface/GameEndContainer.visible = true
-	$UserInterface/GameEndContainer/ResultLabel.text = "You Lose :("
+	$UserInterface/EndScreen.visible = true
+	$UserInterface/EndScreen.setup(turn_manager, deck)
 	$UserInterface/UI/Deck.visible = false
 	$UserInterface/UI/RitualPanel.visible = false
 
@@ -105,8 +105,8 @@ func on_win():
 	$Cards.discard_hand()
 	$Cards.do_winter_clear()
 	$UserInterface/UI/EndTurnButton.visible = false
-	$UserInterface/GameEndContainer.visible = true
-	$UserInterface/GameEndContainer/ResultLabel.text = "You Win! The Blight has been cleansed!"
+	$UserInterface/EndScreen.visible = true
+	$UserInterface/EndScreen.setup(turn_manager, deck)
 	$UserInterface/UI/Deck.visible = false
 	$UserInterface/UI/RitualPanel.visible = false
 

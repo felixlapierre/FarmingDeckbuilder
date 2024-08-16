@@ -1,0 +1,57 @@
+[gd_scene load_steps=3 format=3 uid="uid://dnb3c3pbmh6yl"]
+
+[ext_resource type="Script" path="res://src/ui/end_screen.gd" id="1_u2psr"]
+[ext_resource type="Theme" uid="uid://c21dhy264y6ty" path="res://assets/theme_large.tres" id="2_6j1sx"]
+
+[node name="EndScreen" type="Node2D"]
+script = ExtResource("1_u2psr")
+
+[node name="Panel" type="PanelContainer" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+theme = ExtResource("2_6j1sx")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Panel/VBoxContainer"]
+layout_mode = 2
+text = "You Win! :)"
+horizontal_alignment = 1
+
+[node name="Description" type="Label" parent="Panel/VBoxContainer"]
+layout_mode = 2
+text = "The Blight has been destroyed"
+
+[node name="Grid" type="GridContainer" parent="Panel/VBoxContainer"]
+layout_mode = 2
+columns = 2
+
+[node name="Stats" type="RichTextLabel" parent="Panel/VBoxContainer/Grid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+bbcode_enabled = true
+text = "Year: 10
+Week: 1
+Damage: 4/5
+Farm: Forest
+Difficulty: 1
+
+"
+fit_content = true
+
+[node name="Deck" type="RichTextLabel" parent="Panel/VBoxContainer/Grid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Deck:
+Blueberry x3
+Carrot x3
+Scythe x3
+Inscribe x1
+
+Structures:
+Sprinkler x1
+Keg x2"
+fit_content = true

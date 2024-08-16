@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://cswinrop881oo"]
+[gd_scene load_steps=22 format=3 uid="uid://cswinrop881oo"]
 
 [ext_resource type="Script" path="res://src/user_interface.gd" id="1_j28fq"]
 [ext_resource type="Theme" uid="uid://c21dhy264y6ty" path="res://assets/theme_large.tres" id="2_s7754"]
@@ -17,6 +17,7 @@
 [ext_resource type="Texture2D" uid="uid://ddooce1phh2xs" path="res://assets/custom/ShopButton.png" id="14_m3jdw"]
 [ext_resource type="PackedScene" uid="uid://djb7edsvibm5i" path="res://src/fortune/fortune_teller.tscn" id="15_yqxvh"]
 [ext_resource type="PackedScene" uid="uid://cg2lu7ivw8gms" path="res://src/event/game_event_dialog.tscn" id="16_a3egv"]
+[ext_resource type="PackedScene" uid="uid://dnb3c3pbmh6yl" path="res://src/ui/end_screen.tscn" id="16_r2tbl"]
 [ext_resource type="PackedScene" uid="uid://ch1l0jofkrynh" path="res://src/shop/shop.tscn" id="17_q7vph"]
 [ext_resource type="PackedScene" uid="uid://dvjkkex6w162i" path="res://src/upgrade/upgrade_shop.tscn" id="18_wm5tb"]
 [ext_resource type="PackedScene" uid="uid://cs4xf7kyndygr" path="res://src/ui/tooltip.tscn" id="20_dvki6"]
@@ -249,19 +250,9 @@ offset_right = 479.0
 offset_bottom = 481.0
 text = "Upgrade"
 
-[node name="GameEndContainer" type="PanelContainer" parent="."]
+[node name="EndScreen" parent="." instance=ExtResource("16_r2tbl")]
 visible = false
-z_index = 2
-offset_left = 746.0
-offset_top = 407.0
-offset_right = 1119.0
-offset_bottom = 487.0
-theme = ExtResource("2_s7754")
-
-[node name="ResultLabel" type="Label" parent="GameEndContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 100
-text = "You Lose! :("
+position = Vector2(736, 281)
 
 [node name="FortuneTeller" parent="." instance=ExtResource("15_yqxvh")]
 visible = false
