@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Lantern" load_steps=3 format=3 uid="uid://0k8vy3ayyvqs"]
+
+[ext_resource type="Script" path="res://src/structure/custom/lantern.gd" id="1_mw4rh"]
+[ext_resource type="Texture2D" uid="uid://b61l47dcutvs6" path="res://assets/structure/lantern.png" id="2_texka"]
+
+[resource]
+script = ExtResource("1_mw4rh")
+name = "Lantern"
+rarity = "common"
+cost = 1
+size = 24
+text = "Whenever you play a card, add 1 yield to a nearby plant"
+texture = ExtResource("2_texka")
+effects = Array[Resource("res://src/effect/effect.gd")]([])

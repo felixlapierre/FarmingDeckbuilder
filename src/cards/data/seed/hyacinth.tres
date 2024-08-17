@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="Hyacinth" load_steps=2 format=3 uid="uid://ch2ktqbeolpwb"]
+
+[ext_resource type="Script" path="res://src/cards/custom/hyacinth.gd" id="1_72x0k"]
+
+[resource]
+script = ExtResource("1_72x0k")
+strength = 1.0
+type = "SEED"
+name = "Hyacinth"
+rarity = "rare"
+cost = 1
+yld = 2
+time = 2
+size = 2
+text = "On harvest, set the cost of one card in your hand to 0"
+strength_increment = 1.0
+size_increment = 1
+seed_texture = 5
+targets = Array[String]([])
+effects = Array[Resource("res://src/effect/effect.gd")]([])

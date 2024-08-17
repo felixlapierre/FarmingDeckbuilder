@@ -34,7 +34,12 @@ func gain_yellow_mana(amount):
 
 func gain_purple_mana(amount, delay):
 	if !delay:
-		purple_mana += amount
+		if purple_mana + amount < 0: #meaning amount < 0
+			amount += purple_mana
+			purple_mana = 0
+			target_blight -= amount
+		else:
+			purple_mana += amount
 	else:
 		next_turn_blight -= amount
 		if next_turn_blight < 0:

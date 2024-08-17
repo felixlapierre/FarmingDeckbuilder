@@ -93,6 +93,12 @@ func apply_enhance(enhance: Enhance):
 			n_card.size += enhance.strength * size_increment
 		"Springbound":
 			n_card.effects.append(load("res://src/effect/data/springbound.tres"))
+		"Regrow":
+			for effect in n_card.effects:
+				if effect.name == "plant":
+					effect.strength += enhance.strength
+					return n_card
+			n_card.effects.append(load("res://src/effect/data/regrow_3.tres"))
 	return n_card
 
 func apply_strength(enhance: Enhance):

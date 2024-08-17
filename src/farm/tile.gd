@@ -208,6 +208,8 @@ func build_structure(n_structure: Structure, rotate):
 		.set_ease(Tween.EASE_OUT)
 
 func preview_harvest() -> float:
+	if seed != null and seed.get_effect("corrupted") != null:
+		return -1 * current_yield
 	return current_yield
 
 func do_winter_clear():
@@ -299,7 +301,8 @@ func update_purple_overlay():
 	$PurpleOverlay.visible = purple and state != Enums.TileState.Inactive
 
 func notify_harvest(delay: bool) -> EventArgs.HarvestArgs:
-	var harvest_args = EventArgs.HarvestArgs.new(current_yield, purple, delay)
+	var corrupted = seed.get_effect("corrupted") != null
+	var harvest_args = EventArgs.HarvestArgs.new(-current_yield if corrupted else current_yield, purple, delay)
 	var specific_args = EventArgs.SpecificArgs.new(self)
 	specific_args.harvest_args = harvest_args
 	event_manager.notify_specific_args(EventManager.EventType.OnPlantHarvest, specific_args)

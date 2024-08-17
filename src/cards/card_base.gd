@@ -68,9 +68,15 @@ func set_card_info(card_data):
 				texture.atlas = load("res://assets/1616tinygarden/objects.png")
 				texture.set_region(Rect2(Vector2(card_data.seed_texture * 16, 0), Vector2(16, 16)))
 			CARD_ICON.texture = texture
-			$HBoxContainer/VBoxContainer/BottomBar/YieldLabel.text = str(card_info.yld)\
-				+ " (" + str(card_info.yld * card_info.size) + ")"
+			var corrupted = card_data.get_effect("corrupted") != null
+			var negative = "-" if corrupted else ""
+			$HBoxContainer/VBoxContainer/BottomBar/YieldLabel.text = negative + str(card_info.yld)\
+				+ " (" + negative + str(card_info.yld * card_info.size) + ")"
 			$HBoxContainer/VBoxContainer/BottomBar/TimeLabel.text = str(card_info.time)
+			if corrupted:
+				$HBoxContainer/VBoxContainer/BottomBar/YieldLabel.set("theme_override_colors/font_color", Color(1.0, 0.0, 0.0, 1.0))
+			else:
+				$HBoxContainer/VBoxContainer/BottomBar/YieldLabel.set("theme_override_colors/font_color", Color(1.0, 1.0, 1.0, 1.0))
 		"ACTION", "STRUCTURE":
 			CARD_ICON.texture = card_info.texture
 			$HBoxContainer/VBoxContainer/BottomBar/YieldLabel.visible = false

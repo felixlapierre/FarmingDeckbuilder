@@ -30,7 +30,7 @@ func is_card_eligible(card: CardData):
 			return card.size < 9
 		"Discount":
 			return card.cost > 0
-		"GrowSpeed", "FlatYield":
+		"GrowSpeed", "FlatYield", "Regrow":
 			return card.type == "SEED"
 		"SpreadGrow", "SpreadHarvest":
 			return card.get_effect("spread") == null and card.type == "SEED"
@@ -74,6 +74,8 @@ func get_description():
 			return "Remove Obliviate from a card"
 		"Strength":
 			return "Increase the strength of a card's special effects"
+		"Regrow":
+			return "Add Regrow 3 to a card (Card is re-planted with +3 base yield when harvested)"
 		_:
 			return "TODO"
 

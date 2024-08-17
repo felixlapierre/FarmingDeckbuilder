@@ -2,7 +2,7 @@
 
 [ext_resource type="Resource" uid="uid://cqfvdr8thdmfu" path="res://src/effect/data/harvest.tres" id="1_fhx2n"]
 [ext_resource type="Script" path="res://src/cards/custom/warding.gd" id="1_nhi7g"]
-[ext_resource type="Texture2D" uid="uid://c46q76532nqk" path="res://assets/custom/Temp.png" id="3_x45vx"]
+[ext_resource type="Texture2D" uid="uid://d0hc0ea26fjqf" path="res://assets/card/warding.png" id="3_2ti6x"]
 
 [resource]
 script = ExtResource("1_nhi7g")
@@ -12,9 +12,11 @@ rarity = "uncommon"
 cost = 1
 yld = 0
 time = 0
-size = 6
+size = 9
 text = "Convert harvested yield to purple"
-texture = ExtResource("3_x45vx")
+strength_increment = 1.0
+size_increment = 1
+texture = ExtResource("3_2ti6x")
 seed_texture = 0
 targets = Array[String](["Mature"])
 effects = Array[Resource("res://src/effect/effect.gd")]([ExtResource("1_fhx2n")])

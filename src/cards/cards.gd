@@ -45,9 +45,10 @@ func _process(delta: float) -> void:
 	pass
 	
 func draw_hand(count, week):
+	var start_hand_count = number_of_cards_in_hand
 	if week == 1:
 		draw_springbound_cards(count)
-	while number_of_cards_in_hand < count:
+	while number_of_cards_in_hand - start_hand_count < count:
 		drawcard()
 		if deck_cards.size() == 0 and discard_pile_cards.size() == 0:
 			break
@@ -205,3 +206,12 @@ func remove_hand_card(card):
 func set_cards_visible(visible: bool):
 	$Hand.propagate_call("set_visible", [visible])
 	$Discarding.propagate_call("set_visible", [visible])
+
+func make_random_card_free():
+	for card in $Hand.get_children():
+		var info: CardData = card.card_info
+		if info.cost > 0:
+			var copy = info.copy()
+			copy.cost = 0
+			card.set_card_info(copy)
+			return

@@ -6,7 +6,7 @@
 [resource]
 script = ExtResource("1_5jb5e")
 name = "Temporal Rift"
-rarity = "rare"
+rarity = "hidden"
 cost = 1
 size = 24
 text = "Purple yield from harvesting nearby plants is gained next turn"

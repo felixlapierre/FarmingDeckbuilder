@@ -7,11 +7,11 @@
 script = ExtResource("2_p7hwa")
 type = "SEED"
 name = "Mint"
-rarity = "uncommon"
+rarity = "common"
 cost = 1
-yld = 2
+yld = 6
 time = 2
-size = 2
+size = 3
 text = ""
 strength_increment = 1.0
 size_increment = 1

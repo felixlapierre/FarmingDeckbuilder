@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://src/effect/effect.gd" id="1_skkj3"]
 [ext_resource type="Script" path="res://src/cards/card_data.gd" id="2_shgbg"]
-[ext_resource type="Texture2D" uid="uid://c46q76532nqk" path="res://assets/custom/Temp.png" id="3_04wtl"]
+[ext_resource type="Texture2D" uid="uid://bdtyog2sgrc7f" path="res://assets/custom/Reroll.png" id="3_fxkm5"]
 
 [sub_resource type="Resource" id="Resource_583mr"]
 script = ExtResource("1_skkj3")
@@ -30,7 +30,7 @@ size = 9
 text = ""
 strength_increment = 1.0
 size_increment = 1
-texture = ExtResource("3_04wtl")
+texture = ExtResource("3_fxkm5")
 seed_texture = 0
 targets = Array[String](["Mature"])
 effects = Array[ExtResource("1_skkj3")]([SubResource("Resource_583mr"), SubResource("Resource_prupb")])

@@ -65,7 +65,7 @@ func get_short_description():
 		"plant":
 			if on == "harvest":
 				return "Regrow " + str(strength) if strength > 0 else ""
-		"obliviate", "remembrance", "springbound", "fleeting":
+		"obliviate", "remembrance", "springbound", "fleeting", "corrupted":
 			return name.capitalize()
 		"energy":
 			return "Gain " + str(strength) + " energy" + get_on_text()
@@ -126,6 +126,8 @@ func get_long_description():
 			return "Irrigate: Irrigated tiles yield 40% more"
 		"fleeting", "draw_target":
 			return "Fleeting: Destroy card when played or discarded"
+		"corrupted":
+			return "On harvest, yield is lost, not gained."
 		_:
 			return ""
 

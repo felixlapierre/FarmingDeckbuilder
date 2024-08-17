@@ -13,43 +13,40 @@ offset_right = 40.0
 offset_bottom = 40.0
 theme = ExtResource("1_l63em")
 
-[node name="VBox" type="VBoxContainer" parent="Root"]
+[node name="Grid" type="GridContainer" parent="Root"]
+layout_mode = 2
+columns = 2
+
+[node name="Panel" type="PanelContainer" parent="Root/Grid"]
 layout_mode = 2
 
-[node name="ContinueButton" type="Button" parent="Root/VBox"]
-layout_mode = 2
-text = "Continue"
-
-[node name="Panel" type="PanelContainer" parent="Root/VBox"]
+[node name="VBox" type="VBoxContainer" parent="Root/Grid/Panel"]
 layout_mode = 2
 
-[node name="VBox" type="VBoxContainer" parent="Root/VBox/Panel"]
-layout_mode = 2
-
-[node name="NewGameLabel" type="Label" parent="Root/VBox/Panel/VBox"]
+[node name="NewGameLabel" type="Label" parent="Root/Grid/Panel/VBox"]
 layout_mode = 2
 text = "New Game"
 horizontal_alignment = 1
 
-[node name="Margin" type="MarginContainer" parent="Root/VBox/Panel/VBox"]
+[node name="Margin" type="MarginContainer" parent="Root/Grid/Panel/VBox"]
 layout_mode = 2
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
-[node name="VBox" type="VBoxContainer" parent="Root/VBox/Panel/VBox/Margin"]
+[node name="VBox" type="VBoxContainer" parent="Root/Grid/Panel/VBox/Margin"]
 layout_mode = 2
 
-[node name="FarmTypeBox" type="HBoxContainer" parent="Root/VBox/Panel/VBox/Margin/VBox"]
+[node name="FarmTypeBox" type="HBoxContainer" parent="Root/Grid/Panel/VBox/Margin/VBox"]
 layout_mode = 2
 
-[node name="TypeLabel" type="Label" parent="Root/VBox/Panel/VBox/Margin/VBox/FarmTypeBox"]
+[node name="TypeLabel" type="Label" parent="Root/Grid/Panel/VBox/Margin/VBox/FarmTypeBox"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Farm Type:"
 
-[node name="TypeOptions" type="OptionButton" parent="Root/VBox/Panel/VBox/Margin/VBox/FarmTypeBox"]
+[node name="TypeOptions" type="OptionButton" parent="Root/Grid/Panel/VBox/Margin/VBox/FarmTypeBox"]
 layout_mode = 2
 item_count = 4
 selected = 0
@@ -63,15 +60,15 @@ popup/item_2/id = 2
 popup/item_3/text = "Mountains"
 popup/item_3/id = 3
 
-[node name="DifficultyBox" type="HBoxContainer" parent="Root/VBox/Panel/VBox/Margin/VBox"]
+[node name="DifficultyBox" type="HBoxContainer" parent="Root/Grid/Panel/VBox/Margin/VBox"]
 layout_mode = 2
 
-[node name="DiffLabel" type="Label" parent="Root/VBox/Panel/VBox/Margin/VBox/DifficultyBox"]
+[node name="DiffLabel" type="Label" parent="Root/Grid/Panel/VBox/Margin/VBox/DifficultyBox"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Difficulty"
 
-[node name="DiffOptions" type="OptionButton" parent="Root/VBox/Panel/VBox/Margin/VBox/DifficultyBox"]
+[node name="DiffOptions" type="OptionButton" parent="Root/Grid/Panel/VBox/Margin/VBox/DifficultyBox"]
 layout_mode = 2
 item_count = 5
 selected = 0
@@ -86,21 +83,65 @@ popup/item_3/id = 3
 popup/item_4/text = "Level 5"
 popup/item_4/id = 4
 
-[node name="DiffDescription" type="RichTextLabel" parent="Root/VBox/Panel/VBox/Margin/VBox"]
+[node name="DiffDescription" type="RichTextLabel" parent="Root/Grid/Panel/VBox/Margin/VBox"]
 custom_minimum_size = Vector2(700, 0)
 layout_mode = 2
 text = "Base difficulty"
 fit_content = true
 
-[node name="StartButton" type="Button" parent="Root/VBox/Panel/VBox/Margin/VBox"]
+[node name="StartButton" type="Button" parent="Root/Grid/Panel/VBox/Margin/VBox"]
 layout_mode = 2
 text = "Start
 "
 
+[node name="ContPanel" type="PanelContainer" parent="Root/Grid"]
+layout_mode = 2
+
+[node name="VBox" type="VBoxContainer" parent="Root/Grid/ContPanel"]
+custom_minimum_size = Vector2(700, 0)
+layout_mode = 2
+
+[node name="ContinueLabel" type="Label" parent="Root/Grid/ContPanel/VBox"]
+layout_mode = 2
+text = "Continue"
+horizontal_alignment = 1
+
+[node name="Margin" type="MarginContainer" parent="Root/Grid/ContPanel/VBox"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBox" type="VBoxContainer" parent="Root/Grid/ContPanel/VBox/Margin"]
+layout_mode = 2
+
+[node name="Grid" type="GridContainer" parent="Root/Grid/ContPanel/VBox/Margin/VBox"]
+layout_mode = 2
+columns = 2
+
+[node name="StatsLabel" type="RichTextLabel" parent="Root/Grid/ContPanel/VBox/Margin/VBox/Grid"]
+layout_mode = 2
+size_flags_horizontal = 3
+bbcode_enabled = true
+text = "test"
+fit_content = true
+
+[node name="DeckLabel" type="RichTextLabel" parent="Root/Grid/ContPanel/VBox/Margin/VBox/Grid"]
+layout_mode = 2
+size_flags_horizontal = 3
+bbcode_enabled = true
+text = "test"
+fit_content = true
+
+[node name="ContinueButton" type="Button" parent="Root/Grid/ContPanel/VBox/Margin/VBox"]
+layout_mode = 2
+text = "Start"
+
 [node name="Playspace" parent="." instance=ExtResource("3_6tb12")]
 visible = false
 
-[connection signal="pressed" from="Root/VBox/ContinueButton" to="." method="_on_continue_button_pressed"]
-[connection signal="item_selected" from="Root/VBox/Panel/VBox/Margin/VBox/FarmTypeBox/TypeOptions" to="." method="_on_type_options_item_selected"]
-[connection signal="item_selected" from="Root/VBox/Panel/VBox/Margin/VBox/DifficultyBox/DiffOptions" to="." method="_on_diff_options_item_selected"]
-[connection signal="pressed" from="Root/VBox/Panel/VBox/Margin/VBox/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="item_selected" from="Root/Grid/Panel/VBox/Margin/VBox/FarmTypeBox/TypeOptions" to="." method="_on_type_options_item_selected"]
+[connection signal="item_selected" from="Root/Grid/Panel/VBox/Margin/VBox/DifficultyBox/DiffOptions" to="." method="_on_diff_options_item_selected"]
+[connection signal="pressed" from="Root/Grid/Panel/VBox/Margin/VBox/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="Root/Grid/ContPanel/VBox/Margin/VBox/ContinueButton" to="." method="_on_continue_button_pressed"]
