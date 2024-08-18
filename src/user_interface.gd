@@ -88,9 +88,8 @@ func update():
 		fragment.expand_mode = TextureRect.EXPAND_FIT_WIDTH
 		$UI/Stats/VBox/CardsHbox/Fragments.add_child(fragment)
 		
-	$UI/BlightPanel/VBox/BlightCounter/Label.text = str(turn_manager.purple_mana)\
-		 + " / " + str(turn_manager.target_blight)\
-		 + " <-- " + str(turn_manager.next_turn_blight)
+	$UI/BlightPanel/VBox/BlightCounter/Label.text = str(turn_manager.target_blight - turn_manager.purple_mana)\
+		 + " ( Next Turn: " + str(turn_manager.next_turn_blight) + " )"
 	$UI/RitualPanel/RitualCounter/Label.text = str(turn_manager.ritual_counter)
 	$Shop.update_labels()
 	$Winter/FarmUpgradeButton.disabled = $UpgradeShop.lock or ![4, 7, 10].has(turn_manager.year)
