@@ -8,7 +8,9 @@
 [resource]
 script = ExtResource("1_s3i0r")
 name = "Dwarf"
-text = "TODO Dwarf"
+text = "You are rudely awoken one day by the sound of your cottage's entire floor shaking as though from an earthquake. After a short investigation, you find the cause to be the impossibly loud snoring of a dwarf in your cellar. He seems to have helped himself to one of the kegs of ancient fruit wine.
+
+Though you seem unable to communicate due to the language barrier, you eventually figure out what he's trying to offer you as repayment for the stolen wine."
 flavor_text_1 = "I dig"
 flavor_text_2 = "I dig"
 flavor_text_3 = "I dig"

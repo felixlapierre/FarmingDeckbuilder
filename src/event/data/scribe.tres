@@ -7,7 +7,7 @@
 [resource]
 script = ExtResource("1_k2wjw")
 name = "Scribe"
-text = "TODO Scribe"
+text = "A halfling woman comes to visit your farm this winter. She is a humble scribe, who offers to copy one of your spells for you if you let her stay a few nights. You assume she must be crazy to venture into such dangerous territory armed with nothing but a quill and ink."
 flavor_text_1 = "Allow the scribe to copy one of your spells"
 flavor_text_2 = "Refuse the scribe's offer"
 flavor_text_3 = ""

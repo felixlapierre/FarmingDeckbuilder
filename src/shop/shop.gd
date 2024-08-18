@@ -18,7 +18,7 @@ signal on_blight_removed
 
 @export var player_money: int
 
-var shop_item_capacity = 4
+var shop_item_capacity = 5
 
 var player_cards
 var turn_manager
@@ -35,13 +35,15 @@ var turn_manager
 func _ready() -> void:
 	$RemoveCardContainer.size = Constants.VIEWPORT_SIZE
 	$Tooltip/Panel.theme = load("res://assets/game_theme.tres")
-	player_money = 500
+	player_money = 500 if Global.DEBUG else 1
 	update_labels()
+	reposition()
 
 func setup(deck, p_turn_manager):
 	player_cards = deck
 	turn_manager = p_turn_manager
 	$RemoveCardContainer/SelectCard.tooltip = tooltip
+	reposition()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -55,7 +57,7 @@ func fill_shop():
 	if ![5, 8, 11].has(turn_manager.week):
 		set_row_visible(3, false)
 		CHOICE_THREE.visible = false
-	$PanelContainer.position = Constants.VIEWPORT_SIZE / 2 - $PanelContainer.size / 2
+	reposition()
 
 func clear_row(row):
 	var node
@@ -246,7 +248,7 @@ func on_week_pass():
 	update_labels()
 
 func update_labels():
-	$PanelContainer/ShopContainer/Header/MoneyLabel.text = "$$$: " + str(player_money)
+	$PanelContainer/ShopContainer/Header/MoneyLabel.text = ": " + str(player_money)
 
 func on_reroll(cost, row):
 	if player_money + cost < 0:
@@ -319,4 +321,7 @@ func load_data(save_data: Dictionary):
 	STOCK_TWO.add_child(create_remove_card_option())
 	STOCK_TWO.add_child(create_scrap_option(2, 2))
 	STOCK_THREE.add_child(create_scrap_option(1, 3))
+	reposition()
+
+func reposition():
 	$PanelContainer.position = Constants.VIEWPORT_SIZE / 2 - $PanelContainer.size / 2

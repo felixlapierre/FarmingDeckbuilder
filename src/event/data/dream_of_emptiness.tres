@@ -7,9 +7,9 @@
 [resource]
 script = ExtResource("1_seva8")
 name = "Dream of Emptiness"
-text = "TODO placeholder"
-flavor_text_1 = ""
-flavor_text_2 = ""
+text = "You dream of walking through the woods, on a path illuminated by tiny glowing wisps, until you arrive at a yawning pit in a forest clearing. It offers to take away your most painful memories. "
+flavor_text_1 = "Offer a spell instead"
+flavor_text_2 = "Wake up"
 flavor_text_3 = ""
 option1 = Array[Resource("res://src/upgrade/upgrade.gd")]([ExtResource("1_kg1t0")])
 option2 = Array[Resource("res://src/upgrade/upgrade.gd")]([ExtResource("2_34ksi")])

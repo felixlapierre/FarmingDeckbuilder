@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://src/effect/effect.gd" id="1_18lv0"]
 [ext_resource type="Script" path="res://src/cards/card_data.gd" id="1_uu2d6"]
-[ext_resource type="Texture2D" uid="uid://cx7x7dmvdxw1p" path="res://assets/card/scythe.png" id="3_cwefk"]
+[ext_resource type="Texture2D" uid="uid://bcj77lfrj264k" path="res://assets/card/rusty-scythe.png" id="3_odhhv"]
 
 [sub_resource type="Resource" id="Resource_0sicp"]
 script = ExtResource("1_18lv0")
@@ -21,7 +21,7 @@ range = "self"
 [resource]
 script = ExtResource("1_uu2d6")
 type = "ACTION"
-name = "Rusty Hoe"
+name = "Rusty Scythe"
 rarity = ""
 cost = 0
 yld = 0
@@ -30,7 +30,7 @@ size = 3
 text = ""
 strength_increment = 1.0
 size_increment = 1
-texture = ExtResource("3_cwefk")
+texture = ExtResource("3_odhhv")
 seed_texture = 0
 targets = Array[String](["Mature"])
 effects = Array[ExtResource("1_18lv0")]([SubResource("Resource_0sicp"), SubResource("Resource_h1jj2")])

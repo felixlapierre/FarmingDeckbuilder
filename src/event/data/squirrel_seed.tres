@@ -15,7 +15,7 @@ card = ExtResource("1_c08rl")
 [resource]
 script = ExtResource("1_f7vwy")
 name = "A Curious Seed"
-text = "TODO Squirrel pulls up at the afterparty and offers you a mysterious seed. "
+text = "As you relax under the shade of an oak tree, a small red squirrel approaches you and deposits a small object at your feet. At first it appears to be a small pebble, but closer inspection reveals that it is a seed. It is gray and hard - you doubt it could grow in its current condition. It seems rude to refuse a gift, even from such a humble creature."
 flavor_text_1 = "Accept the seed"
 flavor_text_2 = "Refuse the squirrel's gift"
 flavor_text_3 = ""

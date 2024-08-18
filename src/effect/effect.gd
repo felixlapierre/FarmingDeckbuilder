@@ -65,17 +65,25 @@ func get_short_description():
 		"plant":
 			if on == "harvest":
 				return "Regrow " + str(strength) if strength > 0 else ""
-		"obliviate", "remembrance", "springbound", "fleeting", "corrupted":
+		"obliviate", "springbound", "fleeting", "corrupted":
 			return name.capitalize()
+		"remembrance":
+			return "Frozen"
 		"energy":
 			return "Gain " + str(strength) + " energy" + get_on_text()
 		"draw":
 			return "Draw " + str(strength) + " card" + ("s" if strength > 1 else "") + get_on_text()
 		"spread":
-			if strength > 1:
-				return "Spread target " + str(strength) + " times"
+			if on == "grow" or on == "harvest":
+				if strength > 1:
+					return "Spread " + str(strength) + " times" + get_on_text()
+				else:
+					return str(strength*100) + "% chance to spread" + get_on_text()
 			else:
-				return str(strength*100) + "% chance to spread" + get_on_text()
+				if strength > 1:
+					return "Spread target " + str(strength) + " times"
+				else:
+					return str(strength*100) + "% chance to spread target"
 		"increase_yield":
 			return "Increase yield by " + str(strength * 100) + "%"
 		"harvest":
@@ -115,7 +123,7 @@ func get_long_description():
 		"obliviate":
 			return "Obliviate: Destroy card when played. (Your deck will be restored at the end of the year)"
 		"remembrance":
-			return "Remembrance: Card is not discarded at the end of the turn"
+			return "Frozen: Card is not discarded at the end of the turn"
 		"springbound":
 			return "Springbound: Card is always drawn on the first week of the year"
 		"spread":

@@ -7,9 +7,9 @@ CARDS_TOOLTIP,"Draw 5 cards per turn. For each Card Fragment, draw an additional
 DECK_TOOLTIP,"Your deck contains {deck_cards} cards. Cards are drawn from your deck. Once it is empty, your discard pile will be shuffled and inserted into your deck."
 END_TURN_TOOLTIP,"Click here to end your turn. Your plants will grow, and the game will move to the next week."
 DISCARD_TOOLTIP,"After playing a card, it is moved to your discard pile. Once your deck runs out of cards, your discard pile is shuffled and inserted into your deck."
-RITUAL_TARGET_TOOLTIP,"To complete the ritual and end the year, you must generate {count} [img]{path}[/img]. When a plant is harvested on the left side of your farm, you gain [img]{path}[/img] equal to its Yield."
+RITUAL_TARGET_TOOLTIP,"To complete the ritual and end the year, you must generate {count} [img]{path}[/img]. When a plant is harvested on a yellow tile, you gain [img]{path}[/img] equal to its Yield."
 BLIGHT_ATTACK_TOOLTIP,"This turn, the blight is attacking you with a strength of {strength}. To protect yourself, you must generate at least {strength} [img]{path}[/img] before ending your turn. When a plant is harvested on a purple tile, you gain [img]{path}[/img] equal to its Yield."
-BLIGHT_NO_ATTACK_TOOLTIP,"This turn, the blight is not attacking you. During a turn when the blight is attacking you, you must generate [img]{path}[/img] equal to the strength of its attack. When a plant is harvested on a yellow tile, you gain [img]{path}[/img] equal to its Yield."
+BLIGHT_NO_ATTACK_TOOLTIP,"This turn, the blight is not attacking you. During a turn when the blight is attacking you, you must generate [img]{path}[/img] equal to the strength of its attack. When a plant is harvested on a purple tile, you gain [img]{path}[/img] equal to its Yield."
 SIZE_TOOLTIP_ACTION,This action affects {size} tiles on the farm.
 SIZE_TOOLTIP_SEED,This card plants seeds on {size} tiles on the farm.
 CARD_ENERGY_COST_TOOLTIP,This card costs {cost} energy to play.

@@ -18,7 +18,7 @@ strength = 0.0
 [resource]
 script = ExtResource("1_rkamb")
 name = "Artificer"
-text = "TODO Artificer"
+text = "An enterprising gnome visits your farm. He offers to build you a useful structure on your farm, in exchange for a few days of food and shelter."
 flavor_text_1 = "Accept "
 flavor_text_2 = "Refuse "
 flavor_text_3 = ""

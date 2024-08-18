@@ -26,7 +26,8 @@ enum UpgradeType {
 	AddEnhance,
 	AddEnhanceToRandom,
 	AddEnhanceToAll,
-	AddStructure
+	AddStructure,
+	AddUncommonCard
 }
 
 func _init(p_type = UpgradeType.Nothing, p_text = "text", p_strength = 1.0, p_card = null, p_enhance = null):

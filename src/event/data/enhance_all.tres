@@ -13,7 +13,7 @@ strength = 0.0
 [resource]
 script = ExtResource("1_yi4gp")
 name = "Dream of Fullness"
-text = "TODO Dream of Fullness"
+text = "You dream of floating among the stars, surrounded by the endless magical power that flows between worlds. You sense that some sentient being is watching you. Perhaps it has taken interest in helping you in your quest?"
 flavor_text_1 = ""
 flavor_text_2 = ""
 flavor_text_3 = ""

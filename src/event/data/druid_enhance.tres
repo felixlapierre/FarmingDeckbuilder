@@ -13,7 +13,7 @@ strength = 0.0
 [resource]
 script = ExtResource("1_recfd")
 name = "Druid"
-text = "TODO Druid offering enhances"
+text = "A beautiful, half-elven man visits you in the night. He is the local druid, tasked with protecting this forest from the Blight. Although all of his strength is spent protecting the local townsfolk from the corruption, he offers to help by enhancing one of your spells."
 flavor_text_1 = ""
 flavor_text_2 = ""
 flavor_text_3 = ""

@@ -4,6 +4,6 @@
 
 [resource]
 script = ExtResource("1_bp6dm")
-type = 7
+type = 8
 text = "Copy a card in your deck"
 strength = 0.0

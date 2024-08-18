@@ -31,3 +31,5 @@ static var WINTER_WEEK = 13
 static var FINAL_WEEK = 13
 
 static var FARM_TYPE = "FOREST"
+
+static var DEBUG: bool = false

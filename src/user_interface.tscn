@@ -204,7 +204,6 @@ position = Vector2(1595, 123)
 position = Vector2(1346, 360)
 
 [node name="Winter" type="Control" parent="."]
-visible = false
 layout_mode = 3
 anchors_preset = 0
 theme = ExtResource("2_s7754")
@@ -234,14 +233,6 @@ offset_right = 1074.0
 offset_bottom = 884.0
 text = "Fortune Teller"
 
-[node name="EventButton" type="Button" parent="Winter"]
-layout_mode = 0
-offset_left = 1485.0
-offset_top = 402.0
-offset_right = 1585.0
-offset_bottom = 451.0
-text = "Event"
-
 [node name="FarmUpgradeButton" type="Button" parent="Winter"]
 layout_mode = 0
 offset_left = 341.0
@@ -249,6 +240,25 @@ offset_top = 432.0
 offset_right = 479.0
 offset_bottom = 481.0
 text = "Upgrade"
+
+[node name="EventPanel" type="PanelContainer" parent="Winter"]
+layout_mode = 0
+offset_left = 1454.0
+offset_top = 380.0
+offset_right = 1628.0
+offset_bottom = 474.0
+
+[node name="VB" type="VBoxContainer" parent="Winter/EventPanel"]
+layout_mode = 2
+
+[node name="EventNameLabel" type="Label" parent="Winter/EventPanel/VB"]
+layout_mode = 2
+text = "EventName"
+horizontal_alignment = 1
+
+[node name="EventButton" type="Button" parent="Winter/EventPanel/VB"]
+layout_mode = 2
+text = "Event"
 
 [node name="EndScreen" parent="." instance=ExtResource("16_r2tbl")]
 visible = false
@@ -274,8 +284,8 @@ visible = false
 [connection signal="pressed" from="Winter/ShopButton" to="." method="_on_shop_button_pressed"]
 [connection signal="pressed" from="Winter/NextYearButton" to="." method="_on_next_year_button_pressed"]
 [connection signal="pressed" from="Winter/FortuneTellerButton" to="." method="_on_fortune_teller_button_pressed"]
-[connection signal="pressed" from="Winter/EventButton" to="." method="_on_event_button_pressed"]
 [connection signal="pressed" from="Winter/FarmUpgradeButton" to="." method="_on_farm_upgrade_button_pressed"]
+[connection signal="pressed" from="Winter/EventPanel/VB/EventButton" to="." method="_on_event_button_pressed"]
 [connection signal="on_close" from="FortuneTeller" to="." method="_on_fortune_teller_on_close"]
 [connection signal="on_upgrades_selected" from="GameEventDialog" to="." method="_on_game_event_dialog_on_upgrades_selected"]
 [connection signal="on_blight_removed" from="Shop" to="." method="_on_shop_on_blight_removed"]

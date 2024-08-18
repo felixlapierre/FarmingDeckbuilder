@@ -64,8 +64,8 @@ func get_description():
 			return "Give a seed 50% chance to spread on grow"
 		"SpreadHarvest":
 			return "Give a seed 100% chance to spread on harvest"
-		"Remembrance":
-			return "Add Remembrance to a card (Card is not discarded at the end of the turn)"
+		"Frozen":
+			return "Add Frozen to a card (Card is not discarded at the end of the turn)"
 		"Springbound":
 			return "Add Springbound to a card (Card will always be drawn on the first week of Spring)"
 		"Obliviate":

@@ -30,7 +30,8 @@ func setup(turn_manager: TurnManager, deck: Array[CardData]):
 	Stats.append_text("Week: " + str(turn_manager.week) + "\n")
 	Stats.append_text("Damage: " + str(turn_manager.blight_damage) + "\n")
 	Stats.append_text("Farm: " + Global.FARM_TYPE + "\n")
-	Stats.append_text("Difficulty: " + str(Global.DIFFICULTY+1))
+	var difficulty = "Easy" if Global.DIFFICULTY == 0 else "Normal"
+	Stats.append_text("Difficulty: " + difficulty)
 	
 	Deck.append_text("Deck: " + "\n")
 	var cards = {}

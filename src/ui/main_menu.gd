@@ -26,12 +26,6 @@ func _process(delta):
 	pass
 
 func _on_diff_options_item_selected(index):
-	difficulty_description.clear()
-	if index == 0:
-		difficulty_description.append_text(difficulty_text[0])
-	else:
-		for i in range(1, index + 1):
-			difficulty_description.append_text(difficulty_text[i])
 	Global.DIFFICULTY = index
 
 
@@ -77,7 +71,8 @@ func populate_continue_preview():
 	Stats.append_text("Week: " + str(save_json.state.week) + "\n")
 	Stats.append_text("Damage: " + str(save_json.state.blight) + "\n")
 	Stats.append_text("Farm: " + str(save_json.state.farm_type) + "\n")
-	Stats.append_text("Difficulty: " + str(int(save_json.state.difficulty)+1))
+	var difficulty = "Easy" if save_json.state.difficulty == 0 else "Normal"
+	Stats.append_text("Difficulty: " + difficulty)
 	
 	Deck.append_text("Deck: " + "\n")
 	var cards = {}

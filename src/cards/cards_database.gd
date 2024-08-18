@@ -86,14 +86,15 @@ static func get_random_cards(rarity: String, count: int):
 			result.append(n_card)
 	return result
 
-static func get_random_enhance(rarity: String, count: int):
+static func get_random_enhance(rarity: String, count: int, no_discount: bool):
 	var result = []
 	var enhances = get_all_enhance()
 	enhances.shuffle()
 	for enh in enhances:
 		if result.size() >= count:
 			return result
-		result.append(enh)
+		if !no_discount or enh.name != "Discount":
+			result.append(enh)
 	return result
 
 static func get_random_structures(count: int):

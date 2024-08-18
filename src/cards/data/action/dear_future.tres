@@ -8,12 +8,14 @@
 script = ExtResource("1_2yp6d")
 type = "ACTION"
 name = "Dear Future Me"
-rarity = "rare"
+rarity = "hidden"
 cost = 1
 yld = 0
 time = 0
 size = 9
 text = ""
+strength_increment = 1.0
+size_increment = 1
 texture = ExtResource("3_7nsdj")
 seed_texture = 0
 targets = Array[String](["Mature"])

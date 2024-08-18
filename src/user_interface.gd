@@ -45,13 +45,14 @@ func setup(p_event_manager: EventManager, p_turn_manager: TurnManager, p_deck: A
 	$GameEventDialog.setup(deck, turn_manager)
 	$Shop.setup(deck, turn_manager)
 	register_tooltips()
+	$UI/SkipButton.visible = Global.DEBUG
 
 # Start and end year
 func end_year():
 	$UI.visible = false
 	$Winter.visible = true
 	$UpgradeShop.lock = false
-	$Winter/EventButton.disabled = false
+	$Winter/EventPanel/VB/EventButton.disabled = false
 	$GameEventDialog.generate_random_event()
 	$Shop.fill_shop()
 	$FortuneTeller.unregister_fortunes()
@@ -95,9 +96,9 @@ func update():
 	$Winter/FarmUpgradeButton.disabled = $UpgradeShop.lock or ![4, 7, 10].has(turn_manager.year)
 	# Temporarily disable this QOL for testing
 	$Winter/NextYearButton.disabled = !next_year_allowed()
-	
+	if $GameEventDialog.current_event != null:
+		$Winter/EventPanel/VB/EventNameLabel.text = $GameEventDialog.current_event.name
 	register_tooltips()
-	
 
 
 # Fortune Teller
@@ -113,8 +114,14 @@ func _on_event_button_pressed() -> void:
 	
 func _on_game_event_dialog_on_upgrades_selected(upgrades: Array[Upgrade]) -> void:
 	for upgrade in upgrades:
-		if upgrade.type == Upgrade.UpgradeType.AddCommonCard or upgrade.type == Upgrade.UpgradeType.AddRareCard:
-			var cards = cards_database.get_random_cards("common" if upgrade.type == Upgrade.UpgradeType.AddCommonCard else "rare", 3)
+		if upgrade.type == Upgrade.UpgradeType.AddCommonCard or upgrade.type == Upgrade.UpgradeType.AddRareCard or upgrade.type == Upgrade.UpgradeType.AddUncommonCard:
+			var rarity = "common"
+			match upgrade.type:
+				Upgrade.UpgradeType.AddRareCard:
+					rarity = "rare"
+				Upgrade.UpgradeType.AddUncommonCard:
+					rarity = "uncommon"
+			var cards = cards_database.get_random_cards(rarity, 3)
 			var pick_option_ui = PickOption.instantiate()
 			self.add_child(pick_option_ui)
 			var prompt = "Pick a card to add to your deck"
@@ -128,7 +135,7 @@ func _on_game_event_dialog_on_upgrades_selected(upgrades: Array[Upgrade]) -> voi
 		elif upgrade.type == Upgrade.UpgradeType.AddEnhance\
 			or upgrade.type == Upgrade.UpgradeType.AddEnhanceToRandom\
 			or upgrade.type == Upgrade.UpgradeType.AddEnhanceToAll:
-			var enhances = cards_database.get_random_enhance("", 3)
+			var enhances = cards_database.get_random_enhance("", 3, upgrade.type == Upgrade.UpgradeType.AddEnhanceToAll)
 			var pick_option_ui = PickOption.instantiate()
 			self.add_child(pick_option_ui)
 			var prompt = "Pick an enhance to apply"
@@ -173,7 +180,7 @@ func _on_game_event_dialog_on_upgrades_selected(upgrades: Array[Upgrade]) -> voi
 		else:
 			apply_upgrade.emit(upgrade)
 	$GameEventDialog.visible = false
-	$Winter/EventButton.disabled = true
+	$Winter/EventPanel/VB/EventButton.disabled = true
 	update()
 
 # Upgrade Shop
@@ -305,7 +312,7 @@ func next_year_allowed():
 	var choice1 = $Shop/PanelContainer/ShopContainer/ChoiceOne/Stock
 	var choice2 = $Shop/PanelContainer/ShopContainer/ChoiceTwo/Stock
 	var upgradebutton = $Winter/FarmUpgradeButton
-	var eventbutton = $Winter/EventButton
+	var eventbutton = $Winter/EventPanel/VB/EventButton
 	return upgradebutton.disabled && eventbutton.disabled\
 		&& !choice1.visible\
 		&& !choice2.visible
@@ -343,7 +350,7 @@ func save_data(save_json):
 	if save_json.state.winter:
 		var winter = {}
 		winter.upgrade_lock = $UpgradeShop.lock
-		winter.event_disabled = $Winter/EventButton.disabled
+		winter.event_disabled = $Winter/EventPanel/VB/EventButton.disabled
 		winter.shop = shop.save_data()
 		save_json.winter = winter
 	save_json.fortunes = []
@@ -360,7 +367,7 @@ func load_data(save_json: Dictionary):
 		$UI.visible = false
 		$Winter.visible = true
 		$UpgradeShop.lock = save_json.winter.upgrade_lock
-		$Winter/EventButton.disabled = save_json.winter.event_disabled
+		$Winter/EventPanel/VB/EventButton.disabled = save_json.winter.event_disabled
 		$GameEventDialog.current_event = load(save_json.events.current) if save_json.events.current != null else null
 		$GameEventDialog.update_interface()
 		$Shop.load_data(save_json.winter.shop)

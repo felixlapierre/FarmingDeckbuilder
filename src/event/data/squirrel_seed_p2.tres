@@ -22,8 +22,10 @@ card = ExtResource("3_rd7o1")
 
 [resource]
 script = ExtResource("5_8qlby")
-name = "Seed part 2"
-text = "TODO yo the seed be bloomin dawg"
+name = "Sunflower"
+text = "As you finish channeling the last of your magic into this year's ritual, you feel something fall out of your pocket. You look down and find that the petrified seed has sprouted!
+
+You inscribe this amazing discovery into a new spell in your spellbook. It seems the excess magic of your ritual was able to revitalize the seed, somehow."
 flavor_text_1 = ""
 flavor_text_2 = ""
 flavor_text_3 = ""

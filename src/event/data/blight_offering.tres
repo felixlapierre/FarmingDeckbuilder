@@ -26,7 +26,9 @@ strength = 1.0
 [resource]
 script = ExtResource("1_lxq7k")
 name = "Blight Offering"
-text = "TODO Blight Offering"
+text = "You see visions of a beautiful tapestry of purple thorns and blood-gorged roots. The Blight offers you some of its power in hopes that it may convince you to set aside your quest.
+
+It's an obvious trap, but you could use the blight's power against it, if you dare."
 flavor_text_1 = "Accept the offering"
 flavor_text_2 = "Reject the offering"
 flavor_text_3 = ""

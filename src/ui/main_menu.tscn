@@ -70,24 +70,12 @@ text = "Difficulty"
 
 [node name="DiffOptions" type="OptionButton" parent="Root/Grid/Panel/VBox/Margin/VBox/DifficultyBox"]
 layout_mode = 2
-item_count = 5
+item_count = 2
 selected = 0
-popup/item_0/text = "Level 1"
+popup/item_0/text = "Easy"
 popup/item_0/id = 0
-popup/item_1/text = "Level 2"
+popup/item_1/text = "Normal"
 popup/item_1/id = 1
-popup/item_2/text = "Level 3"
-popup/item_2/id = 2
-popup/item_3/text = "Level 4"
-popup/item_3/id = 3
-popup/item_4/text = "Level 5"
-popup/item_4/id = 4
-
-[node name="DiffDescription" type="RichTextLabel" parent="Root/Grid/Panel/VBox/Margin/VBox"]
-custom_minimum_size = Vector2(700, 0)
-layout_mode = 2
-text = "Base difficulty"
-fit_content = true
 
 [node name="StartButton" type="Button" parent="Root/Grid/Panel/VBox/Margin/VBox"]
 layout_mode = 2

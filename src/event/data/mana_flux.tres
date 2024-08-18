@@ -15,7 +15,7 @@ enhance = ExtResource("2_a4ds4")
 [resource]
 script = ExtResource("1_m4blg")
 name = "Mana Flux"
-text = "TODO Mana Flux"
+text = "You suddenly awaken at midnight to feel a massive wave of magical energy blasting over the forest. It's full of chaotic energy and could cause serious damage to your farm if you don't dispel it properly."
 flavor_text_1 = "Draw the energy into yourself"
 flavor_text_2 = "Imbue the energy into one of your spells"
 flavor_text_3 = ""

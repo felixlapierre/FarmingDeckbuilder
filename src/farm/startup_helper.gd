@@ -86,16 +86,6 @@ static var forest_deck = [
 		"name": "scythe",
 		"type": "action",
 		"count": 3
-	},
-	{
-		"name": "hyacinth",
-		"type": "seed",
-		"count": 1
-	},
-	{
-		"name": "infuse",
-		"type": "action",
-		"count": 1
 	}
 ]
 

@@ -18,8 +18,8 @@ strength = 0.0
 [resource]
 script = ExtResource("1_yp6v0")
 name = "Trader"
-text = "A trader visits your farm. His selection of spell scrolls is limited, but contains some common spells from Rudania City."
-flavor_text_1 = "Browse his wares"
+text = "A trader visits your farm. Her selection of spell scrolls is limited, but contains some common spells from Rudania City."
+flavor_text_1 = "Browse her wares"
 flavor_text_2 = "Decline"
 flavor_text_3 = ""
 option1 = Array[ExtResource("1_tosg1")]([SubResource("Resource_pd2wg")])

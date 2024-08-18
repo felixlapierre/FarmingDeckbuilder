@@ -5,7 +5,7 @@
 
 [resource]
 script = ExtResource("1_kmluc")
-name = "Remembrance"
+name = "Frozen"
 rarity = "rare"
 strength = 0.0
 targets = Array[String]([])

@@ -13,7 +13,7 @@ strength = 0.0
 [resource]
 script = ExtResource("1_kejia")
 name = "Ley Line"
-text = "TODO Ley Line"
+text = "As you wander through the woods one day, you stumble across an abandoned and overgrown town in the woods. Underneath a pair of beds in a decaying home, you sense a powerful flow of magical energy. Since nobody else seems to be using it, you could help yourself and enhance one of your spells."
 flavor_text_1 = ""
 flavor_text_2 = ""
 flavor_text_3 = ""
