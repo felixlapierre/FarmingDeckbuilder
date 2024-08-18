@@ -17,8 +17,6 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if hover:
 		fortune_display.global_position = get_global_mouse_position() + offset
-		print(fortune_display.size)
-
 
 func setup(fortune: Fortune):
 	fortune_name.text = fortune.name

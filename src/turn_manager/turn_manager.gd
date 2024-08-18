@@ -68,7 +68,6 @@ func start_new_year():
 	year += 1
 	week = 1
 	compute_blight_pattern(week, year)
-	print(blight_pattern)
 	ritual_counter = get_ritual_requirements(year)
 	target_blight = get_blight_requirements(week, year)
 	next_turn_blight = get_blight_requirements(week + 1, year)
@@ -106,9 +105,9 @@ func get_ritual_requirements(year):
 	if year > 3:
 		amount += year * 10
 		if difficulty_up:
-			amount += year * 5
+			amount += year * 2
 	if year > 6 and difficulty_up:
-		amount += year * 10
+		amount += year * 5
 	if year >= 10 and difficulty_up:
 		amount += 100
 	return amount
