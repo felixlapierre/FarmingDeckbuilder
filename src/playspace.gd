@@ -97,7 +97,7 @@ func on_lose():
 	$Cards.do_winter_clear()
 	$UserInterface/UI/EndTurnButton.visible = false
 	$UserInterface/EndScreen.visible = true
-	$UserInterface/EndScreen.setup(turn_manager, deck)
+	$UserInterface/EndScreen.setup(turn_manager, deck, $FarmTiles)
 	$UserInterface/UI/Deck.visible = false
 	$UserInterface/UI/RitualPanel.visible = false
 
@@ -106,7 +106,7 @@ func on_win():
 	$Cards.do_winter_clear()
 	$UserInterface/UI/EndTurnButton.visible = false
 	$UserInterface/EndScreen.visible = true
-	$UserInterface/EndScreen.setup(turn_manager, deck)
+	$UserInterface/EndScreen.setup(turn_manager, deck, $FarmTiles)
 	$UserInterface/UI/Deck.visible = false
 	$UserInterface/UI/RitualPanel.visible = false
 

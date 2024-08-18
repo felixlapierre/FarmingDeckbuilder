@@ -262,7 +262,6 @@ text = "Event"
 
 [node name="EndScreen" parent="." instance=ExtResource("16_r2tbl")]
 visible = false
-position = Vector2(736, 281)
 
 [node name="FortuneTeller" parent="." instance=ExtResource("15_yqxvh")]
 visible = false

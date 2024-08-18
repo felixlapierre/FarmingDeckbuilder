@@ -1,9 +1,9 @@
 extends Node2D
 
-@onready var Title = $Panel/VBoxContainer/Title
-@onready var Description = $Panel/VBoxContainer/Description
-@onready var Stats = $Panel/VBoxContainer/Grid/Stats
-@onready var Deck = $Panel/VBoxContainer/Grid/Deck
+@onready var Title = $Center/Panel/VBoxContainer/Title
+@onready var Description = $Center/Panel/VBoxContainer/Description
+@onready var Stats = $Center/Panel/VBoxContainer/Grid/Stats
+@onready var Deck = $Center/Panel/VBoxContainer/Grid/Deck
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -14,7 +14,7 @@ func _ready():
 func _process(delta):
 	pass
 	
-func setup(turn_manager: TurnManager, deck: Array[CardData]):
+func setup(turn_manager: TurnManager, deck: Array[CardData], farm: Farm):
 	# Title
 	if turn_manager.blight_damage < 5:
 		Title.text = "You Win! :)"
@@ -43,3 +43,15 @@ func setup(turn_manager: TurnManager, deck: Array[CardData]):
 	
 	for cardname in cards.keys():
 		Deck.append_text(cardname + " x" + str(cards[cardname]) + "\n")
+	Deck.append_text("\n")
+	Deck.append_text("Structures: \n")
+	var structures = {}
+	for tile in farm.get_all_tiles():
+		if tile.structure != null:
+			var structure = tile.structure
+			if structures.has(structure.name):
+				structures[structure.name] += 1
+			else:
+				structures[structure.name] = 1
+	for structurename in structures.keys():
+		Deck.append_text(structurename + " x" + str(structures[structurename]) + "\n")

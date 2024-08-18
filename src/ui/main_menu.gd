@@ -84,3 +84,15 @@ func populate_continue_preview():
 	
 	for cardname in cards.keys():
 		Deck.append_text(cardname + " x" + str(cards[cardname]) + "\n")
+	
+	if save_json.structures.size() > 0:
+		Deck.append_text("\n")
+		Deck.append_text("Structures: \n")
+		var structures = {}
+		for structure in save_json.structures:
+			if structures.has(structure.name):
+				structures[structure.name] += 1
+			else:
+				structures[structure.name] = 1
+		for structurename in structures.keys():
+			Deck.append_text(structurename + " x" + str(structures[structurename]) + "\n")
