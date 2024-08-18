@@ -14,7 +14,7 @@ offset_right = 8.0
 offset_bottom = 8.0
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
-custom_minimum_size = Vector2(400, 0)
+custom_minimum_size = Vector2(700, 0)
 offset_right = 400.0
 offset_bottom = 424.0
 theme = ExtResource("3_f6b05")

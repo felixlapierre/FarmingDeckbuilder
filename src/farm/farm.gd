@@ -254,8 +254,6 @@ func perform_effect(effect, tile: Tile):
 		"draw":
 			if effect.on != "play":
 				on_card_draw.emit(effect.strength, null)
-		"absorb":
-			tile.increase_permanent_mult(tile.IRRIGATED_MULTIPLIER * effect.strength)
 		"destroy_tile":
 			tile.destroy()
 		"destroy_plant":
@@ -263,9 +261,10 @@ func perform_effect(effect, tile: Tile):
 		"replant":
 			effect_queue.append(Effect.new("plant", 0, "", "self", tile.grid_location, tile.seed.copy()))
 		"add_recurring":
-			var new_seed = tile.seed.copy()
-			new_seed.effects.append(Effect.new("plant", 0, "harvest", "self", Vector2.ZERO, null))
-			tile.seed = new_seed
+			if tile.seed.get_effect("plant") == null:
+				var new_seed = tile.seed.copy()
+				new_seed.effects.append(Effect.new("plant", 0, "harvest", "self", Vector2.ZERO, null))
+				tile.seed = new_seed
 		"draw_target":
 			var new_seed = tile.seed.copy()
 			new_seed.effects.append(load("res://src/effect/data/fleeting.tres"))
@@ -294,6 +293,7 @@ func do_winter_clear():
 		for i in range(0, blighted_tiles.size()):
 			if i < blighted_tiles.size() / 2:
 				blighted_tiles[i].remove_blight()
+	next_turn_effects.clear()
 
 func spread(card, grid_position, size, shape):
 	var targets = get_targeted_tiles(grid_position, size, shape, 0)

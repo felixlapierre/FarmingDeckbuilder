@@ -64,7 +64,7 @@ func get_short_description():
 	match name:
 		"plant":
 			if on == "harvest":
-				return "Regrow " + str(strength) if strength > 0 else ""
+				return "Regrow " + (str(strength) if strength > 0 else "")
 		"obliviate", "springbound", "fleeting", "corrupted":
 			return name.capitalize()
 		"remembrance":
@@ -95,9 +95,9 @@ func get_short_description():
 		"add_yield":
 			return "Add " + get_strength_text() + " yield" + get_on_text()
 		"irrigate":
-			return "Irrigate tiles for " + str(strength) + " weeks"
+			return "Water tiles for " + str(strength) + " weeks"
 		"absorb":
-			return "Benefits " + str(strength*100) + "% more from irrigation"
+			return "Benefits " + str(strength*100) + "% more from being watered"
 		"destroy_tile":
 			return "Destroy tile" + get_on_text()
 		"destroy_plant":
@@ -131,7 +131,7 @@ func get_long_description():
 		"harvest", "harvest_delay":
 			return "Harvest: Gain [img]res://assets/custom/YellowMana.png[/img] or [img]res://assets/custom/PurpleMana.png[/img] equal to the plant's Yield, then remove it"
 		"irrigate", "absorb":
-			return "Irrigate: Irrigated tiles yield 40% more"
+			return "Watered: Watered tiles yield 40% more"
 		"fleeting", "draw_target":
 			return "Fleeting: Destroy card when played or discarded"
 		"corrupted":

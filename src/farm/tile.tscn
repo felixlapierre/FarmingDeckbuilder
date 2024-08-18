@@ -1,10 +1,9 @@
-[gd_scene load_steps=17 format=3 uid="uid://ccnobfjaguoie"]
+[gd_scene load_steps=16 format=3 uid="uid://ccnobfjaguoie"]
 
 [ext_resource type="Script" path="res://src/farm/tile.gd" id="1_8vnt4"]
 [ext_resource type="Texture2D" uid="uid://cmitvrjj6os0f" path="res://assets/1616tinygarden/Farm.png" id="2_n75y4"]
 [ext_resource type="Texture2D" uid="uid://kpujc3kdexl3" path="res://assets/custom/PurpleOverlay.png" id="3_jwute"]
 [ext_resource type="Texture2D" uid="uid://bofm5pndld7ww" path="res://assets/custom/FarmTile2.png" id="4_bvg7e"]
-[ext_resource type="Texture2D" uid="uid://cd1h6bwxdmv25" path="res://assets/seed/weed.png" id="5_et8s8"]
 [ext_resource type="Texture2D" uid="uid://dbbhalo3edxpk" path="res://assets/custom/BlightTarget.png" id="6_6m84b"]
 [ext_resource type="Texture2D" uid="uid://bjygvp3da0050" path="res://assets/custom/destroy_target.png" id="7_023dm"]
 [ext_resource type="Texture2D" uid="uid://cba7uh0mnuoum" path="res://assets/custom/LeafParticle.png" id="7_otjuw"]
@@ -98,7 +97,6 @@ visible = false
 texture_filter = 1
 position = Vector2(8, 16)
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("5_et8s8")
 offset = Vector2(0, -16)
 region_enabled = true
 region_rect = Rect2(0, 32, 32, 32)

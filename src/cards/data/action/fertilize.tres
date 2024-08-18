@@ -1,0 +1,29 @@
+[gd_resource type="Resource" script_class="CardData" load_steps=5 format=3 uid="uid://vnqjy1m0h62b"]
+
+[ext_resource type="Script" path="res://src/cards/card_data.gd" id="1_1h43a"]
+[ext_resource type="Script" path="res://src/effect/effect.gd" id="1_uqk2r"]
+[ext_resource type="Texture2D" uid="uid://50b3nba81k40" path="res://assets/card/fertilize.png" id="3_7flb7"]
+
+[sub_resource type="Resource" id="Resource_5kvxs"]
+script = ExtResource("1_uqk2r")
+name = "add_yield"
+strength = 1.0
+on = ""
+range = "self"
+
+[resource]
+script = ExtResource("1_1h43a")
+type = "ACTION"
+name = "Fertilize"
+rarity = "basic"
+cost = 1
+yld = 0
+time = 0
+size = 9
+text = ""
+strength_increment = 1.0
+size_increment = 1
+texture = ExtResource("3_7flb7")
+seed_texture = 0
+targets = Array[String](["Growing", "Mature"])
+effects = Array[ExtResource("1_uqk2r")]([SubResource("Resource_5kvxs")])

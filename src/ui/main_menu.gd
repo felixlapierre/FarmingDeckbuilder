@@ -51,10 +51,22 @@ func _on_type_options_item_selected(index):
 		3:
 			Global.FARM_TYPE = "MOUNTAINS"
 
+func get_index_of_farm_type(type):
+	match type:
+		"FOREST":
+			return 0
+		"RIVERLANDS":
+			return 1
+		"WILDERNESS":
+			return 2
+		"MOUNTAINS":
+			return 3
+
 func populate_continue_preview():
 	if not FileAccess.file_exists("user://savegame.save"):
 		ContinueButton.disabled = true
 		return
+	ContinueButton.text = "Load Saved Game"
 	var save_game = FileAccess.open("user://savegame.save", FileAccess.READ)
 	var save_data = save_game.get_line()
 	var json = JSON.new()
@@ -73,6 +85,10 @@ func populate_continue_preview():
 	Stats.append_text("Farm: " + str(save_json.state.farm_type) + "\n")
 	var difficulty = "Easy" if save_json.state.difficulty == 0 else "Normal"
 	Stats.append_text("Difficulty: " + difficulty)
+	
+	#Also preselect options
+	$Root/Grid/Panel/VBox/Margin/VBox/DifficultyBox/DiffOptions.selected = save_json.state.difficulty
+	$Root/Grid/Panel/VBox/Margin/VBox/FarmTypeBox/TypeOptions.selected = get_index_of_farm_type(save_json.state.farm_type)
 	
 	Deck.append_text("Deck: " + "\n")
 	var cards = {}

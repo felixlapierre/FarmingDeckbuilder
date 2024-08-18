@@ -79,7 +79,7 @@ popup/item_1/id = 1
 
 [node name="StartButton" type="Button" parent="Root/Grid/Panel/VBox/Margin/VBox"]
 layout_mode = 2
-text = "Start
+text = "Start New Game
 "
 
 [node name="ContPanel" type="PanelContainer" parent="Root/Grid"]
@@ -106,25 +106,25 @@ layout_mode = 2
 
 [node name="Grid" type="GridContainer" parent="Root/Grid/ContPanel/VBox/Margin/VBox"]
 layout_mode = 2
+size_flags_vertical = 3
 columns = 2
 
 [node name="StatsLabel" type="RichTextLabel" parent="Root/Grid/ContPanel/VBox/Margin/VBox/Grid"]
 layout_mode = 2
 size_flags_horizontal = 3
 bbcode_enabled = true
-text = "test"
 fit_content = true
 
 [node name="DeckLabel" type="RichTextLabel" parent="Root/Grid/ContPanel/VBox/Margin/VBox/Grid"]
 layout_mode = 2
 size_flags_horizontal = 3
 bbcode_enabled = true
-text = "test"
 fit_content = true
 
 [node name="ContinueButton" type="Button" parent="Root/Grid/ContPanel/VBox/Margin/VBox"]
 layout_mode = 2
-text = "Start"
+size_flags_vertical = 10
+text = "No save data found"
 
 [node name="Playspace" parent="." instance=ExtResource("3_6tb12")]
 visible = false

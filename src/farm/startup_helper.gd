@@ -5,9 +5,8 @@ static var card_database = preload("res://src/cards/cards_database.gd")
 
 static var Blueberry = preload("res://src/cards/data/seed/blueberry.tres")
 static var Carrot = preload("res://src/cards/data/seed/carrot.tres")
-static var Radish = preload("res://src/cards/data/seed/radish.tres")
+static var Wildflower = preload("res://src/fortune/unique/wildflower.tres")
 static var Potato = preload("res://src/cards/data/seed/potato.tres")
-static var Cactus = preload("res://src/cards/data/seed/cactus.tres")
 static var Water = preload("res://src/structure/unique/river.tres")
 
 # Called when the node enters the scene tree for the first time.
@@ -65,11 +64,10 @@ static func teardown_wilderness_farm_callback(event_manager: EventManager):
 	event_manager.unregister_listener(EventManager.EventType.BeforeYearStart, wilderness_callable)
 
 static var wilderness_callable = func(event_args: EventArgs):
-	event_args.farm.use_card_random_tile(Carrot, 5)
-	event_args.farm.use_card_random_tile(Blueberry, 5)
-	event_args.farm.use_card_random_tile(Potato, 5)
-	event_args.farm.use_card_random_tile(Radish, 5)
-	event_args.farm.use_card_random_tile(Cactus, 5)
+	event_args.farm.use_card_random_tile(Carrot, 2)
+	event_args.farm.use_card_random_tile(Blueberry, 2)
+	event_args.farm.use_card_random_tile(Potato, 2)
+	event_args.farm.use_card_random_tile(Wildflower, 2)
 	
 static var forest_deck = [
 	{
@@ -101,7 +99,7 @@ static var riverlands_deck = [
 		"count": 3
 	},
 	{
-		"name": "watermelon",
+		"name": "radish",
 		"type": "seed",
 		"count": 1
 	},
@@ -119,12 +117,12 @@ static var wilderness_deck = [
 		"count": 3
 	},
 	{
-		"name": "invigorate",
+		"name": "ingrain",
 		"type": "action",
 		"count": 1,
 	},
 	{
-		"name": "abundance",
+		"name": "fertilize",
 		"type": "action",
 		"count": 3
 	},
@@ -152,7 +150,7 @@ static var mountains_deck = [
 		"count": 1
 	},
 	{
-		"name": "gather",
+		"name": "scythe",
 		"type": "action",
 		"count": 3
 	}

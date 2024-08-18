@@ -14,12 +14,10 @@ var seed_base_yield = 0.0
 var seed_grow_time = 0.0
 var current_yield = 0.0
 var current_grow_progress = 0.0
-var current_multiplier = 1.0
 var irrigated = false
 var IRRIGATED_MULTIPLIER = 0.4
 var purple = false
 var structure_rotate = 0
-var permanent_multiplier = 0.0
 var blight_targeted = false
 var destroy_targeted = false
 
@@ -93,7 +91,6 @@ func plant_seed(planted_seed) -> Array[Effect]:
 		seed_base_yield = float(seed.yld)
 		current_grow_progress = 0.0
 		current_yield = 0.0
-		permanent_multiplier = 0.0
 		state = Enums.TileState.Growing
 		if seed_grow_time == 0:
 			state = Enums.TileState.Mature
@@ -113,10 +110,13 @@ func grow_one_week() -> Array[Effect]:
 	if state == Enums.TileState.Growing:
 		effects.append_array(get_effects("grow"))
 		current_grow_progress += 1.0
-		current_yield += seed_base_yield / seed_grow_time * (current_multiplier + permanent_multiplier)
-		current_multiplier = 1.0
+		var multiplier = 1.0
 		if irrigated:
-			current_multiplier += IRRIGATED_MULTIPLIER
+			multiplier += IRRIGATED_MULTIPLIER
+			var absorb = seed.get_effect("absorb")
+			if absorb != null:
+				multiplier += IRRIGATED_MULTIPLIER * absorb.strength
+		current_yield += seed_base_yield / seed_grow_time * multiplier
 		update_plant_sprite()
 		grow_animation()
 		if current_grow_progress == seed_grow_time:
@@ -181,8 +181,7 @@ func remove_seed():
 	seed = null
 
 func irrigate():
-	if !irrigated:
-		current_multiplier += IRRIGATED_MULTIPLIER
+	if !irrigated and state != Enums.TileState.Blighted and state != Enums.TileState.Destroyed:
 		irrigated = true
 		$Farmland.modulate = Color8(0, 102, 255)
 
@@ -203,6 +202,7 @@ func build_structure(n_structure: Structure, rotate):
 	var rest_position = $PlantSprite.position
 	$PlantSprite.position += Vector2(0, -200)
 	$PlantSprite.offset = Vector2(0, -8)
+	$PlantSprite.scale = Vector2(1, 1)
 	var tween = get_tree().create_tween()
 	tween.tween_property($PlantSprite, "position", rest_position, 0.6).set_trans(Tween.TRANS_BOUNCE)\
 		.set_ease(Tween.EASE_OUT)
@@ -216,7 +216,6 @@ func do_winter_clear():
 	if state == Enums.TileState.Growing or state == Enums.TileState.Mature or state == Enums.TileState.Destroyed:
 		state = Enums.TileState.Empty
 		remove_seed()
-		var current_multiplier = 1.0
 		lose_irrigate()
 
 func multiply_yield(strength):
@@ -263,9 +262,6 @@ func get_effects_in_shape(effect: Effect, shape):
 		if Helper.in_bounds(target):
 			effects.append(effect.copy().set_location(target).set_card(seed))
 	return effects
-
-func increase_permanent_mult(factor):
-	permanent_multiplier += factor
 	
 func set_blight_targeted(value):
 	blight_targeted = value

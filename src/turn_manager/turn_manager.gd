@@ -100,10 +100,17 @@ func compute_blight_pattern(week, year):
 	return
 
 func get_ritual_requirements(year):
+	var difficulty_up = Global.DIFFICULTY >= Constants.DIFFICULTY_INCREASE_TARGETS
 	var amount = 20
 	amount += year * 10
 	if year > 3:
 		amount += year * 10
+		if difficulty_up:
+			amount += year * 5
+	if year > 6 and difficulty_up:
+		amount += year * 10
+	if year >= 10 and difficulty_up:
+		amount += 100
 	return amount
 
 func get_blight_requirements(week, year):
