@@ -32,8 +32,17 @@ func setup(p_event_manager: EventManager):
 			add_text(tr("TUTORIAL_TURN1"))
 		)
 	event_manager.register_listener(EventManager.EventType.AfterCardPlayed, func(args: EventArgs):
-		if args.turn_manager.energy - args.specific.play_args.card.cost <= 0:
+		var cleared = false
+		if args.turn_manager.target_blight > 0 and args.turn_manager.purple_mana > args.turn_manager.target_blight:
 			TutorialText.clear()
+			cleared = true
+			add_text("You are now protected from the Blight for this turn.")
+			if args.farm.get_all_tiles().any(func(tile: Tile):
+					return tile.purple == false and tile.state == Enums.TileState.Mature)\
+					and args.turn_manager.energy - args.specific.play_args.card.cost > 0:
+				add_text(tr("TUTORIAL_YELLOW"))
+		if args.turn_manager.energy - args.specific.play_args.card.cost <= 0:
+			if !cleared: TutorialText.clear()
 			add_text(tr("TUTORIAL_NOENERGY"))
 		)
 # Called every frame. 'delta' is the elapsed time since the previous frame.
