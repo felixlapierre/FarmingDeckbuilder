@@ -14,8 +14,8 @@ var Angle = 0
 var CardSpread = 0.25
 var number_of_cards_in_hand = 0
 
-var deck_cards = []
-var discard_pile_cards = []
+var deck_cards: Array[CardData] = []
+var discard_pile_cards: Array[CardData] = []
 
 @onready var tooltip = $Tooltip
 
@@ -217,3 +217,9 @@ func make_random_card_free():
 			copy.cost = 0
 			card.set_card_info(copy)
 			return
+
+func get_deck_info() -> Array[CardData]:
+	return deck_cards
+
+func get_discard_info() -> Array[CardData]:
+	return discard_pile_cards

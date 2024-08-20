@@ -9,6 +9,7 @@ var ritual_counter: int = 0
 var purple_mana: int = 0
 var target_blight: int = 0
 var next_turn_blight: int = 0
+var flag_defer_excess: bool = false
 
 var blight_damage = 0
 
@@ -25,25 +26,32 @@ func _process(delta: float) -> void:
 	pass
 
 # Return bool indicating if the ritual is complete
-func gain_yellow_mana(amount):
+func gain_yellow_mana(amount, delay):
+	flag_defer_excess = flag_defer_excess or delay
 	ritual_counter -= amount
 	if ritual_counter <= 0:
 		ritual_counter = 0
 		return true
+	if flag_defer_excess and purple_mana > target_blight:
+		next_turn_blight -= purple_mana - target_blight
+		purple_mana = target_blight
 	return false
 
 func gain_purple_mana(amount, delay):
-	if !delay:
-		if purple_mana + amount < 0: #meaning amount < 0
-			amount += purple_mana
-			purple_mana = 0
-			target_blight -= amount
+	flag_defer_excess = flag_defer_excess or delay
+	if purple_mana + amount < 0: #meaning amount < 0
+		amount += purple_mana
+		purple_mana = 0
+		if flag_defer_excess:
+			next_turn_blight -= amount
 		else:
-			purple_mana += amount
+			target_blight -= amount
 	else:
-		next_turn_blight -= amount
-		if next_turn_blight < 0:
-			next_turn_blight = 0
+		purple_mana += amount
+		if flag_defer_excess and purple_mana > target_blight:
+			next_turn_blight -= purple_mana - target_blight
+			purple_mana = target_blight
+	
 
 # Return boolean if the player took damage
 func end_turn():
@@ -62,6 +70,7 @@ func end_turn():
 	target_blight = next_turn_blight + blight_remaining
 	next_turn_blight = get_blight_requirements(week + 1, year)
 	energy = get_max_energy()
+	flag_defer_excess = false
 	return damage
 
 func start_new_year():

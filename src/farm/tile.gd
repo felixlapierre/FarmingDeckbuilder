@@ -207,10 +207,10 @@ func build_structure(n_structure: Structure, rotate):
 	tween.tween_property($PlantSprite, "position", rest_position, 0.6).set_trans(Tween.TRANS_BOUNCE)\
 		.set_ease(Tween.EASE_OUT)
 
-func preview_harvest() -> float:
-	if seed != null and seed.get_effect("corrupted") != null:
-		return -1 * current_yield
-	return current_yield
+func preview_harvest() -> EventArgs.HarvestArgs:
+	if seed != null:
+		return seed.get_yield(self)
+	return EventArgs.HarvestArgs.new(current_yield, purple, false)
 
 func do_winter_clear():
 	if state == Enums.TileState.Growing or state == Enums.TileState.Mature or state == Enums.TileState.Destroyed:
@@ -297,8 +297,8 @@ func update_purple_overlay():
 	$PurpleOverlay.visible = purple and state != Enums.TileState.Inactive
 
 func notify_harvest(delay: bool) -> EventArgs.HarvestArgs:
-	var corrupted = seed.get_effect("corrupted") != null
-	var harvest_args = EventArgs.HarvestArgs.new(-current_yield if corrupted else current_yield, purple, delay)
+	var harvest_args: EventArgs.HarvestArgs = seed.get_yield(self)
+	harvest_args.delay = harvest_args.delay or delay
 	var specific_args = EventArgs.SpecificArgs.new(self)
 	specific_args.harvest_args = harvest_args
 	event_manager.notify_specific_args(EventManager.EventType.OnPlantHarvest, specific_args)

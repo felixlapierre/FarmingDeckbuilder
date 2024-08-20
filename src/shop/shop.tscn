@@ -47,9 +47,14 @@ texture = ExtResource("3_54cos")
 expand_mode = 2
 stretch_mode = 4
 
-[node name="CloseButton" type="Button" parent="PanelContainer/ShopContainer/Header"]
+[node name="ViewDeck" type="Button" parent="PanelContainer/ShopContainer/Header"]
 layout_mode = 2
 size_flags_horizontal = 10
+text = "View Deck"
+
+[node name="CloseButton" type="Button" parent="PanelContainer/ShopContainer/Header"]
+layout_mode = 2
+size_flags_horizontal = 8
 text = "Close"
 
 [node name="ChoiceOne" type="HBoxContainer" parent="PanelContainer/ShopContainer"]
@@ -110,6 +115,7 @@ layout_mode = 2
 visible = false
 
 [connection signal="pressed" from="ClickOutButton" to="." method="_on_close_button_pressed"]
+[connection signal="pressed" from="PanelContainer/ShopContainer/Header/ViewDeck" to="." method="_on_view_deck_pressed"]
 [connection signal="pressed" from="PanelContainer/ShopContainer/Header/CloseButton" to="." method="_on_close_button_pressed"]
 [connection signal="option_selected" from="PanelContainer/ShopContainer/ChoiceOne/Reroll" to="." method="on_reroll"]
 [connection signal="option_selected" from="PanelContainer/ShopContainer/ChoiceThree/Reroll" to="." method="on_reroll"]

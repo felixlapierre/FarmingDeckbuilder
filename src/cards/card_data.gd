@@ -81,7 +81,7 @@ func apply_enhance(enhance: Enhance):
 			n_card.effects.append(load("res://src/effect/data/spread_on_grow.tres"))
 		"SpreadHarvest":
 			n_card.effects.append(load("res://src/effect/data/spread_on_harvest.tres"))
-		"Obliviate":
+		"Burn":
 			n_card.effects.append(load("res://src/effect/data/obliviate.tres"))
 		"Remembrance":
 			n_card.effects.append(load("res://src/effect/data/remembrance.tres"))
@@ -132,6 +132,10 @@ func register_seed_events(event_manager: EventManager, tile: Tile):
 
 func unregister_seed_events(event_manager: EventManager):
 	pass
+
+func get_yield(tile: Tile) -> EventArgs.HarvestArgs:
+	var yld = tile.current_yield if get_effect("corrupted") == null else -tile.current_yield
+	return EventArgs.HarvestArgs.new(yld, tile.purple, false)
 
 func save_data() -> Dictionary:
 	var save_dict = {

@@ -17,6 +17,7 @@ signal select_cancelled
 
 var select_callback: Callable
 var tooltip: Tooltip
+var display_only = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -24,6 +25,11 @@ func _ready() -> void:
 
 func disable_cancel():
 	$SelectContainer/Header/CloseButton.visible = false
+
+func do_card_display(cards_input, prompt_text):
+	$SelectContainer/Header/CloseButton.text = "Close"
+	display_only = true
+	do_card_pick(cards_input, prompt_text)
 
 func do_card_pick(cards_input, prompt_text):
 	cards = cards_input
@@ -36,7 +42,8 @@ func do_card_pick(cards_input, prompt_text):
 		display_card.tooltip = tooltip
 		display_card.state = Enums.CardState.InShop
 		display_card.set_card_info(card)
-		display_card.on_clicked.connect(on_card_selected)
+		if !display_only:
+			display_card.on_clicked.connect(on_card_selected)
 		$SelectContainer/CardContainer.add_child(display_card)
 
 func do_enhance_pick(cards_input, p_enhance: Enhance, prompt_text):
@@ -97,3 +104,10 @@ func _on_close_button_pressed() -> void:
 		$SelectContainer/CardContainer.remove_child(child)
 	select_cancelled.emit()
 	enhance = null
+
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("escape"):
+		if state == SelectState.Confirming:
+			_on_cancel_button_pressed()
+		elif state == SelectState.Selecting:
+			_on_close_button_pressed()

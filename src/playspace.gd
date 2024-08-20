@@ -22,7 +22,7 @@ func _ready() -> void:
 	randomize()
 	card_database = preload("res://src/cards/cards_database.gd")
 	$EventManager.setup($FarmTiles, $TurnManager, $Cards)
-	$UserInterface.setup($EventManager, $TurnManager, deck)
+	$UserInterface.setup($EventManager, $TurnManager, deck, $Cards)
 	$UserInterface.update()
 	$FarmTiles.setup($EventManager)
 	background2.unique_tileset()
@@ -39,16 +39,16 @@ func _on_farm_tiles_card_played(card) -> void:
 		$UserInterface.set_winter_visible(true)
 	else:
 		$TurnManager.energy -= card.cost if card.cost >= 0 else $TurnManager.energy
-		$UserInterface.update()
 		$Cards.play_card()
+		$UserInterface.update()
 		if victory == true:
 			end_year()
 
-func _on_farm_tiles_on_yield_gained(yield_amount, purple, delay) -> void:
-	if purple:
-		$TurnManager.gain_purple_mana(yield_amount, delay)
+func _on_farm_tiles_on_yield_gained(args: EventArgs.HarvestArgs) -> void:
+	if args.purple:
+		$TurnManager.gain_purple_mana(args.yld, args.delay)
 	else:
-		var ritual_complete = $TurnManager.gain_yellow_mana(yield_amount)
+		var ritual_complete = $TurnManager.gain_yellow_mana(args.yld, args.delay)
 		if ritual_complete:
 			victory = true
 	$UserInterface.update()
@@ -180,13 +180,13 @@ func on_turn_end():
 	$TurnManager.set_blight_targeted_tiles($FarmTiles)
 	#$UserInterface.update()
 	#await get_tree().create_timer(1).timeout
-	$UserInterface.update()
 	$UserInterface.turn_ending = false
 	$Cards.draw_hand($TurnManager.get_cards_drawn(), $TurnManager.week)
 	$EventManager.notify(EventManager.EventType.BeforeTurnStart)
 	if victory == true:
 		end_year()
 	set_background_texture()
+	$UserInterface.update()
 
 func _on_user_interface_on_blight_removed() -> void:
 	$FarmTiles.remove_blight_from_all_tiles()
@@ -198,9 +198,15 @@ func save_game():
 		save_json.deck.append(card.save_data())
 	
 	save_json.structures = []
-	for tile in $FarmTiles.get_all_tiles():
+	save_json.blight_tiles = []
+	for tile: Tile in $FarmTiles.get_all_tiles():
 		if tile.structure != null:
 			save_json.structures.append(tile.structure.save_data())
+		if tile.state == Enums.TileState.Blighted:
+			save_json.blight_tiles.append({
+				"x": tile.grid_location.x,
+				"y": tile.grid_location.y
+			})
 	
 	save_json.state = {
 		"year": turn_manager.year,
@@ -245,6 +251,8 @@ func load_game():
 		var structure = load(data.path).new()
 		structure.load_data(data)
 		$FarmTiles.tiles[data.x][data.y].build_structure(structure, structure.rotate)
+	for data in save_json.blight_tiles:
+		$FarmTiles.tiles[data.x][data.y].set_blighted()
 
 	turn_manager.year = int(save_json.state.year)
 	turn_manager.week = int(save_json.state.week)

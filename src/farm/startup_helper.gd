@@ -84,6 +84,16 @@ static var forest_deck = [
 		"name": "scythe",
 		"type": "action",
 		"count": 3
+	},
+	{
+		"name": "defer_purple_seed",
+		"type": "seed",
+		"count": 1
+	},
+	{
+		"name": "dear_future",
+		"type": "action",
+		"count": 1
 	}
 ]
 

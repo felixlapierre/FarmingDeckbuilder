@@ -5,7 +5,7 @@
 
 [resource]
 script = ExtResource("1_3kqge")
-name = "Obliviate"
+name = "Burn"
 rarity = "rare"
 strength = 0.0
 targets = Array[String]([])

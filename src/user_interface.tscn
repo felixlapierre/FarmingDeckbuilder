@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://cswinrop881oo"]
+[gd_scene load_steps=24 format=3 uid="uid://cswinrop881oo"]
 
 [ext_resource type="Script" path="res://src/user_interface.gd" id="1_j28fq"]
 [ext_resource type="Theme" uid="uid://c21dhy264y6ty" path="res://assets/theme_large.tres" id="2_s7754"]
@@ -15,6 +15,7 @@
 [ext_resource type="FontFile" uid="uid://drlkmr7jve2ep" path="res://assets/m5x7.ttf" id="13_3dxy7"]
 [ext_resource type="PackedScene" uid="uid://bi0v8rdp8e0sq" path="res://src/farm/tile_preview.tscn" id="14_auyx1"]
 [ext_resource type="Texture2D" uid="uid://ddooce1phh2xs" path="res://assets/custom/ShopButton.png" id="14_m3jdw"]
+[ext_resource type="Texture2D" uid="uid://by5wpf5vbkrw1" path="res://assets/custom/Card.png" id="14_xuayx"]
 [ext_resource type="PackedScene" uid="uid://djb7edsvibm5i" path="res://src/fortune/fortune_teller.tscn" id="15_yqxvh"]
 [ext_resource type="PackedScene" uid="uid://cg2lu7ivw8gms" path="res://src/event/game_event_dialog.tscn" id="16_a3egv"]
 [ext_resource type="PackedScene" uid="uid://dnb3c3pbmh6yl" path="res://src/ui/end_screen.tscn" id="16_r2tbl"]
@@ -82,9 +83,14 @@ bbcode_enabled = true
 text = "42"
 fit_content = true
 
-[node name="NextTurnLabel" type="Label" parent="UI/BlightPanel/VBox"]
+[node name="NextTurnLabel" type="RichTextLabel" parent="UI/BlightPanel/VBox"]
 layout_mode = 2
+size_flags_vertical = 3
 theme = ExtResource("2_s7754")
+bbcode_enabled = true
+text = "( Next Turn: 0 )"
+fit_content = true
+autowrap_mode = 0
 
 [node name="BlightDamage" type="HBoxContainer" parent="UI/BlightPanel/VBox"]
 visible = false
@@ -156,12 +162,41 @@ texture_hover = ExtResource("9_y4jq3")
 position = Vector2(24, 914)
 scale = Vector2(0.439903, 0.409635)
 
-[node name="DeckDraw" type="TextureButton" parent="UI/Deck"]
-offset_right = 250.0
-offset_bottom = 351.0
+[node name="DeckPeek" type="TextureButton" parent="UI/Deck"]
+offset_left = -27.2787
+offset_top = 14.6472
+offset_right = 222.721
+offset_bottom = 364.647
 texture_normal = ExtResource("10_8fmjs")
 texture_disabled = ExtResource("11_cpxin")
 script = ExtResource("12_73glk")
+
+[node name="DeckCount" type="Label" parent="UI/Deck"]
+offset_left = -4.54645
+offset_top = 29.2944
+offset_right = 65.4536
+offset_bottom = 70.2944
+theme = ExtResource("2_s7754")
+theme_override_font_sizes/font_size = 60
+text = "Deck
+"
+
+[node name="DiscardPeek" type="TextureButton" parent="UI/Deck"]
+offset_left = 4037.25
+offset_top = 24.412
+offset_right = 4287.25
+offset_bottom = 374.412
+texture_normal = ExtResource("14_xuayx")
+stretch_mode = 0
+
+[node name="DiscardCount" type="Label" parent="UI/Deck"]
+offset_left = 4059.99
+offset_top = 39.0592
+offset_right = 4176.99
+offset_bottom = 80.0592
+theme = ExtResource("2_s7754")
+theme_override_font_sizes/font_size = 60
+text = "Discard"
 
 [node name="Preview" type="MarginContainer" parent="UI"]
 visible = false
@@ -273,6 +308,14 @@ horizontal_alignment = 1
 layout_mode = 2
 text = "Event"
 
+[node name="ViewDeck" type="Button" parent="Winter"]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 1016.0
+offset_right = 178.0
+offset_bottom = 1065.0
+text = "View Deck"
+
 [node name="EndScreen" parent="." instance=ExtResource("16_r2tbl")]
 visible = false
 
@@ -292,12 +335,15 @@ visible = false
 visible = false
 
 [connection signal="pressed" from="UI/EndTurnButton" to="." method="_on_end_turn_button_pressed"]
+[connection signal="pressed" from="UI/Deck/DeckPeek" to="." method="_on_deck_peek_pressed"]
+[connection signal="pressed" from="UI/Deck/DiscardPeek" to="." method="_on_discard_peek_pressed"]
 [connection signal="pressed" from="UI/SkipButton" to="." method="_on_skip_button_pressed"]
 [connection signal="pressed" from="Winter/ShopButton" to="." method="_on_shop_button_pressed"]
 [connection signal="pressed" from="Winter/NextYearButton" to="." method="_on_next_year_button_pressed"]
 [connection signal="pressed" from="Winter/FortuneTellerButton" to="." method="_on_fortune_teller_button_pressed"]
 [connection signal="pressed" from="Winter/FarmUpgradeButton" to="." method="_on_farm_upgrade_button_pressed"]
 [connection signal="pressed" from="Winter/EventPanel/VB/EventButton" to="." method="_on_event_button_pressed"]
+[connection signal="pressed" from="Winter/ViewDeck" to="." method="_on_shop_view_deck"]
 [connection signal="on_close" from="FortuneTeller" to="." method="_on_fortune_teller_on_close"]
 [connection signal="on_upgrades_selected" from="GameEventDialog" to="." method="_on_game_event_dialog_on_upgrades_selected"]
 [connection signal="on_blight_removed" from="Shop" to="." method="_on_shop_on_blight_removed"]
@@ -306,5 +352,6 @@ visible = false
 [connection signal="on_money_spent" from="Shop" to="." method="_on_shop_on_money_spent"]
 [connection signal="on_shop_closed" from="Shop" to="." method="_on_shop_on_shop_closed"]
 [connection signal="on_structure_place" from="Shop" to="." method="_on_shop_on_structure_place"]
+[connection signal="view_deck" from="Shop" to="." method="_on_shop_view_deck"]
 [connection signal="on_close" from="UpgradeShop" to="." method="upgrade_shop_close"]
 [connection signal="on_upgrade" from="UpgradeShop" to="." method="_on_upgrade_shop_on_upgrade"]

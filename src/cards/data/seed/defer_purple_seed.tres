@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="DeferPurple" load_steps=2 format=3 uid="uid://162w41taveds"]
+
+[ext_resource type="Script" path="res://src/cards/custom/defer_purple.gd" id="1_hh2ss"]
+
+[resource]
+script = ExtResource("1_hh2ss")
+type = "SEED"
+name = "Purple Plant"
+rarity = "uncommon"
+cost = 1
+yld = 5
+time = 1
+size = 1
+text = "On harvest, excess purple mana will be carried over to the next turn."
+strength_increment = 1.0
+size_increment = 1
+seed_texture = 5
+targets = Array[String]([])
+effects = Array[Resource("res://src/effect/effect.gd")]([])

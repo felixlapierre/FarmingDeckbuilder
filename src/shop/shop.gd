@@ -15,6 +15,7 @@ signal on_money_spent
 signal on_card_removed
 signal on_structure_place
 signal on_blight_removed
+signal view_deck
 
 @export var player_money: int
 
@@ -325,3 +326,6 @@ func load_data(save_data: Dictionary):
 
 func reposition():
 	$PanelContainer.position = Constants.VIEWPORT_SIZE / 2 - $PanelContainer.size / 2
+
+func _on_view_deck_pressed() -> void:
+	view_deck.emit()

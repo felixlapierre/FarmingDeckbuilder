@@ -124,6 +124,7 @@ func show_select_overlay():
 	var targeted_grid_locations = get_targeted_tiles(grid_position, size, shape, Global.rotate)
 	var yld_preview_yellow = 0
 	var yld_preview_purple = 0
+	var yld_preview_defer = false
 
 	for item in targeted_grid_locations:
 		var error = false
@@ -136,6 +137,7 @@ func show_select_overlay():
 				var preview = preview_yield(Global.selected_card, targeted_tile)
 				yld_preview_purple += preview.purple
 				yld_preview_yellow += preview.yellow
+				yld_preview_defer = yld_preview_defer or preview.defer
 		var sprite = Sprite2D.new()
 		sprite.texture = load("res://assets/custom/SelectTile.png")
 		sprite.position = TOP_LEFT + (item) * TILE_SIZE + TILE_SIZE / 2
@@ -147,7 +149,11 @@ func show_select_overlay():
 			sprite.modulate = Color8(98, 240, 70)
 		$SelectOverlay.add_child(sprite)
 	if yld_preview_purple + yld_preview_yellow > 0:
-		on_preview_yield.emit(yld_preview_yellow, yld_preview_purple)
+		on_preview_yield.emit({
+			"yellow": yld_preview_yellow, 
+			"purple": yld_preview_purple,
+			"defer": yld_preview_defer
+		})
 
 func is_eligible(targets, targeted_tile):
 	return targets.has(Enums.TileState.keys()[targeted_tile.state])
@@ -176,7 +182,11 @@ func clear_overlay():
 	for node in $SelectOverlay.get_children():
 		$SelectOverlay.remove_child(node)
 		node.queue_free()
-	on_preview_yield.emit(0, 0) #This signals to clear the preview
+	on_preview_yield.emit({
+		"purple": 0,
+		"yellow": 0,
+		"defer": false
+	}) #This signals to clear the preview
 	on_hide_tile_preview.emit()
 
 func process_one_week(week: int):
@@ -275,7 +285,7 @@ func perform_effect(effect, tile: Tile):
 func gain_yield(tile: Tile, args: EventArgs.HarvestArgs):
 	var destination = Global.MANA_TARGET_LOCATION_PURPLE if args.purple else Global.MANA_TARGET_LOCATION_YELLOW
 	blight_bubble_animation(tile, args, destination)
-	on_yield_gained.emit(int(round(args.yld)), args.purple, args.delay)
+	on_yield_gained.emit(args)
 
 func do_winter_clear():
 	var blighted_tiles: Array[Tile] = []
@@ -321,21 +331,24 @@ func gain_energy(amount):
 func preview_yield(card, targeted_tile: Tile):
 	var yld_purple = 0.0
 	var yld_yellow = 0.0
+	var defer = card.get_effect("harvest_delay") != null
 	if (card.get_effect("harvest") != null\
 		or card.get_effect("harvest_delay") != null)\
 		and is_eligible(card.targets, targeted_tile):
-		var yld = targeted_tile.preview_harvest()
-		if targeted_tile.purple:
-			yld_purple += yld
+		var harvest: EventArgs.HarvestArgs = targeted_tile.preview_harvest()
+		if harvest.purple:
+			yld_purple += harvest.yld
 		else:
-			yld_yellow += yld
+			yld_yellow += harvest.yld
+		defer = defer or harvest.delay
 	var increase_yield = card.get_effect("increase_yield")
 	if increase_yield != null:
 		yld_purple *= 1.0 + increase_yield.strength
 		yld_yellow *= 1.0 + increase_yield.strength
 	return {
 		"purple": yld_purple,
-		"yellow": yld_yellow
+		"yellow": yld_yellow,
+		"defer": defer
 	}
 
 func on_expand_farm():

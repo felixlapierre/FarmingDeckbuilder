@@ -3,7 +3,7 @@ class_name DaylilyFortune
 
 var callback: Callable
 var event_type = EventManager.EventType.BeforeYearStart
-var daylily = preload("res://src/fortune/unique/daylily.tres")
+var daylily = preload("res://src/cards/data/seed/daylily.tres")
 var daylily_texture = preload("res://assets/fortune/daylily_fortune.png")
 
 func _init() -> void:

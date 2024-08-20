@@ -12,6 +12,7 @@ signal on_blight_removed
 
 var shop_structure_place_callback
 var deck: Array[CardData]
+var cards: Cards
 var turn_ending = false
 
 var SELECT_CARD = preload("res://src/cards/select_card.tscn")
@@ -38,10 +39,11 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	pass
 
-func setup(p_event_manager: EventManager, p_turn_manager: TurnManager, p_deck: Array[CardData]):
+func setup(p_event_manager: EventManager, p_turn_manager: TurnManager, p_deck: Array[CardData], p_cards: Cards):
 	$FortuneTeller.setup(p_event_manager)
 	turn_manager = p_turn_manager
 	deck = p_deck
+	cards = p_cards
 	$GameEventDialog.setup(deck, turn_manager)
 	$Shop.setup(deck, turn_manager)
 	register_tooltips()
@@ -90,7 +92,11 @@ func update():
 		fragment.expand_mode = TextureRect.EXPAND_FIT_WIDTH
 		$UI/Stats/VBox/CardsHbox/Fragments.add_child(fragment)
 	$UI/BlightPanel/VBox/BlightCounter/Label.text = str(max(turn_manager.target_blight - turn_manager.purple_mana, 0))
-	$UI/BlightPanel/VBox/NextTurnLabel.text ="( Next Turn: " + str(turn_manager.next_turn_blight) + " )"
+	if turn_manager.flag_defer_excess:
+		var next_turn_amount = turn_manager.purple_mana - turn_manager.target_blight
+		$UI/BlightPanel/VBox/NextTurnLabel.text = "( Next Turn: [color=9f78e3]" + str(max(turn_manager.next_turn_blight - next_turn_amount, 0)) + "[/color] )"
+	else:
+		$UI/BlightPanel/VBox/NextTurnLabel.text ="( Next Turn: " + str(turn_manager.next_turn_blight if turn_manager.next_turn_blight >= 0 else 0) + " )"
 	$UI/RitualPanel/RitualCounter/Label.text = str(turn_manager.ritual_counter)
 	$Shop.update_labels()
 	$Winter/FarmUpgradeButton.disabled = $UpgradeShop.lock or ![4, 7, 10].has(turn_manager.year)
@@ -100,6 +106,8 @@ func update():
 		$Winter/EventPanel/VB/EventNameLabel.text = $GameEventDialog.current_event.name
 	register_tooltips()
 	$Tutorial.check_visible()
+	$UI/Deck/DeckCount.text = "Deck: " + str(cards.get_deck_info().size())
+	$UI/Deck/DiscardCount.text = "Discard: " + str(cards.get_discard_info().size())
 
 # Fortune Teller
 func _on_fortune_teller_button_pressed() -> void:
@@ -194,7 +202,9 @@ func _on_skip_button_pressed() -> void:
 	on_skip.emit()
 
 # Yield Preview
-func _on_farm_tiles_on_preview_yield(yellow, purple) -> void:
+func _on_farm_tiles_on_preview_yield(args) -> void:
+	var yellow = args.yellow
+	var purple = args.purple
 	$UI/Preview.visible = yellow + purple > 0
 	$UI/Preview/Panel/HBox/PreviewYellow.text = "+" + str(yellow)
 	$UI/Preview/Panel/HBox/PreviewPurple.text = "+" + str(purple)
@@ -209,6 +219,12 @@ func _on_farm_tiles_on_preview_yield(yellow, purple) -> void:
 		$UI/RitualPanel/RitualCounter/Label.text = "[color=e5e831]"+str(max(turn_manager.ritual_counter - yellow, 0))
 	else:
 				$UI/RitualPanel/RitualCounter/Label.text = str(turn_manager.ritual_counter)
+	if args.defer or turn_manager.flag_defer_excess:
+		var next_turn_amount = turn_manager.purple_mana + purple - turn_manager.target_blight
+		if next_turn_amount > 0:
+			$UI/BlightPanel/VBox/NextTurnLabel.text = "( Next Turn: [color=9f78e3]" + str(max(turn_manager.next_turn_blight - next_turn_amount, 0)) + "[/color] )"
+	else:
+		$UI/BlightPanel/VBox/NextTurnLabel.text = "( Next Turn: " + str(turn_manager.next_turn_blight if turn_manager.next_turn_blight >= 0 else 0) + " )"
 # Winter
 func set_winter_visible(visible):
 	$Winter.visible = visible
@@ -372,6 +388,7 @@ func save_data(save_json):
 		"current": $GameEventDialog.current_event.save_data() if $GameEventDialog.current_event != null else null,
 		"completed": get_completed_events()
 	}
+	save_json.state.rerolls = $Shop.player_money
 
 func load_data(save_json: Dictionary):
 	if save_json.state.winter == true:
@@ -388,6 +405,7 @@ func load_data(save_json: Dictionary):
 	for event_path: String in save_json.events.completed:
 		$GameEventDialog.completed_events.append(load(event_path))
 	create_fortune_display()
+	$Shop.player_money = save_json.state.rerolls
 	update()
 
 func register_tooltips():
@@ -401,7 +419,7 @@ func register_tooltips():
 		"year_winter": 12
 	}))
 	tooltip.register_tooltip(cards_hbox, tr("CARDS_TOOLTIP"));
-	tooltip.register_tooltip($UI/Deck/DeckDraw, tr("DECK_TOOLTIP").format({"deck_cards": deck.size()}))
+	tooltip.register_tooltip($UI/Deck/DeckPeek, tr("DECK_TOOLTIP").format({"deck_cards": deck.size()}))
 	tooltip.register_tooltip($UI/EndTurnButton, tr("END_TURN_TOOLTIP"))
 	tooltip.register_tooltip($UI/RitualPanel/RitualCounter, tr("RITUAL_TARGET_TOOLTIP").format({
 		"count": turn_manager.ritual_counter,
@@ -424,3 +442,27 @@ func get_completed_events() -> Array[String]:
 	for event in $GameEventDialog.completed_events:
 		events.append(event.save_data())
 	return events
+	
+func display_cards(cards: Array[CardData], prompt: String):
+	var select_card = SELECT_CARD.instantiate()
+	select_card.tooltip = tooltip
+	select_card.size = Constants.VIEWPORT_SIZE
+	select_card.z_index = 2
+	select_card.theme = load("res://assets/theme_large.tres")
+	select_card.select_callback = func(card_data):
+		pass
+	add_child(select_card)
+	$UI/Stats.visible = false
+	select_card.select_cancelled.connect(func():
+		remove_child(select_card)
+		$UI/Stats.visible = true)
+	select_card.do_card_display(cards, prompt)
+
+func _on_deck_peek_pressed() -> void:
+	display_cards(cards.get_deck_info(), "Deck")
+
+func _on_discard_peek_pressed() -> void:
+	display_cards(cards.get_discard_info(), "Discard Pile")
+
+func _on_shop_view_deck() -> void:
+	display_cards(deck, "Deck")

@@ -40,9 +40,9 @@ func is_card_eligible(card: CardData):
 			return card.get_effect("remembrance") == null
 		"Springbound":
 			return card.get_effect("springbound") == null
-		"Obliviate":
+		"Burn":
 			return card.get_effect("obliviate") == null
-		"RemoveObliviate":
+		"RemoveBurn":
 			return card.get_effect("obliviate") != null
 		"Strength":
 			for effect in card.effects:
@@ -70,10 +70,10 @@ func get_description():
 			return "Add Frozen to a card (Card is not discarded at the end of the turn)"
 		"Springbound":
 			return "Add Springbound to a card (Card will always be drawn on the first week of Spring)"
-		"Obliviate":
-			return "Add Obliviate to a card (Card is removed from your deck when played)"
-		"RemoveObliviate":
-			return "Remove Obliviate from a card"
+		"Burn":
+			return "Add Burn to a card (Card is temporarily removed from your deck when played)"
+		"RemoveBurn":
+			return "Remove Burn from a card"
 		"Strength":
 			return "Increase the strength of a card's special effects"
 		"Regrow":
