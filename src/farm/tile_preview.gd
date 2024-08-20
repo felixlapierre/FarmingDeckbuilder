@@ -7,7 +7,7 @@ extends Node2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	pass
 
 func setup(tile: Tile):
 	state_label.text = "State: " + str(Enums.TileState.find_key(tile.state))
@@ -31,6 +31,7 @@ func setup(tile: Tile):
 		yield_label.text = "Yield: " + str(snapped(tile.current_yield, 0.01))
 	else:
 		yield_label.visible = false
+	card_base.state = Enums.CardState.InShop
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:

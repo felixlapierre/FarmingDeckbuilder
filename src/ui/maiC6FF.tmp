@@ -129,27 +129,33 @@ text = "No save data found"
 [node name="SettingsPanel" type="PanelContainer" parent="Root/Grid"]
 layout_mode = 2
 
-[node name="Margin" type="MarginContainer" parent="Root/Grid/SettingsPanel"]
-layout_mode = 2
-theme_override_constants/margin_left = 20
-theme_override_constants/margin_right = 20
-theme_override_constants/margin_bottom = 20
-
-[node name="VBox" type="VBoxContainer" parent="Root/Grid/SettingsPanel/Margin"]
+[node name="VBox" type="VBoxContainer" parent="Root/Grid/SettingsPanel"]
 layout_mode = 2
 
-[node name="SettingsLabel" type="Label" parent="Root/Grid/SettingsPanel/Margin/VBox"]
+[node name="SettingsLabel" type="Label" parent="Root/Grid/SettingsPanel/VBox"]
 layout_mode = 2
 text = "Settings"
 horizontal_alignment = 1
 
-[node name="TutorialsCheck" type="CheckButton" parent="Root/Grid/SettingsPanel/Margin/VBox"]
+[node name="HBTutorials" type="HBoxContainer" parent="Root/Grid/SettingsPanel/VBox"]
+layout_mode = 2
+
+[node name="TutorialsLabel" type="Label" parent="Root/Grid/SettingsPanel/VBox/HBTutorials"]
 layout_mode = 2
 text = "Tutorials"
 
-[node name="DebugCheck" type="CheckButton" parent="Root/Grid/SettingsPanel/Margin/VBox"]
+[node name="Check" type="CheckButton" parent="Root/Grid/SettingsPanel/VBox/HBTutorials"]
+layout_mode = 2
+
+[node name="HBDebug" type="HBoxContainer" parent="Root/Grid/SettingsPanel/VBox"]
+layout_mode = 2
+
+[node name="DebugLabel" type="Label" parent="Root/Grid/SettingsPanel/VBox/HBDebug"]
 layout_mode = 2
 text = "Dev Mode"
+
+[node name="Check" type="CheckButton" parent="Root/Grid/SettingsPanel/VBox/HBDebug"]
+layout_mode = 2
 
 [node name="Playspace" parent="." instance=ExtResource("3_6tb12")]
 visible = false
@@ -158,5 +164,3 @@ visible = false
 [connection signal="item_selected" from="Root/Grid/Panel/VBox/Margin/VBox/DifficultyBox/DiffOptions" to="." method="_on_diff_options_item_selected"]
 [connection signal="pressed" from="Root/Grid/Panel/VBox/Margin/VBox/StartButton" to="." method="_on_start_button_pressed"]
 [connection signal="pressed" from="Root/Grid/ContPanel/VBox/Margin/VBox/ContinueButton" to="." method="_on_continue_button_pressed"]
-[connection signal="pressed" from="Root/Grid/SettingsPanel/Margin/VBox/TutorialsCheck" to="." method="_on_tutorials_check_pressed"]
-[connection signal="pressed" from="Root/Grid/SettingsPanel/Margin/VBox/DebugCheck" to="." method="_on_debug_check_pressed"]

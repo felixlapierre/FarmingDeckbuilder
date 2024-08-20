@@ -45,7 +45,7 @@ func setup(p_event_manager: EventManager, p_turn_manager: TurnManager, p_deck: A
 	$GameEventDialog.setup(deck, turn_manager)
 	$Shop.setup(deck, turn_manager)
 	register_tooltips()
-	$UI/SkipButton.visible = Global.DEBUG
+	$Tutorial.setup(p_event_manager)
 
 # Start and end year
 func end_year():
@@ -59,8 +59,10 @@ func end_year():
 	$FortuneTeller.create_fortunes()
 	create_fortune_display()
 	update()
+	$Tutorial.on_winter()
 	
 func start_year():
+	$UI/SkipButton.visible = Settings.DEBUG
 	$FortuneTeller.register_fortunes()
 	$UI.visible = true
 	$Winter.visible = false
@@ -88,7 +90,7 @@ func update():
 		fragment.expand_mode = TextureRect.EXPAND_FIT_WIDTH
 		$UI/Stats/VBox/CardsHbox/Fragments.add_child(fragment)
 		
-	$UI/BlightPanel/VBox/BlightCounter/Label.text = str(turn_manager.target_blight - turn_manager.purple_mana)\
+	$UI/BlightPanel/VBox/BlightCounter/Label.text = str(max(turn_manager.target_blight - turn_manager.purple_mana, 0))\
 		 + " ( Next Turn: " + str(turn_manager.next_turn_blight) + " )"
 	$UI/RitualPanel/RitualCounter/Label.text = str(turn_manager.ritual_counter)
 	$Shop.update_labels()
@@ -98,7 +100,7 @@ func update():
 	if $GameEventDialog.current_event != null:
 		$Winter/EventPanel/VB/EventNameLabel.text = $GameEventDialog.current_event.name
 	register_tooltips()
-
+	$Tutorial.check_visible()
 
 # Fortune Teller
 func _on_fortune_teller_button_pressed() -> void:
@@ -327,6 +329,7 @@ func _on_shop_on_blight_removed() -> void:
 func _on_farm_tiles_on_show_tile_preview(tile: Tile) -> void:
 	$UI/TilePreview.setup(tile)
 	$UI/TilePreview.visible = true
+	$UI/TilePreview.position = get_global_mouse_position() + Vector2(30, -100)
 
 func _on_farm_tiles_on_hide_tile_preview() -> void:
 	$UI/TilePreview.visible = false
@@ -401,6 +404,8 @@ func register_tooltips():
 		"path": "res://assets/custom/PurpleMana.png"
 	}))
 	
+	tooltip.register_tooltip($Winter/NextYearButton, tr("TOOLTIP_NEXTYEAR"))
+	tooltip.register_tooltip($Winter/FarmUpgradeButton, tr("TOOLTIP_UPGRADE"))
 func get_fortunes() -> Array[Fortune]:
 	return $FortuneTeller.current_fortunes
 

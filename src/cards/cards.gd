@@ -180,8 +180,8 @@ func finish_discard(card):
 func add_card_from_shop(card_info):
 	discard_pile_cards.append(card_info)
 
-func get_hand_info():
-	var card_info_array = []
+func get_hand_info() -> Array[CardData]:
+	var card_info_array: Array[CardData] = []
 	for card in $Hand.get_children():
 		card_info_array.append(card.card_info)
 	return card_info_array

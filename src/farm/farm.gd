@@ -107,7 +107,7 @@ func show_select_overlay():
 	if hovered_tile == null:
 		return
 	clear_overlay()
-	if size == 0:
+	if size == 0 and Global.selected_structure == null:
 		return
 	var grid_position = hovered_tile.grid_location
 	var shape = Global.shape

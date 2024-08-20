@@ -10,6 +10,8 @@ var PLAYSPACE = preload("res://src/playspace.tscn")
 @onready var Stats = $Root/Grid/ContPanel/VBox/Margin/VBox/Grid/StatsLabel
 @onready var Deck = $Root/Grid/ContPanel/VBox/Margin/VBox/Grid/DeckLabel
 @onready var ContinueButton = $Root/Grid/ContPanel/VBox/Margin/VBox/ContinueButton
+@onready var TutorialsCheck = $Root/Grid/SettingsPanel/Margin/VBox/TutorialsCheck
+@onready var DebugCheck = $Root/Grid/SettingsPanel/Margin/VBox/DebugCheck
 
 var difficulty_text = [
 	"Base difficulty",
@@ -21,13 +23,16 @@ var difficulty_text = [
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	populate_continue_preview()
+	Settings.load_settings()
+	TutorialsCheck.button_pressed = Settings.TUTORIALS_ENABLED
+	DebugCheck.button_pressed = Settings.DEBUG
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
 
 func _on_diff_options_item_selected(index):
 	Global.DIFFICULTY = index
-
 
 func _on_start_button_pressed():
 	menu_root.visible = false
@@ -112,3 +117,11 @@ func populate_continue_preview():
 				structures[structure.name] = 1
 		for structurename in structures.keys():
 			Deck.append_text(structurename + " x" + str(structures[structurename]) + "\n")
+
+func _on_tutorials_check_pressed() -> void:
+	Settings.TUTORIALS_ENABLED = TutorialsCheck.button_pressed
+	Settings.save_settings()
+
+func _on_debug_check_pressed() -> void:
+	Settings.DEBUG = DebugCheck.button_pressed
+	Settings.save_settings()

@@ -35,7 +35,7 @@ var turn_manager
 func _ready() -> void:
 	$RemoveCardContainer.size = Constants.VIEWPORT_SIZE
 	$Tooltip/Panel.theme = load("res://assets/game_theme.tres")
-	player_money = 500 if Global.DEBUG else 1
+	player_money = 1
 	update_labels()
 	reposition()
 
@@ -251,8 +251,8 @@ func update_labels():
 	$PanelContainer/ShopContainer/Header/MoneyLabel.text = ": " + str(player_money)
 
 func on_reroll(cost, row):
-	if player_money + cost < 0:
-		return
+	if !Settings.DEBUG and player_money + cost < 0:
+			return
 	player_money += cost
 	update_labels()
 	clear_row(row)

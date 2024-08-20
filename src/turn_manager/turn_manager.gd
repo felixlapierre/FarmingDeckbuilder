@@ -102,6 +102,8 @@ func get_ritual_requirements(year):
 	var difficulty_up = Global.DIFFICULTY >= Constants.DIFFICULTY_INCREASE_TARGETS
 	var amount = 20
 	amount += year * 10
+	if year <= 3:
+		amount = 60
 	if year > 3:
 		amount += year * 10
 		if difficulty_up:

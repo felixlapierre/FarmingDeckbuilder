@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://cswinrop881oo"]
+[gd_scene load_steps=23 format=3 uid="uid://cswinrop881oo"]
 
 [ext_resource type="Script" path="res://src/user_interface.gd" id="1_j28fq"]
 [ext_resource type="Theme" uid="uid://c21dhy264y6ty" path="res://assets/theme_large.tres" id="2_s7754"]
@@ -21,9 +21,13 @@
 [ext_resource type="PackedScene" uid="uid://ch1l0jofkrynh" path="res://src/shop/shop.tscn" id="17_q7vph"]
 [ext_resource type="PackedScene" uid="uid://dvjkkex6w162i" path="res://src/upgrade/upgrade_shop.tscn" id="18_wm5tb"]
 [ext_resource type="PackedScene" uid="uid://cs4xf7kyndygr" path="res://src/ui/tooltip.tscn" id="20_dvki6"]
+[ext_resource type="PackedScene" uid="uid://bb1j26ivcxqw6" path="res://src/ui/tutorial.tscn" id="22_4s3pk"]
 
 [node name="UserInterface" type="Node2D"]
 script = ExtResource("1_j28fq")
+
+[node name="Tutorial" parent="." instance=ExtResource("22_4s3pk")]
+position = Vector2(1234, -2)
 
 [node name="UI" type="Control" parent="."]
 layout_mode = 3
@@ -189,10 +193,10 @@ text = "+12"
 
 [node name="SkipButton" type="Button" parent="UI"]
 layout_mode = 0
-offset_left = 1403.0
-offset_top = 6.0
-offset_right = 1474.0
-offset_bottom = 55.0
+offset_left = 373.0
+offset_top = 376.0
+offset_right = 444.0
+offset_bottom = 425.0
 theme = ExtResource("2_s7754")
 text = "Skip"
 
