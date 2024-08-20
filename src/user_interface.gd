@@ -89,9 +89,8 @@ func update():
 		fragment.texture = load("res://assets/custom/CardFragment.png")
 		fragment.expand_mode = TextureRect.EXPAND_FIT_WIDTH
 		$UI/Stats/VBox/CardsHbox/Fragments.add_child(fragment)
-		
-	$UI/BlightPanel/VBox/BlightCounter/Label.text = str(max(turn_manager.target_blight - turn_manager.purple_mana, 0))\
-		 + " ( Next Turn: " + str(turn_manager.next_turn_blight) + " )"
+	$UI/BlightPanel/VBox/BlightCounter/Label.text = str(max(turn_manager.target_blight - turn_manager.purple_mana, 0))
+	$UI/BlightPanel/VBox/NextTurnLabel.text ="( Next Turn: " + str(turn_manager.next_turn_blight) + " )"
 	$UI/RitualPanel/RitualCounter/Label.text = str(turn_manager.ritual_counter)
 	$Shop.update_labels()
 	$Winter/FarmUpgradeButton.disabled = $UpgradeShop.lock or ![4, 7, 10].has(turn_manager.year)
@@ -200,6 +199,16 @@ func _on_farm_tiles_on_preview_yield(yellow, purple) -> void:
 	$UI/Preview/Panel/HBox/PreviewYellow.text = "+" + str(yellow)
 	$UI/Preview/Panel/HBox/PreviewPurple.text = "+" + str(purple)
 	
+	var blightamt = max(turn_manager.target_blight - turn_manager.purple_mana, 0)
+	if purple != 0:
+		$UI/BlightPanel/VBox/BlightCounter/Label.text = "[color=9f78e3]"+ str(blightamt) + " -> "+str(max(blightamt - purple, 0)) 
+	else:
+		$UI/BlightPanel/VBox/BlightCounter/Label.text = str(blightamt)
+	
+	if yellow != 0:
+		$UI/RitualPanel/RitualCounter/Label.text = "[color=e5e831]"+str(max(turn_manager.ritual_counter - yellow, 0))
+	else:
+				$UI/RitualPanel/RitualCounter/Label.text = str(turn_manager.ritual_counter)
 # Winter
 func set_winter_visible(visible):
 	$Winter.visible = visible
@@ -329,7 +338,7 @@ func _on_shop_on_blight_removed() -> void:
 func _on_farm_tiles_on_show_tile_preview(tile: Tile) -> void:
 	$UI/TilePreview.setup(tile)
 	$UI/TilePreview.visible = true
-	$UI/TilePreview.position = get_global_mouse_position() + Vector2(30, -100)
+	$UI/TilePreview.position = get_global_mouse_position() + Vector2(30, 30)
 
 func _on_farm_tiles_on_hide_tile_preview() -> void:
 	$UI/TilePreview.visible = false
@@ -373,6 +382,7 @@ func load_data(save_json: Dictionary):
 		$GameEventDialog.current_event = load(save_json.events.current) if save_json.events.current != null else null
 		$GameEventDialog.update_interface()
 		$Shop.load_data(save_json.winter.shop)
+		$Tutorial.on_winter()
 	$FortuneTeller.unregister_fortunes()
 	$FortuneTeller.load_fortunes(save_json.fortunes)
 	for event_path: String in save_json.events.completed:

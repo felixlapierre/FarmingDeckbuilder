@@ -204,8 +204,10 @@ func remove_hand_card(card):
 	number_of_cards_in_hand -= 1
 
 func set_cards_visible(visible: bool):
-	$Hand.propagate_call("set_visible", [visible])
-	$Discarding.propagate_call("set_visible", [visible])
+	for child in $Hand.get_children():
+		child.set_visible(visible)
+	for child in $Discarding.get_children():
+		child.set_visible(visible)
 
 func make_random_card_free():
 	for card in $Hand.get_children():

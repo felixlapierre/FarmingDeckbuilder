@@ -129,7 +129,7 @@ func get_long_description():
 		"spread":
 			return "Spread: Plant a copy of this plant on an adjacent tile"
 		"harvest", "harvest_delay":
-			return "Harvest: Gain [img]res://assets/custom/YellowMana.png[/img] or [img]res://assets/custom/PurpleMana.png[/img] equal to the plant's Yield, then remove it"
+			return "Harvest: Gain [img]res://assets/custom/YellowMana16.png[/img] or [img]res://assets/custom/PurpleMana16.png[/img] equal to the plant's Yield, then remove it"
 		"irrigate", "absorb":
 			return "Watered: Watered tiles yield 40% more"
 		"fleeting", "draw_target":

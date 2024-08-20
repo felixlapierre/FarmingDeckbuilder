@@ -70,6 +70,15 @@ func set_card_info(card_data):
 			CARD_ICON.texture = texture
 			var corrupted = card_data.get_effect("corrupted") != null
 			var negative = "-" if corrupted else ""
+
+			$HBoxContainer/VBoxContainer/TopBar/CardCostLabel.visible = card_info.cost != 99
+			$HBoxContainer/VBoxContainer/TopBar/TextureRect.visible = card_info.cost != 99
+			$HBoxContainer/VBoxContainer/BottomBar/YieldTexture.visible = card_info.yld > 0
+			$HBoxContainer/VBoxContainer/BottomBar/YieldLabel.visible = card_info.yld > 0
+			$HBoxContainer/VBoxContainer/BottomBar/TimeLabel.visible = card_info.time != 99
+			$HBoxContainer/VBoxContainer/BottomBar/TimeTexture.visible = card_info.time != 99
+			$HBoxContainer/VBoxContainer/BottomBar/TimeLabel.visible = card_info.time != 99
+			$Time
 			$HBoxContainer/VBoxContainer/BottomBar/YieldLabel.text = negative + str(card_info.yld)\
 				+ " (" + negative + str(card_info.yld * card_info.size) + ")"
 			$HBoxContainer/VBoxContainer/BottomBar/TimeLabel.text = str(card_info.time)

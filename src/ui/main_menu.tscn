@@ -40,6 +40,10 @@ layout_mode = 2
 
 [node name="FarmTypeBox" type="HBoxContainer" parent="Root/Grid/Panel/VBox/Margin/VBox"]
 layout_mode = 2
+tooltip_text = "Forest: Basic farm type
+Riverlands: A river waters tiles but takes up space on the farm
+Wilderness: Start with wild plants on your farm and a unique deck with no seed cards
+Mountains: Challenge yourself to win using an extremely small farm"
 
 [node name="TypeLabel" type="Label" parent="Root/Grid/Panel/VBox/Margin/VBox/FarmTypeBox"]
 layout_mode = 2
@@ -62,6 +66,10 @@ popup/item_3/id = 3
 
 [node name="DifficultyBox" type="HBoxContainer" parent="Root/Grid/Panel/VBox/Margin/VBox"]
 layout_mode = 2
+tooltip_text = "Normal mode makes all numbers 
+bigger, increases misfortune, makes
+ blight more dangerous, and adds
+a difficult Year 11"
 
 [node name="DiffLabel" type="Label" parent="Root/Grid/Panel/VBox/Margin/VBox/DifficultyBox"]
 layout_mode = 2
@@ -149,6 +157,9 @@ text = "Tutorials"
 
 [node name="DebugCheck" type="CheckButton" parent="Root/Grid/SettingsPanel/Margin/VBox"]
 layout_mode = 2
+tooltip_text = "Dev Mode: Add Skip button to skip 
+the year. Allow infinite rerolls in the 
+shop to get the cards you want."
 text = "Dev Mode"
 
 [node name="Playspace" parent="." instance=ExtResource("3_6tb12")]

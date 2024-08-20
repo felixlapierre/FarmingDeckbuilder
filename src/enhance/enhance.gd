@@ -25,6 +25,8 @@ func copy():
 	return Enhance.new(name, rarity, strength, n_targets, texture)
 
 func is_card_eligible(card: CardData):
+	if card.cost == 99:
+		return false
 	match name:
 		"Size":
 			return card.size < 9

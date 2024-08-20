@@ -44,10 +44,12 @@ offset_bottom = 457.0
 layout_mode = 2
 theme = ExtResource("2_s7754")
 
-[node name="Label" type="Label" parent="UI/RitualPanel/RitualCounter"]
+[node name="Label" type="RichTextLabel" parent="UI/RitualPanel/RitualCounter"]
 layout_mode = 2
-size_flags_horizontal = 10
+size_flags_horizontal = 3
+bbcode_enabled = true
 text = "300"
+text_direction = 2
 
 [node name="TextureRect" type="TextureRect" parent="UI/RitualPanel/RitualCounter"]
 layout_mode = 2
@@ -73,9 +75,16 @@ layout_mode = 2
 texture = ExtResource("4_o6t76")
 stretch_mode = 5
 
-[node name="Label" type="Label" parent="UI/BlightPanel/VBox/BlightCounter"]
+[node name="Label" type="RichTextLabel" parent="UI/BlightPanel/VBox/BlightCounter"]
 layout_mode = 2
+size_flags_horizontal = 3
+bbcode_enabled = true
 text = "42"
+fit_content = true
+
+[node name="NextTurnLabel" type="Label" parent="UI/BlightPanel/VBox"]
+layout_mode = 2
+theme = ExtResource("2_s7754")
 
 [node name="BlightDamage" type="HBoxContainer" parent="UI/BlightPanel/VBox"]
 visible = false

@@ -103,8 +103,8 @@ func get_ritual_requirements(year):
 	var amount = 20
 	amount += year * 10
 	if year <= 3:
-		amount = 60
-	if year > 3:
+		amount += 10
+	if year > 2:
 		amount += year * 10
 		if difficulty_up:
 			amount += year * 2

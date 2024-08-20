@@ -1,7 +1,16 @@
-[gd_resource type="Theme" load_steps=2 format=3 uid="uid://c21dhy264y6ty"]
+[gd_resource type="Theme" load_steps=3 format=3 uid="uid://c21dhy264y6ty"]
 
 [ext_resource type="FontFile" uid="uid://drlkmr7jve2ep" path="res://assets/m5x7.ttf" id="1_iv030"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vtyjs"]
+bg_color = Color(0.184314, 0.184314, 0.184314, 0.984314)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.137255, 0.137255, 0.137255, 1)
 
 [resource]
 default_font = ExtResource("1_iv030")
 default_font_size = 50
+TooltipPanel/styles/panel = SubResource("StyleBoxFlat_vtyjs")
