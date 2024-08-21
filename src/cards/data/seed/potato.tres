@@ -17,6 +17,6 @@ strength_increment = 1.0
 size_increment = 1
 texture = ExtResource("2_t2xrm")
 seed_texture = 8
-texture_icon_offset = 10
+texture_icon_offset = 14
 targets = Array[String]([])
 effects = Array[Resource("res://src/effect/effect.gd")]([])
