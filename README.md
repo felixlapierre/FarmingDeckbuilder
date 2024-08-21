@@ -8,6 +8,22 @@ by Felix Lapierre
 
 [Download for MacOS](https://drive.google.com/file/d/1axoEeiu4KYO_rstGDVbbsQZqViINLOEh/view?usp=sharing)
 
+<details><summary>Running on MacOS</summary>
+
+Download FarmingDeckbuilder.zip from the above link, unzip the folder, and move the application file to the Applications folder.
+
+When you run the app for the first time, the following dialog is displayed:
+
+> "FarmingDeckbuilder" can't be opened because Apple cannot check it for malicious software.
+> 
+> The software needs to be updated. Contact the developer for more information
+
+To run the app, you can temporarily override Gatekeeper: Open System Preferences, click Security & Privacy, then click General. You will see "FarmingDeckbuilder" was blocked from use because it is not from an identified developer. Click "Open Anyway".
+
+- On MacOS Sonoma: click System Settings then Privacy & Security, then scroll down to the Security section, then click Open Anyways 
+
+</details>
+
 ### How to Play
 
 You are a mage tasked with cleansing the Blighted Forest from the evil that corrupts it.

@@ -24,7 +24,6 @@ var tween
 
 var number_of_cards_in_hand = 0
 var card_number_in_hand = 0;
-var neighbor_card;
 
 var DRAWTIME = 0.5
 var ZOOMTIME = 0.3
@@ -146,12 +145,12 @@ func reset_starting_position():
 	starting_rotation = rotation
 	starting_scale = scale
 	t = 0
-	
+
 func Reset_Card(card_number_in_hand):
-	neighbor_card = $'../'.get_child(card_number_in_hand)
-	neighbor_card = $'../'.get_child(card_number_in_hand)
+	var neighbor_card = $'../'.get_child(card_number_in_hand)
 	# Allows mousing directly from one card to another
-	if neighbor_card.state != Enums.CardState.FocusInHand:
+	if neighbor_card.state != Enums.CardState.FocusInHand\
+		and neighbor_card.state != Enums.CardState.InMouse:
 		neighbor_card.state = Enums.CardState.ReOrganiseHand
 		neighbor_card.target_position = neighbor_card.resting_position
 		neighbor_card.reset_starting_position()
@@ -163,7 +162,6 @@ func _on_focus_mouse_entered() -> void:
 			new_position.y = Constants.VIEWPORT_SIZE.y - card_size.y*ZoomInSize*0.9
 			set_state(Enums.CardState.FocusInHand, new_position, 0, resting_scale * ZoomInSize)
 			move_neighbors()
-			Global.selected_card = null
 
 
 func _on_focus_mouse_exited() -> void:
@@ -194,7 +192,9 @@ func reset_neighbors():
 		Reset_Card(card_number_in_hand + 2)
 
 func move_neighbor_card(card_number_in_hand, Left, SpreadFactor):
-	neighbor_card = $'../'.get_child(card_number_in_hand)
+	var neighbor_card = $'../'.get_child(card_number_in_hand)
+	if neighbor_card.state == Enums.CardState.InMouse:
+		return
 	var new_position;
 	if Left:
 		new_position = neighbor_card.resting_position - SpreadFactor*Vector2(65,0)
@@ -252,6 +252,7 @@ func _on_focus_gui_input(event: InputEvent) -> void:
 				Global.selected_card = card_info
 				Global.shape = Helper.get_default_shape(card_info.size)
 				Global.rotate = 0
+				reset_hand_card()
 			Enums.CardState.InMouse:
 				var new_position = resting_position
 				new_position.y = Constants.VIEWPORT_SIZE.y - card_size.y*ZoomInSize
@@ -260,6 +261,13 @@ func _on_focus_gui_input(event: InputEvent) -> void:
 			Enums.CardState.InShop:
 				on_clicked.emit(self)
 		$Focus.visible = false
+
+func reset_hand_card():
+	var cards = $'../'.get_children()
+	for card in cards:
+		if card.state == Enums.CardState.InMouse and card != self:
+			card.set_state(Enums.CardState.ReOrganiseHand, card.resting_position, card.resting_rotation, card.resting_scale)
+			card.reset_starting_position()
 
 func _input(event: InputEvent) -> void:
 	if state == Enums.CardState.InMouse and event.is_action_pressed("rightclick"):
