@@ -5,7 +5,7 @@
 [resource]
 script = ExtResource("1_hh2ss")
 type = "SEED"
-name = "Purple Plant"
+name = "Hyacinth"
 rarity = "uncommon"
 cost = 1
 yld = 5

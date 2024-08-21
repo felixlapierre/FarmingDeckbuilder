@@ -51,6 +51,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 bbcode_enabled = true
 text = "300"
+scroll_active = false
 text_direction = 2
 
 [node name="TextureRect" type="TextureRect" parent="UI/RitualPanel/RitualCounter"]

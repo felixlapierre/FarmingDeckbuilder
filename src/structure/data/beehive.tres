@@ -6,7 +6,7 @@
 [resource]
 script = ExtResource("1_5h5di")
 name = "Beehive"
-rarity = "common"
+rarity = "uncommon"
 cost = 0
 size = 8
 text = "Grow 3 random adjacent tiles at start of turn"

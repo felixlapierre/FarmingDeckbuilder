@@ -6,7 +6,7 @@
 [resource]
 script = ExtResource("1_1v5a0")
 name = "Keg"
-rarity = "common"
+rarity = "rare"
 cost = 1
 size = 8
 text = "Stores yield from nearby harvest to be doubled in two turns"
