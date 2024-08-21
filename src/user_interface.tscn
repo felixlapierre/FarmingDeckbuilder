@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://cswinrop881oo"]
+[gd_scene load_steps=25 format=3 uid="uid://cswinrop881oo"]
 
 [ext_resource type="Script" path="res://src/user_interface.gd" id="1_j28fq"]
 [ext_resource type="Theme" uid="uid://c21dhy264y6ty" path="res://assets/theme_large.tres" id="2_s7754"]
@@ -19,6 +19,7 @@
 [ext_resource type="PackedScene" uid="uid://djb7edsvibm5i" path="res://src/fortune/fortune_teller.tscn" id="15_yqxvh"]
 [ext_resource type="PackedScene" uid="uid://cg2lu7ivw8gms" path="res://src/event/game_event_dialog.tscn" id="16_a3egv"]
 [ext_resource type="PackedScene" uid="uid://dnb3c3pbmh6yl" path="res://src/ui/end_screen.tscn" id="16_r2tbl"]
+[ext_resource type="Theme" uid="uid://c3hfmpsb3fvhr" path="res://assets/game_theme.tres" id="17_2ee0p"]
 [ext_resource type="PackedScene" uid="uid://ch1l0jofkrynh" path="res://src/shop/shop.tscn" id="17_q7vph"]
 [ext_resource type="PackedScene" uid="uid://dvjkkex6w162i" path="res://src/upgrade/upgrade_shop.tscn" id="18_wm5tb"]
 [ext_resource type="PackedScene" uid="uid://cs4xf7kyndygr" path="res://src/ui/tooltip.tscn" id="20_dvki6"]
@@ -250,6 +251,27 @@ position = Vector2(1595, 123)
 
 [node name="FortuneDisplay" type="Node2D" parent="UI"]
 position = Vector2(1346, 360)
+
+[node name="RTFPanel" type="PanelContainer" parent="UI"]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 657.0
+offset_right = 123.0
+offset_bottom = 755.0
+theme = ExtResource("17_2ee0p")
+
+[node name="VBox" type="VBoxContainer" parent="UI/RTFPanel"]
+layout_mode = 2
+
+[node name="ShapeLabel" type="Label" parent="UI/RTFPanel/VBox"]
+layout_mode = 2
+text = "Shape: Fill"
+
+[node name="KeysLabel" type="Label" parent="UI/RTFPanel/VBox"]
+layout_mode = 2
+text = "R: Rotate
+T: Transform
+F: Flip"
 
 [node name="Winter" type="Control" parent="."]
 layout_mode = 3

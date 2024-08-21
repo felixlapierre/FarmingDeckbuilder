@@ -58,6 +58,8 @@ func _input(event: InputEvent) -> void:
 		Global.shape = (Global.shape + 1) % 3
 	elif event.is_action_pressed("rotate"):
 		Global.rotate = (Global.rotate + 1) % 4
+	elif event.is_action_pressed("flip"):
+		Global.flip = (Global.flip + 1) % 2
 	
 func end_year():
 	if turn_manager.year >= (Global.FINAL_YEAR if Global.DIFFICULTY < Constants.DIFFICULTY_FINAL_RITUAL else Global.FINAL_YEAR + 1):

@@ -37,7 +37,9 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	pass
+	$UI/RTFPanel.visible = Global.selected_card != null
+	var shape = Enums.CursorShape.keys()[Global.shape]
+	$UI/RTFPanel/VBox/ShapeLabel.text = "Shape: " + shape
 
 func setup(p_event_manager: EventManager, p_turn_manager: TurnManager, p_deck: Array[CardData], p_cards: Cards):
 	$FortuneTeller.setup(p_event_manager)

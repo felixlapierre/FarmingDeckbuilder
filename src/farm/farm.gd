@@ -162,6 +162,8 @@ func get_targeted_tiles(grid_position, size, shape, rotate):
 	var tiles = []
 	if size != -1:
 		for item in Helper.get_tile_shape_rotated(size, shape, rotate):
+			if Global.flip == 1:
+				item.x = -item.x
 			tiles.append(item + grid_position)
 	else:
 		for i in range(0, Constants.FARM_DIMENSIONS.x):

@@ -1,9 +1,10 @@
 class_name Enums
 
 enum CursorShape {
-	Line,
 	Square,
-	Elbow
+	Line,
+	Elbow,
+	Fill
 }
 
 enum TileState {
