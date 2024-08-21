@@ -16,12 +16,13 @@ const CLASS_NAME = "CardData"
 @export var size_increment: int = 1
 @export var texture: Texture2D
 @export var seed_texture: int
+@export var texture_icon_offset: int = 16
 @export var targets: Array[String]
 @export var effects: Array[Effect]
 
 func _init(p_type = "CARD", p_name = "PlaceholderCardName", p_rarity = "common", p_cost = 1, p_yld = 1,\
 	p_time = 1, p_size = 1, p_text = "", p_texture = null, p_seed_texture = 1, p_targets = [], p_effects = [],\
-	p_strength_increment = 1.0, p_size_increment = 1):
+	p_strength_increment = 1.0, p_size_increment = 1, p_text_icon_offset = 16):
 		type = p_type
 		name = p_name
 		rarity = p_rarity
@@ -36,6 +37,7 @@ func _init(p_type = "CARD", p_name = "PlaceholderCardName", p_rarity = "common",
 		effects.assign(p_effects)
 		strength_increment = p_strength_increment
 		size_increment = p_size_increment
+		texture_icon_offset = p_text_icon_offset
 
 func get_effect(effect_name):
 	for effect in effects:
@@ -65,6 +67,7 @@ func assign(other: CardData) -> void:
 		effects.append(effect.copy())
 	strength_increment = other.strength_increment
 	size_increment = other.size_increment
+	texture_icon_offset = other.texture_icon_offset
 
 func apply_enhance(enhance: Enhance):
 	var n_card = copy()
@@ -152,7 +155,10 @@ func save_data() -> Dictionary:
 		"seed_texture": seed_texture,
 		"targets": targets,
 		"effects": effects.map(func(effect):
-			return effect.save_data())
+			return effect.save_data()),
+		"strength_increment": strength_increment,
+		"size_increment": size_increment,
+		"texture_icon_offset": texture_icon_offset
 	}
 	return save_dict
 
@@ -172,4 +178,7 @@ func load_data(data) -> CardData:
 		var eff = load(effect.path).new()
 		eff.load_data(effect)
 		return eff))
+	strength_increment = data.strength_increment
+	size_increment = data.size_increment
+	texture_icon_offset = data.texture_icon_offset
 	return self

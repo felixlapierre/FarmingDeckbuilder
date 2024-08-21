@@ -19,7 +19,7 @@
 [ext_resource type="PackedScene" uid="uid://djb7edsvibm5i" path="res://src/fortune/fortune_teller.tscn" id="15_yqxvh"]
 [ext_resource type="PackedScene" uid="uid://cg2lu7ivw8gms" path="res://src/event/game_event_dialog.tscn" id="16_a3egv"]
 [ext_resource type="PackedScene" uid="uid://dnb3c3pbmh6yl" path="res://src/ui/end_screen.tscn" id="16_r2tbl"]
-[ext_resource type="Theme" uid="uid://c3hfmpsb3fvhr" path="res://assets/game_theme.tres" id="17_2ee0p"]
+[ext_resource type="Theme" uid="uid://c3hfmpsb3fvhr" path="res://assets/game_theme.tres" id="17_ohqvn"]
 [ext_resource type="PackedScene" uid="uid://ch1l0jofkrynh" path="res://src/shop/shop.tscn" id="17_q7vph"]
 [ext_resource type="PackedScene" uid="uid://dvjkkex6w162i" path="res://src/upgrade/upgrade_shop.tscn" id="18_wm5tb"]
 [ext_resource type="PackedScene" uid="uid://cs4xf7kyndygr" path="res://src/ui/tooltip.tscn" id="20_dvki6"]
@@ -47,6 +47,7 @@ layout_mode = 2
 theme = ExtResource("2_s7754")
 
 [node name="Label" type="RichTextLabel" parent="UI/RitualPanel/RitualCounter"]
+custom_minimum_size = Vector2(70, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 bbcode_enabled = true
@@ -255,23 +256,23 @@ position = Vector2(1346, 360)
 
 [node name="RTFPanel" type="PanelContainer" parent="UI"]
 layout_mode = 0
-offset_left = 15.0
-offset_top = 657.0
-offset_right = 123.0
-offset_bottom = 755.0
-theme = ExtResource("17_2ee0p")
+offset_left = 8.0
+offset_top = 656.0
+offset_right = 116.0
+offset_bottom = 754.0
+theme = ExtResource("17_ohqvn")
 
 [node name="VBox" type="VBoxContainer" parent="UI/RTFPanel"]
 layout_mode = 2
 
 [node name="ShapeLabel" type="Label" parent="UI/RTFPanel/VBox"]
 layout_mode = 2
-text = "Shape: Fill"
+text = "Shape: Line"
 
 [node name="KeysLabel" type="Label" parent="UI/RTFPanel/VBox"]
 layout_mode = 2
-text = "R: Rotate
-T: Transform
+text = "T: Transform
+R: Rotate
 F: Flip"
 
 [node name="Winter" type="Control" parent="."]

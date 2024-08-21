@@ -1,8 +1,9 @@
-[gd_resource type="Resource" script_class="CardData" load_steps=5 format=3 uid="uid://c4g62lgvuqw8e"]
+[gd_resource type="Resource" script_class="CardData" load_steps=6 format=3 uid="uid://c4g62lgvuqw8e"]
 
 [ext_resource type="Script" path="res://src/effect/effect.gd" id="1_48b7n"]
 [ext_resource type="Script" path="res://src/cards/card_data.gd" id="1_grwbu"]
 [ext_resource type="Resource" uid="uid://cijtg3ddxitn3" path="res://src/effect/data/obliviate.tres" id="2_7dx5n"]
+[ext_resource type="Texture2D" uid="uid://cmcwwq72wehss" path="res://assets/seed/cranberry.png" id="4_762lh"]
 
 [sub_resource type="Resource" id="Resource_tp0nd"]
 script = ExtResource("1_48b7n")
@@ -23,6 +24,7 @@ size = 6
 text = ""
 strength_increment = 1.0
 size_increment = 1
+texture = ExtResource("4_762lh")
 seed_texture = 0
 targets = Array[String]([])
 effects = Array[ExtResource("1_48b7n")]([SubResource("Resource_tp0nd"), ExtResource("2_7dx5n")])

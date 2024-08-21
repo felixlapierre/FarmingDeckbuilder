@@ -22,6 +22,8 @@ func register_seed_events(event_manager: EventManager, p_tile: Tile):
 			args.farm.gain_yield(tile, harvest_args)
 			Global.GILDED_ROSE_TALLY += strength
 	event_manager.register_listener(event_type, callback)
+	event_manager.register_listener(EventManager.EventType.BeforeYearStart, func(args: EventArgs):
+		Global.GILDED_ROSE_TALLY = 0.0)
 
 func unregister_seed_events(event_manager: EventManager):
 	event_manager.unregister_listener(event_type, callback)

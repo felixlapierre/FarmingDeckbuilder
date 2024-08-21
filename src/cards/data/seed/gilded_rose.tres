@@ -1,6 +1,7 @@
-[gd_resource type="Resource" script_class="GildedRose" load_steps=2 format=3 uid="uid://bcyjbiwmsdkx3"]
+[gd_resource type="Resource" script_class="GildedRose" load_steps=3 format=3 uid="uid://bcyjbiwmsdkx3"]
 
 [ext_resource type="Script" path="res://src/cards/custom/gilded_rose.gd" id="1_y2kdt"]
+[ext_resource type="Texture2D" uid="uid://hle7gb6e7x4j" path="res://assets/seed/gilded_rose.png" id="2_yjh75"]
 
 [resource]
 script = ExtResource("1_y2kdt")
@@ -12,7 +13,11 @@ cost = 1
 yld = 1
 time = 2
 size = 1
-text = "On harvest, gain +1 yield per Gilded Rose harvested this run"
+text = "On harvest, gain +1 yield per Gilded Rose harvested this year"
+strength_increment = 1.0
+size_increment = 1
+texture = ExtResource("2_yjh75")
 seed_texture = 0
+texture_icon_offset = 10
 targets = Array[String]([])
 effects = Array[Resource("res://src/effect/effect.gd")]([])

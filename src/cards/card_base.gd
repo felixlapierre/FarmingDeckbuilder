@@ -62,7 +62,7 @@ func set_card_info(card_data):
 			var texture = AtlasTexture.new()
 			if card_data.texture != null:
 				texture.atlas = card_data.texture
-				texture.set_region(Rect2(Vector2(texture.get_width() - 16, 16), Vector2(16, 16)))
+				texture.set_region(Rect2(Vector2(texture.get_width() - 16, card_info.texture_icon_offset), Vector2(16, 16)))
 			else:
 				texture.atlas = load("res://assets/1616tinygarden/objects.png")
 				texture.set_region(Rect2(Vector2(card_data.seed_texture * 16, 0), Vector2(16, 16)))
@@ -77,7 +77,6 @@ func set_card_info(card_data):
 			$HBoxContainer/VBoxContainer/BottomBar/TimeLabel.visible = card_info.time != 99
 			$HBoxContainer/VBoxContainer/BottomBar/TimeTexture.visible = card_info.time != 99
 			$HBoxContainer/VBoxContainer/BottomBar/TimeLabel.visible = card_info.time != 99
-			$Time
 			$HBoxContainer/VBoxContainer/BottomBar/YieldLabel.text = negative + str(card_info.yld)\
 				+ " (" + negative + str(card_info.yld * card_info.size) + ")"
 			$HBoxContainer/VBoxContainer/BottomBar/TimeLabel.text = str(card_info.time)

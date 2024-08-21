@@ -80,6 +80,8 @@ texture_filter = 1
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 texture = SubResource("AtlasTexture_ek5de")
+expand_mode = 5
+stretch_mode = 4
 
 [node name="SizeCont" type="CenterContainer" parent="HBoxContainer/VBoxContainer/ImageMargin/ImageCont"]
 layout_mode = 2
