@@ -6,6 +6,8 @@ by Felix Lapierre
 
 [Download for Windows](https://drive.google.com/file/d/1PcUSdRndIwx6YSG7kH4FUZ9J5JX0olmw/view?usp=sharing)
 
+[Download for Linux](https://drive.google.com/file/d/1To1PxeOW_y9GlZ4wNOYile1MPXz_Ql4t/view?usp=sharing)
+
 [Download for MacOS](https://drive.google.com/file/d/1axoEeiu4KYO_rstGDVbbsQZqViINLOEh/view?usp=sharing)
 
 <details><summary>Running on MacOS</summary>
