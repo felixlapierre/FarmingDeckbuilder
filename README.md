@@ -26,6 +26,12 @@ To run the app, you can temporarily override Gatekeeper: Open System Preferences
 
 </details>
 
+### Feedback
+
+If you have any feedback after playing the game I would love to hear it!
+
+[Feedback Form](https://forms.gle/JMJbESQnqYpCbsV97)
+
 ### How to Play
 
 You are a mage tasked with cleansing the Blighted Forest from the evil that corrupts it.

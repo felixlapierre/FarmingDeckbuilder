@@ -25,5 +25,6 @@ strength_increment = 1.0
 size_increment = 1
 texture = ExtResource("3_vaqud")
 seed_texture = 5
+texture_icon_offset = 16
 targets = Array[String]([])
 effects = Array[ExtResource("1_fu00j")]([SubResource("Resource_jafp6")])

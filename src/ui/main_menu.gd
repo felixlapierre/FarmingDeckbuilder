@@ -5,7 +5,6 @@ var PLAYSPACE = preload("res://src/playspace.tscn")
 @onready var playspace = $Playspace
 @onready var menu_root = $Root
 @onready var difficulty_options = $Root/Grid/Panel/VBox/Margin/VBox/DifficultyBox/DiffOptions
-@onready var difficulty_description = $Root/Grid/Panel/VBox/Margin/VBox/DiffDescription
 
 @onready var Stats = $Root/Grid/ContPanel/VBox/Margin/VBox/Grid/StatsLabel
 @onready var Deck = $Root/Grid/ContPanel/VBox/Margin/VBox/Grid/DeckLabel
