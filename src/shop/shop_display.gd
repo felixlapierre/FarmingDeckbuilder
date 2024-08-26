@@ -5,6 +5,12 @@ extends MarginContainer
 @export var callback: Callable
 var tooltip: Tooltip
 
+@onready var icon = $Icon
+@onready var Description = $VBox/HBoxContainer/VBoxContainer/DescriptionLabel
+@onready var Name = $VBox/HBoxContainer/VBoxContainer/TopBar/NameLabel
+@onready var Cost = $VBox/HBoxContainer/VBoxContainer/TopBar/CostLabel
+@onready var Type = $VBox/TypeLabel
+
 # Just display the data of the passed structure and enhance
 # and accept a callback to be invoked when this is clicked
 
@@ -17,12 +23,13 @@ func _ready() -> void:
 		set_labels(enhance.name, "", enhance.get_description(), "Enhance", enhance.texture)
 	$Icon.position = Constants.CARD_SIZE / 2
 	$Icon.position.y /= 2
+	$Icon.position.y += 25
 
 func set_labels(name, cost, descr, type, texture):
-		$HBoxContainer/VBoxContainer/TopBar/NameLabel.text = name
-		$HBoxContainer/VBoxContainer/TopBar/CostLabel.text = cost
-		$HBoxContainer/VBoxContainer/DescriptionLabel.text = descr
-		$HBoxContainer/VBoxContainer/BottomBar/TypeLabel.text = type
+		Name.text = name
+		Cost.text = cost
+		Description.text = descr
+		Type.text = type
 		$Icon.texture = texture
 
 func set_data(data):

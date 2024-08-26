@@ -26,8 +26,10 @@ var turn_manager
 
 @onready var CHOICE_ONE = $PanelContainer/ShopContainer/ChoiceOne
 @onready var STOCK_ONE = $PanelContainer/ShopContainer/ChoiceOne/Stock
+@onready var NEXT_YEAR_ONE = $PanelContainer/ShopContainer/ChoiceOne/NextYearCont
 @onready var CHOICE_TWO = $PanelContainer/ShopContainer/ChoiceTwo
 @onready var STOCK_TWO = $PanelContainer/ShopContainer/ChoiceTwo/Stock
+@onready var NEXT_YEAR_TWO = $PanelContainer/ShopContainer/ChoiceTwo/NextYearCont
 @onready var CHOICE_THREE = $PanelContainer/ShopContainer/ChoiceThree
 @onready var STOCK_THREE = $PanelContainer/ShopContainer/ChoiceThree/Stock
 @onready var tooltip: Tooltip = $Tooltip
@@ -145,6 +147,7 @@ func fill_row(node, row_number, stock):
 
 func create_scrap_option(amount, row):
 	var scrap = ShopButton.instantiate()
+	scrap.title = "Skip Choice"
 	scrap.text = "Gain"
 	scrap.cost = amount
 	scrap.row = row
@@ -153,7 +156,8 @@ func create_scrap_option(amount, row):
 
 func create_remove_card_option():
 	var remove = ShopButton.instantiate()
-	remove.text = "Remove Card"
+	remove.title = "Remove Card"
+	remove.text = "Remove a card from your deck"
 	remove.cost = 0
 	remove.row = 2
 	remove.option_selected.connect(_on_remove_card_button_pressed)
@@ -220,9 +224,11 @@ func set_row_visible(row, vis):
 		1:
 			for child in CHOICE_ONE.get_children():
 				child.visible = vis
+			NEXT_YEAR_ONE.visible = !vis
 		2:
 			for child in CHOICE_TWO.get_children():
 				child.visible = vis
+			NEXT_YEAR_TWO.visible = !vis
 		3:
 			for child in CHOICE_THREE.get_children():
 				child.visible = vis
@@ -249,7 +255,7 @@ func on_week_pass():
 	update_labels()
 
 func update_labels():
-	$PanelContainer/ShopContainer/Header/MoneyLabel.text = ": " + str(player_money)
+	$PanelContainer/ShopContainer/Header/MoneyLabel.text = str(player_money)
 
 func on_reroll(cost, row):
 	if !Settings.DEBUG and player_money + cost < 0:

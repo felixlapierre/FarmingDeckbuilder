@@ -36,10 +36,12 @@ layout_mode = 2
 
 [node name="ShopTitle" type="Label" parent="PanelContainer/ShopContainer/Header"]
 layout_mode = 2
-text = "Shop"
+text = "Grimoire"
 
 [node name="MoneyLabel" type="Label" parent="PanelContainer/ShopContainer/Header"]
 layout_mode = 2
+size_flags_horizontal = 3
+horizontal_alignment = 2
 
 [node name="TextureRect" type="TextureRect" parent="PanelContainer/ShopContainer/Header"]
 layout_mode = 2
@@ -57,6 +59,11 @@ layout_mode = 2
 size_flags_horizontal = 8
 text = "Close"
 
+[node name="ChoiceOneLabel" type="Label" parent="PanelContainer/ShopContainer"]
+layout_mode = 2
+text = "Choose One (Seed and Action cards)"
+horizontal_alignment = 1
+
 [node name="ChoiceOne" type="HBoxContainer" parent="PanelContainer/ShopContainer"]
 custom_minimum_size = Vector2(0, 350)
 layout_mode = 2
@@ -68,9 +75,24 @@ size_flags_vertical = 0
 
 [node name="Reroll" parent="PanelContainer/ShopContainer/ChoiceOne" instance=ExtResource("4_a7s51")]
 layout_mode = 2
-text = "Reroll"
+title = "Reroll"
+text = "New set of cards"
 cost = -1
 row = 1
+
+[node name="NextYearCont" type="CenterContainer" parent="PanelContainer/ShopContainer/ChoiceOne"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="PanelContainer/ShopContainer/ChoiceOne/NextYearCont"]
+layout_mode = 2
+text = "Re-fills next year!"
+
+[node name="ChoiceTwoLabel" type="Label" parent="PanelContainer/ShopContainer"]
+layout_mode = 2
+text = "Choose One (Structures and Card Enhancements)"
+horizontal_alignment = 1
 
 [node name="ChoiceThree" type="HBoxContainer" parent="PanelContainer/ShopContainer"]
 visible = false
@@ -100,9 +122,19 @@ card_data = ExtResource("6_h3kp4")
 
 [node name="Reroll" parent="PanelContainer/ShopContainer/ChoiceTwo" instance=ExtResource("4_a7s51")]
 layout_mode = 2
-text = "Reroll"
+title = "Reroll"
+text = "New set of options"
 cost = -1
 row = 2
+
+[node name="NextYearCont" type="CenterContainer" parent="PanelContainer/ShopContainer/ChoiceTwo"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="PanelContainer/ShopContainer/ChoiceTwo/NextYearCont"]
+layout_mode = 2
+text = "Re-fills next year!"
 
 [node name="RemoveCardContainer" type="PanelContainer" parent="."]
 visible = false

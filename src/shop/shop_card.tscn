@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://p2ueg06qde5w"]
+[gd_scene load_steps=4 format=3 uid="uid://p2ueg06qde5w"]
 
 [ext_resource type="Script" path="res://src/shop/shop_card.gd" id="1_na3ps"]
 [ext_resource type="Texture2D" uid="uid://i3hxrkvy84y4" path="res://assets/custom/Star.png" id="2_5igam"]
+[ext_resource type="Theme" uid="uid://c3hfmpsb3fvhr" path="res://assets/game_theme.tres" id="2_6kwql"]
 
 [node name="ShopCard" type="Control"]
 custom_minimum_size = Vector2(200, 306)
@@ -18,6 +19,12 @@ script = ExtResource("1_na3ps")
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
+
+[node name="Title" type="Label" parent="VBox"]
+layout_mode = 2
+theme = ExtResource("2_6kwql")
+text = "Add Card"
+horizontal_alignment = 1
 
 [node name="CostLabel" type="HBoxContainer" parent="VBox"]
 visible = false
