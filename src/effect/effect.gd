@@ -142,15 +142,21 @@ func get_long_description():
 			return ""
 
 func get_on_text():
-	return " on " + on if on.length() > 0 else ""
+	match on:
+		"plant":
+			return " when planted"
+		"":
+			return ""
+		_:
+			return " on " + on
 
 func get_strength_text():
 	if strength >= 0:
 		return str(strength)
 	elif strength == -1:
-		return "X"
+		return "(1× the energy spent)"
 	else:
-		return str(strength * -1) + "X"
+		return "(" + str(strength * -1) + "× the energy spent)"
 
 func save_data():
 	return {
