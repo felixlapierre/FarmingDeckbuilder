@@ -67,6 +67,7 @@ func end_year():
 	create_fortune_display()
 	update()
 	$Tutorial.on_winter()
+	$Tutorial.position.x = 1234
 	
 func start_year():
 	$UI/SkipButton.visible = Settings.DEBUG
@@ -74,6 +75,7 @@ func start_year():
 	$UI.visible = true
 	$Winter.visible = false
 	AlertDisplay.clear(end_year_alert_text)
+	$Tutorial.position.x = 1368
 	update()
 
 # Update UI display
@@ -209,7 +211,7 @@ func _on_skip_button_pressed() -> void:
 
 # Yield Preview
 func _on_farm_tiles_on_preview_yield(args) -> void:
-	var warning_waste_purple_text = "[color=ff0000]Warning![/color] Purple yield is lost at the end of the turn. This harvest will waste purple yield."
+	var warning_waste_purple_text = "[color=ff0000]Warning![/color] Purple yield is lost at the end of the turn."
 	AlertDisplay.clear(warning_waste_purple_text)
 	var yellow = args.yellow
 	var purple = args.purple
@@ -410,6 +412,7 @@ func load_data(save_json: Dictionary):
 		$GameEventDialog.update_interface()
 		$Shop.load_data(save_json.winter.shop)
 		$Tutorial.on_winter()
+		$Tutorial.position.x = 1234
 	$FortuneTeller.unregister_fortunes()
 	$FortuneTeller.load_fortunes(save_json.fortunes)
 	for event_path: String in save_json.events.completed:
@@ -479,3 +482,12 @@ func _on_shop_view_deck() -> void:
 
 func before_end_year() -> void:
 	AlertDisplay.set_text(end_year_alert_text)
+
+func try_move_structure(tile: Tile):
+	if !is_winter() or tile.structure == null or tile.structure.name == "River":
+		return
+	var structure = tile.structure.copy()
+	tile.remove_structure()
+	_on_shop_on_structure_place(structure, func():
+		pass)
+	

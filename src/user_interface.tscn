@@ -30,7 +30,7 @@
 script = ExtResource("1_j28fq")
 
 [node name="Tutorial" parent="." instance=ExtResource("22_4s3pk")]
-position = Vector2(1234, -2)
+position = Vector2(1368, 0)
 
 [node name="UI" type="Control" parent="."]
 layout_mode = 3

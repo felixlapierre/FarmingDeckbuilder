@@ -34,8 +34,7 @@ func _process(delta: float) -> void:
 func _on_farm_tiles_card_played(card) -> void:
 	if card.CLASS_NAME == "Structure":
 		Global.selected_structure = null
-		await get_tree().create_timer(1).timeout
-		$UserInterface.shop_structure_place_callback.call()
+		await $UserInterface.shop_structure_place_callback.call()
 		$UserInterface.set_winter_visible(true)
 	else:
 		$TurnManager.energy -= card.cost if card.cost >= 0 else $TurnManager.energy
@@ -302,3 +301,7 @@ func set_background_texture():
 		background.set_background_texture(old_texture)
 		background2.set_background_texture(new_texture)
 		background2.tween_to_visible(1.0)
+
+
+func _on_farm_tiles_try_move_structure(tile: Tile) -> void:
+	$UserInterface.try_move_structure(tile)

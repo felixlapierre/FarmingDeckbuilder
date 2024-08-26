@@ -21,6 +21,7 @@ signal on_energy_gained
 signal on_card_draw
 signal on_show_tile_preview
 signal on_hide_tile_preview
+signal try_move_structure
 
 var hover_time = 0.0
 
@@ -54,6 +55,9 @@ func setup(p_event_manager: EventManager):
 func use_card(grid_position):
 	hover_time = 0.0
 	var energy = $"../TurnManager".energy
+	if Global.selected_card == null and Global.selected_structure == null:
+		try_move_structure.emit(tiles[grid_position.x][grid_position.y])
+		return
 	if Global.selected_structure != null:
 		tiles[grid_position.x][grid_position.y]\
 				.build_structure(Global.selected_structure, Global.rotate)

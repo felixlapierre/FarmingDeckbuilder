@@ -330,3 +330,8 @@ func set_tile_size(n_size: Vector2):
 	$DestroyParticles.process_material.scale_min = 5
 	$DestroyParticles.process_material.scale_max = 5
 	
+func remove_structure():
+	structure.unregister_events(event_manager)
+	structure = null
+	$PlantSprite.visible = false
+	state = Enums.TileState.Empty

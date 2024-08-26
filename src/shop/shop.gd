@@ -206,11 +206,6 @@ func on_buy_row2(option):
 	on_buy(option, 2)
 
 func on_buy(option, row):
-	if option.card_info.type == "STRUCTURE":
-		on_structure_place.emit(option.card_info, func(): 
-			visible = true
-			finish_item_bought(option, option.card_info, row))
-		return
 	finish_item_bought(option, option.card_info, row)
 
 func finish_item_bought(card, card_data, row) -> void:
@@ -283,6 +278,7 @@ func on_enhance_selected(enhance: Enhance, row):
 
 func on_buy_structure(structure, row):
 	on_structure_place.emit(structure, func(): 
+		await get_tree().create_timer(1.0).timeout
 		visible = true
 		set_row_visible(row, false)
 		update_labels())
