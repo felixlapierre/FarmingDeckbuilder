@@ -67,8 +67,9 @@ func end_year():
 		return
 	$Cards.discard_hand()
 	$Cards.do_winter_clear()
+	$UserInterface.before_end_year()
 	await get_tree().create_timer(1.5).timeout
-	
+
 	$Cards.set_cards_visible(false)
 	$FarmTiles.do_winter_clear()
 	$TurnManager.end_year()

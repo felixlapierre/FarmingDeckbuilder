@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://dichc631kb472"]
+
+[ext_resource type="Theme" uid="uid://c21dhy264y6ty" path="res://assets/theme_large.tres" id="1_xru8q"]
+[ext_resource type="Script" path="res://src/ui/alert.gd" id="2_k316c"]
+
+[node name="AlertContainer" type="PanelContainer"]
+offset_left = 626.0
+offset_top = 90.0
+offset_right = 1041.0
+offset_bottom = 131.0
+theme = ExtResource("1_xru8q")
+script = ExtResource("2_k316c")
+
+[node name="AlertLabel" type="RichTextLabel" parent="."]
+layout_mode = 2
+bbcode_enabled = true
+text = "Test Alert Please Ignore"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0

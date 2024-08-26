@@ -26,7 +26,9 @@ var FORTUNE_HOVER = preload("res://src/fortune/fortune_hover.tscn")
 @onready var turn_label = $UI/Stats/VBox/TurnLabel
 @onready var energy_hbox = $UI/Stats/VBox/EnergyHbox
 @onready var cards_hbox = $UI/Stats/VBox/CardsHbox
+@onready var AlertDisplay: Alert = $UI/AlertContainer
 
+var end_year_alert_text = "Ritual Complete! Time to rest and prepare for the next year"
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	for i in Constants.MAX_BLIGHT:
@@ -71,6 +73,7 @@ func start_year():
 	$FortuneTeller.register_fortunes()
 	$UI.visible = true
 	$Winter.visible = false
+	AlertDisplay.clear(end_year_alert_text)
 	update()
 
 # Update UI display
@@ -206,15 +209,19 @@ func _on_skip_button_pressed() -> void:
 
 # Yield Preview
 func _on_farm_tiles_on_preview_yield(args) -> void:
+	var warning_waste_purple_text = "[color=ff0000]Warning![/color] Purple yield is lost at the end of the turn. This harvest will waste purple yield."
+	AlertDisplay.clear(warning_waste_purple_text)
 	var yellow = args.yellow
 	var purple = args.purple
 	$UI/Preview.visible = yellow + purple > 0
 	$UI/Preview/Panel/HBox/PreviewYellow.text = "+" + str(yellow)
 	$UI/Preview/Panel/HBox/PreviewPurple.text = "+" + str(purple)
-	
+
 	var blightamt = max(turn_manager.target_blight - turn_manager.purple_mana, 0)
 	if purple != 0:
 		$UI/BlightPanel/VBox/BlightCounter/Label.text = "[color=9f78e3]"+ str(blightamt) + " -> "+str(max(blightamt - purple, 0)) 
+		if blightamt == 0:
+			AlertDisplay.set_text(warning_waste_purple_text)
 	else:
 		$UI/BlightPanel/VBox/BlightCounter/Label.text = str(blightamt)
 	
@@ -469,3 +476,6 @@ func _on_discard_peek_pressed() -> void:
 
 func _on_shop_view_deck() -> void:
 	display_cards(deck, "Deck")
+
+func before_end_year() -> void:
+	AlertDisplay.set_text(end_year_alert_text)

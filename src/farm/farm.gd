@@ -144,9 +144,10 @@ func show_select_overlay():
 		sprite.scale *= TILE_SIZE / sprite.texture.get_size()
 		sprite.z_index = 1
 		if error:
-			sprite.modulate = Color8(190, 44, 44)
+			sprite.modulate = Color8(255, 0, 0)
 		else:
-			sprite.modulate = Color8(98, 240, 70)
+			sprite.modulate = Color8(0, 255, 0)
+		sprite.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 		$SelectOverlay.add_child(sprite)
 	if yld_preview_purple + yld_preview_yellow > 0:
 		on_preview_yield.emit({

@@ -27,6 +27,11 @@ signal on_yield_gained
 
 var event_manager: EventManager
 
+var COLOR_NONE = Color8(255, 255, 255)
+var COLOR_IRRIGATE = Color8(58, 130, 240)
+var COLOR_DESTROYED = Color8(45, 45, 45)
+var COLOR_BLIGHTED = Color8(110, 41, 110)
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	do_active_check()
@@ -183,12 +188,12 @@ func remove_seed():
 func irrigate():
 	if !irrigated and state != Enums.TileState.Blighted and state != Enums.TileState.Destroyed:
 		irrigated = true
-		$Farmland.modulate = Color8(0, 102, 255)
+		$Farmland.modulate = COLOR_IRRIGATE
 
 func lose_irrigate():
 	irrigated = false
 	if state != Enums.TileState.Blighted and state != Enums.TileState.Destroyed:
-		$Farmland.modulate = Color8(255, 255, 255)
+		$Farmland.modulate = COLOR_NONE
 
 func build_structure(n_structure: Structure, rotate):
 	state = Enums.TileState.Structure
@@ -276,15 +281,16 @@ func set_blighted():
 	remove_seed()
 	state = Enums.TileState.Blighted
 	$PlantSprite.visible = false
-	$Farmland.modulate = Color8(102, 0, 102)
+	$Farmland.modulate = COLOR_BLIGHTED
 	$DestroyParticles.emitting = true
 
 func destroy():
 	on_event.emit()
 	state = Enums.TileState.Destroyed
-	$Farmland.modulate = Color8(45, 45, 45)
+	$Farmland.modulate = COLOR_DESTROYED
 	notify_destroyed()
 	remove_seed()
+	update_purple_overlay()
 	$DestroyParticles.emitting = true
 
 func destroy_plant():
@@ -294,7 +300,7 @@ func destroy_plant():
 	$DestroyParticles.emitting = true
 
 func update_purple_overlay():
-	$PurpleOverlay.visible = purple and state != Enums.TileState.Inactive
+	$PurpleOverlay.visible = purple and state != Enums.TileState.Inactive and state != Enums.TileState.Destroyed
 
 func notify_harvest(delay: bool) -> EventArgs.HarvestArgs:
 	var harvest_args: EventArgs.HarvestArgs = seed.get_yield(self)

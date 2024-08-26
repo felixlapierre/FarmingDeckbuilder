@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://cswinrop881oo"]
+[gd_scene load_steps=26 format=3 uid="uid://cswinrop881oo"]
 
 [ext_resource type="Script" path="res://src/user_interface.gd" id="1_j28fq"]
 [ext_resource type="Theme" uid="uid://c21dhy264y6ty" path="res://assets/theme_large.tres" id="2_s7754"]
@@ -21,6 +21,7 @@
 [ext_resource type="PackedScene" uid="uid://dnb3c3pbmh6yl" path="res://src/ui/end_screen.tscn" id="16_r2tbl"]
 [ext_resource type="Theme" uid="uid://c3hfmpsb3fvhr" path="res://assets/game_theme.tres" id="17_ohqvn"]
 [ext_resource type="PackedScene" uid="uid://ch1l0jofkrynh" path="res://src/shop/shop.tscn" id="17_q7vph"]
+[ext_resource type="PackedScene" uid="uid://dichc631kb472" path="res://src/ui/alert.tscn" id="18_ih37u"]
 [ext_resource type="PackedScene" uid="uid://dvjkkex6w162i" path="res://src/upgrade/upgrade_shop.tscn" id="18_wm5tb"]
 [ext_resource type="PackedScene" uid="uid://cs4xf7kyndygr" path="res://src/ui/tooltip.tscn" id="20_dvki6"]
 [ext_resource type="PackedScene" uid="uid://bb1j26ivcxqw6" path="res://src/ui/tutorial.tscn" id="22_4s3pk"]
@@ -202,13 +203,12 @@ theme_override_font_sizes/font_size = 60
 text = "Discard"
 
 [node name="Preview" type="MarginContainer" parent="UI"]
-visible = false
 z_index = 1
 layout_mode = 0
-offset_left = 919.0
-offset_top = 2.0
-offset_right = 1037.0
-offset_bottom = 43.0
+offset_left = 917.0
+offset_top = 44.0
+offset_right = 1035.0
+offset_bottom = 85.0
 theme = ExtResource("2_s7754")
 
 [node name="Panel" type="PanelContainer" parent="UI/Preview"]
@@ -275,7 +275,16 @@ text = "T: Transform
 R: Rotate
 F: Flip"
 
+[node name="AlertContainer" parent="UI" instance=ExtResource("18_ih37u")]
+visible = false
+layout_mode = 0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 415.0
+offset_bottom = 41.0
+
 [node name="Winter" type="Control" parent="."]
+visible = false
 layout_mode = 3
 anchors_preset = 0
 theme = ExtResource("2_s7754")
