@@ -19,8 +19,10 @@ func _ready() -> void:
 	if structure != null:
 		set_labels(structure.name, str(structure.cost), structure.text, "Structure",\
 			structure.texture)
+		$VBox/HBoxContainer.tooltip_text = structure.tooltip
 	elif enhance != null:
 		set_labels(enhance.name, "", enhance.get_description(), "Enhance", enhance.texture)
+		$Border.modulate = Color8(181, 233, 255)
 	$Icon.position = Constants.CARD_SIZE / 2
 	$Icon.position.y /= 2
 	$Icon.position.y += 25

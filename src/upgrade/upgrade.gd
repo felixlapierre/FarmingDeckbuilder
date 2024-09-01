@@ -63,5 +63,9 @@ func get_tooltip():
 	match type:
 		Upgrade.UpgradeType.EnergyFragment:
 			return "Energy Fragment: Gain an extra energy every 3 turns"
+		Upgrade.UpgradeType.AddSpecificCard:
+			if card != null and card.name == "Petrified Seed":
+				return "A card that can't be played but might become useful in the future"
 		_:
 			return ""
+	return ""

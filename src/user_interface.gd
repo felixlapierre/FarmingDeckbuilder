@@ -378,7 +378,11 @@ func _on_shop_on_blight_removed() -> void:
 func _on_farm_tiles_on_show_tile_preview(tile: Tile) -> void:
 	$UI/TilePreview.setup(tile)
 	$UI/TilePreview.visible = true
-	$UI/TilePreview.position = get_global_mouse_position() + Vector2(30, 30)
+	var mouse_position = get_global_mouse_position()
+	var offset = Vector2(30, 30)
+	if mouse_position.y > Constants.VIEWPORT_SIZE.y - Constants.CARD_SIZE.y * 2.5:
+		offset = Vector2(0, -Constants.CARD_SIZE.y * 1.2)
+	$UI/TilePreview.position = get_global_mouse_position() + offset
 
 func _on_farm_tiles_on_hide_tile_preview() -> void:
 	$UI/TilePreview.visible = false

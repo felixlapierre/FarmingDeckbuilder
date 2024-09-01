@@ -11,12 +11,15 @@ const CLASS_NAME = "Structure"
 @export var text: String
 @export var texture: Texture2D
 @export var effects: Array[Effect]
+@export var tooltip: String
+
 var grid_location: Vector2
 var type = "STRUCTURE"
 var rotate: int = 0
 
 func _init(p_name = "PlaceholderCardName", p_rarity = "common", p_cost = 1,\
-	p_size = 1, p_text = "", p_texture = null, p_effects = [], p_grid_location = Vector2.ZERO):
+	p_size = 1, p_text = "", p_texture = null, p_effects = [],\
+	p_tooltip = "", p_grid_location = Vector2.ZERO,):
 		name = p_name
 		rarity = p_rarity
 		cost = p_cost
@@ -25,6 +28,7 @@ func _init(p_name = "PlaceholderCardName", p_rarity = "common", p_cost = 1,\
 		texture = p_texture
 		effects.assign(p_effects)
 		grid_location = p_grid_location
+		tooltip = p_tooltip
 
 func get_effect(effect_name):
 	for effect in effects:
@@ -37,7 +41,7 @@ func copy():
 	var n_effects = []
 	for effect in effects:
 		n_effects.append(effect.copy())
-	return Structure.new(name, rarity, cost, size, text, texture, n_effects)
+	return Structure.new(name, rarity, cost, size, text, texture, n_effects, tooltip)
 
 func assign(s: Structure):
 	name = s.name
@@ -49,6 +53,7 @@ func assign(s: Structure):
 	effects.assign(s.effects)
 	grid_location = s.grid_location
 	rotate = s.rotate
+	tooltip = s.tooltip
 
 func get_description():
 	return text
@@ -76,7 +81,8 @@ func save_data():
 			return effect.save_data()),
 		"x": grid_location.x,
 		"y": grid_location.y,
-		"rotate": rotate
+		"rotate": rotate,
+		"tooltip": tooltip
 	}
 
 func load_data(data) -> Structure:
@@ -92,4 +98,5 @@ func load_data(data) -> Structure:
 		return eff))
 	grid_location = Vector2(data.x, data.y)
 	rotate = data.rotate
+	tooltip = data.tooltip
 	return self

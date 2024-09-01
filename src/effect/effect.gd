@@ -75,13 +75,13 @@ func get_short_description():
 			return "Draw " + str(strength) + " card" + ("s" if strength > 1 else "") + get_on_text()
 		"spread":
 			if on == "grow" or on == "harvest":
-				if strength > 1:
-					return "Spread " + str(strength) + " times" + get_on_text()
+				if strength >= 1:
+					return "Spread " + str(strength) + " time(s)" + get_on_text()
 				else:
 					return str(strength*100) + "% chance to spread" + get_on_text()
 			else:
-				if strength > 1:
-					return "Spread target " + str(strength) + " times"
+				if strength >= 1:
+					return "Spread target " + str(strength) + " time(s)"
 				else:
 					return str(strength*100) + "% chance to spread target"
 		"increase_yield":
@@ -91,7 +91,7 @@ func get_short_description():
 		"harvest_delay":
 			return "Harvest fully grown plants and carry excess yield to the next week"
 		"grow":
-			return "Grow targeted plants" + (" " + str(strength) + " times" if strength > 1 else "")
+			return "Grow targeted plants " + str(strength) + " time" + ("s" if strength != 1 else "")
 		"add_yield":
 			return "Add " + get_strength_text() + " yield" + get_on_text()
 		"irrigate":

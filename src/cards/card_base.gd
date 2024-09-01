@@ -90,10 +90,10 @@ func set_card_info(card_data):
 			$HBoxContainer/VBoxContainer/BottomBar/YieldTexture.visible = false
 			$HBoxContainer/VBoxContainer/BottomBar/TimeLabel.visible = false
 			$HBoxContainer/VBoxContainer/BottomBar/TimeTexture.visible = false
-	if card_info.type == "STRUCTURE":
-		$CardBorder.modulate = Color8(135, 206, 250)
-	else:
-		$CardBorder.modulate = Color8(255, 255, 255, 255)
+	if card_info.type == "SEED":
+		$CardBorder.modulate = Color8(202, 255, 191)
+	elif card_info.type == "ACTION":
+		$CardBorder.modulate = Color8(255, 213, 186)
 	$HBoxContainer/VBoxContainer/BottomBar/TypeLabel.text = card_info.type
 	$HBoxContainer/VBoxContainer/TopBar/CardNameLabel.text = card_info.name
 	$HBoxContainer/VBoxContainer/TopBar/CardCostLabel.text = str(card_info.cost if card_info.cost >= 0 else "X")
@@ -307,5 +307,6 @@ func register_tooltips():
 		description_tooltip += effect.get_long_description()
 	if description_tooltip.length() > 0:
 		tooltip.register_tooltip(DESCRIPTION_LABEL, description_tooltip)
-		if state == Enums.CardState.InShop:
+		if state != Enums.CardState.InMouse:
 			tooltip.register_tooltip($Focus, description_tooltip)
+
