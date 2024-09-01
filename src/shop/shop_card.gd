@@ -16,6 +16,7 @@ func _ready() -> void:
 	card_node.on_clicked.connect(on_card_clicked)
 	card_node.set_state(Enums.CardState.InShop, null, null, null)
 	$VBox.add_child(card_node)
+	$VBox/Title.text = "Seed Card" if card_data.type == "SEED" else "Action Card"
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:

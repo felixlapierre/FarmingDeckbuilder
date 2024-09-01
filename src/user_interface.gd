@@ -143,15 +143,15 @@ func _on_game_event_dialog_on_upgrades_selected(upgrades: Array[Upgrade]) -> voi
 					rarity = "uncommon"
 			var cards = cards_database.get_random_cards(rarity, 3)
 			var pick_option_ui = PickOption.instantiate()
-			self.add_child(pick_option_ui)
+			GameEventDialog.add_sibling(pick_option_ui)
 			var prompt = "Pick a card to add to your deck"
 			pick_option_ui.setup(prompt, cards, func(selected):
 				var add_card_upgrade = Upgrade.new()
 				add_card_upgrade.type = Upgrade.UpgradeType.AddSpecificCard
 				add_card_upgrade.card = selected.card_info
 				apply_upgrade.emit(add_card_upgrade)
-				self.remove_child(pick_option_ui), func():
-					self.remove_child(pick_option_ui))
+				$Winter.remove_child(pick_option_ui), func():
+					$Winter.remove_child(pick_option_ui))
 		elif upgrade.type == Upgrade.UpgradeType.AddEnhance\
 			or upgrade.type == Upgrade.UpgradeType.AddEnhanceToRandom\
 			or upgrade.type == Upgrade.UpgradeType.AddEnhanceToAll:
@@ -186,23 +186,24 @@ func _on_game_event_dialog_on_upgrades_selected(upgrades: Array[Upgrade]) -> voi
 			else:
 				var enhances = cards_database.get_random_enhance("", 3, upgrade.type == Upgrade.UpgradeType.AddEnhanceToAll)
 				var pick_option_ui = PickOption.instantiate()
-				self.add_child(pick_option_ui)
+				GameEventDialog.add_sibling(pick_option_ui)
 				var prompt = "Pick an enhance to apply"
 				pick_option_ui.setup(prompt, enhances, func(selected):
 					add_enhance.call(selected)
-					self.remove_child(pick_option_ui),
+					$Winter.remove_child(pick_option_ui),
 					func():
-						self.remove_child(pick_option_ui))
+						$Winter.remove_child(pick_option_ui))
 		elif upgrade.type == Upgrade.UpgradeType.AddStructure:
 			var structures = cards_database.get_random_structures(3)
 			var pick_option_ui = PickOption.instantiate()
-			self.add_child(pick_option_ui)
+			GameEventDialog.add_sibling(pick_option_ui)
 			var prompt = "Pick a structure to add to your farm"
-			pick_option_ui.setup(prompt, structures, func(selected):
-				self.remove_child(pick_option_ui)
-				_on_shop_on_structure_place(selected, func():
-					pass), func():
-						self.remove_child(pick_option_ui))
+			var on_pick = func(selected):
+				$Winter.remove_child(pick_option_ui)
+				_on_shop_on_structure_place(selected, func(): pass)
+				$CancelStructure.visible = false
+			var on_cancel = func(): $Winter.remove_child(pick_option_ui)
+			pick_option_ui.setup(prompt, structures, on_pick, on_cancel)
 		else:
 			apply_upgrade.emit(upgrade)
 	GameEventDialog.visible = false

@@ -250,7 +250,7 @@ func on_week_pass():
 	update_labels()
 
 func update_labels():
-	$PanelContainer/ShopContainer/Header/MoneyLabel.text = str(player_money)
+	$PanelContainer/ShopContainer/Header/MoneyLabel.text = "Rerolls: " + str(player_money)
 
 func on_reroll(cost, row):
 	if !Settings.DEBUG and player_money + cost < 0:
