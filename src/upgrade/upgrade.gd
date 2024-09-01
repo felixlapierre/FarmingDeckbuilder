@@ -58,3 +58,10 @@ func check_prerequisite(deck: Array[CardData], turn_manager: TurnManager):
 			return deck.has(card)
 		_:
 			return true
+
+func get_tooltip():
+	match type:
+		Upgrade.UpgradeType.EnergyFragment:
+			return "Energy Fragment: Gain an extra energy every 3 turns"
+		_:
+			return ""

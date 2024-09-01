@@ -6,7 +6,7 @@
 [resource]
 script = ExtResource("1_6gso1")
 name = "SpreadGrow"
-rarity = "rare"
+rarity = "hidden"
 strength = 0.0
 targets = Array[String]([])
 texture = ExtResource("2_iwjnt")

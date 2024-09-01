@@ -5,7 +5,7 @@
 
 [resource]
 script = ExtResource("1_yt0vc")
-strength = 0.5
+strength = 0.25
 type = "SEED"
 name = "Inky Cap"
 rarity = "rare"
@@ -13,10 +13,11 @@ cost = 1
 yld = 4
 time = 2
 size = 4
-text = "Gain 50% of yield from destroyed plants"
+text = "Gain 25% of yield from destroyed plants"
 strength_increment = 1.0
 size_increment = 1
 texture = ExtResource("2_hreeq")
 seed_texture = 0
+texture_icon_offset = 16
 targets = Array[String]([])
 effects = Array[Resource("res://src/effect/effect.gd")]([])

@@ -51,14 +51,22 @@ func update_option(flavor: String, upgrades: Array[Upgrade], button: Button):
 	else:
 		button.visible = true
 		var text = flavor
+		var tooltip = ""
 		for upgrade in upgrades:
 			if upgrade.text.length() > 0:
 				if text.length() == flavor.length(): # if this is the first upgrade with text
 					text += " ("
 				text += upgrade.get_text()
+			if upgrade.get_tooltip().length() > 0:
+				if tooltip.length() == 0:
+					tooltip += upgrade.get_tooltip()
+				else:
+					tooltip += ". " + upgrade.get_tooltip()
 		if text.length() > flavor.length(): # if at least one upgrade had text
 			text += ")"
 		button.text = text
+		if tooltip.length() > 0:
+			button.tooltip_text = tooltip 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:

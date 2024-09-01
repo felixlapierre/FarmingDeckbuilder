@@ -27,3 +27,15 @@ func register_fortune(event_manager: EventManager):
 
 func unregister_fortune(event_manager: EventManager):
 	event_manager.unregister_listener(event_type, callback)
+
+func save_data() -> Dictionary:
+	var dict = super.save_data()
+	dict.count = count
+	dict.also_destroy_tile = also_destroy_tile
+	return dict
+
+func load_data(data) -> Fortune:
+	super.load_data(data)
+	count = data.count
+	also_destroy_tile = data.also_destroy_tile
+	return self

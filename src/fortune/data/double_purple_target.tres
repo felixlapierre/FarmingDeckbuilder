@@ -5,9 +5,9 @@
 
 [resource]
 script = ExtResource("1_m1dex")
-strength = 2.0
+strength = 1.5
 name = "Catastrophe"
 type = 1
-text = "Double purple yield requirements"
+text = "Increase purple yield requirements by 50%"
 rank = 3
 texture = ExtResource("2_rbgek")

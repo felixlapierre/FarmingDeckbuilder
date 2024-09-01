@@ -289,9 +289,8 @@ text = "T: Transform
 R: Rotate
 F: Flip"
 
-[node name="AlertContainer" parent="UI" instance=ExtResource("18_ih37u")]
+[node name="AlertContainer" parent="." instance=ExtResource("18_ih37u")]
 visible = false
-layout_mode = 0
 offset_left = 0.0
 offset_top = 0.0
 offset_right = 415.0

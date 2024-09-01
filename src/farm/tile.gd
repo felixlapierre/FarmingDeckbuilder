@@ -222,6 +222,8 @@ func do_winter_clear():
 		state = Enums.TileState.Empty
 		remove_seed()
 		lose_irrigate()
+	elif structure != null:
+		structure.do_winter_clear()
 
 func multiply_yield(strength):
 	$AddYieldParticles.emitting = true

@@ -7,13 +7,13 @@
 script = ExtResource("1_o3lt4")
 type = 18
 text = "Build a Structure on your farm"
-strength = 0.0
+strength = null
 
 [sub_resource type="Resource" id="Resource_acgrm"]
 script = ExtResource("1_o3lt4")
-type = 0
-text = ""
-strength = 0.0
+type = null
+text = null
+strength = null
 
 [resource]
 script = ExtResource("1_rkamb")

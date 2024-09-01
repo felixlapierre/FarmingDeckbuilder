@@ -26,9 +26,10 @@ var FORTUNE_HOVER = preload("res://src/fortune/fortune_hover.tscn")
 @onready var turn_label = $UI/Stats/VBox/TurnLabel
 @onready var energy_hbox = $UI/Stats/VBox/EnergyHbox
 @onready var cards_hbox = $UI/Stats/VBox/CardsHbox
-@onready var AlertDisplay: Alert = $UI/AlertContainer
+@onready var AlertDisplay: Alert = $AlertContainer
 
 var end_year_alert_text = "Ritual Complete! Time to rest and prepare for the next year"
+var structure_place_text = "Click on the farm tile where you'd like to place the structure"
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	for i in Constants.MAX_BLIGHT:
@@ -56,6 +57,7 @@ func setup(p_event_manager: EventManager, p_turn_manager: TurnManager, p_deck: A
 
 # Start and end year
 func end_year():
+	AlertDisplay.clear(end_year_alert_text)
 	$UI.visible = false
 	$Winter.visible = true
 	$UpgradeShop.lock = false
@@ -152,11 +154,8 @@ func _on_game_event_dialog_on_upgrades_selected(upgrades: Array[Upgrade]) -> voi
 		elif upgrade.type == Upgrade.UpgradeType.AddEnhance\
 			or upgrade.type == Upgrade.UpgradeType.AddEnhanceToRandom\
 			or upgrade.type == Upgrade.UpgradeType.AddEnhanceToAll:
-			var enhances = cards_database.get_random_enhance("", 3, upgrade.type == Upgrade.UpgradeType.AddEnhanceToAll)
-			var pick_option_ui = PickOption.instantiate()
-			self.add_child(pick_option_ui)
-			var prompt = "Pick an enhance to apply"
-			pick_option_ui.setup(prompt, enhances, func(selected):
+			
+			var add_enhance = func(selected):
 				if upgrade.type == Upgrade.UpgradeType.AddEnhance:
 					select_card_to_enhance(selected)
 				elif upgrade.type == Upgrade.UpgradeType.AddEnhanceToRandom:
@@ -181,9 +180,18 @@ func _on_game_event_dialog_on_upgrades_selected(upgrades: Array[Upgrade]) -> voi
 						deck.erase(card)
 					for card in new_cards:
 						deck.append(card)
-				self.remove_child(pick_option_ui),
-				func():
-					self.remove_child(pick_option_ui))
+			if upgrade.enhance != null:
+				add_enhance.call(upgrade.enhance)
+			else:
+				var enhances = cards_database.get_random_enhance("", 3, upgrade.type == Upgrade.UpgradeType.AddEnhanceToAll)
+				var pick_option_ui = PickOption.instantiate()
+				self.add_child(pick_option_ui)
+				var prompt = "Pick an enhance to apply"
+				pick_option_ui.setup(prompt, enhances, func(selected):
+					add_enhance.call(selected)
+					self.remove_child(pick_option_ui),
+					func():
+						self.remove_child(pick_option_ui))
 		elif upgrade.type == Upgrade.UpgradeType.AddStructure:
 			var structures = cards_database.get_random_structures(3)
 			var pick_option_ui = PickOption.instantiate()
@@ -254,9 +262,12 @@ func set_ui_visible(visible):
 func _on_shop_on_structure_place(structure, callback) -> void:
 	Global.selected_structure = structure
 	Global.selected_card = null
-	shop_structure_place_callback = callback
+	shop_structure_place_callback = func():
+		AlertDisplay.clear(structure_place_text)
+		await callback.call()
 	set_winter_visible(false)
 	$Shop.visible = false
+	AlertDisplay.set_text(structure_place_text)
 
 func _on_shop_button_pressed() -> void:
 	$Shop.setup(deck, turn_manager)
@@ -352,10 +363,10 @@ func next_year_allowed():
 	var choice2 = $Shop/PanelContainer/ShopContainer/ChoiceTwo/Stock
 	var upgradebutton = $Winter/FarmUpgradeButton
 	var eventbutton = $Winter/EventPanel/VB/EventButton
-	return upgradebutton.disabled && eventbutton.disabled\
+	return (upgradebutton.disabled && eventbutton.disabled\
 		&& !choice1.visible\
-		&& !choice2.visible
-
+		&& !choice2.visible)\
+		|| Settings.DEBUG
 
 func _on_shop_on_blight_removed() -> void:
 	turn_manager.blight_damage -= 1
