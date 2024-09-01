@@ -27,6 +27,7 @@ var FORTUNE_HOVER = preload("res://src/fortune/fortune_hover.tscn")
 @onready var energy_hbox = $UI/Stats/VBox/EnergyHbox
 @onready var cards_hbox = $UI/Stats/VBox/CardsHbox
 @onready var AlertDisplay: Alert = $AlertContainer
+@onready var GameEventDialog = $Winter/GameEventDialog
 
 var end_year_alert_text = "Ritual Complete! Time to rest and prepare for the next year"
 var structure_place_text = "Click on the farm tile where you'd like to place the structure"
@@ -50,7 +51,7 @@ func setup(p_event_manager: EventManager, p_turn_manager: TurnManager, p_deck: A
 	turn_manager = p_turn_manager
 	deck = p_deck
 	cards = p_cards
-	$GameEventDialog.setup(deck, turn_manager)
+	GameEventDialog.setup(deck, turn_manager)
 	$Shop.setup(deck, turn_manager)
 	register_tooltips()
 	$Tutorial.setup(p_event_manager)
@@ -62,7 +63,7 @@ func end_year():
 	$Winter.visible = true
 	$UpgradeShop.lock = false
 	$Winter/EventPanel/VB/EventButton.disabled = false
-	$GameEventDialog.generate_random_event()
+	GameEventDialog.generate_random_event()
 	$Shop.fill_shop()
 	$FortuneTeller.unregister_fortunes()
 	$FortuneTeller.create_fortunes()
@@ -112,8 +113,8 @@ func update():
 	$Winter/FarmUpgradeButton.disabled = $UpgradeShop.lock or ![4, 7, 10].has(turn_manager.year)
 	# Temporarily disable this QOL for testing
 	$Winter/NextYearButton.disabled = !next_year_allowed()
-	if $GameEventDialog.current_event != null:
-		$Winter/EventPanel/VB/EventNameLabel.text = $GameEventDialog.current_event.name
+	if GameEventDialog.current_event != null:
+		$Winter/EventPanel/VB/EventNameLabel.text = GameEventDialog.current_event.name
 	register_tooltips()
 	$Tutorial.check_visible()
 	$UI/Deck/DeckCount.text = "Deck: " + str(cards.get_deck_info().size())
@@ -129,7 +130,7 @@ func _on_fortune_teller_on_close() -> void:
 
 # Event
 func _on_event_button_pressed() -> void:
-	$GameEventDialog.visible = true
+	GameEventDialog.visible = true
 	
 func _on_game_event_dialog_on_upgrades_selected(upgrades: Array[Upgrade]) -> void:
 	for upgrade in upgrades:
@@ -204,7 +205,7 @@ func _on_game_event_dialog_on_upgrades_selected(upgrades: Array[Upgrade]) -> voi
 						self.remove_child(pick_option_ui))
 		else:
 			apply_upgrade.emit(upgrade)
-	$GameEventDialog.visible = false
+	GameEventDialog.visible = false
 	$Winter/EventPanel/VB/EventButton.disabled = true
 	update()
 
@@ -264,8 +265,10 @@ func _on_shop_on_structure_place(structure, callback) -> void:
 	Global.selected_card = null
 	shop_structure_place_callback = func():
 		AlertDisplay.clear(structure_place_text)
+		$CancelStructure.visible = false
 		await callback.call()
 	set_winter_visible(false)
+	$CancelStructure.visible = true
 	$Shop.visible = false
 	AlertDisplay.set_text(structure_place_text)
 
@@ -413,7 +416,7 @@ func save_data(save_json):
 		save_json.fortunes.append(fortune.save_data())
 	
 	save_json.events = {
-		"current": $GameEventDialog.current_event.save_data() if $GameEventDialog.current_event != null else null,
+		"current": GameEventDialog.current_event.save_data() if GameEventDialog.current_event != null else null,
 		"completed": get_completed_events()
 	}
 	save_json.state.rerolls = $Shop.player_money
@@ -424,15 +427,15 @@ func load_data(save_json: Dictionary):
 		$Winter.visible = true
 		$UpgradeShop.lock = save_json.winter.upgrade_lock
 		$Winter/EventPanel/VB/EventButton.disabled = save_json.winter.event_disabled
-		$GameEventDialog.current_event = load(save_json.events.current) if save_json.events.current != null else null
-		$GameEventDialog.update_interface()
+		GameEventDialog.current_event = load(save_json.events.current) if save_json.events.current != null else null
+		GameEventDialog.update_interface()
 		$Shop.load_data(save_json.winter.shop)
 		$Tutorial.on_winter()
 		$Tutorial.position.x = 1234
 	$FortuneTeller.unregister_fortunes()
 	$FortuneTeller.load_fortunes(save_json.fortunes)
 	for event_path: String in save_json.events.completed:
-		$GameEventDialog.completed_events.append(load(event_path))
+		GameEventDialog.completed_events.append(load(event_path))
 	create_fortune_display()
 	$Shop.player_money = save_json.state.rerolls
 	update()
@@ -468,7 +471,7 @@ func get_fortunes() -> Array[Fortune]:
 
 func get_completed_events() -> Array[String]:
 	var events: Array[String] = []
-	for event in $GameEventDialog.completed_events:
+	for event in GameEventDialog.completed_events:
 		events.append(event.save_data())
 	return events
 	
@@ -510,3 +513,11 @@ func try_move_structure(tile: Tile):
 func reset_obelisk():
 	$Obelisk.value = 0
 	$Obelisk.max_value = turn_manager.ritual_counter
+
+
+func _on_cancel_structure_pressed():
+	AlertDisplay.clear(structure_place_text)
+	$CancelStructure.visible = false
+	set_winter_visible(true)
+	$Shop.visible = true
+	Global.selected_structure = null

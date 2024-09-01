@@ -9,7 +9,7 @@ z_index = 2
 script = ExtResource("1_t53rf")
 
 [node name="ClickOutButton" type="Button" parent="."]
-visible = false
+modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(1920, 1080)
 offset_right = 8.0
 offset_bottom = 8.0
@@ -31,11 +31,20 @@ theme_override_constants/margin_bottom = 10
 [node name="VBox" type="VBoxContainer" parent="PanelContainer/Margin"]
 layout_mode = 2
 
-[node name="Title" type="Label" parent="PanelContainer/Margin/VBox"]
+[node name="HBox" type="HBoxContainer" parent="PanelContainer/Margin/VBox"]
 layout_mode = 2
+
+[node name="Title" type="Label" parent="PanelContainer/Margin/VBox/HBox"]
+layout_mode = 2
+size_flags_horizontal = 6
 theme = ExtResource("3_f6b05")
 text = "Title of event"
 horizontal_alignment = 1
+
+[node name="CloseButton" type="Button" parent="PanelContainer/Margin/VBox/HBox"]
+layout_mode = 2
+size_flags_horizontal = 8
+text = "Close"
 
 [node name="Description" type="RichTextLabel" parent="PanelContainer/Margin/VBox"]
 custom_minimum_size = Vector2(0, 200)
@@ -55,6 +64,8 @@ text = "Option 2"
 layout_mode = 2
 text = "Option 3"
 
+[connection signal="pressed" from="ClickOutButton" to="." method="_on_click_out_button_pressed"]
+[connection signal="pressed" from="PanelContainer/Margin/VBox/HBox/CloseButton" to="." method="_on_click_out_button_pressed"]
 [connection signal="pressed" from="PanelContainer/Margin/VBox/Option1Button" to="." method="_on_option_1_button_pressed"]
 [connection signal="pressed" from="PanelContainer/Margin/VBox/Option2Button" to="." method="_on_option_2_button_pressed"]
 [connection signal="pressed" from="PanelContainer/Margin/VBox/Option3Button" to="." method="_on_option_3_button_pressed"]

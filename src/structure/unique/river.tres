@@ -20,3 +20,4 @@ size = 8
 text = "Irrigates 8 adjacent tiles"
 texture = ExtResource("3_v51by")
 effects = Array[ExtResource("1_yjkub")]([SubResource("Resource_t10uo")])
+tooltip = ""

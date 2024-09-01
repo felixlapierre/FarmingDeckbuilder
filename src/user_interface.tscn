@@ -353,6 +353,9 @@ horizontal_alignment = 1
 layout_mode = 2
 text = "Event"
 
+[node name="GameEventDialog" parent="Winter" instance=ExtResource("16_a3egv")]
+visible = false
+
 [node name="ViewDeck" type="Button" parent="Winter"]
 layout_mode = 0
 offset_left = 12.0
@@ -361,13 +364,19 @@ offset_right = 178.0
 offset_bottom = 1065.0
 text = "View Deck"
 
+[node name="CancelStructure" type="Button" parent="."]
+visible = false
+offset_left = 899.0
+offset_top = 751.0
+offset_right = 1008.0
+offset_bottom = 800.0
+theme = ExtResource("2_s7754")
+text = "Cancel"
+
 [node name="EndScreen" parent="." instance=ExtResource("16_r2tbl")]
 visible = false
 
 [node name="FortuneTeller" parent="." instance=ExtResource("15_yqxvh")]
-visible = false
-
-[node name="GameEventDialog" parent="." instance=ExtResource("16_a3egv")]
 visible = false
 
 [node name="Shop" parent="." instance=ExtResource("17_q7vph")]
@@ -388,9 +397,10 @@ visible = false
 [connection signal="pressed" from="Winter/FortuneTellerButton" to="." method="_on_fortune_teller_button_pressed"]
 [connection signal="pressed" from="Winter/FarmUpgradeButton" to="." method="_on_farm_upgrade_button_pressed"]
 [connection signal="pressed" from="Winter/EventPanel/VB/EventButton" to="." method="_on_event_button_pressed"]
+[connection signal="on_upgrades_selected" from="Winter/GameEventDialog" to="." method="_on_game_event_dialog_on_upgrades_selected"]
 [connection signal="pressed" from="Winter/ViewDeck" to="." method="_on_shop_view_deck"]
+[connection signal="pressed" from="CancelStructure" to="." method="_on_cancel_structure_pressed"]
 [connection signal="on_close" from="FortuneTeller" to="." method="_on_fortune_teller_on_close"]
-[connection signal="on_upgrades_selected" from="GameEventDialog" to="." method="_on_game_event_dialog_on_upgrades_selected"]
 [connection signal="on_blight_removed" from="Shop" to="." method="_on_shop_on_blight_removed"]
 [connection signal="on_card_removed" from="Shop" to="." method="_on_shop_on_card_removed"]
 [connection signal="on_item_bought" from="Shop" to="." method="_on_shop_on_item_bought"]

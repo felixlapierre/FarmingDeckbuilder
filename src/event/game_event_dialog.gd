@@ -38,7 +38,7 @@ func generate_random_event():
 func update_interface():
 	if current_event == null:
 		return
-	$PanelContainer/Margin/VBox/Title.text = current_event.name
+	$PanelContainer/Margin/VBox/HBox/Title.text = current_event.name
 	$PanelContainer/Margin/VBox/Description.text = current_event.text
 	
 	update_option(current_event.flavor_text_1, current_event.option1, $PanelContainer/Margin/VBox/Option1Button)
@@ -81,3 +81,7 @@ func _on_option_2_button_pressed() -> void:
 
 func _on_option_3_button_pressed() -> void:
 	on_upgrades_selected.emit(current_event.option3)
+
+
+func _on_click_out_button_pressed():
+	visible = false
