@@ -19,10 +19,11 @@ const CLASS_NAME = "CardData"
 @export var texture_icon_offset: int = 16
 @export var targets: Array[String]
 @export var effects: Array[Effect]
+@export var enhances: Array[String]
 
 func _init(p_type = "CARD", p_name = "PlaceholderCardName", p_rarity = "common", p_cost = 1, p_yld = 1,\
 	p_time = 1, p_size = 1, p_text = "", p_texture = null, p_seed_texture = 1, p_targets = [], p_effects = [],\
-	p_strength_increment = 1.0, p_size_increment = 1, p_text_icon_offset = 16):
+	p_strength_increment = 1.0, p_size_increment = 1, p_text_icon_offset = 16, p_enhances = []):
 		type = p_type
 		name = p_name
 		rarity = p_rarity
@@ -35,6 +36,7 @@ func _init(p_type = "CARD", p_name = "PlaceholderCardName", p_rarity = "common",
 		seed_texture = p_seed_texture
 		targets.assign(p_targets)
 		effects.assign(p_effects)
+		enhances.assign(p_enhances)
 		strength_increment = p_strength_increment
 		size_increment = p_size_increment
 		texture_icon_offset = p_text_icon_offset
@@ -65,6 +67,8 @@ func assign(other: CardData) -> void:
 		targets.append(target)
 	for effect in other.effects:
 		effects.append(effect.copy())
+	for enhance in other.enhances:
+		enhances.append(enhance)
 	strength_increment = other.strength_increment
 	size_increment = other.size_increment
 	texture_icon_offset = other.texture_icon_offset
@@ -100,8 +104,10 @@ func apply_enhance(enhance: Enhance):
 			for effect in n_card.effects:
 				if effect.name == "plant":
 					effect.strength += enhance.strength
+					n_card.enhances.append(enhance.name)
 					return n_card
 			n_card.effects.append(load("res://src/effect/data/regrow_3.tres"))
+	n_card.enhances.append(enhance.name)
 	return n_card
 
 func apply_strength(enhance: Enhance):
@@ -158,7 +164,8 @@ func save_data() -> Dictionary:
 			return effect.save_data()),
 		"strength_increment": strength_increment,
 		"size_increment": size_increment,
-		"texture_icon_offset": texture_icon_offset
+		"texture_icon_offset": texture_icon_offset,
+		"enhances": enhances
 	}
 	return save_dict
 
@@ -178,6 +185,7 @@ func load_data(data) -> CardData:
 		var eff = load(effect.path).new()
 		eff.load_data(effect)
 		return eff))
+	enhances.assign(data.enhances)
 	strength_increment = data.strength_increment
 	size_increment = data.size_increment
 	texture_icon_offset = data.texture_icon_offset

@@ -95,6 +95,7 @@ func _on_cancel_button_pressed() -> void:
 		$ConfirmContainer/ConfirmVbox/ConfirmCards.remove_child(child)
 	$SelectContainer/CardContainer.add_child(card)
 	$SelectContainer/CardContainer.move_child(card, card_selected_index)
+	card.on_clicked.connect(on_card_selected)
 	$SelectContainer.visible = true
 	$ConfirmContainer.visible = false
 

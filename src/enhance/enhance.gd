@@ -27,6 +27,8 @@ func copy():
 func is_card_eligible(card: CardData):
 	if card.cost == 99:
 		return false
+	if card.enhances.size() > 1:
+		return false
 	match name:
 		"Size":
 			return card.size < 9

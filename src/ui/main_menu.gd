@@ -92,7 +92,9 @@ func populate_continue_preview():
 	
 	#Also preselect options
 	$Root/Grid/Panel/VBox/Margin/VBox/DifficultyBox/DiffOptions.selected = save_json.state.difficulty
+	_on_diff_options_item_selected(save_json.state.difficulty)
 	$Root/Grid/Panel/VBox/Margin/VBox/FarmTypeBox/TypeOptions.selected = get_index_of_farm_type(save_json.state.farm_type)
+	_on_type_options_item_selected(get_index_of_farm_type(save_json.state.farm_type))
 	
 	Deck.append_text("Deck: " + "\n")
 	var cards = {}
