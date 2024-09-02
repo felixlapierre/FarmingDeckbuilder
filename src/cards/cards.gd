@@ -122,7 +122,7 @@ func play_card():
 			drawcard()
 	
 	# If Obliviate, delete instead of discarding
-	if playedcard.card_info.get_effect("obliviate") != null\
+	if playedcard.card_info.get_effect("burn") != null\
 		or playedcard.card_info.get_effect("fleeting") != null:
 		remove_hand_card(playedcard)
 	else:
@@ -156,7 +156,7 @@ func discard_hand():
 	for card in $Hand.get_children():
 		if card.card_info.get_effect("fleeting") != null:
 			remove_hand_card(card)
-		elif card.card_info.get_effect("remembrance") == null:
+		elif card.card_info.get_effect("frozen") == null:
 			discard_card(card)
 	reorganize_hand()
 

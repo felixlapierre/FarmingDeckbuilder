@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_1ns13")
-name = "obliviate"
+name = "burn"
 strength = 0.0
 on = ""
 range = "self"

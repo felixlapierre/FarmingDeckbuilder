@@ -65,10 +65,8 @@ func get_short_description():
 		"plant":
 			if on == "harvest":
 				return "Regrow " + (str(strength) if strength > 0 else "")
-		"springbound", "fleeting", "corrupted":
+		"springbound", "fleeting", "corrupted", "frozen":
 			return name.capitalize()
-		"remembrance":
-			return "Frozen"
 		"energy":
 			return "Gain " + str(strength) + " energy" + get_on_text()
 		"draw":
@@ -110,7 +108,7 @@ func get_short_description():
 			return "Add " + get_strength_text() + " Fleeting cop" + ("y" if strength == 1 else "ies") + " of target plant's seed to your hand"
 		"add_blight_yield":
 			return "Add " + get_strength_text() + "×Blight to seed base yield"
-		"obliviate":
+		"burn":
 			return "Burn"
 		_:
 			return ""
@@ -122,9 +120,9 @@ func get_long_description():
 				return "Regrow: On harvest, re-plant seed" + (" with +%s yield" % strength if strength > 0 else "")
 		"add_recurring":
 			return "Regrow: On harvest, re-plant seed"
-		"obliviate":
+		"burn":
 			return "Burn: Destroy card when played. (Your deck will be restored at the end of the year)"
-		"remembrance":
+		"frozen":
 			return "Frozen: Card is not discarded at the end of the turn"
 		"springbound":
 			return "Springbound: Card is always drawn on the first week of the year"

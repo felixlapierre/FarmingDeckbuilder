@@ -38,14 +38,14 @@ func is_card_eligible(card: CardData):
 			return card.type == "SEED"
 		"SpreadGrow", "SpreadHarvest":
 			return card.get_effect("spread") == null and card.type == "SEED"
-		"Remembrance":
-			return card.get_effect("remembrance") == null
+		"Frozen":
+			return card.get_effect("frozen") == null
 		"Springbound":
 			return card.get_effect("springbound") == null
 		"Burn":
-			return card.get_effect("obliviate") == null
+			return card.get_effect("burn") == null
 		"RemoveBurn":
-			return card.get_effect("obliviate") != null
+			return card.get_effect("burn") != null
 		"Strength":
 			for effect in card.effects:
 				if effect.strength != 0:

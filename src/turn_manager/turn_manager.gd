@@ -93,7 +93,7 @@ func compute_blight_pattern(week, year):
 	for i in range(1, Global.FINAL_WEEK):
 		charge += 10.0
 		chance += 0.3
-		if (year < 4 and i < 3) or i < 2:
+		if (year < 4 and i < 3) or (year < 10 and i < 2):
 			blight_pattern.append(0)
 		elif i == Global.FINAL_WEEK - 1:
 			blight_pattern.append(charge)

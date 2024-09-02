@@ -90,7 +90,7 @@ func apply_enhance(enhance: Enhance):
 			n_card.effects.append(load("res://src/effect/data/spread_on_harvest.tres"))
 		"Burn":
 			n_card.effects.append(load("res://src/effect/data/obliviate.tres"))
-		"Remembrance":
+		"Frozen":
 			n_card.effects.append(load("res://src/effect/data/remembrance.tres"))
 		"RemoveObliviate":
 			n_card.effects.erase(load("res://src/effect/data/obliviate.tres"))
