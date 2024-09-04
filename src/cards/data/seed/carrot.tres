@@ -20,3 +20,4 @@ seed_texture = 1
 texture_icon_offset = 16
 targets = Array[String]([])
 effects = Array[Resource("res://src/effect/effect.gd")]([])
+enhances = Array[String]([])

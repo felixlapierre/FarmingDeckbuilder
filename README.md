@@ -2,6 +2,8 @@
 
 by Felix Lapierre
 
+Version 0.0.2 released on Sept 3rd ([Changelog](docs/CHANGELOG.md))
+
 ### Download
 
 [Download for Windows](https://drive.google.com/file/d/1PcUSdRndIwx6YSG7kH4FUZ9J5JX0olmw/view?usp=sharing)
