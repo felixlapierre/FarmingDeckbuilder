@@ -42,9 +42,15 @@ func do_active_check():
 		or grid_location.y < Global.FARM_TOPLEFT.y\
 		or grid_location.y > Global.FARM_BOTRIGHT.y:
 		state = Enums.TileState.Inactive
+	elif state == Enums.TileState.Inactive:
+		state = Enums.TileState.Empty
+	update_display()
+
+func update_display():
+	if state == Enums.TileState.Inactive:
+		$PurpleOverlay.visible = false
 		$Farmland.visible = false
 		$TileButton.visible = false
-		$PurpleOverlay.visible = false
 		return
 	$PurpleOverlay.visible = purple
 	$Farmland.visible = true
@@ -62,8 +68,6 @@ func do_active_check():
 		$Farmland.region_rect.position.y = 48
 	else:
 		$Farmland.region_rect.position.y = 16
-	if state == Enums.TileState.Inactive:
-		state = Enums.TileState.Empty
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:

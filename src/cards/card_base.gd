@@ -104,21 +104,22 @@ func set_card_info(card_data):
 		$HBoxContainer/VBoxContainer/ImageMargin/ImageCont/SizeCont.visible = false
 	else:
 		SIZE_LABEL.text = str(card_info.size) if card_info.size != -1 else "All"
-		
-	var chev1 = $HBoxContainer/VBoxContainer/ImageMargin/ImageCont/VBox/Chev1
-	var chev2 = $HBoxContainer/VBoxContainer/ImageMargin/ImageCont/VBox/Chev2
-	chev1.texture = AtlasTexture.new()
-	chev1.texture.set_atlas(ChevronTexture)
-	chev2.texture = AtlasTexture.new()
-	chev2.texture.set_atlas(ChevronTexture)
-	if card_info.enhances.size() > 0:
-		chev1.texture.set_region(Rect2(16, 0, 16, 16))
-	else:
-		chev1.texture.set_region(Rect2(0, 0, 16, 16))
-	if card_info.enhances.size() > 1:
-		chev2.texture.set_region(Rect2(16, 0, 16, 16))
-	else:
-		chev2.texture.set_region(Rect2(0, 0, 16, 16))
+	if card_info.type == "SEED" or card_info.type == "ACTION":
+		var chev1 = $HBoxContainer/VBoxContainer/ImageMargin/ImageCont/VBox/Chev1
+		var chev2 = $HBoxContainer/VBoxContainer/ImageMargin/ImageCont/VBox/Chev2
+		chev1.texture = AtlasTexture.new()
+		chev1.texture.set_atlas(ChevronTexture)
+		chev2.texture = AtlasTexture.new()
+		chev2.texture.set_atlas(ChevronTexture)
+		if card_info.enhances.size() > 0:
+			chev1.texture.set_region(Rect2(16, 0, 16, 16))
+		else:
+			chev1.texture.set_region(Rect2(0, 0, 16, 16))
+		if card_info.enhances.size() > 1:
+			chev2.texture.set_region(Rect2(16, 0, 16, 16))
+		else:
+			chev2.texture.set_region(Rect2(0, 0, 16, 16))
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	match state:

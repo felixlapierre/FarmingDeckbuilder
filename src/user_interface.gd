@@ -29,6 +29,12 @@ var FORTUNE_HOVER = preload("res://src/fortune/fortune_hover.tscn")
 @onready var AlertDisplay: Alert = $AlertContainer
 @onready var GameEventDialog = $Winter/GameEventDialog
 
+@onready var BlightPanel = $UI/BlightPanel
+@onready var Stats = $UI/Stats
+@onready var UpgradeButton = $Winter/FarmUpgradeButton
+@onready var FortuneTellerButton = $Winter/FortuneTellerButton
+@onready var EventPanel = $Winter/EventPanel
+
 var end_year_alert_text = "Ritual Complete! Time to rest and prepare for the next year"
 var structure_place_text = "Click on the farm tile where you'd like to place the structure"
 # Called when the node enters the scene tree for the first time.
