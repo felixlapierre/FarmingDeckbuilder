@@ -11,6 +11,7 @@ var deck: Array[CardData] = []
 @onready var background = $Background
 @onready var background2 = $Background2
 @onready var farm: Farm = $FarmTiles
+@onready var cards: Cards = $Cards
 
 var helper = preload("res://src/farm/startup_helper.gd")
 

@@ -34,6 +34,10 @@ var FORTUNE_HOVER = preload("res://src/fortune/fortune_hover.tscn")
 @onready var UpgradeButton = $Winter/FarmUpgradeButton
 @onready var FortuneTellerButton = $Winter/FortuneTellerButton
 @onready var EventPanel = $Winter/EventPanel
+@onready var EventButton = $Winter/EventPanel/VB/EventButton
+@onready var WinterUi = $Winter
+@onready var FarmingUi = $UI
+@onready var FortuneTeller = $FortuneTeller
 
 var end_year_alert_text = "Ritual Complete! Time to rest and prepare for the next year"
 var structure_place_text = "Click on the farm tile where you'd like to place the structure"

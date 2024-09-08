@@ -29,6 +29,9 @@ static func get_starter_deck():
 			data = wilderness_deck
 		"MOUNTAINS":
 			data = mountains_deck
+	return load_deck(data)
+
+static func load_deck(data):
 	var deck = []
 	for card in data:
 		for i in range(card.count):
@@ -158,5 +161,28 @@ static var mountains_deck = [
 		"name": "scythe",
 		"type": "action",
 		"count": 3
+	}
+]
+
+static var tutorial_deck = [
+	{
+		"name": "radish",
+		"type": "seed",
+		"count": 3
+	},
+	{
+		"name": "scythe",
+		"type": "action",
+		"count": 3
+	},
+	{
+		"name": "potato",
+		"type": "seed",
+		"count": 3
+	},
+	{
+		"name": "pumpkin",
+		"type": "seed",
+		"count": 1
 	}
 ]
