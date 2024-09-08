@@ -27,6 +27,7 @@ var turn_manager
 @onready var CHOICE_ONE = $PanelContainer/ShopContainer/ChoiceOne
 @onready var STOCK_ONE = $PanelContainer/ShopContainer/ChoiceOne/Stock
 @onready var NEXT_YEAR_ONE = $PanelContainer/ShopContainer/ChoiceOne/NextYearCont
+@onready var CHOICE_TWO_LABEL = $PanelContainer/ShopContainer/ChoiceTwoLabel
 @onready var CHOICE_TWO = $PanelContainer/ShopContainer/ChoiceTwo
 @onready var STOCK_TWO = $PanelContainer/ShopContainer/ChoiceTwo/Stock
 @onready var NEXT_YEAR_TWO = $PanelContainer/ShopContainer/ChoiceTwo/NextYearCont

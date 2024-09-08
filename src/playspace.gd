@@ -1,4 +1,5 @@
 extends Node2D
+class_name Playspace
 
 var victory = false
 
@@ -9,6 +10,7 @@ var deck: Array[CardData] = []
 @onready var user_interface: UserInterface = $UserInterface
 @onready var background = $Background
 @onready var background2 = $Background2
+@onready var farm: Farm = $FarmTiles
 
 var helper = preload("res://src/farm/startup_helper.gd")
 

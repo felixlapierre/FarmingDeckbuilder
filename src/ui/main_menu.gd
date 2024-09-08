@@ -2,7 +2,8 @@ extends Node2D
 
 var PLAYSPACE = preload("res://src/playspace.tscn")
 
-@onready var playspace = $Playspace
+var playspace
+@onready var tutorial_game = $TutorialGame
 @onready var menu_root = $Root
 @onready var difficulty_options = $Root/Grid/Panel/VBox/Margin/VBox/DifficultyBox/DiffOptions
 
@@ -35,12 +36,14 @@ func _on_diff_options_item_selected(index):
 
 func _on_start_button_pressed():
 	menu_root.visible = false
-	playspace.visible = true
+	playspace = PLAYSPACE.instantiate()
+	add_child(playspace)
 	playspace.start_new_game()
 
 func _on_continue_button_pressed():
 	menu_root.visible = false
-	playspace.visible = true
+	playspace = PLAYSPACE.instantiate()
+	add_child(playspace)
 	playspace.load_game()
 
 
@@ -126,3 +129,12 @@ func _on_tutorials_check_pressed() -> void:
 func _on_debug_check_pressed() -> void:
 	Settings.DEBUG = DebugCheck.button_pressed
 	Settings.save_settings()
+
+
+func _on_tutorial_button_pressed():
+	menu_root.visible = false
+	menu_root.visible = false
+	playspace = PLAYSPACE.instantiate()
+	playspace.set_script(load("res://src/tutorial/tutorial_game.gd"))
+	add_child(playspace)
+	playspace.start_new_game()

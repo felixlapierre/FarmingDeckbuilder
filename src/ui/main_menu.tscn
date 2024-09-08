@@ -1,8 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://c4gqastokl1qh"]
+[gd_scene load_steps=3 format=3 uid="uid://c4gqastokl1qh"]
 
 [ext_resource type="Script" path="res://src/ui/main_menu.gd" id="1_b0cyn"]
 [ext_resource type="Theme" uid="uid://c21dhy264y6ty" path="res://assets/theme_large.tres" id="1_l63em"]
-[ext_resource type="PackedScene" uid="uid://xva3qbqb4k5o" path="res://src/playspace.tscn" id="3_6tb12"]
 
 [node name="MainMenu" type="Node2D"]
 script = ExtResource("1_b0cyn")
@@ -162,8 +161,12 @@ the year. Allow infinite rerolls in the
 shop to get the cards you want."
 text = "Dev Mode"
 
-[node name="Playspace" parent="." instance=ExtResource("3_6tb12")]
-visible = false
+[node name="TutorialPanel" type="PanelContainer" parent="Root/Grid"]
+layout_mode = 2
+
+[node name="TutorialButton" type="Button" parent="Root/Grid/TutorialPanel"]
+layout_mode = 2
+text = "Play Tutorial"
 
 [connection signal="item_selected" from="Root/Grid/Panel/VBox/Margin/VBox/FarmTypeBox/TypeOptions" to="." method="_on_type_options_item_selected"]
 [connection signal="item_selected" from="Root/Grid/Panel/VBox/Margin/VBox/DifficultyBox/DiffOptions" to="." method="_on_diff_options_item_selected"]
@@ -171,3 +174,4 @@ visible = false
 [connection signal="pressed" from="Root/Grid/ContPanel/VBox/Margin/VBox/ContinueButton" to="." method="_on_continue_button_pressed"]
 [connection signal="pressed" from="Root/Grid/SettingsPanel/Margin/VBox/TutorialsCheck" to="." method="_on_tutorials_check_pressed"]
 [connection signal="pressed" from="Root/Grid/SettingsPanel/Margin/VBox/DebugCheck" to="." method="_on_debug_check_pressed"]
+[connection signal="pressed" from="Root/Grid/TutorialPanel/TutorialButton" to="." method="_on_tutorial_button_pressed"]
