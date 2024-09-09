@@ -93,7 +93,7 @@ func start_year():
 
 # Update UI display
 func update():
-	$UI/Stats/VBox/YearLabel.text = "Year: " + str(turn_manager.year) + " / 10"
+	$UI/Stats/VBox/YearLabel.text = "Year: " + str(turn_manager.year) + " / " + str(Global.FINAL_YEAR)
 	$UI/Stats/VBox/TurnLabel.text = "Week: " + str(turn_manager.week) + " / 12"
 	$UI/Stats/VBox/EnergyHbox/EnergyLabel.text = "Energy: " + str(turn_manager.energy) + " / " + str(Constants.MAX_ENERGY + int(float(Global.ENERGY_FRAGMENTS) / 3))
 	for child in $UI/Stats/VBox/EnergyHbox/Fragments.get_children():
