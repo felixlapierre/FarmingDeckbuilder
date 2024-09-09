@@ -122,7 +122,7 @@ func apply_strength(enhance: Enhance):
 func get_description() -> String:
 	var descr = text
 	for effect in effects:
-		var effect_text = effect.get_short_description()
+		var effect_text = effect.get_short_description(self)
 		if effect_text.length() > 0:
 			if descr.length() > 0:
 				descr += ". "

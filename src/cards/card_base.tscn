@@ -118,14 +118,14 @@ texture = SubResource("AtlasTexture_g65hf")
 layout_mode = 2
 texture = SubResource("AtlasTexture_02cf5")
 
-[node name="DescriptionLabel" type="Label" parent="HBoxContainer/VBoxContainer"]
+[node name="DescriptionLabel" type="RichTextLabel" parent="HBoxContainer/VBoxContainer"]
 texture_filter = 2
-custom_minimum_size = Vector2(0, 135)
+custom_minimum_size = Vector2(184, 135)
 layout_mode = 2
-mouse_filter = 0
+bbcode_enabled = true
 text = "description"
+scroll_active = false
 autowrap_mode = 2
-text_overrun_behavior = 3
 
 [node name="BottomBar" type="HBoxContainer" parent="HBoxContainer/VBoxContainer"]
 layout_mode = 2

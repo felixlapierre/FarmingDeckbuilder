@@ -72,3 +72,9 @@ static func is_adjacent(loc1: Vector2, loc2: Vector2):
 static func is_nearby(loc1: Vector2, loc2: Vector2):
 	return abs(loc1.x - loc2.x) <= 2\
 		and abs(loc1.y - loc2.y) <= 2
+
+static func mana_icon():
+	return "[img]res://assets/custom/YellowManaSmall.png[/img]"
+
+static func blue_mana():
+	return "[img]res://assets/custom/PurpleManaText.png[/img]"

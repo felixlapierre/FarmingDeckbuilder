@@ -112,12 +112,18 @@ func update():
 		fragment.texture = load("res://assets/custom/CardFragment.png")
 		fragment.expand_mode = TextureRect.EXPAND_FIT_WIDTH
 		$UI/Stats/VBox/CardsHbox/Fragments.add_child(fragment)
-	$UI/BlightPanel/VBox/BlightCounter/Label.text = str(max(turn_manager.target_blight - turn_manager.purple_mana, 0))
+
+	#Blight Panels
+	$UI/BlightPanel.visible = turn_manager.target_blight > 0
+	$UI/BlightPanel/VBox/BlightCounter/Label.text = str(turn_manager.purple_mana) + " / " + str(turn_manager.target_blight) + " [img]res://assets/custom/PurpleMana.png[/img]"
+	$UI/BlightPanel/VBox/AttackLabel.text = "Blight Attack!" if turn_manager.purple_mana < turn_manager.target_blight else "Safe!"
+	
+	#Next turn blight
+	$UI/NextBlightPanel.visible = turn_manager.next_turn_blight > 0
+	$UI/NextBlightPanel/NextTurnLabel.text = "Attack Next\nTurn: " + str(turn_manager.next_turn_blight) + " [img]res://assets/custom/PurpleMana.png[/img]"
 	if turn_manager.flag_defer_excess:
 		var next_turn_amount = turn_manager.purple_mana - turn_manager.target_blight
-		$UI/BlightPanel/VBox/NextTurnLabel.text = "( Next Turn: [color=9f78e3]" + str(max(turn_manager.next_turn_blight - next_turn_amount, 0)) + "[/color] )"
-	else:
-		$UI/BlightPanel/VBox/NextTurnLabel.text ="( Next Turn: " + str(turn_manager.next_turn_blight if turn_manager.next_turn_blight >= 0 else 0) + " )"
+		$UI/NextBlightPanel/NextTurnLabel.text = "Attack Next\nTurn: [color=9f78e3]" + str(max(turn_manager.next_turn_blight - next_turn_amount, 0)) + "[/color]"
 	$UI/RitualPanel/RitualCounter/Label.text = str(turn_manager.ritual_counter)
 	$Shop.update_labels()
 	$Winter/FarmUpgradeButton.disabled = $UpgradeShop.lock or ![4, 7, 10].has(turn_manager.year)
@@ -232,7 +238,7 @@ func _on_skip_button_pressed() -> void:
 
 # Yield Preview
 func _on_farm_tiles_on_preview_yield(args) -> void:
-	var warning_waste_purple_text = "[color=ff0000]Warning![/color] Purple yield is lost at the end of the turn."
+	var warning_waste_purple_text = "[color=ff0000]Warning![/color] [img]res://assets/custom/PurpleMana.png[/img] is lost at the end of the turn."
 	AlertDisplay.clear(warning_waste_purple_text)
 	var yellow = args.yellow
 	var purple = args.purple
@@ -240,24 +246,24 @@ func _on_farm_tiles_on_preview_yield(args) -> void:
 	$UI/Preview/Panel/HBox/PreviewYellow.text = "+" + str(yellow)
 	$UI/Preview/Panel/HBox/PreviewPurple.text = "+" + str(purple)
 
-	var blightamt = max(turn_manager.target_blight - turn_manager.purple_mana, 0)
+	var blightamt = turn_manager.purple_mana + purple
 	if purple != 0:
-		$UI/BlightPanel/VBox/BlightCounter/Label.text = "[color=9f78e3]"+ str(blightamt) + " -> "+str(max(blightamt - purple, 0)) 
+		$UI/BlightPanel/VBox/BlightCounter/Label.text = "[color=9f78e3]"+ str(blightamt) + " / " + str(turn_manager.target_blight)
 		if blightamt == 0:
 			AlertDisplay.set_text(warning_waste_purple_text)
 	else:
-		$UI/BlightPanel/VBox/BlightCounter/Label.text = str(blightamt)
+		$UI/BlightPanel/VBox/BlightCounter/Label.text = str(turn_manager.purple_mana) + " / " + str(turn_manager.target_blight)
 	
 	if yellow != 0:
 		$UI/RitualPanel/RitualCounter/Label.text = "[color=e5e831]"+str(max(turn_manager.ritual_counter - yellow, 0))
 	else:
-				$UI/RitualPanel/RitualCounter/Label.text = str(turn_manager.ritual_counter)
+		$UI/RitualPanel/RitualCounter/Label.text = str(turn_manager.ritual_counter)
 	if args.defer or turn_manager.flag_defer_excess:
 		var next_turn_amount = turn_manager.purple_mana + purple - turn_manager.target_blight
 		if next_turn_amount > 0:
-			$UI/BlightPanel/VBox/NextTurnLabel.text = "( Next Turn: [color=9f78e3]" + str(max(turn_manager.next_turn_blight - next_turn_amount, 0)) + "[/color] )"
+			$UI/NextBlightPanel/NextTurnLabel.text = "Attack Next\nTurn: [color=9f78e3]" + str(max(turn_manager.next_turn_blight - next_turn_amount, 0)) + "[/color]"
 	else:
-		$UI/BlightPanel/VBox/NextTurnLabel.text = "( Next Turn: " + str(turn_manager.next_turn_blight if turn_manager.next_turn_blight >= 0 else 0) + " )"
+		$UI/NextBlightPanel/NextTurnLabel.text = "Attack Next\nTurn: " + str(turn_manager.next_turn_blight if turn_manager.next_turn_blight >= 0 else 0)
 # Winter
 func set_winter_visible(visible):
 	$Winter.visible = visible

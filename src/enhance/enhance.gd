@@ -63,7 +63,7 @@ func get_description():
 		"GrowSpeed":
 			return "Make a seed grow 1 week faster"
 		"FlatYield":
-			return "Increase a seed's yield by 1"
+			return "Increase a seed's " + Helper.mana_icon() + " by 1"
 		"SpreadGrow":
 			return "Give a seed 50% chance to spread on grow"
 		"SpreadHarvest":
@@ -79,7 +79,7 @@ func get_description():
 		"Strength":
 			return "Increase the strength of a card's special effects"
 		"Regrow":
-			return "Add Regrow 3 to a card (Card is re-planted with +3 base yield when harvested)"
+			return "Add Regrow 3 to a card (Card is re-planted with +3 base " + Helper.mana_icon() + " when harvested)"
 		_:
 			return "TODO"
 

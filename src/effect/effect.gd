@@ -60,15 +60,15 @@ func sort(a: Effect, b: Effect):
 	#	return a_prio > b_prio
 	return a_prio > b_prio
 
-func get_short_description():
+func get_short_description(card: CardData):
 	match name:
 		"plant":
 			if on == "harvest":
 				return "Regrow " + (str(strength) if strength > 0 else "")
-		"springbound", "fleeting", "corrupted", "frozen":
+		"springbound", "fleeting", "corrupted", "frozen", "burn":
 			return name.capitalize()
 		"energy":
-			return "Gain " + str(strength) + " energy" + get_on_text()
+			return "Gain " + str(strength) + " [img]res://assets/custom/Energy.png[/img]" + get_on_text()
 		"draw":
 			return "Draw " + str(strength) + " card" + ("s" if strength > 1 else "") + get_on_text()
 		"spread":
@@ -79,37 +79,41 @@ func get_short_description():
 					return str(strength*100) + "% chance to spread" + get_on_text()
 			else:
 				if strength >= 1:
-					return "Spread target " + str(strength) + " time(s)"
+					return "Spread " + get_size_target_plants(card) + " " + str(strength) + " time(s)"
 				else:
-					return str(strength*100) + "% chance to spread target"
+					return str(strength*100) + "% chance to spread " + get_size_target_plants(card)
 		"increase_yield":
-			return "Increase yield by " + str(strength * 100) + "%"
+			return "Increase the " + Helper.mana_icon() + " of " + get_size_target_plants(card) + " by " + str(strength * 100) + "%"
 		"harvest":
-			return "Harvest target plants"
+			return "Harvest " + get_size_target_plants(card)
 		"harvest_delay":
-			return "Harvest fully grown plants and carry excess yield to the next week"
+			return "Harvest " + get_size_target_plants(card) + " and carry excess " + Helper.blue_mana() + " to the next week"
 		"grow":
-			return "Grow targeted plants " + str(strength) + " time" + ("s" if strength != 1 else "")
+			return "Grow " + get_size_target_plants(card) + " by " + str(strength) + " week" + ("s" if strength != 1 else "")
 		"add_yield":
-			return "Add " + get_strength_text() + " yield" + get_on_text()
+			if card.type == "SEED":
+				return "Add " + get_strength_text() + " " + Helper.mana_icon() + " " + get_on_text()
+			else:
+				return "Add " + get_strength_text() + " " + Helper.mana_icon() + " to " + get_size_target_plants(card)
 		"irrigate":
-			return "Water tiles for " + str(strength) + " weeks"
+			return "Water " + get_size(card) + " tiles for " + str(strength) + " weeks"
 		"absorb":
 			return "Benefits " + str(strength*100) + "% more from being watered"
 		"destroy_tile":
-			return "Destroy tile" + get_on_text()
+			if card.type == "SEED":
+				return "Destroy tile" + get_on_text()
+			else:
+				return "Destroy " + get_size(card) + " tiles"
 		"destroy_plant":
-			return "Destroy plant" + get_on_text()
+			return "Destroy " + get_size_target_plants(card) + " " + get_on_text()
 		"replant":
-			return "Replant target plants"
+			return "Replant " + get_size_target_plants(card)
 		"add_recurring":
-			return "Add 'Regrow' to target plants"
+			return "Add 'Regrow' to " + get_size_target_plants(card)
 		"draw_target":
-			return "Add " + get_strength_text() + " Fleeting cop" + ("y" if strength == 1 else "ies") + " of target plant's seed to your hand"
+			return "Add " + get_strength_text() + " Fleeting cop" + ("y" if strength == 1 else "ies") + " of the plant's seed to your hand"
 		"add_blight_yield":
-			return "Add " + get_strength_text() + "×Blight to seed base yield"
-		"burn":
-			return "Burn"
+			return "Add " + get_strength_text() + "×Blight to seed base " + Helper.mana_icon()
 		_:
 			return ""
 
@@ -117,7 +121,7 @@ func get_long_description():
 	match name:
 		"plant":
 			if on == "harvest":
-				return "Regrow: On harvest, re-plant seed" + (" with +%s yield" % strength if strength > 0 else "")
+				return "Regrow: On harvest, re-plant seed" + ((" with +%s " + Helper.mana_icon()) % strength if strength > 0 else "")
 		"add_recurring":
 			return "Regrow: On harvest, re-plant seed"
 		"burn":
@@ -131,13 +135,27 @@ func get_long_description():
 		"harvest", "harvest_delay":
 			return "Harvest: Gain [img]res://assets/custom/YellowMana16.png[/img] or [img]res://assets/custom/PurpleMana16.png[/img] equal to the plant's Yield, then remove it"
 		"irrigate", "absorb":
-			return "Watered: Watered tiles yield 40% more"
+			return "Watered: Watered tiles give 40% more " + Helper.mana_icon()
 		"fleeting", "draw_target":
 			return "Fleeting: Destroy card when played or discarded"
 		"corrupted":
-			return "On harvest, yield is lost, not gained."
+			return "On harvest, " + Helper.mana_icon() + " is lost, not gained."
 		_:
 			return ""
+
+func get_size(card: CardData):
+	if card.size == -1:
+		return "all"
+	else:
+		return str(card.size)
+
+func get_size_target_plants(card: CardData):
+	if card.size == -1:
+		return "all plants"
+	elif card.size == 1:
+		return "1 plant"
+	else:
+		return str(card.size) + " plants"
 
 func get_on_text():
 	match on:

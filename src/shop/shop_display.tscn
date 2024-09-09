@@ -69,12 +69,14 @@ text = "1
 custom_minimum_size = Vector2(0, 80)
 layout_mode = 2
 
-[node name="DescriptionLabel" type="Label" parent="VBox/HBoxContainer/VBoxContainer"]
+[node name="DescriptionLabel" type="RichTextLabel" parent="VBox/HBoxContainer/VBoxContainer"]
 texture_filter = 2
-custom_minimum_size = Vector2(0, 112)
+custom_minimum_size = Vector2(184, 112)
 layout_mode = 2
+bbcode_enabled = true
 text = "Description
 "
+scroll_active = false
 autowrap_mode = 2
 
 [node name="BottomBar" type="HBoxContainer" parent="VBox/HBoxContainer/VBoxContainer"]

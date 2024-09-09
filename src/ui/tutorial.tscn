@@ -25,6 +25,6 @@ text = "Start by playing seed cards to plant seeds on your farm. Make sure to pl
 
 [node name="Button" type="Button" parent="PCont/Margin/VBox"]
 layout_mode = 2
-text = "Disable Tutorials"
+text = "Disable Hints"
 
 [connection signal="pressed" from="PCont/Margin/VBox/Button" to="." method="_on_button_pressed"]

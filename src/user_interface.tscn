@@ -85,6 +85,12 @@ offset_bottom = 453.0
 [node name="VBox" type="VBoxContainer" parent="UI/BlightPanel"]
 layout_mode = 2
 
+[node name="AttackLabel" type="Label" parent="UI/BlightPanel/VBox"]
+custom_minimum_size = Vector2(215, 0)
+layout_mode = 2
+theme = ExtResource("2_s7754")
+text = "Blight Attack!"
+
 [node name="BlightCounter" type="HBoxContainer" parent="UI/BlightPanel/VBox"]
 layout_mode = 2
 theme = ExtResource("2_s7754")
@@ -101,7 +107,18 @@ bbcode_enabled = true
 text = "42"
 fit_content = true
 
-[node name="NextTurnLabel" type="RichTextLabel" parent="UI/BlightPanel/VBox"]
+[node name="BlightDamage" type="HBoxContainer" parent="UI/BlightPanel/VBox"]
+visible = false
+layout_mode = 2
+
+[node name="NextBlightPanel" type="PanelContainer" parent="UI"]
+layout_mode = 0
+offset_left = 1604.0
+offset_top = 411.0
+offset_right = 1857.0
+offset_bottom = 452.0
+
+[node name="NextTurnLabel" type="RichTextLabel" parent="UI/NextBlightPanel"]
 layout_mode = 2
 size_flags_vertical = 3
 theme = ExtResource("2_s7754")
@@ -109,10 +126,6 @@ bbcode_enabled = true
 text = "( Next Turn: 0 )"
 fit_content = true
 autowrap_mode = 0
-
-[node name="BlightDamage" type="HBoxContainer" parent="UI/BlightPanel/VBox"]
-visible = false
-layout_mode = 2
 
 [node name="Stats" type="PanelContainer" parent="UI"]
 layout_mode = 0

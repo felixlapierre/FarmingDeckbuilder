@@ -9,12 +9,14 @@ var winter_explanation
 
 func start_year():
 	if turn_manager.year == 0:
+		Settings.TUTORIALS_ENABLED = false
 		user_interface.EventPanel.visible = false
 		Global.DIFFICULTY = -1
 		Global.FINAL_YEAR = 4
 		Constants.BASE_HAND_SIZE = 0
 		deck = []
 		deck.assign(StartupHelper.load_deck(StartupHelper.tutorial_deck))
+		user_interface.setup(event_manager, turn_manager, deck, cards)
 	elif turn_manager.year == 1:
 		Constants.BASE_HAND_SIZE = 0
 	super.start_year()
@@ -37,6 +39,7 @@ func save_game():
 
 func end_year():
 	await super.end_year()
+	user_interface.EventButton.disabled = true
 	if turn_manager.year == 1:
 		year_one_end_year()
 	elif turn_manager.year == 2:
@@ -87,7 +90,7 @@ func year_one():
 func year_one_end_turn():
 	match turn_manager.week:
 		2:
-			farming_explanation.set_text("Each plant takes [img]res://assets/custom/Time.png[/img] weeks to grow and generates [img]res://assets/custom/YellowMana16.png[/img] yield.\n\nHover your mouse over a tile on the farm to see details.\n\nScythe cards will harvest mature plants, gaining Yellow Yield if they are on a Yellow tile.\n\nGenerate 40 Yellow Yield to complete the ritual and go to the next year.")
+			farming_explanation.set_text("Each plant takes [img]res://assets/custom/Time.png[/img] weeks to grow and generates [img]res://assets/custom/YellowMana16.png[/img] mana.\n\nHover your mouse over a tile on the farm to see details.\n\nScythe cards will harvest mature plants, gaining " + Helper.mana_icon() + " if they are on a Yellow tile.\n\nGenerate 40 " + Helper.mana_icon() + " to complete the ritual and go to the next year.")
 
 func year_one_end_year():
 	user_interface.FortuneTellerButton.visible = false
@@ -95,7 +98,7 @@ func year_one_end_year():
 	user_interface.shop.STOCK_TWO.visible = false
 	user_interface.shop.CHOICE_TWO_LABEL.visible = false
 	shop_explanation = ExplanationScene.instantiate()
-	shop_explanation.set_text("[color=aquamarine]Shop[/color]: Choose one of the above cards to add to your deck. You can also skip this choice to get a reroll, which can be used later to refresh your options.\n\n[color=green]Seed cards (Green)[/color]: Plant a seed on your farm that generates yield after some amount of weeks.\n\n[color=red]Action Card (Red)[/color]: Perform special effects that can manipulate your plants or give you other benefits")
+	shop_explanation.set_text("[color=aquamarine]Shop[/color]: Choose one of the above cards to add to your deck. You can also skip this choice to get a reroll, which can be used later to refresh your options.\n\n[color=green]Seed cards (Green)[/color]: Plant a seed on your farm that generates " + Helper.mana_icon() + " after some amount of weeks.\n\n[color=red]Action Card (Red)[/color]: Perform special effects that can manipulate your plants or give you other benefits")
 	shop_explanation.set_exp_size(1400, 250)
 	shop_explanation.position = Vector2(270, 530)
 	user_interface.shop.add_child(shop_explanation)
@@ -117,7 +120,7 @@ func year_two():
 			tile.state = Enums.TileState.Inactive
 			tile.update_display()
 	user_interface.BlightPanel.visible = true
-	turn_manager.blight_pattern = [0, 5, 7, 0, 10, 0, 5, 0, 10, 0, 5, 0, 10, 10, 0, 10]
+	turn_manager.blight_pattern = [0, 5, 0, 7, 0, 5, 0, 10, 0, 5, 0, 10, 10, 0, 10, 0]
 	turn_manager.target_blight = 0
 	turn_manager.next_turn_blight = 5
 	farming_explanation.set_text("Plants harvested on Purple tiles will not progress the ritual. Instead, they will protect you from the Blight's attacks.\n\nThe Blight will attack you next turn, as indicated by the 'Next turn: 5' display. Plant a Radish so that you can harvest it next turn to protect yourself.")
@@ -141,7 +144,7 @@ func year_two():
 func year_two_end_turn():
 	match turn_manager.week:
 		2:
-			farming_explanation.set_text("Use a Scythe to harvest a plant on a purple tile, which will generate Purple Yield. Generate at least 5 Purple Yield to protect yourself from the Blight this turn.\n\nBe careful! Excess Purple Yield will be lost at the end of the turn. Save some plants for next turn - note from the 'Next Turn: 10' display that the Blight will attack you again.")
+			farming_explanation.set_text("Use a Scythe to harvest a plant on a purple tile, which will generate " + Helper.blue_mana() + ". Generate at least 5 " + Helper.blue_mana() + " to protect yourself from the Blight this turn.\n\nBe careful! Excess " + Helper.blue_mana() + " will be lost at the end of the turn.")
 		3:
 			farming_explanation.set_text("Make sure to protect yourself by harvesting plants on purple tiles whenever the Blight is attacking you.\n\nAt the same time, make sure to plant some plants on yellow tiles so you can complete the ritual.\n\nMake sure to complete the ritual before winter comes on Week 12, when your plants will stop growing.")
 			for tile in farm.get_all_tiles():
