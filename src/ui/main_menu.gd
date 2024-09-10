@@ -21,6 +21,8 @@ var difficulty_text = [
 	"Increased misfortune\n",
 	"Add Final Ritual on year 11"]
 
+var mage_fortune = null;
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	populate_continue_preview()
@@ -40,6 +42,7 @@ func _on_start_button_pressed():
 	playspace = PLAYSPACE.instantiate()
 	connect_main_menu_signal(playspace)
 	add_child(playspace)
+	playspace.user_interface.mage_fortune = mage_fortune
 	Global.reset()
 	playspace.start_new_game()
 
@@ -103,7 +106,9 @@ func populate_continue_preview():
 	_on_diff_options_item_selected(save_json.state.difficulty)
 	$Root/Grid/Panel/VBox/Margin/VBox/FarmTypeBox/TypeOptions.selected = get_index_of_farm_type(save_json.state.farm_type)
 	_on_type_options_item_selected(get_index_of_farm_type(save_json.state.farm_type))
-	
+	$Root/Grid/Panel/VBox/Margin/VBox/CharacterBox/CharOptions.selected = save_json.state.mage.rank
+	_on_char_options_item_selected(save_json.state.mage.rank)
+
 	Deck.append_text("Deck: " + "\n")
 	var cards = {}
 	for card in save_json.deck:
@@ -160,3 +165,13 @@ func connect_main_menu_signal(playspace):
 		$Root/Grid/Panel/VBox/Margin/VBox/FarmTypeBox/TypeOptions.selected = get_index_of_farm_type(Global.FARM_TYPE)
 		_on_type_options_item_selected(get_index_of_farm_type(Global.FARM_TYPE))
 		)
+
+
+func _on_char_options_item_selected(index: int) -> void:
+	match index:
+		0:
+			mage_fortune = load("res://src/fortune/characters/novice.gd").new()
+		1:
+			mage_fortune = load("res://src/fortune/characters/ice_mage.gd").new()
+		2:
+			mage_fortune = load("res://src/fortune/characters/fire_mage.gd").new()

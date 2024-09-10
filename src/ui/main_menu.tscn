@@ -87,7 +87,6 @@ popup/item_1/text = "Normal"
 popup/item_1/id = 1
 
 [node name="CharacterBox" type="HBoxContainer" parent="Root/Grid/Panel/VBox/Margin/VBox"]
-visible = false
 layout_mode = 2
 
 [node name="CharLabel" type="Label" parent="Root/Grid/Panel/VBox/Margin/VBox/CharacterBox"]
@@ -247,6 +246,7 @@ text = "Start"
 
 [connection signal="item_selected" from="Root/Grid/Panel/VBox/Margin/VBox/FarmTypeBox/TypeOptions" to="." method="_on_type_options_item_selected"]
 [connection signal="item_selected" from="Root/Grid/Panel/VBox/Margin/VBox/DifficultyBox/DiffOptions" to="." method="_on_diff_options_item_selected"]
+[connection signal="item_selected" from="Root/Grid/Panel/VBox/Margin/VBox/CharacterBox/CharOptions" to="." method="_on_char_options_item_selected"]
 [connection signal="pressed" from="Root/Grid/Panel/VBox/Margin/VBox/StartButton" to="." method="_on_start_button_pressed"]
 [connection signal="pressed" from="Root/Grid/ContPanel/VBox/Margin/VBox/ContinueButton" to="." method="_on_continue_button_pressed"]
 [connection signal="pressed" from="Root/Grid/SettingsPanel/Margin/VBox/TutorialsCheck" to="." method="_on_tutorials_check_pressed"]

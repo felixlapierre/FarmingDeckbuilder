@@ -33,6 +33,8 @@ static var FINAL_WEEK = 13
 
 static var FARM_TYPE = "FOREST"
 
+static var END_TURN_DISCARD = true
+
 static func reset():
 	selected_card = null
 	selected_structure = null
@@ -54,3 +56,4 @@ static func reset():
 	FALL_WEEK = 9
 	WINTER_WEEK = 13
 	FINAL_WEEK = 13
+	END_TURN_DISCARD = true

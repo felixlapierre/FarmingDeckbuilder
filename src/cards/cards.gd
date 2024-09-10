@@ -224,3 +224,9 @@ func get_deck_info() -> Array[CardData]:
 
 func get_discard_info() -> Array[CardData]:
 	return discard_pile_cards
+
+func unselect_current_card():
+	for card in $Hand.get_children():
+		if card.state == Enums.CardState.InMouse:
+			card.set_state(Enums.CardState.ReOrganiseHand, card.resting_position, card.resting_rotation, card.resting_scale)
+			card.reset_starting_position()

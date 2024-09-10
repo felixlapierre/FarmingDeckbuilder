@@ -169,7 +169,10 @@ func on_upgrade(upgrade: Upgrade):
 
 func on_turn_end():
 	$EventManager.notify(EventManager.EventType.BeforeGrow)
-	$Cards.discard_hand()
+	if Global.END_TURN_DISCARD:
+		$Cards.discard_hand()
+	else:
+		$Cards.unselect_current_card()
 	await get_tree().create_timer(0.3).timeout
 	await $FarmTiles.process_one_week(turn_manager.week)
 	await get_tree().create_timer(0.1).timeout
@@ -275,6 +278,7 @@ func load_game():
 
 	StartupHelper.load_farm($FarmTiles, $EventManager)
 	$UserInterface.load_data(save_json)
+	user_interface.mage_fortune.register_fortune($EventManager)
 	if !save_json.state.winter:
 		start_year()
 
@@ -284,6 +288,7 @@ func start_new_game():
 	for card in StartupHelper.get_starter_deck():
 		deck.append(card)
 	StartupHelper.setup_farm($FarmTiles, $EventManager)
+	user_interface.mage_fortune.register_fortune($EventManager)
 	start_year()
 
 func set_background_texture():

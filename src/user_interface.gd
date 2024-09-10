@@ -15,6 +15,7 @@ var shop_structure_place_callback
 var deck: Array[CardData]
 var cards: Cards
 var turn_ending = false
+var mage_fortune: Fortune
 
 var SELECT_CARD = preload("res://src/cards/select_card.tscn")
 var cards_database = preload("res://src/cards/cards_database.gd")
@@ -92,6 +93,7 @@ func start_year():
 	$Winter.visible = false
 	AlertDisplay.clear(end_year_alert_text)
 	$Tutorial.position.x = 1368
+	create_fortune_display()
 	update_damage()
 	update()
 
@@ -427,6 +429,14 @@ func create_fortune_display():
 		$UI/FortuneDisplay.add_child(fortune_hover)
 		fortune_hover.setup(fortune)
 		fortune_count += 1
+	for child in $UI/PassiveDisplay.get_children():
+		$UI/PassiveDisplay.remove_child(child)
+	if mage_fortune != null:
+		var mage_fortune_hover = FORTUNE_HOVER.instantiate()
+		$UI/PassiveDisplay.add_child(mage_fortune_hover)
+		mage_fortune_hover.setup(mage_fortune)
+
+	
 	
 func save_data(save_json):
 	if save_json.state.winter:
@@ -444,6 +454,7 @@ func save_data(save_json):
 		"completed": get_completed_events()
 	}
 	save_json.state.rerolls = $Shop.player_money
+	save_json.state.mage = mage_fortune.save_data()
 
 func load_data(save_json: Dictionary):
 	if save_json.state.winter == true:
@@ -460,6 +471,8 @@ func load_data(save_json: Dictionary):
 	$FortuneTeller.load_fortunes(save_json.fortunes)
 	for event_path: String in save_json.events.completed:
 		GameEventDialog.completed_events.append(load(event_path))
+	mage_fortune = load(save_json.state.mage.path).new()
+	mage_fortune.load_data(save_json.state.mage)
 	create_fortune_display()
 	$Shop.player_money = save_json.state.rerolls
 	update()
