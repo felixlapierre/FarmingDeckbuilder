@@ -53,23 +53,23 @@ anchors_preset = 0
 
 [node name="RitualPanel" type="PanelContainer" parent="UI"]
 layout_mode = 0
-offset_left = 502.0
-offset_top = 416.0
-offset_right = 595.0
-offset_bottom = 457.0
+offset_left = 457.0
+offset_top = 414.0
+offset_right = 643.0
+offset_bottom = 446.0
 
 [node name="RitualCounter" type="HBoxContainer" parent="UI/RitualPanel"]
 layout_mode = 2
 theme = ExtResource("2_s7754")
 
 [node name="Label" type="RichTextLabel" parent="UI/RitualPanel/RitualCounter"]
-custom_minimum_size = Vector2(70, 0)
+custom_minimum_size = Vector2(150, 40)
 layout_mode = 2
 size_flags_horizontal = 3
 bbcode_enabled = true
-text = "300"
+text = "[right]0 /300"
 scroll_active = false
-text_direction = 2
+text_direction = 1
 
 [node name="TextureRect" type="TextureRect" parent="UI/RitualPanel/RitualCounter"]
 layout_mode = 2

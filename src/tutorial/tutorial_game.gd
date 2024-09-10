@@ -188,6 +188,9 @@ func year_three_end_year():
 	user_interface.FortuneTeller.current_fortunes.append(load("res://src/fortune/data/wildflowers.gd").new())
 	user_interface.FortuneTeller.current_fortunes.append(load("res://src/fortune/data/weeds_on_farm.gd").new())
 	user_interface.create_fortune_display()
+	user_interface.shop.STOCK_TWO.get_child(0).set_data(load("res://src/structure/data/harvester.tres"))
+	user_interface.shop.STOCK_TWO.get_child(1).set_data(load("res://src/enhance/data/regrow.tres"))
+	user_interface.shop.STOCK_TWO.get_child(2).set_data(load("res://src/enhance/data/plus1yield.tres"))
 
 func year_four():
 	turn_manager.blight_pattern = [0, 0, 10, 0, 10, 5, 0, 15, 10, 0, 10, 0, 10, 10, 0, 10]

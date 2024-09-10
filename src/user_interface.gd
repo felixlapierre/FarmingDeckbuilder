@@ -41,7 +41,7 @@ var FORTUNE_HOVER = preload("res://src/fortune/fortune_hover.tscn")
 
 var end_year_alert_text = "Ritual Complete! Time to rest and prepare for the next year"
 var structure_place_text = "Click on the farm tile where you'd like to place the structure"
-var no_energy_text = "[color=red]No Energy![/color]"
+var no_energy_text = "[color=red]Not Enough Energy![/color]"
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	for i in Constants.MAX_BLIGHT:
@@ -126,7 +126,7 @@ func update():
 	if turn_manager.flag_defer_excess:
 		var next_turn_amount = turn_manager.purple_mana - turn_manager.target_blight
 		$UI/NextBlightPanel/NextTurnLabel.text = "Attack Next\nTurn: [color=9f78e3]" + str(max(turn_manager.next_turn_blight - next_turn_amount, 0)) + "[/color]"
-	$UI/RitualPanel/RitualCounter/Label.text = str(turn_manager.ritual_counter)
+	$UI/RitualPanel/RitualCounter/Label.text = "[right]" + str(turn_manager.get_current_ritual()) + " /" + str(turn_manager.total_ritual)
 	$Shop.update_labels()
 	$Winter/FarmUpgradeButton.disabled = $UpgradeShop.lock or ![4, 7, 10].has(turn_manager.year)
 	# Temporarily disable this QOL for testing
@@ -257,9 +257,9 @@ func _on_farm_tiles_on_preview_yield(args) -> void:
 		$UI/BlightPanel/VBox/BlightCounter/Label.text = str(turn_manager.purple_mana) + " / " + str(turn_manager.target_blight)
 	
 	if yellow != 0:
-		$UI/RitualPanel/RitualCounter/Label.text = "[color=e5e831]"+str(max(turn_manager.ritual_counter - yellow, 0))
+		$UI/RitualPanel/RitualCounter/Label.text = "[right][color=e5e831]"+str(turn_manager.get_current_ritual() + yellow) + " /" + str(turn_manager.total_ritual) + "[/color][/right]"
 	else:
-		$UI/RitualPanel/RitualCounter/Label.text = str(turn_manager.ritual_counter)
+		$UI/RitualPanel/RitualCounter/Label.text = "[right]" + str(turn_manager.get_current_ritual()) + " /" + str(turn_manager.total_ritual)
 	if args.defer or turn_manager.flag_defer_excess:
 		var next_turn_amount = turn_manager.purple_mana + purple - turn_manager.target_blight
 		if next_turn_amount > 0:

@@ -5,6 +5,7 @@ var week = 1
 var year = 0
 
 var energy: int = 3
+var total_ritual: int = 0
 var ritual_counter: int = 0
 var purple_mana: int = 0
 var target_blight: int = 0
@@ -78,6 +79,7 @@ func start_new_year():
 	week = 1
 	compute_blight_pattern(week, year)
 	ritual_counter = get_ritual_requirements(year)
+	total_ritual = ritual_counter
 	target_blight = get_blight_requirements(week, year)
 	next_turn_blight = get_blight_requirements(week + 1, year)
 	purple_mana = 0
@@ -174,3 +176,6 @@ func set_blight_targeted_tiles(farm: Farm):
 
 func destroy_blighted_tiles(farm: Farm):
 	farm.destroy_blighted_tiles()
+
+func get_current_ritual():
+	return total_ritual - ritual_counter

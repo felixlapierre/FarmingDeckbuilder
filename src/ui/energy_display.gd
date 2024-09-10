@@ -5,6 +5,8 @@ var mod_black = Color8(0, 0, 0)
 var mod_red = Color8(255, 0, 0)
 
 var flashing = false
+var energy = 3
+var current_mod = mod_white
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -15,7 +17,8 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	pass
 
-func set_energy(energy: int):
+func set_energy(p_energy: int):
+	energy = p_energy
 	var color = "black"
 	if energy == 0:
 		$Sprite2D.modulate = mod_black
@@ -28,10 +31,11 @@ func no_energy():
 	flashing = true
 	for i in range(5):
 		await get_tree().create_timer(0.05).timeout
-		$Label.text = "[color=white]0[/color]"
+		$Label.text = "[color=white]" + str(energy) + "[/color]"
 		$Sprite2D.modulate = mod_red
 		await get_tree().create_timer(0.05).timeout
-		$Label.text = "[color=red]0[/color]"
+		$Label.text = "[color=red]" + str(energy) + "[/color]"
 		$Sprite2D.modulate = mod_black
+	set_energy(energy)
 	await get_tree().create_timer(1.0).timeout
 	flashing = false
