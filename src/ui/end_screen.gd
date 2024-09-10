@@ -5,6 +5,8 @@ extends Node2D
 @onready var Stats = $Center/Panel/VBoxContainer/Grid/Stats
 @onready var Deck = $Center/Panel/VBoxContainer/Grid/Deck
 
+signal on_main_menu
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
@@ -64,3 +66,10 @@ func setup(turn_manager: TurnManager, deck: Array[CardData], farm: Farm):
 				structures[structure.name] = 1
 	for structurename in structures.keys():
 		Deck.append_text(structurename + " x" + str(structures[structurename]) + "\n")
+
+
+func _on_main_menu_pressed() -> void:
+	on_main_menu.emit()
+
+func hide_send_pics():
+	$Center/Panel/VBoxContainer/SendPics.visible = false

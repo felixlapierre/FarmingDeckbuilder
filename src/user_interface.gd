@@ -7,6 +7,7 @@ signal end_turn_button_pressed
 signal on_skip
 signal on_next_year
 signal on_blight_removed
+signal on_main_menu
 
 @export var turn_manager: TurnManager
 
@@ -38,6 +39,7 @@ var FORTUNE_HOVER = preload("res://src/fortune/fortune_hover.tscn")
 @onready var WinterUi = $Winter
 @onready var FarmingUi = $UI
 @onready var FortuneTeller = $FortuneTeller
+@onready var EndScreen = $EndScreen
 
 var end_year_alert_text = "Ritual Complete! Time to rest and prepare for the next year"
 var structure_place_text = "Click on the farm tile where you'd like to place the structure"
@@ -122,10 +124,10 @@ func update():
 	
 	#Next turn blight
 	$UI/NextBlightPanel.visible = turn_manager.next_turn_blight > 0
-	$UI/NextBlightPanel/NextTurnLabel.text = "Attack Next\nTurn: " + str(turn_manager.next_turn_blight) + " [img]res://assets/custom/PurpleMana.png[/img]"
+	$UI/NextBlightPanel/NextTurnLabel.text = "Attack\nNext Turn: " + str(turn_manager.next_turn_blight) + " [img]res://assets/custom/PurpleMana.png[/img]"
 	if turn_manager.flag_defer_excess:
 		var next_turn_amount = turn_manager.purple_mana - turn_manager.target_blight
-		$UI/NextBlightPanel/NextTurnLabel.text = "Attack Next\nTurn: [color=9f78e3]" + str(max(turn_manager.next_turn_blight - next_turn_amount, 0)) + "[/color]"
+		$UI/NextBlightPanel/NextTurnLabel.text = "Attack\nNext Turn: [color=9f78e3]" + str(max(turn_manager.next_turn_blight - next_turn_amount, 0)) + "[/color]"
 	$UI/RitualPanel/RitualCounter/Label.text = "[right]" + str(turn_manager.get_current_ritual()) + " /" + str(turn_manager.total_ritual)
 	$Shop.update_labels()
 	$Winter/FarmUpgradeButton.disabled = $UpgradeShop.lock or ![4, 7, 10].has(turn_manager.year)
@@ -251,7 +253,7 @@ func _on_farm_tiles_on_preview_yield(args) -> void:
 	var blightamt = turn_manager.purple_mana + purple
 	if purple != 0:
 		$UI/BlightPanel/VBox/BlightCounter/Label.text = "[color=9f78e3]"+ str(blightamt) + " / " + str(turn_manager.target_blight)
-		if blightamt == 0:
+		if turn_manager.target_blight == 0:
 			AlertDisplay.set_text(warning_waste_purple_text)
 	else:
 		$UI/BlightPanel/VBox/BlightCounter/Label.text = str(turn_manager.purple_mana) + " / " + str(turn_manager.target_blight)
@@ -263,9 +265,9 @@ func _on_farm_tiles_on_preview_yield(args) -> void:
 	if args.defer or turn_manager.flag_defer_excess:
 		var next_turn_amount = turn_manager.purple_mana + purple - turn_manager.target_blight
 		if next_turn_amount > 0:
-			$UI/NextBlightPanel/NextTurnLabel.text = "Attack Next\nTurn: [color=9f78e3]" + str(max(turn_manager.next_turn_blight - next_turn_amount, 0)) + "[/color]"
+			$UI/NextBlightPanel/NextTurnLabel.text = "Attack\nNext Turn: [color=9f78e3]" + str(max(turn_manager.next_turn_blight - next_turn_amount, 0)) + "[/color]"
 	else:
-		$UI/NextBlightPanel/NextTurnLabel.text = "Attack Next\nTurn: " + str(turn_manager.next_turn_blight if turn_manager.next_turn_blight >= 0 else 0)
+		$UI/NextBlightPanel/NextTurnLabel.text = "Attack\nNext Turn: " + str(turn_manager.next_turn_blight if turn_manager.next_turn_blight >= 0 else 0)
 # Winter
 func set_winter_visible(visible):
 	$Winter.visible = visible
@@ -549,3 +551,7 @@ func _on_farm_tiles_no_energy() -> void:
 		AlertDisplay.set_text(no_energy_text)
 		await $UI/EnergyDisplay.no_energy()
 		AlertDisplay.clear(no_energy_text)
+
+
+func _on_end_screen_on_main_menu() -> void:
+	on_main_menu.emit()

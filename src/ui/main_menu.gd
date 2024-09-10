@@ -38,12 +38,14 @@ func _on_diff_options_item_selected(index):
 func _on_start_button_pressed():
 	menu_root.visible = false
 	playspace = PLAYSPACE.instantiate()
+	connect_main_menu_signal(playspace)
 	add_child(playspace)
 	playspace.start_new_game()
 
 func _on_continue_button_pressed():
 	menu_root.visible = false
 	playspace = PLAYSPACE.instantiate()
+	connect_main_menu_signal(playspace)
 	add_child(playspace)
 	playspace.load_game()
 
@@ -140,5 +142,11 @@ func _on_story_start_button_pressed() -> void:
 	introduction.visible = false
 	playspace = PLAYSPACE.instantiate()
 	playspace.set_script(load("res://src/tutorial/tutorial_game.gd"))
+	connect_main_menu_signal(playspace)
 	add_child(playspace)
 	playspace.start_new_game()
+
+func connect_main_menu_signal(playspace):
+	playspace.on_main_menu.connect(func():
+		remove_child(playspace)
+		menu_root.visible = true)

@@ -6,6 +6,8 @@ var victory = false
 var card_database
 var deck: Array[CardData] = []
 
+signal on_main_menu
+
 @onready var turn_manager: TurnManager = $TurnManager
 @onready var user_interface: UserInterface = $UserInterface
 @onready var background = $Background
@@ -310,3 +312,6 @@ func set_background_texture():
 
 func _on_farm_tiles_try_move_structure(tile: Tile) -> void:
 	$UserInterface.try_move_structure(tile)
+
+func _on_user_interface_on_main_menu() -> void:
+	on_main_menu.emit()

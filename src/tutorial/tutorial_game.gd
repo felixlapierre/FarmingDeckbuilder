@@ -12,7 +12,7 @@ func start_year():
 		Settings.TUTORIALS_ENABLED = false
 		user_interface.EventPanel.visible = false
 		Global.DIFFICULTY = -1
-		Global.FINAL_YEAR = 4
+		Global.FINAL_YEAR = 3
 		Constants.BASE_HAND_SIZE = 0
 		deck = []
 		deck.assign(StartupHelper.load_deck(StartupHelper.tutorial_deck))
@@ -82,7 +82,7 @@ func year_one():
 	user_interface.update()
 	# Explanation: Year 1
 	farming_explanation = ExplanationScene.instantiate()
-	farming_explanation.set_text("Click on a [color=chartreuse]Seed Card[/color] (Radish, Potato) in your hand to select it. Then, click on an empty space on your farm to plant the seed there.\n\nEach card costs [color=orangered]Energy[/color] ([img]res://assets/custom/Energy.png[/img]) to play.\n\nWhen you're done your turn, click End Turn to go to the next week, and give your crops time to grow.")
+	farming_explanation.set_text("Click on a [color=chartreuse]Seed Card[/color] (Radish, Potato) in your hand to select it. Then, click on an empty space on your farm to plant the seed there.\n\nEach card costs [color=orangered]Energy[/color] ([img]res://assets/custom/Energy.png[/img]) to play.\n\nOnce you've used all your Energy, or you don't want to play any more cards, click End Turn.")
 	farming_explanation.position = Vector2(1250, 10)
 	farming_explanation.set_exp_size(650, 375)
 	user_interface.FarmingUi.add_child(farming_explanation)
@@ -90,8 +90,9 @@ func year_one():
 func year_one_end_turn():
 	match turn_manager.week:
 		2:
-			farming_explanation.set_text("Each plant takes [img]res://assets/custom/Time.png[/img] weeks to grow and generates [img]res://assets/custom/YellowMana16.png[/img] mana.\n\nHover your mouse over a tile on the farm to see details.\n\n[color=darkorange]Scythe cards[/color] will harvest mature plants, gaining " + Helper.mana_icon() + " if they are on a [color=gold]Yellow[/color] tile.\n\nGenerate 40 " + Helper.mana_icon() + " to complete the ritual and go to the next year.")
-
+			farming_explanation.set_text("Each plant takes [img]res://assets/custom/Time.png[/img] weeks to grow and generates [img]res://assets/custom/YellowMana16.png[/img] mana. One turn equals one week.\n\nHover your mouse over a farm tile for details.\n\n[color=darkorange]Scythe cards[/color] will harvest mature plants, gaining [color=gold]Yellow Mana[/color] (" + Helper.mana_icon() + ") if they are on a [color=gold]Yellow[/color] tile.\n\nGenerate 40 " + Helper.mana_icon() + " to complete the ritual and go to the next year.")
+		3:
+			farming_explanation.set_text("Your deck starts with 10 cards, and you draw 5 cards per turn. When your deck is empty, your discard pile is shuffled back into your deck.\n\nClick on your deck and discard piles in the bottom corners of your screen to peek at their contents.\n\nContinue farming and generate 40 " + Helper.mana_icon() + " to complete the ritual and go to the next year.")
 func year_one_end_year():
 	user_interface.FortuneTellerButton.visible = false
 	user_interface.shop.CHOICE_TWO.visible = false
@@ -103,7 +104,7 @@ func year_one_end_year():
 	shop_explanation.position = Vector2(270, 530)
 	user_interface.shop.add_child(shop_explanation)
 	winter_explanation = ExplanationScene.instantiate()
-	winter_explanation.set_text("At the end of each year, go to the Shop to make your deck stronger by adding new cards.\n\nWhen you're ready, click the Next Year button to continue")
+	winter_explanation.set_text("You've completed the [color=gold]Cleansing Ritual[/color] for Year 1 by generating 40" + Helper.mana_icon() + ".\n\nAt the end of each year, go to the Shop to make your deck stronger by adding new cards.\n\nWhen you're ready, click the Next Year button to continue")
 	winter_explanation.set_exp_size(500, 400)
 	winter_explanation.position = Vector2(1250, 10)
 	user_interface.WinterUi.add_child(winter_explanation)
@@ -128,7 +129,7 @@ func year_two():
 	turn_manager.blight_pattern = [0, 5, 0, 7, 0, 5, 0, 10, 0, 5, 0, 10, 10, 0, 10, 0]
 	turn_manager.target_blight = 0
 	turn_manager.next_turn_blight = 5
-	farming_explanation.set_text("Plants harvested on [color=aqua]Blue tiles[/color] will not progress the ritual. Instead, they will protect you from the Blight's attacks.\n\nThe Blight will attack you next turn, as indicated by the 'Next turn: 5' display. Plant a Radish so that you can harvest it next turn to protect yourself.")
+	farming_explanation.set_text("Plants harvested on [color=aqua]Blue Tiles[/color] will generate [color=aqua]Blue Mana[/color] (" + Helper.blue_mana() + ") instead of Yellow Mana " + Helper.mana_icon() + ". Blue mana will not progress the ritual; instead, it will protect you from the Blight's attacks.\n\nThe 'Attack Next Turn: 5' display means that you will need to generate 5 " + Helper.blue_mana() + " next turn to protect yourself from the Blight.\n\nPlant a Radish Seed; it will be ready on time as they only take 1 week [img]res://assets/custom/Time.png[/img] to grow")
 	# Hardcode turn 1
 	var cards_copy = []
 	cards_copy.assign(cards.deck_cards)
@@ -149,7 +150,7 @@ func year_two():
 func year_two_end_turn():
 	match turn_manager.week:
 		2:
-			farming_explanation.set_text("Use a Scythe to harvest a plant on a [color=aqua]blue[/color] tile, which will generate " + Helper.blue_mana() + ". Generate at least 5 " + Helper.blue_mana() + " to protect yourself from the Blight this turn.\n\nBe careful! Excess " + Helper.blue_mana() + " will be lost at the end of the turn.")
+			farming_explanation.set_text("Use a Scythe to harvest a plant on a [color=aqua]blue[/color] tile, which will generate [color=aqua]Blue Mana[/color] (" + Helper.blue_mana() + "). Generate at least 5 " + Helper.blue_mana() + " to protect yourself from the Blight this turn.\n\n[color=orangered]If you end your turn with less than 5 [/color]" + Helper.blue_mana() + ", the circled tiles will be destroyed until the end of the year, and you will take 1 Damage. If you take damage five times, [color=orangered]you lose[/color]!\n\nExcess " + Helper.blue_mana() + " will be lost at the end of the turn.")
 		3:
 			farming_explanation.set_text("Make sure to protect yourself by harvesting plants on [color=aqua]blue[/color] tiles whenever the Blight is attacking you.\n\nAt the same time, make sure to plant some plants on [color=gold]yellow[/color] tiles so you can complete the ritual.\n\nYou must complete the ritual before winter comes on Week 12, when your plants will stop growing.")
 			for tile in farm.get_all_tiles():
@@ -158,6 +159,7 @@ func year_two_end_turn():
 func year_two_end_year():
 	user_interface.shop.CHOICE_TWO.visible = true
 	user_interface.shop.CHOICE_TWO_LABEL.visible = true
+	winter_explanation.set_text("From now on, the Shop will have two choices instead of one. Make sure to fully empty the shop before going to the next year.")
 	shop_explanation.set_text("Now you can also select one Structure or Enhance from the shop\n\n[color=lightcyan]Structure (Grey)[/color]: Occuppies one tile on your farm and grants a permanent bonus effect.\n\n[color=aqua]Enhance (blue)[/color]: Makes one card in your deck stronger")
 	shop_explanation.position = Vector2(270, 875)
 	user_interface.shop.STOCK_ONE.get_child(0).set_data(load("res://src/cards/data/action/leaf_ward.tres"))
@@ -174,9 +176,12 @@ func year_two_end_year():
 	user_interface.create_fortune_display()
 
 func year_three():
+	turn_manager.ritual_counter = 60
+	turn_manager.total_ritual = 60
 	turn_manager.blight_pattern = [0, 0, 10, 0, 10, 5, 0, 15, 10, 0, 10, 0, 10, 10, 0, 10]
 	farming_explanation.set_exp_size(650, 350)
 	farming_explanation.set_text("Each year, various positive and negative Fortunes will help or hinder your progress.\n\nHover over the icons underneath this text to see the details of this year's Fortunes.\n\nMake sure to adapt your strategy in order to complete this year's Ritual safely!")
+	user_interface.EndScreen.hide_send_pics()
 
 func year_three_end_year():
 	user_interface.FortuneTellerButton.visible = true
@@ -193,5 +198,8 @@ func year_three_end_year():
 	user_interface.shop.STOCK_TWO.get_child(2).set_data(load("res://src/enhance/data/plus1yield.tres"))
 
 func year_four():
+	turn_manager.ritual_counter = 70
+	turn_manager.total_ritual = 70
 	turn_manager.blight_pattern = [0, 0, 10, 0, 10, 5, 0, 15, 10, 0, 10, 0, 10, 10, 0, 10]
 	farming_explanation.visible = false
+	user_interface.EndScreen.hide_send_pics()
