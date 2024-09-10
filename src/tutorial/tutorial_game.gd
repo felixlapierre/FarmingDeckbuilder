@@ -7,6 +7,12 @@ var farming_explanation
 var shop_explanation
 var winter_explanation
 
+func start_new_game():
+	for card in StartupHelper.load_deck(StartupHelper.tutorial_deck):
+		deck.append(card)
+	StartupHelper.setup_farm($FarmTiles, $EventManager)
+	start_year()
+
 func start_year():
 	if turn_manager.year == 0:
 		Settings.TUTORIALS_ENABLED = false
@@ -14,9 +20,6 @@ func start_year():
 		Global.DIFFICULTY = -1
 		Global.FINAL_YEAR = 3
 		Constants.BASE_HAND_SIZE = 0
-		deck = []
-		deck.assign(StartupHelper.load_deck(StartupHelper.tutorial_deck))
-		user_interface.setup(event_manager, turn_manager, deck, cards)
 	elif turn_manager.year == 1:
 		Constants.BASE_HAND_SIZE = 0
 	super.start_year()
@@ -178,6 +181,8 @@ func year_two_end_year():
 func year_three():
 	turn_manager.ritual_counter = 60
 	turn_manager.total_ritual = 60
+	user_interface.reset_obelisk()
+	user_interface.update()
 	turn_manager.blight_pattern = [0, 0, 10, 0, 10, 5, 0, 15, 10, 0, 10, 0, 10, 10, 0, 10]
 	farming_explanation.set_exp_size(650, 350)
 	farming_explanation.set_text("Each year, various positive and negative Fortunes will help or hinder your progress.\n\nHover over the icons underneath this text to see the details of this year's Fortunes.\n\nMake sure to adapt your strategy in order to complete this year's Ritual safely!")
@@ -200,6 +205,8 @@ func year_three_end_year():
 func year_four():
 	turn_manager.ritual_counter = 70
 	turn_manager.total_ritual = 70
+	user_interface.reset_obelisk()
+	user_interface.update()
 	turn_manager.blight_pattern = [0, 0, 10, 0, 10, 5, 0, 15, 10, 0, 10, 0, 10, 10, 0, 10]
 	farming_explanation.visible = false
 	user_interface.EndScreen.hide_send_pics()

@@ -27,12 +27,12 @@ func setup(prompt: String, items, pick_callback: Callable, skip_callback: Callab
 		elif item.CLASS_NAME == "Structure":
 			var new_node = ShopDisplay.instantiate()
 			new_node.set_data(item)
-			new_node.callback = func(): pick_callback.call(item)
+			new_node.callback = func(option): pick_callback.call(option)
 			options_container.add_child(new_node)
 		elif item.CLASS_NAME == "Enhance":
 			var new_node = ShopDisplay.instantiate()
 			new_node.set_data(item)
-			new_node.callback = func(): pick_callback.call(item)
+			new_node.callback = func(option): pick_callback.call(option)
 			options_container.add_child(new_node)
 		#TODO: Else use a generic ShopButton instead
 

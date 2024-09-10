@@ -10,6 +10,7 @@ func _init() -> void:
 func register_fortune(event_manager: EventManager):
 	callback = func(args: EventArgs):
 		args.turn_manager.ritual_counter *= 1.1
+		args.turn_manager.total_ritual *= 1.1
 	event_manager.register_listener(event_type, callback)
 
 func unregister_fortune(event_manager: EventManager):

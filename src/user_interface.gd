@@ -50,7 +50,7 @@ func _ready() -> void:
 		var sprite = TextureRect.new()
 		sprite.texture = load("res://assets/custom/BlightEmpty.png")
 		sprite.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
-		$UI/BlightPanel/VBox/BlightDamage.add_child(sprite)
+		$UI/DamagePanel/BlightDamage.add_child(sprite)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -92,6 +92,7 @@ func start_year():
 	$Winter.visible = false
 	AlertDisplay.clear(end_year_alert_text)
 	$Tutorial.position.x = 1368
+	update_damage()
 	update()
 
 # Update UI display
@@ -321,9 +322,9 @@ func _on_end_turn_button_pressed() -> void:
 	end_turn_button_pressed.emit()
 
 func update_damage():
-	$UI/BlightPanel/VBox/BlightDamage.visible = turn_manager.blight_damage != 0
-	for i in $UI/BlightPanel/VBox/BlightDamage.get_child_count():
-		var img = $UI/BlightPanel/VBox/BlightDamage.get_child(i)
+	$UI/DamagePanel.visible = turn_manager.blight_damage != 0
+	for i in $UI/DamagePanel/BlightDamage.get_child_count():
+		var img = $UI/DamagePanel/BlightDamage.get_child(i)
 		if turn_manager.blight_damage > i:
 			img.texture = load("res://assets/custom/Blight.png")
 		else:
@@ -489,6 +490,7 @@ func register_tooltips():
 	
 	tooltip.register_tooltip($Winter/NextYearButton, tr("TOOLTIP_NEXTYEAR"))
 	tooltip.register_tooltip($Winter/FarmUpgradeButton, tr("TOOLTIP_UPGRADE"))
+	tooltip.register_tooltip($UI/DamagePanel, "You have taken " + str(turn_manager.blight_damage) + " damage. Once you've taken 5 damage, you lose the game!")
 func get_fortunes() -> Array[Fortune]:
 	return $FortuneTeller.current_fortunes
 

@@ -32,3 +32,25 @@ static var WINTER_WEEK = 13
 static var FINAL_WEEK = 13
 
 static var FARM_TYPE = "FOREST"
+
+static func reset():
+	selected_card = null
+	selected_structure = null
+	shape = Enums.CursorShape.Square
+	rotate = 0
+	flip = 0
+	FARM_TOPLEFT = Vector2(1, 1)
+	FARM_BOTRIGHT = Vector2(6, 6)
+	ENERGY_FRAGMENTS = 0
+	SCROLL_FRAGMENTS = 0
+	BLIGHT_TILES_THREATENED = 4
+	BLIGHT_FLAG_PIERCING = false
+	BLIGHT_FLAG_THREATEN_GROWING = false
+	BLIGHT_TARGET_MULTIPLIER = 1.0
+	DESTROY_TILES_THIS_TURN = 1
+	FINAL_YEAR = 10
+	SPRING_WEEK = 1
+	SUMMER_WEEK = 5
+	FALL_WEEK = 9
+	WINTER_WEEK = 13
+	FINAL_WEEK = 13

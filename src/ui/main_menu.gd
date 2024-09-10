@@ -40,6 +40,7 @@ func _on_start_button_pressed():
 	playspace = PLAYSPACE.instantiate()
 	connect_main_menu_signal(playspace)
 	add_child(playspace)
+	Global.reset()
 	playspace.start_new_game()
 
 func _on_continue_button_pressed():
@@ -47,6 +48,7 @@ func _on_continue_button_pressed():
 	playspace = PLAYSPACE.instantiate()
 	connect_main_menu_signal(playspace)
 	add_child(playspace)
+	Global.reset()
 	playspace.load_game()
 
 
@@ -137,16 +139,24 @@ func _on_debug_check_pressed() -> void:
 func _on_tutorial_button_pressed():
 	menu_root.visible = false
 	introduction.visible = true
+	Global.FARM_TYPE = "FOREST"
 
 func _on_story_start_button_pressed() -> void:
 	introduction.visible = false
 	playspace = PLAYSPACE.instantiate()
 	playspace.set_script(load("res://src/tutorial/tutorial_game.gd"))
 	connect_main_menu_signal(playspace)
+	Global.reset()
 	add_child(playspace)
 	playspace.start_new_game()
 
 func connect_main_menu_signal(playspace):
 	playspace.on_main_menu.connect(func():
 		remove_child(playspace)
-		menu_root.visible = true)
+		menu_root.visible = true
+		var difficulty = Global.DIFFICULTY if Global.DIFFICULTY != -1 else 0
+		$Root/Grid/Panel/VBox/Margin/VBox/DifficultyBox/DiffOptions.selected = difficulty
+		_on_diff_options_item_selected(difficulty)
+		$Root/Grid/Panel/VBox/Margin/VBox/FarmTypeBox/TypeOptions.selected = get_index_of_farm_type(Global.FARM_TYPE)
+		_on_type_options_item_selected(get_index_of_farm_type(Global.FARM_TYPE))
+		)

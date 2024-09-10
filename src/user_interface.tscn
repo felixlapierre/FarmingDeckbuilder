@@ -108,10 +108,6 @@ bbcode_enabled = true
 text = "42"
 fit_content = true
 
-[node name="BlightDamage" type="HBoxContainer" parent="UI/BlightPanel/VBox"]
-visible = false
-layout_mode = 2
-
 [node name="NextBlightPanel" type="PanelContainer" parent="UI"]
 layout_mode = 0
 offset_left = 1604.0
@@ -307,6 +303,16 @@ F: Flip"
 
 [node name="EnergyDisplay" parent="UI" instance=ExtResource("20_i330f")]
 position = Vector2(6, 89)
+
+[node name="DamagePanel" type="PanelContainer" parent="UI"]
+layout_mode = 0
+offset_left = 461.0
+offset_top = 461.0
+offset_right = 641.0
+offset_bottom = 501.0
+
+[node name="BlightDamage" type="HBoxContainer" parent="UI/DamagePanel"]
+layout_mode = 2
 
 [node name="AlertContainer" parent="." instance=ExtResource("18_ih37u")]
 visible = false
