@@ -78,3 +78,6 @@ static func mana_icon():
 
 static func blue_mana():
 	return "[img]res://assets/custom/PurpleManaText.png[/img]"
+
+static func mana_icon_small():
+	return "[img]res://assets/custom/YellowMana16.png[/img]"

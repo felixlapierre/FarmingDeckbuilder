@@ -137,13 +137,13 @@ func fill_row(node, row_number, stock):
 			var new_node = ShopDisplay.instantiate()
 			new_node.tooltip = tooltip
 			new_node.set_data(item)
-			new_node.callback = func(): on_buy_structure(item, row_number)
+			new_node.callback = func(option): on_buy_structure(option, row_number)
 			node.add_child(new_node)
 		elif item.CLASS_NAME == "Enhance":
 			var new_node = ShopDisplay.instantiate()
 			new_node.tooltip = tooltip
 			new_node.set_data(item)
-			new_node.callback = func(): on_enhance_selected(item, row_number)
+			new_node.callback = func(option): on_enhance_selected(option, row_number)
 			node.add_child(new_node)
 
 func create_scrap_option(amount, row):

@@ -28,7 +28,7 @@ func setup(tile: Tile):
 	
 	if tile.current_yield != null and tile.current_yield != 0.0:
 		yield_label.visible = true
-		yield_label.text = Helper.mana_icon() + ": " + str(snapped(tile.current_yield, 0.01))
+		yield_label.text = str(snapped(tile.current_yield, 0.01)) + " " + Helper.mana_icon_small()
 	else:
 		yield_label.visible = false
 	card_base.state = Enums.CardState.InShop

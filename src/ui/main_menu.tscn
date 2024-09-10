@@ -168,6 +168,50 @@ layout_mode = 2
 layout_mode = 2
 text = "Play Tutorial"
 
+[node name="Introduction" type="CenterContainer" parent="."]
+visible = false
+custom_minimum_size = Vector2(1920, 1080)
+offset_right = 40.0
+offset_bottom = 40.0
+theme = ExtResource("1_l63em")
+
+[node name="Panel" type="PanelContainer" parent="Introduction"]
+layout_mode = 2
+
+[node name="VBox" type="VBoxContainer" parent="Introduction/Panel"]
+layout_mode = 2
+
+[node name="TitleLabel" type="Label" parent="Introduction/Panel/VBox"]
+layout_mode = 2
+text = "Introduction"
+horizontal_alignment = 1
+
+[node name="Margin" type="MarginContainer" parent="Introduction/Panel/VBox"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_right = 20
+
+[node name="StoryLabel" type="RichTextLabel" parent="Introduction/Panel/VBox/Margin"]
+custom_minimum_size = Vector2(900, 700)
+layout_mode = 2
+bbcode_enabled = true
+text = "The Great Waldarian Forest was once a quiet and peaceful place. After the Mage Wars left piles of bloody corpses in the wood's most sacred groves, an evil Blight corrupted the forest. Now, plants grow teeth and crawl for leagues across the ground, searching for flesh and blood to feast on.
+
+The Great Blight destroyed your village when you were young. You now return as a novice mage on a quest to heal the forest of its old wounds.
+
+You must grow and harvest plants to generate Mana ([img]res://assets/custom/YellowManaSmall.png[/img]). You will use this mana to perform a cleansing ritual. Complete the ritual ten years in a row to rid the forest of this blight once and for all."
+
+[node name="MarginContainer" type="MarginContainer" parent="Introduction/Panel/VBox"]
+layout_mode = 2
+theme_override_constants/margin_left = 250
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 250
+theme_override_constants/margin_bottom = 20
+
+[node name="StoryStartButton" type="Button" parent="Introduction/Panel/VBox/MarginContainer"]
+layout_mode = 2
+text = "Start"
+
 [connection signal="item_selected" from="Root/Grid/Panel/VBox/Margin/VBox/FarmTypeBox/TypeOptions" to="." method="_on_type_options_item_selected"]
 [connection signal="item_selected" from="Root/Grid/Panel/VBox/Margin/VBox/DifficultyBox/DiffOptions" to="." method="_on_diff_options_item_selected"]
 [connection signal="pressed" from="Root/Grid/Panel/VBox/Margin/VBox/StartButton" to="." method="_on_start_button_pressed"]
@@ -175,3 +219,4 @@ text = "Play Tutorial"
 [connection signal="pressed" from="Root/Grid/SettingsPanel/Margin/VBox/TutorialsCheck" to="." method="_on_tutorials_check_pressed"]
 [connection signal="pressed" from="Root/Grid/SettingsPanel/Margin/VBox/DebugCheck" to="." method="_on_debug_check_pressed"]
 [connection signal="pressed" from="Root/Grid/TutorialPanel/TutorialButton" to="." method="_on_tutorial_button_pressed"]
+[connection signal="pressed" from="Introduction/Panel/VBox/MarginContainer/StoryStartButton" to="." method="_on_story_start_button_pressed"]

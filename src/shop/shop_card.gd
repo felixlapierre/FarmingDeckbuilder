@@ -7,10 +7,11 @@ signal on_clicked
 
 var CardBase = preload("res://src/cards/card_base.tscn")
 var tooltip: Tooltip
+var card_node
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	var card_node = CardBase.instantiate()
+	card_node = CardBase.instantiate()
 	card_node.tooltip = tooltip
 	card_node.set_card_info(card_data)
 	card_node.on_clicked.connect(on_card_clicked)
@@ -37,3 +38,7 @@ func on_card_clicked(card):
 
 func get_data():
 	return card_data
+
+func set_data(data: CardData):
+	card_node.set_card_info(data)
+	$VBox/Title.text = "Seed Card" if card_data.type == "SEED" else "Action Card"

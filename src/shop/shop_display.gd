@@ -16,6 +16,11 @@ var tooltip: Tooltip
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	update_display()
+
+func update_display():
+	if Name == null:
+		return
 	if structure != null:
 		set_labels(structure.name, str(structure.cost), structure.text, "Structure",\
 			structure.texture)
@@ -39,10 +44,11 @@ func set_data(data):
 		structure = data
 	elif data.CLASS_NAME == "Enhance":
 		enhance = data
+	update_display()
 
 func _on_h_box_container_gui_input(event: InputEvent) -> void:
 	if event.is_action_pressed("leftclick"):
-		callback.call()
+		callback.call(structure if structure != null else enhance)
 
 func get_data():
 	if structure != null:
@@ -51,4 +57,12 @@ func get_data():
 		return enhance
 
 func register_tooltips():
-	pass
+	if structure == null or tooltip == null:
+		return
+	var description_tooltip = ""
+	for effect in structure.effects:
+		if description_tooltip.length() > 0:
+			description_tooltip += "\n"
+		description_tooltip += effect.get_long_description()
+	if description_tooltip.length() > 0:
+		tooltip.register_tooltip($VBox/HBoxContainer, description_tooltip)

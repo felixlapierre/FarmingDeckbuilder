@@ -8,8 +8,10 @@
 script = ExtResource("1_c7p26")
 
 [node name="VBox" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(200, 358)
 offset_right = 40.0
 offset_bottom = 40.0
+alignment = 2
 
 [node name="StatsPanel" type="PanelContainer" parent="VBox"]
 layout_mode = 2
@@ -22,9 +24,12 @@ layout_mode = 2
 layout_mode = 2
 text = "State: Destroyed"
 
-[node name="YieldLabel" type="Label" parent="VBox/StatsPanel/VBox"]
+[node name="YieldLabel" type="RichTextLabel" parent="VBox/StatsPanel/VBox"]
+custom_minimum_size = Vector2(200, 22)
 layout_mode = 2
+bbcode_enabled = true
 text = "Yield: 45"
+scroll_active = false
 
 [node name="DurationLabel" type="Label" parent="VBox/StatsPanel/VBox"]
 layout_mode = 2

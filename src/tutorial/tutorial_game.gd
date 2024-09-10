@@ -82,7 +82,7 @@ func year_one():
 	user_interface.update()
 	# Explanation: Year 1
 	farming_explanation = ExplanationScene.instantiate()
-	farming_explanation.set_text("Play Seed Cards (Radish, Potato) from your hand to plant crops on your farm.\n\nEach card costs Energy to play.\n\nWhen you're done your turn, click End Turn to go to the next week, and give your crops time to grow.")
+	farming_explanation.set_text("Click on a [color=chartreuse]Seed Card[/color] (Radish, Potato) in your hand to select it. Then, click on an empty space on your farm to plant the seed there.\n\nEach card costs [color=orangered]Energy[/color] to play.\n\nWhen you're done your turn, click End Turn to go to the next week, and give your crops time to grow.")
 	farming_explanation.position = Vector2(1250, 10)
 	farming_explanation.set_exp_size(650, 375)
 	user_interface.FarmingUi.add_child(farming_explanation)
@@ -90,7 +90,7 @@ func year_one():
 func year_one_end_turn():
 	match turn_manager.week:
 		2:
-			farming_explanation.set_text("Each plant takes [img]res://assets/custom/Time.png[/img] weeks to grow and generates [img]res://assets/custom/YellowMana16.png[/img] mana.\n\nHover your mouse over a tile on the farm to see details.\n\nScythe cards will harvest mature plants, gaining " + Helper.mana_icon() + " if they are on a Yellow tile.\n\nGenerate 40 " + Helper.mana_icon() + " to complete the ritual and go to the next year.")
+			farming_explanation.set_text("Each plant takes [img]res://assets/custom/Time.png[/img] weeks to grow and generates [img]res://assets/custom/YellowMana16.png[/img] mana.\n\nHover your mouse over a tile on the farm to see details.\n\n[color=darkorange]Scythe cards[/color] will harvest mature plants, gaining " + Helper.mana_icon() + " if they are on a [color=gold]Yellow[/color] tile.\n\nGenerate 40 " + Helper.mana_icon() + " to complete the ritual and go to the next year.")
 
 func year_one_end_year():
 	user_interface.FortuneTellerButton.visible = false
@@ -111,6 +111,11 @@ func year_one_end_year():
 	user_interface.update()
 	user_interface.FortuneTeller.current_fortunes.clear()
 	user_interface.create_fortune_display()
+	user_interface.shop.STOCK_ONE.get_child(0).set_data(load("res://src/cards/data/action/invigorate.tres"))
+	user_interface.shop.STOCK_ONE.get_child(1).set_data(load("res://src/cards/data/seed/daylily.tres"))
+	user_interface.shop.STOCK_ONE.get_child(2).set_data(load("res://src/cards/data/action/time_bubble.tres"))
+	user_interface.shop.STOCK_ONE.get_child(3).set_data(load("res://src/cards/data/action/trusty_hoe.tres"))
+	user_interface.shop.STOCK_ONE.get_child(4).set_data(load("res://src/cards/data/seed/mint.tres"))
 
 func year_two():
 	for tile in farm.get_all_tiles():
@@ -123,7 +128,7 @@ func year_two():
 	turn_manager.blight_pattern = [0, 5, 0, 7, 0, 5, 0, 10, 0, 5, 0, 10, 10, 0, 10, 0]
 	turn_manager.target_blight = 0
 	turn_manager.next_turn_blight = 5
-	farming_explanation.set_text("Plants harvested on Purple tiles will not progress the ritual. Instead, they will protect you from the Blight's attacks.\n\nThe Blight will attack you next turn, as indicated by the 'Next turn: 5' display. Plant a Radish so that you can harvest it next turn to protect yourself.")
+	farming_explanation.set_text("Plants harvested on [color=aqua]Blue tiles[/color] will not progress the ritual. Instead, they will protect you from the Blight's attacks.\n\nThe Blight will attack you next turn, as indicated by the 'Next turn: 5' display. Plant a Radish so that you can harvest it next turn to protect yourself.")
 	# Hardcode turn 1
 	var cards_copy = []
 	cards_copy.assign(cards.deck_cards)
@@ -144,9 +149,9 @@ func year_two():
 func year_two_end_turn():
 	match turn_manager.week:
 		2:
-			farming_explanation.set_text("Use a Scythe to harvest a plant on a purple tile, which will generate " + Helper.blue_mana() + ". Generate at least 5 " + Helper.blue_mana() + " to protect yourself from the Blight this turn.\n\nBe careful! Excess " + Helper.blue_mana() + " will be lost at the end of the turn.")
+			farming_explanation.set_text("Use a Scythe to harvest a plant on a [color=aqua]blue[/color] tile, which will generate " + Helper.blue_mana() + ". Generate at least 5 " + Helper.blue_mana() + " to protect yourself from the Blight this turn.\n\nBe careful! Excess " + Helper.blue_mana() + " will be lost at the end of the turn.")
 		3:
-			farming_explanation.set_text("Make sure to protect yourself by harvesting plants on purple tiles whenever the Blight is attacking you.\n\nAt the same time, make sure to plant some plants on yellow tiles so you can complete the ritual.\n\nMake sure to complete the ritual before winter comes on Week 12, when your plants will stop growing.")
+			farming_explanation.set_text("Make sure to protect yourself by harvesting plants on [color=aqua]blue[/color] tiles whenever the Blight is attacking you.\n\nAt the same time, make sure to plant some plants on [color=gold]yellow[/color] tiles so you can complete the ritual.\n\nYou must complete the ritual before winter comes on Week 12, when your plants will stop growing.")
 			for tile in farm.get_all_tiles():
 				tile.do_active_check()
 
@@ -155,9 +160,17 @@ func year_two_end_year():
 	user_interface.shop.CHOICE_TWO_LABEL.visible = true
 	shop_explanation.set_text("Now you can also select one Structure or Enhance from the shop\n\n[color=lightcyan]Structure (Grey)[/color]: Occuppies one tile on your farm and grants a permanent bonus effect.\n\n[color=aqua]Enhance (blue)[/color]: Makes one card in your deck stronger")
 	shop_explanation.position = Vector2(270, 875)
+	user_interface.shop.STOCK_ONE.get_child(0).set_data(load("res://src/cards/data/action/leaf_ward.tres"))
+	user_interface.shop.STOCK_ONE.get_child(1).set_data(load("res://src/cards/data/action/focus.tres"))
+	user_interface.shop.STOCK_ONE.get_child(2).set_data(load("res://src/cards/data/seed/coffee.tres"))
+	user_interface.shop.STOCK_ONE.get_child(3).set_data(load("res://src/cards/data/seed/cranberry.tres"))
+	user_interface.shop.STOCK_ONE.get_child(4).set_data(load("res://src/cards/data/action/inspiration.tres"))
+	user_interface.shop.STOCK_TWO.get_child(0).set_data(load("res://src/structure/data/sprinkler.tres"))
+	user_interface.shop.STOCK_TWO.get_child(1).set_data(load("res://src/enhance/data/discount.tres"))
+	user_interface.shop.STOCK_TWO.get_child(2).set_data(load("res://src/enhance/data/growspeed.tres"))
 	user_interface.FortuneTeller.current_fortunes.clear()
 	user_interface.FortuneTeller.current_fortunes.append(load("res://src/fortune/data/daylily_fortune.gd").new())
-	user_interface.FortuneTeller.current_fortunes.append(load("res://src/fortune/data/weeds_on_farm.gd").new())
+	user_interface.FortuneTeller.current_fortunes.append(load("res://src/fortune/data/blightroot_once.gd").new())
 	user_interface.create_fortune_display()
 
 func year_three():
@@ -173,7 +186,7 @@ func year_three_end_year():
 	user_interface.shop.remove_child(shop_explanation)
 	user_interface.FortuneTeller.current_fortunes.clear()
 	user_interface.FortuneTeller.current_fortunes.append(load("res://src/fortune/data/wildflowers.gd").new())
-	user_interface.FortuneTeller.current_fortunes.append(load("res://src/fortune/data/blightroot_once.gd").new())
+	user_interface.FortuneTeller.current_fortunes.append(load("res://src/fortune/data/weeds_on_farm.gd").new())
 	user_interface.create_fortune_display()
 
 func year_four():

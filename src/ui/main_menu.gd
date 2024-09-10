@@ -5,6 +5,7 @@ var PLAYSPACE = preload("res://src/playspace.tscn")
 var playspace
 @onready var tutorial_game = $TutorialGame
 @onready var menu_root = $Root
+@onready var introduction = $Introduction
 @onready var difficulty_options = $Root/Grid/Panel/VBox/Margin/VBox/DifficultyBox/DiffOptions
 
 @onready var Stats = $Root/Grid/ContPanel/VBox/Margin/VBox/Grid/StatsLabel
@@ -133,7 +134,10 @@ func _on_debug_check_pressed() -> void:
 
 func _on_tutorial_button_pressed():
 	menu_root.visible = false
-	menu_root.visible = false
+	introduction.visible = true
+
+func _on_story_start_button_pressed() -> void:
+	introduction.visible = false
 	playspace = PLAYSPACE.instantiate()
 	playspace.set_script(load("res://src/tutorial/tutorial_game.gd"))
 	add_child(playspace)

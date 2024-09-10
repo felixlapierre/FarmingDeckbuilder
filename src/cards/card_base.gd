@@ -119,6 +119,7 @@ func set_card_info(card_data):
 			chev2.texture.set_region(Rect2(16, 0, 16, 16))
 		else:
 			chev2.texture.set_region(Rect2(0, 0, 16, 16))
+	register_tooltips()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -293,7 +294,7 @@ func _input(event: InputEvent) -> void:
 		$Focus.visible = true
 
 func register_tooltips():
-	if tooltip == null:
+	if tooltip == null or SIZE_CONTAINER == null:
 		return
 	if card_info.type == "SEED":
 		tooltip.register_tooltip(SIZE_CONTAINER, tr("SIZE_TOOLTIP_SEED").format({"size": card_info.size}))
