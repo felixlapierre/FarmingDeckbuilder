@@ -82,7 +82,7 @@ func year_one():
 	user_interface.update()
 	# Explanation: Year 1
 	farming_explanation = ExplanationScene.instantiate()
-	farming_explanation.set_text("Click on a [color=chartreuse]Seed Card[/color] (Radish, Potato) in your hand to select it. Then, click on an empty space on your farm to plant the seed there.\n\nEach card costs [color=orangered]Energy[/color] to play.\n\nWhen you're done your turn, click End Turn to go to the next week, and give your crops time to grow.")
+	farming_explanation.set_text("Click on a [color=chartreuse]Seed Card[/color] (Radish, Potato) in your hand to select it. Then, click on an empty space on your farm to plant the seed there.\n\nEach card costs [color=orangered]Energy[/color] ([img]res://assets/custom/Energy.png[/img]) to play.\n\nWhen you're done your turn, click End Turn to go to the next week, and give your crops time to grow.")
 	farming_explanation.position = Vector2(1250, 10)
 	farming_explanation.set_exp_size(650, 375)
 	user_interface.FarmingUi.add_child(farming_explanation)

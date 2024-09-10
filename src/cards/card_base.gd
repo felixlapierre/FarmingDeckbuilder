@@ -45,6 +45,7 @@ var SIZE_LABEL
 @onready var YIELD_LABEL = $HBoxContainer/VBoxContainer/BottomBar/YieldLabel
 @onready var TIME_LABEL = $HBoxContainer/VBoxContainer/BottomBar/TimeLabel
 @onready var TIME_TEXTURE = $HBoxContainer/VBoxContainer/BottomBar/TimeTexture
+@onready var HIGHLIGHT = $Highlight
 
 var ChevronTexture = preload("res://assets/custom/EnhanceChevron.png")
 

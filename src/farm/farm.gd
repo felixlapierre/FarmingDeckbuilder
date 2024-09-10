@@ -22,6 +22,7 @@ signal on_card_draw
 signal on_show_tile_preview
 signal on_hide_tile_preview
 signal try_move_structure
+signal no_energy
 
 var hover_time = 0.0
 
@@ -65,6 +66,7 @@ func use_card(grid_position):
 		card_played.emit(Global.selected_structure)
 		return
 	if Global.selected_card == null or Global.selected_card.cost > energy:
+		no_energy.emit()
 		return
 	var card = Global.selected_card.copy()
 	# Handle X cost cards

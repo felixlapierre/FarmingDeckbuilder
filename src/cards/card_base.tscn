@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://2yu7drphx7ur"]
+[gd_scene load_steps=17 format=3 uid="uid://2yu7drphx7ur"]
 
 [ext_resource type="Script" path="res://src/cards/card_base.gd" id="1_ohx6w"]
 [ext_resource type="Theme" uid="uid://c3hfmpsb3fvhr" path="res://assets/game_theme.tres" id="1_w62ds"]
@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://b5gtwrgnirbxg" path="res://assets/custom/YellowMana.png" id="8_md8ou"]
 [ext_resource type="Texture2D" uid="uid://bvk0lh8bp63in" path="res://assets/custom/Time.png" id="9_63ik7"]
 [ext_resource type="Texture2D" uid="uid://b54p2v6xa8vgl" path="res://assets/custom/EnhanceChevron.png" id="9_odxue"]
+[ext_resource type="Texture2D" uid="uid://dm53fkuh75jw" path="res://assets/custom/card_highlight.png" id="12_qqclk"]
 
 [sub_resource type="Theme" id="Theme_xgb3r"]
 default_font = ExtResource("3_inew6")
@@ -160,6 +161,11 @@ expand_mode = 2
 [node name="Focus" type="TextureButton" parent="."]
 layout_mode = 2
 mouse_filter = 1
+
+[node name="Highlight" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("12_qqclk")
+centered = false
 
 [connection signal="gui_input" from="Focus" to="." method="_on_focus_gui_input"]
 [connection signal="mouse_entered" from="Focus" to="." method="_on_focus_mouse_entered"]

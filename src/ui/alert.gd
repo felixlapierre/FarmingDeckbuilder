@@ -16,7 +16,7 @@ func _process(delta: float) -> void:
 func set_text(text: String):
 	current_text = text
 	AlertLabel.clear()
-	AlertLabel.append_text(text)
+	AlertLabel.append_text("[center]" + text + "[/center]")
 	visible = true
 
 func clear(text: String):

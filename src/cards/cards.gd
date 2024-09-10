@@ -18,6 +18,7 @@ var deck_cards: Array[CardData] = []
 var discard_pile_cards: Array[CardData] = []
 
 @onready var tooltip = $Tooltip
+@onready var HAND_CARDS = $Hand
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://cswinrop881oo"]
+[gd_scene load_steps=29 format=3 uid="uid://cswinrop881oo"]
 
 [ext_resource type="Script" path="res://src/user_interface.gd" id="1_j28fq"]
 [ext_resource type="Theme" uid="uid://c21dhy264y6ty" path="res://assets/theme_large.tres" id="2_s7754"]
@@ -25,6 +25,7 @@
 [ext_resource type="PackedScene" uid="uid://dvjkkex6w162i" path="res://src/upgrade/upgrade_shop.tscn" id="18_wm5tb"]
 [ext_resource type="Texture2D" uid="uid://nkbrmv4f3xqe" path="res://assets/ui/obelisk_empty.png" id="19_83y2t"]
 [ext_resource type="PackedScene" uid="uid://cs4xf7kyndygr" path="res://src/ui/tooltip.tscn" id="20_dvki6"]
+[ext_resource type="PackedScene" uid="uid://b7luloyqjcwjb" path="res://src/ui/energy_display.tscn" id="20_i330f"]
 [ext_resource type="Texture2D" uid="uid://cn32li0bwuw1e" path="res://assets/ui/obelisk_full.png" id="20_udohm"]
 [ext_resource type="PackedScene" uid="uid://bb1j26ivcxqw6" path="res://src/ui/tutorial.tscn" id="22_4s3pk"]
 
@@ -146,6 +147,7 @@ layout_mode = 2
 text = "Week 1"
 
 [node name="EnergyHbox" type="HBoxContainer" parent="UI/Stats/VBox"]
+visible = false
 layout_mode = 2
 
 [node name="EnergyLabel" type="Label" parent="UI/Stats/VBox/EnergyHbox"]
@@ -163,6 +165,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="CardsHbox" type="HBoxContainer" parent="UI/Stats/VBox"]
+visible = false
 layout_mode = 2
 
 [node name="CardsLabel" type="Label" parent="UI/Stats/VBox/CardsHbox"]
@@ -301,6 +304,9 @@ layout_mode = 2
 text = "T: Transform
 R: Rotate
 F: Flip"
+
+[node name="EnergyDisplay" parent="UI" instance=ExtResource("20_i330f")]
+position = Vector2(6, 89)
 
 [node name="AlertContainer" parent="." instance=ExtResource("18_ih37u")]
 visible = false

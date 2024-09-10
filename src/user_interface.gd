@@ -41,6 +41,7 @@ var FORTUNE_HOVER = preload("res://src/fortune/fortune_hover.tscn")
 
 var end_year_alert_text = "Ritual Complete! Time to rest and prepare for the next year"
 var structure_place_text = "Click on the farm tile where you'd like to place the structure"
+var no_energy_text = "[color=red]No Energy![/color]"
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	for i in Constants.MAX_BLIGHT:
@@ -96,6 +97,7 @@ func update():
 	$UI/Stats/VBox/YearLabel.text = "Year: " + str(turn_manager.year) + " / " + str(Global.FINAL_YEAR)
 	$UI/Stats/VBox/TurnLabel.text = "Week: " + str(turn_manager.week) + " / 12"
 	$UI/Stats/VBox/EnergyHbox/EnergyLabel.text = "Energy: " + str(turn_manager.energy) + " / " + str(Constants.MAX_ENERGY + int(float(Global.ENERGY_FRAGMENTS) / 3))
+	$UI/EnergyDisplay.set_energy(turn_manager.energy)
 	for child in $UI/Stats/VBox/EnergyHbox/Fragments.get_children():
 		$UI/Stats/VBox/EnergyHbox/Fragments.remove_child(child)
 	for i in range(Global.ENERGY_FRAGMENTS % 3):
@@ -540,3 +542,10 @@ func _on_cancel_structure_pressed():
 	set_winter_visible(true)
 	$Shop.visible = true
 	Global.selected_structure = null
+
+
+func _on_farm_tiles_no_energy() -> void:
+	if !$UI/EnergyDisplay.flashing:
+		AlertDisplay.set_text(no_energy_text)
+		await $UI/EnergyDisplay.no_energy()
+		AlertDisplay.clear(no_energy_text)
