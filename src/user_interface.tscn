@@ -302,7 +302,7 @@ R: Rotate
 F: Flip"
 
 [node name="EnergyDisplay" parent="UI" instance=ExtResource("20_i330f")]
-position = Vector2(6, 89)
+position = Vector2(26, 109)
 
 [node name="DamagePanel" type="PanelContainer" parent="UI"]
 layout_mode = 0

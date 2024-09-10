@@ -51,6 +51,7 @@ text = "Farm Type:"
 
 [node name="TypeOptions" type="OptionButton" parent="Root/Grid/Panel/VBox/Margin/VBox/FarmTypeBox"]
 layout_mode = 2
+alignment = 1
 item_count = 4
 selected = 0
 allow_reselect = true
@@ -77,12 +78,44 @@ text = "Difficulty"
 
 [node name="DiffOptions" type="OptionButton" parent="Root/Grid/Panel/VBox/Margin/VBox/DifficultyBox"]
 layout_mode = 2
+alignment = 1
 item_count = 2
 selected = 0
 popup/item_0/text = "Easy"
 popup/item_0/id = 0
 popup/item_1/text = "Normal"
 popup/item_1/id = 1
+
+[node name="CharacterBox" type="HBoxContainer" parent="Root/Grid/Panel/VBox/Margin/VBox"]
+visible = false
+layout_mode = 2
+
+[node name="CharLabel" type="Label" parent="Root/Grid/Panel/VBox/Margin/VBox/CharacterBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Character: "
+
+[node name="CharOptions" type="OptionButton" parent="Root/Grid/Panel/VBox/Margin/VBox/CharacterBox"]
+layout_mode = 2
+alignment = 1
+item_count = 8
+selected = 0
+popup/item_0/text = "Novice"
+popup/item_0/id = 0
+popup/item_1/text = "Ice Mage"
+popup/item_1/id = 1
+popup/item_2/text = "Fire Mage"
+popup/item_2/id = 2
+popup/item_3/text = "Blight Mage"
+popup/item_3/id = 3
+popup/item_4/text = "Chaos Mage"
+popup/item_4/id = 4
+popup/item_5/text = "Scholar"
+popup/item_5/id = 5
+popup/item_6/text = "Lunar Mage"
+popup/item_6/id = 6
+popup/item_7/text = "Astrologer"
+popup/item_7/id = 7
 
 [node name="StartButton" type="Button" parent="Root/Grid/Panel/VBox/Margin/VBox"]
 layout_mode = 2

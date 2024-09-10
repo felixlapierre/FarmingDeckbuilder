@@ -1,6 +1,19 @@
 # Changelog
 
+## Version 0.0.3
+
+Released Sept 10th
+
+#### Features
+
+- Added tutorial
+- Changed yellow/purple yield to yellow/blue mana
+- Added animation to make it clear when card play fails due to insufficient energy
+- Some balance changes and many quality of life improvements
+
 ## Version 0.0.2
+
+Released Sept 3rd
 
 #### Features
 
