@@ -183,3 +183,5 @@ func _on_char_options_item_selected(index: int) -> void:
 			mage_fortune = load("res://src/fortune/characters/blight_mage.gd").new()
 		4:
 			mage_fortune = load("res://src/fortune/characters/water_mage.gd").new()
+		5:
+			mage_fortune = load("res://src/fortune/characters/chaos_mage.gd").new()
