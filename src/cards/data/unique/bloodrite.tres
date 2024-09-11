@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="YieldToRandomBlight" load_steps=3 format=3 uid="uid://cgn5y7s6dvbt6"]
+
+[ext_resource type="Script" path="res://src/cards/custom/yield_to_random_blight.gd" id="1_xhvmn"]
+[ext_resource type="Texture2D" uid="uid://c46q76532nqk" path="res://assets/custom/Temp.png" id="2_44qbp"]
+
+[resource]
+script = ExtResource("1_xhvmn")
+strength = 0
+type = "ACTION"
+name = "Bloodrite"
+rarity = "unique"
+cost = 1
+yld = 0
+time = 0
+size = 0
+text = "For each [img]res://assets/custom/Blight.png[/img], add {STRENGTH} [img]res://assets/custom/YellowManaSmall.png[/img] to a random plant and plant a Blightroot on a random tile"
+strength_increment = 1.0
+size_increment = 1
+texture = ExtResource("2_44qbp")
+seed_texture = 0
+texture_icon_offset = 16
+targets = Array[String]([])
+effects = Array[Resource("res://src/effect/effect.gd")]([])
+enhances = Array[String]([])

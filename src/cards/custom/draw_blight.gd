@@ -1,7 +1,6 @@
 extends CardData
 class_name DrawBlight
 
-
 @export var strength = 0
 
 var callback: Callable

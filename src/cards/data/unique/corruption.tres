@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="RandomBlightCard" load_steps=3 format=3 uid="uid://cxm6i78ufbcrk"]
+
+[ext_resource type="Script" path="res://src/cards/custom/random_blight_card.gd" id="1_ogqhf"]
+[ext_resource type="Texture2D" uid="uid://c46q76532nqk" path="res://assets/custom/Temp.png" id="2_ie3xv"]
+
+[resource]
+script = ExtResource("1_ogqhf")
+strength = 1
+type = "ACTION"
+name = "Corruption"
+rarity = "unique"
+cost = 0
+yld = 0
+time = 0
+size = 0
+text = "Add {STRENGTH} random Blight card to your hand"
+strength_increment = 1.0
+size_increment = 1
+texture = ExtResource("2_ie3xv")
+seed_texture = 0
+texture_icon_offset = 16
+targets = Array[String]([])
+effects = Array[Resource("res://src/effect/effect.gd")]([])
+enhances = Array[String]([])
