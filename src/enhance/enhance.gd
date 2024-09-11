@@ -79,7 +79,7 @@ func get_description():
 		"Strength":
 			return "Increase the strength of a card's special effects"
 		"Regrow":
-			return "Add Regrow 3 to a card (Card is re-planted with +3 base " + Helper.mana_icon() + " when harvested)"
+			return "Add Regrow 3 and 1 week [img]res://assets/custom/Time.png[/img] of grow time to a card "
 		_:
 			return "TODO"
 

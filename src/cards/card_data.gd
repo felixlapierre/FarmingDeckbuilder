@@ -107,6 +107,7 @@ func apply_enhance(enhance: Enhance):
 					n_card.enhances.append(enhance.name)
 					return n_card
 			n_card.effects.append(load("res://src/effect/data/regrow_3.tres"))
+			n_card.time += 1
 	n_card.enhances.append(enhance.name)
 	return n_card
 
