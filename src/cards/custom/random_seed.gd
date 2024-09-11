@@ -30,4 +30,5 @@ func get_description() -> String:
 func copy():
 	var new = RandomSeed.new()
 	new.assign(self)
+	new.strength = strength
 	return new
