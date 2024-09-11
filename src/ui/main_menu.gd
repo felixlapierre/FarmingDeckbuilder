@@ -21,7 +21,7 @@ var difficulty_text = [
 	"Increased misfortune\n",
 	"Add Final Ritual on year 11"]
 
-var mage_fortune = null;
+var mage_fortune: MageAbility = load("res://src/fortune/characters/novice.gd").new();
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -109,6 +109,9 @@ func populate_continue_preview():
 	if save_json.state.has("mage"):
 		$Root/Grid/Panel/VBox/Margin/VBox/CharacterBox/CharOptions.selected = save_json.state.mage.rank
 		_on_char_options_item_selected(save_json.state.mage.rank)
+	else:
+		$Root/Grid/Panel/VBox/Margin/VBox/CharacterBox/CharOptions.selected = 0
+		_on_char_options_item_selected(0)
 
 	Deck.append_text("Deck: " + "\n")
 	var cards = {}
@@ -176,3 +179,7 @@ func _on_char_options_item_selected(index: int) -> void:
 			mage_fortune = load("res://src/fortune/characters/ice_mage.gd").new()
 		2:
 			mage_fortune = load("res://src/fortune/characters/fire_mage.gd").new()
+		3:
+			mage_fortune = load("res://src/fortune/characters/blight_mage.gd").new()
+		4:
+			mage_fortune = load("res://src/fortune/characters/water_mage.gd").new()

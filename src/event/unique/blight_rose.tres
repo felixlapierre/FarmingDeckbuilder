@@ -28,3 +28,4 @@ seed_texture = 6
 texture_icon_offset = 10
 targets = Array[String]([])
 effects = Array[ExtResource("1_gatsx")]([SubResource("Resource_hhf7t")])
+enhances = Array[String]([])

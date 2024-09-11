@@ -287,6 +287,7 @@ func start_new_game():
 		DirAccess.remove_absolute("user://savegame.save")
 	for card in StartupHelper.get_starter_deck():
 		deck.append(card)
+	user_interface.mage_fortune.modify_deck_callback.call(deck)
 	StartupHelper.setup_farm($FarmTiles, $EventManager)
 	user_interface.mage_fortune.register_fortune($EventManager)
 	start_year()

@@ -15,7 +15,7 @@ var shop_structure_place_callback
 var deck: Array[CardData]
 var cards: Cards
 var turn_ending = false
-var mage_fortune: Fortune
+var mage_fortune: MageAbility
 
 var SELECT_CARD = preload("res://src/cards/select_card.tscn")
 var cards_database = preload("res://src/cards/cards_database.gd")

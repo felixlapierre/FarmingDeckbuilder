@@ -1,4 +1,4 @@
-extends Fortune
+extends MageAbility
 class_name FireMageFortune
 
 var icon = preload("res://assets/mage/fire_mage.png")

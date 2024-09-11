@@ -17,6 +17,7 @@ static var BLIGHT_FLAG_PIERCING = false
 static var BLIGHT_FLAG_THREATEN_GROWING = false
 static var BLIGHT_TARGET_MULTIPLIER: float = 1.0
 static var DESTROY_TILES_THIS_TURN: int = 1
+static var IRRIGATE_PROTECTED = false
 
 static var MANA_TARGET_LOCATION_YELLOW: Vector2 = Vector2(558, 442)
 static var MANA_TARGET_LOCATION_PURPLE: Vector2 = Vector2(1350, 438)
@@ -57,3 +58,4 @@ static func reset():
 	WINTER_WEEK = 13
 	FINAL_WEEK = 13
 	END_TURN_DISCARD = true
+	IRRIGATE_PROTECTED = false

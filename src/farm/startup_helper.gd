@@ -9,6 +9,8 @@ static var Wildflower = preload("res://src/fortune/unique/wildflower.tres")
 static var Potato = preload("res://src/cards/data/seed/potato.tres")
 static var Water = preload("res://src/structure/unique/river.tres")
 
+static var manipulate_deck_callback: Callable = func(_deck): pass
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
@@ -29,7 +31,12 @@ static func get_starter_deck():
 			data = wilderness_deck
 		"MOUNTAINS":
 			data = mountains_deck
-	return load_deck(data)
+	var deck = load_deck(data)
+	manipulate_deck_callback.call(deck)
+	return deck
+
+static func register_manipulate_deck_callback(callback):
+	manipulate_deck_callback = callback
 
 static func load_deck(data):
 	var deck = []

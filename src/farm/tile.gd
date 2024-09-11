@@ -341,3 +341,6 @@ func remove_structure():
 	structure = null
 	$PlantSprite.visible = false
 	state = Enums.TileState.Empty
+
+func is_protected():
+	return Global.IRRIGATE_PROTECTED and irrigated

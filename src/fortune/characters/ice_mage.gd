@@ -1,4 +1,4 @@
-extends Fortune
+extends MageAbility
 class_name IceMageFortune
 
 var icon = preload("res://assets/card/frostcut.png")

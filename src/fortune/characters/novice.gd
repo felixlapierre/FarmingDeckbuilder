@@ -1,4 +1,4 @@
-extends Fortune
+extends MageAbility
 class_name NoviceFortune
 
 var icon = preload("res://assets/custom/CardIcon.png")

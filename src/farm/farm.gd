@@ -366,9 +366,9 @@ func on_expand_farm():
 
 func destroy_blighted_tiles():
 	for tile in $Tiles.get_children():
-		if tile.blight_targeted == true:
+		if tile.blight_targeted == true and !tile.is_protected():
 			tile.set_blighted()
-		elif tile.destroy_targeted == true:
+		elif tile.destroy_targeted == true and !tile.is_protected():
 			tile.destroy()
 
 func use_card_random_tile(card: CardData, times: int):
@@ -381,6 +381,20 @@ func use_card_random_tile(card: CardData, times: int):
 	if tiles.size() == 0:
 		return
 	for i in range(times):
+		locations.append(tiles[i].grid_location)
+	use_card_on_targets(card, locations, false)
+
+func use_card_unprotected_tile(card: CardData, times: int):
+	var tiles = []
+	for tile: Tile in $Tiles.get_children():
+		if tile.state == Enums.TileState.Empty && !tile.is_protected():
+			tiles.append(tile)
+	tiles.shuffle()
+	var locations = []
+	var i = 0
+	if tiles.size() == 0:
+		return
+	while i < times and i < tiles.size():
 		locations.append(tiles[i].grid_location)
 	use_card_on_targets(card, locations, false)
 	
