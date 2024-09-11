@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="RandomSeed" load_steps=3 format=3 uid="uid://diuk4ieng1j5r"]
+
+[ext_resource type="Script" path="res://src/cards/custom/random_seed.gd" id="1_dgeu2"]
+[ext_resource type="Texture2D" uid="uid://c46q76532nqk" path="res://assets/custom/Temp.png" id="2_30osw"]
+
+[resource]
+script = ExtResource("1_dgeu2")
+strength = 1
+type = "ACTION"
+name = "Wild Magic"
+rarity = "common"
+cost = 0
+yld = 0
+time = 0
+size = 0
+text = "Add {STRENGTH} random Seed card to your hand"
+strength_increment = 1.0
+size_increment = 1
+texture = ExtResource("2_30osw")
+seed_texture = 0
+texture_icon_offset = 16
+targets = Array[String]([])
+effects = Array[Resource("res://src/effect/effect.gd")]([])
+enhances = Array[String]([])

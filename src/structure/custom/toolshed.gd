@@ -16,7 +16,7 @@ func copy():
 
 func register_events(event_manager: EventManager, tile: Tile):
 	callback = func(args: EventArgs):
-		args.cards.draw_specific_card(rusty_hoe.copy())
+		args.cards.draw_specific_card_from(rusty_hoe.copy(), tile.position + Constants.TILE_SIZE / 2)
 		args.cards.reorganize_hand()
 	event_manager.register_listener(event_type, callback)
 

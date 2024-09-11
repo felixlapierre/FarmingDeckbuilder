@@ -106,8 +106,9 @@ func populate_continue_preview():
 	_on_diff_options_item_selected(save_json.state.difficulty)
 	$Root/Grid/Panel/VBox/Margin/VBox/FarmTypeBox/TypeOptions.selected = get_index_of_farm_type(save_json.state.farm_type)
 	_on_type_options_item_selected(get_index_of_farm_type(save_json.state.farm_type))
-	$Root/Grid/Panel/VBox/Margin/VBox/CharacterBox/CharOptions.selected = save_json.state.mage.rank
-	_on_char_options_item_selected(save_json.state.mage.rank)
+	if save_json.state.has("mage"):
+		$Root/Grid/Panel/VBox/Margin/VBox/CharacterBox/CharOptions.selected = save_json.state.mage.rank
+		_on_char_options_item_selected(save_json.state.mage.rank)
 
 	Deck.append_text("Deck: " + "\n")
 	var cards = {}

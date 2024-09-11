@@ -81,12 +81,15 @@ func drawcard():
 	return deck_cards.size()
 
 func draw_specific_card(card_data: CardData):
+	draw_specific_card_from(card_data, $"../UserInterface/UI/Deck".position)
+
+func draw_specific_card_from(card_data: CardData, from: Vector2):
 	# Create the new card and initialize its starting values
 	var new_card = CardBase.instantiate()
 
 	new_card.tooltip = tooltip
 	new_card.set_card_info(card_data)
-	new_card.position = $"../UserInterface/UI/Deck".position - CardSize / 2
+	new_card.position = from - CardSize / 2
 	new_card.target_position = new_card.position
 	new_card.starting_position = new_card.position
 	new_card.target_scale = new_card.resting_scale
