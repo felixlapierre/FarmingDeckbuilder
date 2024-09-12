@@ -56,7 +56,7 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if $UI/RTFPanel != null:
-		$UI/RTFPanel.visible = Global.selected_card != null
+		$UI/RTFPanel.visible = false
 		var shape = Enums.CursorShape.keys()[Global.shape]
 		$UI/RTFPanel/VBox/ShapeLabel.text = "Shape: " + shape
 

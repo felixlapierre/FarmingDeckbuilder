@@ -75,8 +75,7 @@ func use_card(grid_position):
 			if effect.strength < 0:
 				effect.strength = (effect.strength * -1) * energy
 				card.cost = 1
-	var size = Global.selected_card.size
-	var targets = get_targeted_tiles(grid_position, size, Global.shape, Global.rotate)
+	var targets = get_targeted_tiles(grid_position, Global.selected_card, Global.shape, Global.rotate)
 	card.register_events(event_manager, null)
 	var args = EventArgs.SpecificArgs.new(null)
 	args.play_args = EventArgs.PlayArgs.new(card)
@@ -126,8 +125,9 @@ func show_select_overlay():
 		sprite.z_index = 1
 		sprite.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 		$SelectOverlay.add_child(sprite)
-		
-	var targeted_grid_locations = get_targeted_tiles(grid_position, size, shape, Global.rotate)
+	
+	var selected = Global.selected_card if Global.selected_card != null else Global.selected_structure
+	var targeted_grid_locations = get_targeted_tiles(grid_position, selected, shape, Global.rotate)
 	var yld_preview_yellow = 0
 	var yld_preview_purple = 0
 	var yld_preview_defer = false
@@ -165,18 +165,22 @@ func show_select_overlay():
 func is_eligible(targets, targeted_tile):
 	return targets.has(Enums.TileState.keys()[targeted_tile.state])
 
-func get_targeted_tiles(grid_position, size, shape, rotate):
-	var tiles = []
-	if size != -1:
-		for item in Helper.get_tile_shape_rotated(size, shape, rotate):
-			if Global.flip == 1:
-				item.x = -item.x
-			tiles.append(item + grid_position)
+func get_targeted_tiles(grid_position, card, shape, rotate):
+	var target_tiles = []
+	if card.size != -1:
+		if shape == Enums.CursorShape.Smart:
+			for item in Helper.get_smart_select_shape(grid_position, tiles, card, $Tiles.get_global_mouse_position()):
+				target_tiles.append(item)
+		else:
+			for item in Helper.get_tile_shape_rotated(card.size, shape, rotate):
+				if Global.flip == 1:
+					item.x = -item.x
+				target_tiles.append(item + grid_position)
 	else:
 		for i in range(0, Constants.FARM_DIMENSIONS.x):
 			for j in range(0, Constants.FARM_DIMENSIONS.y):
-				tiles.append(Vector2(i, j))
-	return tiles
+				target_tiles.append(Vector2(i, j))
+	return target_tiles
 
 func pct(num):
 	return float(num)/100.0
@@ -315,7 +319,7 @@ func do_winter_clear():
 	next_turn_effects.clear()
 
 func spread(card, grid_position, size, shape):
-	var targets = get_targeted_tiles(grid_position, size, shape, 0)
+	var targets = get_targeted_tiles(grid_position, card, shape, 0)
 	targets.shuffle()
 	use_card_on_targets(card, targets, true)
 

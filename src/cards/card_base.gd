@@ -268,7 +268,7 @@ func _on_focus_gui_input(event: InputEvent) -> void:
 			Enums.CardState.FocusInHand:
 				set_state(Enums.CardState.InMouse, null, null, resting_scale)
 				Global.selected_card = card_info
-				Global.shape = Helper.get_default_shape(card_info.size)
+				Global.shape = Enums.CursorShape.Smart
 				Global.rotate = 0
 				reset_hand_card()
 			Enums.CardState.InMouse:

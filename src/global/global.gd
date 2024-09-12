@@ -2,7 +2,7 @@ class_name Global
 
 static var selected_card: CardData = null
 static var selected_structure: Structure = null
-static var shape := Enums.CursorShape.Square
+static var shape := Enums.CursorShape.Smart
 static var rotate = 0
 static var flip = 0
  

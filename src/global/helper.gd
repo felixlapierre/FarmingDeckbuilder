@@ -81,3 +81,55 @@ static func blue_mana():
 
 static func mana_icon_small():
 	return "[img]res://assets/custom/YellowMana16.png[/img]"
+
+static func get_smart_select_shape(grid_position: Vector2, tiles, card: CardData, mouse_pos: Vector2):
+	var returned = []
+	# First, try the default shape
+	var default = get_tile_shape_rotated(card.size, get_default_shape(card.size), 0)
+	# If all tiles are eligible, use this
+	var default_valid = true
+	for pos in default:
+		var target = pos + grid_position
+		if !in_bounds(target) or !((card.type == "SEED" and tiles[target.x][target.y].state == Enums.TileState.Empty) or\
+			card.targets.has(Enums.TileState.keys()[tiles[target.x][target.y].state])):
+				default_valid = false
+	if default_valid:
+		for pos in default:
+			returned.append(pos + grid_position)
+		return returned
+	# if not valid, do smart shape
+	# Get all adjacent tiles
+	var all_position = []
+	for i in range(-1, 2):
+		for j in range(-1, 2):
+			var new_position = Vector2(grid_position.x + i, grid_position.y + j)
+			if in_bounds(new_position):
+				all_position.append(new_position)
+	
+	# Filter based on whether tile is eligible to be targeted
+	var eligible = []
+	var ineligible = []
+	for pos in all_position:
+		var tile = tiles[pos.x][pos.y]
+		if (card.type == "SEED" and tile.state == Enums.TileState.Empty) or card.targets.has(Enums.TileState.keys()[tile.state]):
+			eligible.append(pos)
+		else:
+			ineligible.append(pos)
+
+	# Sort by distance to mouse
+	var sorting_func = func(a, b):
+		#return true if b is after a
+		var bdist = mouse_pos.distance_to(tiles[b.x][b.y].position + Constants.TILE_SIZE / 2)
+		var adist = mouse_pos.distance_to(tiles[a.x][a.y].position + Constants.TILE_SIZE / 2)
+		return adist < bdist
+	eligible.sort_custom(sorting_func)
+	ineligible.sort_custom(sorting_func)
+	
+	# Return the first SIZE elements
+
+	for i in range(card.size):
+		if eligible.size() > 0:
+			returned.append(eligible.pop_front())
+		elif ineligible.size() > 0:
+			returned.append(ineligible.pop_front())
+	return returned
