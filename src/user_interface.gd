@@ -132,9 +132,9 @@ func update():
 		$UI/BlightPanel/VBox/AttackLabel.text = "Blight Attack!"
 	elif turn_manager.purple_mana > turn_manager.target_blight and turn_manager.flag_defer_excess:
 		$UI/BlightPanel/VBox/AttackLabel.text = "Defer: " + str(turn_manager.purple_mana - turn_manager.target_blight) + Helper.blue_mana()
-	elif turn_manager.purple_mana > turn_manager.target_blight and turn_manager.target_blight == 0 and mage_fortune.name != "Lunar Mage":
+	elif turn_manager.purple_mana > turn_manager.target_blight and turn_manager.target_blight == 0 and mage_fortune.name != "Lunar Priest":
 		$UI/BlightPanel/VBox/AttackLabel.text = "Wasted"
-	elif turn_manager.purple_mana > turn_manager.target_blight and mage_fortune.name == "Lunar Mage":
+	elif turn_manager.purple_mana > turn_manager.target_blight and mage_fortune.name == "Lunar Priest":
 		$UI/BlightPanel/VBox/AttackLabel.text = "Excess: " + str((turn_manager.purple_mana - turn_manager.target_blight) * mage_fortune.strength) + Helper.mana_icon()
 	else:
 		$UI/BlightPanel/VBox/AttackLabel.text = "Safe!"
@@ -270,7 +270,7 @@ func _on_farm_tiles_on_preview_yield(args) -> void:
 	var blightamt = turn_manager.purple_mana + purple
 	if purple != 0:
 		$UI/BlightPanel/VBox/BlightCounter/Label.text = "[color=9f78e3]"+ str(blightamt) + " / " + str(turn_manager.target_blight)
-		if turn_manager.target_blight == 0 and mage_fortune.name != "Lunar Mage" and !args.defer:
+		if turn_manager.target_blight == 0 and mage_fortune.name != "Lunar Priest" and !args.defer:
 			AlertDisplay.set_text(warning_waste_purple_text)
 	else:
 		$UI/BlightPanel/VBox/BlightCounter/Label.text = str(turn_manager.purple_mana) + " / " + str(turn_manager.target_blight)

@@ -22,9 +22,24 @@ var difficulty_text = [
 	"Add Final Ritual on year 11"]
 
 var mage_fortune: MageAbility = load("res://src/fortune/characters/novice.gd").new();
+var mages_map: Dictionary = {}
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	var mages: OptionButton = $Root/Grid/Panel/VBox/Margin/VBox/CharacterBox/CharOptions
+	mages.clear()
+
+	for fortune: MageAbility in [
+		load("res://src/fortune/characters/novice.gd").new(),
+		load("res://src/fortune/characters/ice_mage.gd").new(),
+		load("res://src/fortune/characters/water_mage.gd").new(),
+		load("res://src/fortune/characters/lunar_mage.gd").new(),
+		load("res://src/fortune/characters/blight_mage.gd").new(),
+		load("res://src/fortune/characters/chaos_mage.gd").new(),
+		load("res://src/fortune/characters/fire_mage.gd").new(),
+		load("res://src/fortune/characters/void_mage.gd").new()]:
+		mages_map[fortune.rank] = fortune
+		$Root/Grid/Panel/VBox/Margin/VBox/CharacterBox/CharOptions.add_icon_item(fortune.icon, fortune.name, fortune.rank)
 	populate_continue_preview()
 	Settings.load_settings()
 	TutorialsCheck.button_pressed = Settings.TUTORIALS_ENABLED
@@ -173,20 +188,4 @@ func connect_main_menu_signal(playspace):
 
 
 func _on_char_options_item_selected(index: int) -> void:
-	match index:
-		0:
-			mage_fortune = load("res://src/fortune/characters/novice.gd").new()
-		1:
-			mage_fortune = load("res://src/fortune/characters/ice_mage.gd").new()
-		2:
-			mage_fortune = load("res://src/fortune/characters/fire_mage.gd").new()
-		3:
-			mage_fortune = load("res://src/fortune/characters/blight_mage.gd").new()
-		4:
-			mage_fortune = load("res://src/fortune/characters/water_mage.gd").new()
-		5:
-			mage_fortune = load("res://src/fortune/characters/chaos_mage.gd").new()
-		6:
-			mage_fortune = load("res://src/fortune/characters/lunar_mage.gd").new()
-		7:
-			mage_fortune = load("res://src/fortune/characters/void_mage.gd").new()
+	mage_fortune = mages_map[index]

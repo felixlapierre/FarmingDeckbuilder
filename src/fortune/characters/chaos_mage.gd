@@ -7,7 +7,7 @@ var event_type = EventManager.EventType.BeforeCardPlayed
 var event_callable: Callable
 
 func _init() -> void:
-	super("Chaos Mage", Fortune.FortuneType.GoodFortune, "Randomize starting deck", 5, icon)
+	super("Spawn of Chaos", Fortune.FortuneType.GoodFortune, "Randomize starting deck", 5, icon)
 	modify_deck_callback = func(deck: Array[CardData]):
 		var scythes = []
 		var seeds = []

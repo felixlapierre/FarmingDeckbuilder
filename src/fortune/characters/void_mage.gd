@@ -8,7 +8,7 @@ var event_type = EventManager.EventType.BeforeTurnStart
 var event_callable: Callable
 
 func _init() -> void:
-	super("Void Mage", Fortune.FortuneType.GoodFortune, "At the start of the turn, gain " + str(strength) + Helper.blue_mana() + " per destroyed tile", 7, icon)
+	super("Voidcaster", Fortune.FortuneType.GoodFortune, "At the start of the turn, gain " + str(strength) + Helper.blue_mana() + " per destroyed tile", 7, icon)
 
 func register_fortune(event_manager: EventManager):
 	event_callable = func(args: EventArgs):

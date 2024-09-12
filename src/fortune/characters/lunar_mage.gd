@@ -11,7 +11,7 @@ var event_type_allblue = EventManager.EventType.AfterYearStart
 var allblue_callable: Callable
 
 func _init() -> void:
-	super("Lunar Mage", Fortune.FortuneType.GoodFortune, "Entire farm is blue. At the end of the turn, " + str(strength * 100) + "% of " + Helper.blue_mana() + "is converted to" + Helper.mana_icon(), 6, icon)
+	super("Lunar Priest", Fortune.FortuneType.GoodFortune, "Entire farm is blue. At the end of the turn, " + str(strength * 100) + "% of " + Helper.blue_mana() + "is converted to" + Helper.mana_icon(), 6, icon)
 
 func register_fortune(event_manager: EventManager):
 	allblue_callable = func(args: EventArgs):
