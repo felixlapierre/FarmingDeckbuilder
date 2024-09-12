@@ -12,10 +12,9 @@ func _init() -> void:
 
 func register_fortune(event_manager: EventManager):
 	event_callable = func(args: EventArgs):
-		if event_manager.turn_manager.target_blight > 0:
-			for tile in args.farm.get_all_tiles():
-				if tile.state == Enums.TileState.Destroyed or tile.state == Enums.TileState.Blighted:
-					args.farm.gain_yield(tile, EventArgs.HarvestArgs.new(strength, true, false))
+		for tile in args.farm.get_all_tiles():
+			if tile.state == Enums.TileState.Destroyed or tile.state == Enums.TileState.Blighted:
+				args.farm.gain_yield(tile, EventArgs.HarvestArgs.new(strength, true, false))
 	event_manager.register_listener(event_type, event_callable)
 
 func unregister_fortune(event_manager: EventManager):

@@ -49,7 +49,7 @@ func draw_hand(count, week):
 	var start_hand_count = number_of_cards_in_hand
 	if week == 1:
 		draw_springbound_cards(count)
-	while number_of_cards_in_hand - start_hand_count < count:
+	while number_of_cards_in_hand - start_hand_count < count and number_of_cards_in_hand <= Global.MAX_HAND_SIZE:
 		drawcard()
 		if deck_cards.size() == 0 and discard_pile_cards.size() == 0:
 			break
@@ -60,8 +60,7 @@ func draw_one_card():
 	reorganize_hand()
 	
 func drawcard():
-	# Maximum hand size 10
-	if $Hand.get_child_count() >= 10:
+	if $Hand.get_child_count() >= Global.MAX_HAND_SIZE:
 		return
 	# Refill the draw pile if necessary
 	if deck_cards.size() == 0:

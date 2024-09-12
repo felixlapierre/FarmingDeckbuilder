@@ -11,6 +11,7 @@ static var FARM_BOTRIGHT = Vector2(6, 6)
 
 static var ENERGY_FRAGMENTS: int = 0
 static var SCROLL_FRAGMENTS: int = 0
+static var MAX_HAND_SIZE: int = 10
 
 static var BLIGHT_TILES_THREATENED = 4
 static var BLIGHT_FLAG_PIERCING = false
@@ -59,3 +60,4 @@ static func reset():
 	FINAL_WEEK = 13
 	END_TURN_DISCARD = true
 	IRRIGATE_PROTECTED = false
+	MAX_HAND_SIZE = 10

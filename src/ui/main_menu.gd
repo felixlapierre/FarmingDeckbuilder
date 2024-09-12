@@ -155,6 +155,7 @@ func _on_story_start_button_pressed() -> void:
 	playspace = PLAYSPACE.instantiate()
 	playspace.set_script(load("res://src/tutorial/tutorial_game.gd"))
 	connect_main_menu_signal(playspace)
+	playspace.user_interface.mage_fortune = load("res://src/fortune/characters/blank_mage.gd")
 	Global.reset()
 	add_child(playspace)
 	playspace.start_new_game()
@@ -185,5 +186,7 @@ func _on_char_options_item_selected(index: int) -> void:
 			mage_fortune = load("res://src/fortune/characters/water_mage.gd").new()
 		5:
 			mage_fortune = load("res://src/fortune/characters/chaos_mage.gd").new()
+		6:
+			mage_fortune = load("res://src/fortune/characters/lunar_mage.gd").new()
 		7:
 			mage_fortune = load("res://src/fortune/characters/void_mage.gd").new()

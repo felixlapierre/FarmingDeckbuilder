@@ -15,7 +15,7 @@ var shop_structure_place_callback
 var deck: Array[CardData]
 var cards: Cards
 var turn_ending = false
-var mage_fortune: MageAbility
+var mage_fortune: MageAbility = null
 
 var SELECT_CARD = preload("res://src/cards/select_card.tscn")
 var cards_database = preload("res://src/cards/cards_database.gd")
@@ -121,9 +121,23 @@ func update():
 		$UI/Stats/VBox/CardsHbox/Fragments.add_child(fragment)
 
 	#Blight Panels
-	$UI/BlightPanel.visible = turn_manager.target_blight > 0
-	$UI/BlightPanel/VBox/BlightCounter/Label.text = str(turn_manager.purple_mana) + " / " + str(turn_manager.target_blight) + " [img]res://assets/custom/PurpleMana.png[/img]"
-	$UI/BlightPanel/VBox/AttackLabel.text = "Blight Attack!" if turn_manager.purple_mana < turn_manager.target_blight else "Safe!"
+	$UI/BlightPanel.visible = turn_manager.target_blight > 0 or turn_manager.purple_mana > 0
+
+
+	if turn_manager.target_blight > 0:
+		$UI/BlightPanel/VBox/BlightCounter/Label.text = str(turn_manager.purple_mana) + " / " + str(turn_manager.target_blight) + " [img]res://assets/custom/PurpleMana.png[/img]"
+	else:
+		$UI/BlightPanel/VBox/BlightCounter/Label.text = str(turn_manager.purple_mana) + "[img]res://assets/custom/PurpleMana.png[/img]"
+	if turn_manager.purple_mana < turn_manager.target_blight:
+		$UI/BlightPanel/VBox/AttackLabel.text = "Blight Attack!"
+	elif turn_manager.purple_mana > turn_manager.target_blight and turn_manager.flag_defer_excess:
+		$UI/BlightPanel/VBox/AttackLabel.text = "Defer: " + str(turn_manager.purple_mana - turn_manager.target_blight) + Helper.blue_mana()
+	elif turn_manager.purple_mana > turn_manager.target_blight and turn_manager.target_blight == 0 and mage_fortune.name != "Lunar Mage":
+		$UI/BlightPanel/VBox/AttackLabel.text = "Wasted"
+	elif turn_manager.purple_mana > turn_manager.target_blight and mage_fortune.name == "Lunar Mage":
+		$UI/BlightPanel/VBox/AttackLabel.text = "Excess: " + str((turn_manager.purple_mana - turn_manager.target_blight) * mage_fortune.strength) + Helper.mana_icon()
+	else:
+		$UI/BlightPanel/VBox/AttackLabel.text = "Safe!"
 	
 	#Next turn blight
 	$UI/NextBlightPanel.visible = turn_manager.next_turn_blight > 0
@@ -256,7 +270,7 @@ func _on_farm_tiles_on_preview_yield(args) -> void:
 	var blightamt = turn_manager.purple_mana + purple
 	if purple != 0:
 		$UI/BlightPanel/VBox/BlightCounter/Label.text = "[color=9f78e3]"+ str(blightamt) + " / " + str(turn_manager.target_blight)
-		if turn_manager.target_blight == 0:
+		if turn_manager.target_blight == 0 and mage_fortune.name != "Lunar Mage" and !args.defer:
 			AlertDisplay.set_text(warning_waste_purple_text)
 	else:
 		$UI/BlightPanel/VBox/BlightCounter/Label.text = str(turn_manager.purple_mana) + " / " + str(turn_manager.target_blight)
@@ -269,8 +283,7 @@ func _on_farm_tiles_on_preview_yield(args) -> void:
 		var next_turn_amount = turn_manager.purple_mana + purple - turn_manager.target_blight
 		if next_turn_amount > 0:
 			$UI/NextBlightPanel/NextTurnLabel.text = "Attack\nNext Turn: [color=9f78e3]" + str(max(turn_manager.next_turn_blight - next_turn_amount, 0)) + "[/color]"
-	else:
-		$UI/NextBlightPanel/NextTurnLabel.text = "Attack\nNext Turn: " + str(turn_manager.next_turn_blight if turn_manager.next_turn_blight >= 0 else 0)
+	$UI/NextBlightPanel/NextTurnLabel.text = "Attack\nNext Turn: " + str(turn_manager.next_turn_blight if turn_manager.next_turn_blight >= 0 else 0)
 # Winter
 func set_winter_visible(visible):
 	$Winter.visible = visible
@@ -431,7 +444,7 @@ func create_fortune_display():
 		fortune_count += 1
 	for child in $UI/PassiveDisplay.get_children():
 		$UI/PassiveDisplay.remove_child(child)
-	if mage_fortune != null:
+	if mage_fortune.name.length() > 0:
 		var mage_fortune_hover = FORTUNE_HOVER.instantiate()
 		$UI/PassiveDisplay.add_child(mage_fortune_hover)
 		mage_fortune_hover.setup(mage_fortune)

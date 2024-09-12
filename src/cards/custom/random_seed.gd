@@ -1,8 +1,7 @@
 extends CardData
 class_name RandomSeed
 
-
-@export var strength = 0
+@export var strength = 1
 
 var callback: Callable
 var event_type = EventManager.EventType.BeforeCardPlayed
@@ -32,3 +31,13 @@ func copy():
 	new.assign(self)
 	new.strength = strength
 	return new
+
+func save_data() -> Dictionary:
+	var data = super.save_data()
+	data.strength = strength
+	return data
+
+func load_data(data: Dictionary):
+	super.load_data(data)
+	strength = data.strength
+	return data

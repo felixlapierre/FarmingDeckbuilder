@@ -33,9 +33,6 @@ func gain_yellow_mana(amount, delay):
 	if ritual_counter <= 0:
 		ritual_counter = 0
 		return true
-	if flag_defer_excess and purple_mana > target_blight:
-		next_turn_blight -= purple_mana - target_blight
-		purple_mana = target_blight
 	return false
 
 func gain_purple_mana(amount, delay):
@@ -49,10 +46,6 @@ func gain_purple_mana(amount, delay):
 			target_blight -= amount
 	else:
 		purple_mana += amount
-		if flag_defer_excess and purple_mana > target_blight:
-			next_turn_blight -= purple_mana - target_blight
-			purple_mana = target_blight
-	
 
 # Return boolean if the player took damage
 func end_turn():
@@ -67,7 +60,10 @@ func end_turn():
 	var blight_remaining = target_blight - purple_mana
 	blight_remaining = 0 if blight_remaining < 0 else blight_remaining
 	week += 1
-	purple_mana = 0
+	if !flag_defer_excess:
+		purple_mana = 0
+	else:
+		purple_mana -= target_blight
 	target_blight = next_turn_blight + blight_remaining
 	next_turn_blight = get_blight_requirements(week + 1, year)
 	energy = get_max_energy()

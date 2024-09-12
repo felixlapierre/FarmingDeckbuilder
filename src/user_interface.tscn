@@ -86,11 +86,13 @@ offset_bottom = 453.0
 [node name="VBox" type="VBoxContainer" parent="UI/BlightPanel"]
 layout_mode = 2
 
-[node name="AttackLabel" type="Label" parent="UI/BlightPanel/VBox"]
+[node name="AttackLabel" type="RichTextLabel" parent="UI/BlightPanel/VBox"]
 custom_minimum_size = Vector2(215, 0)
 layout_mode = 2
 theme = ExtResource("2_s7754")
+bbcode_enabled = true
 text = "Blight Attack!"
+fit_content = true
 
 [node name="BlightCounter" type="HBoxContainer" parent="UI/BlightPanel/VBox"]
 layout_mode = 2
