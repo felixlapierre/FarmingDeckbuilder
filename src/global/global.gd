@@ -34,6 +34,8 @@ static var WINTER_WEEK = 13
 static var FINAL_WEEK = 13
 
 static var FARM_TYPE = "FOREST"
+static var LUNAR_FARM = false
+static var MAGE: String = ""
 
 static var END_TURN_DISCARD = true
 
@@ -61,3 +63,5 @@ static func reset():
 	END_TURN_DISCARD = true
 	IRRIGATE_PROTECTED = false
 	MAX_HAND_SIZE = 10
+	LUNAR_FARM = false
+	MAGE = ""

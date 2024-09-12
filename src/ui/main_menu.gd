@@ -6,6 +6,7 @@ var playspace
 @onready var tutorial_game = $TutorialGame
 @onready var menu_root = $Root
 @onready var introduction = $Introduction
+@onready var tutorial_prompt = $TutorialPrompt
 @onready var difficulty_options = $Root/Grid/Panel/VBox/Margin/VBox/DifficultyBox/DiffOptions
 
 @onready var Stats = $Root/Grid/ContPanel/VBox/Margin/VBox/Grid/StatsLabel
@@ -42,9 +43,14 @@ func _ready():
 		$Root/Grid/Panel/VBox/Margin/VBox/CharacterBox/CharOptions.add_icon_item(fortune.icon, fortune.name, fortune.rank)
 	populate_continue_preview()
 	Settings.load_settings()
+	Unlocks.load_unlocks()
 	TutorialsCheck.button_pressed = Settings.TUTORIALS_ENABLED
 	DebugCheck.button_pressed = Settings.DEBUG
-
+	set_locked_options()
+	if !Unlocks.TUTORIAL_COMPLETE:
+		$Root.visible = false
+		$TutorialPrompt.visible = true
+	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
@@ -158,10 +164,12 @@ func _on_tutorials_check_pressed() -> void:
 func _on_debug_check_pressed() -> void:
 	Settings.DEBUG = DebugCheck.button_pressed
 	Settings.save_settings()
+	set_locked_options()
 
 
 func _on_tutorial_button_pressed():
 	menu_root.visible = false
+	tutorial_prompt.visible = false
 	introduction.visible = true
 	Global.FARM_TYPE = "FOREST"
 
@@ -170,9 +178,9 @@ func _on_story_start_button_pressed() -> void:
 	playspace = PLAYSPACE.instantiate()
 	playspace.set_script(load("res://src/tutorial/tutorial_game.gd"))
 	connect_main_menu_signal(playspace)
-	playspace.user_interface.mage_fortune = load("res://src/fortune/characters/blank_mage.gd")
 	Global.reset()
 	add_child(playspace)
+	playspace.user_interface.mage_fortune = load("res://src/fortune/characters/blank_mage.gd").new()
 	playspace.start_new_game()
 
 func connect_main_menu_signal(playspace):
@@ -184,8 +192,25 @@ func connect_main_menu_signal(playspace):
 		_on_diff_options_item_selected(difficulty)
 		$Root/Grid/Panel/VBox/Margin/VBox/FarmTypeBox/TypeOptions.selected = get_index_of_farm_type(Global.FARM_TYPE)
 		_on_type_options_item_selected(get_index_of_farm_type(Global.FARM_TYPE))
+		set_locked_options()
 		)
 
 
 func _on_char_options_item_selected(index: int) -> void:
 	mage_fortune = mages_map[index]
+
+func set_locked_options():
+	var farms = Unlocks.FARMS_UNLOCKED
+	for i in range(4):
+		$Root/Grid/Panel/VBox/Margin/VBox/FarmTypeBox/TypeOptions.set_item_disabled(i, !Settings.DEBUG && !Unlocks.FARMS_UNLOCKED[str(i)])
+	for i in range(2):
+		$Root/Grid/Panel/VBox/Margin/VBox/DifficultyBox/DiffOptions.set_item_disabled(i, !Settings.DEBUG && !Unlocks.DIFFICULTIES_UNLOCKED[str(i)])
+	for i in range(8):
+		$Root/Grid/Panel/VBox/Margin/VBox/CharacterBox/CharOptions.set_item_disabled(i, !Settings.DEBUG && !Unlocks.MAGES_UNLOCKED[str(i)])
+
+
+func _on_no_button_pressed() -> void:
+	tutorial_prompt.visible = false
+	menu_root.visible = true
+	Unlocks.TUTORIAL_COMPLETE = true
+	Unlocks.save_unlocks()

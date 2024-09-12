@@ -50,6 +50,7 @@ Difficulty: 1
 fit_content = true
 
 [node name="Deck" type="RichTextLabel" parent="Center/Panel/VBoxContainer/Grid"]
+custom_minimum_size = Vector2(385, 600)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -62,6 +63,16 @@ Inscribe x1
 Structures:
 Sprinkler x1
 Keg x2"
+
+[node name="UnlockedCaption" type="RichTextLabel" parent="Center/Panel/VBoxContainer/Grid"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+bbcode_enabled = true
+fit_content = true
+
+[node name="UnlockValue" type="RichTextLabel" parent="Center/Panel/VBoxContainer/Grid"]
+layout_mode = 2
+bbcode_enabled = true
 fit_content = true
 
 [node name="SendPics" type="Label" parent="Center/Panel/VBoxContainer"]

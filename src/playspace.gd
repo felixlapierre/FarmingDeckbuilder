@@ -107,6 +107,7 @@ func on_lose():
 	$UserInterface/UI/EndTurnButton.visible = false
 	$UserInterface/EndScreen.visible = true
 	$UserInterface/EndScreen.setup(turn_manager, deck, $FarmTiles)
+	$UserInterface/EndScreen.do_unlocks(turn_manager, deck)
 	$UserInterface/UI/Deck.visible = false
 	$UserInterface/UI/RitualPanel.visible = false
 
@@ -116,6 +117,7 @@ func on_win():
 	$UserInterface/UI/EndTurnButton.visible = false
 	$UserInterface/EndScreen.visible = true
 	$UserInterface/EndScreen.setup(turn_manager, deck, $FarmTiles)
+	$UserInterface/EndScreen.do_unlocks(turn_manager, deck)
 	$UserInterface/UI/Deck.visible = false
 	$UserInterface/UI/RitualPanel.visible = false
 

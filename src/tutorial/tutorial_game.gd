@@ -210,3 +210,8 @@ func year_four():
 	turn_manager.blight_pattern = [0, 0, 10, 0, 10, 5, 0, 15, 10, 0, 10, 0, 10, 10, 0, 10]
 	farming_explanation.visible = false
 	user_interface.EndScreen.hide_send_pics()
+
+func on_win():
+	super.on_win()
+	Unlocks.TUTORIAL_COMPLETE = true
+	Unlocks.save_unlocks()

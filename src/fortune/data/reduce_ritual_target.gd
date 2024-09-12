@@ -6,7 +6,7 @@ var event_type = EventManager.EventType.AfterYearStart
 var image = preload("res://assets/custom/YellowMana.png")
 
 func _init() -> void:
-	super("Fast Ritual", FortuneType.GoodFortune, "Decrease ritual target by 10%", 0, image)
+	super("Ritual Attunement", FortuneType.GoodFortune, "Decrease ritual target by 10%", 0, image)
 
 func register_fortune(event_manager: EventManager):
 	callback = func(args: EventArgs):

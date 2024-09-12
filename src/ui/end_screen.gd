@@ -73,3 +73,69 @@ func _on_main_menu_pressed() -> void:
 
 func hide_send_pics():
 	$Center/Panel/VBoxContainer/SendPics.visible = false
+
+func do_unlocks(turn_manager: TurnManager, deck: Array[CardData]):
+	if Global.DIFFICULTY == -1:
+		return #no unlocks in tutorial
+	var win = turn_manager.blight_damage < 5
+	var farms = []
+	var mages = []
+	var difficulties = []
+	var caption = $Center/Panel/VBoxContainer/Grid/UnlockedCaption
+	var value = $Center/Panel/VBoxContainer/Grid/UnlockValue
+	
+	#Normal
+	if !Unlocks.DIFFICULTIES_UNLOCKED["1"] and win:
+		Unlocks.DIFFICULTIES_UNLOCKED["1"] = true
+		difficulties.append("Normal")
+	
+	# Riverland Farm
+	if !Unlocks.FARMS_UNLOCKED["1"]:
+		Unlocks.FARMS_UNLOCKED["1"] = true
+		farms.append("Riverlands")
+	# Wilderness Farm
+	if !Unlocks.FARMS_UNLOCKED["2"] and win and Global.FARM_TYPE == "RIVERLANDS":
+		Unlocks.FARMS_UNLOCKED["2"] = true
+		farms.append("Wilderness")
+	# Mountain Farm
+	if !Unlocks.FARMS_UNLOCKED["3"] and win and Global.FARM_TYPE == "WILDERNESS":
+		Unlocks.FARMS_UNLOCKED["3"] = true
+		farms.append("Mountains")
+	
+	# Mages
+	if !Unlocks.MAGES_UNLOCKED["1"]:
+		Unlocks.MAGES_UNLOCKED["1"] = true
+		mages.append(IceMageFortune.MAGE_NAME)
+	if !Unlocks.MAGES_UNLOCKED["2"] and Global.FARM_TYPE == "RIVERLANDS":
+		Unlocks.MAGES_UNLOCKED["2"] = true
+		mages.append(WaterMage.MAGE_NAME)
+	if !Unlocks.MAGES_UNLOCKED["3"] and Global.MAGE == IceMageFortune.MAGE_NAME:
+		Unlocks.MAGES_UNLOCKED["3"] = true
+		mages.append(LunarMageFortune.MAGE_NAME)
+	if !Unlocks.MAGES_UNLOCKED["4"] and win and turn_manager.blight_damage >= 3:
+		Unlocks.MAGES_UNLOCKED["4"] = true
+		mages.append(BlightMageFortune.MAGE_NAME)
+	if !Unlocks.MAGES_UNLOCKED["5"] and win and deck.size() >= 18:
+		Unlocks.MAGES_UNLOCKED["5"] = true
+		mages.append(ChaosMageFortune.MAGE_NAME)
+	if !Unlocks.MAGES_UNLOCKED["6"] and win and Global.DIFFICULTY == 1:
+		Unlocks.MAGES_UNLOCKED["6"] = true
+		mages.append(FireMageFortune.MAGE_NAME)
+	if !Unlocks.MAGES_UNLOCKED["7"] and win and deck.any(func(card: CardData): return card.name == "Dark Rose"):
+		Unlocks.MAGES_UNLOCKED["7"] = true
+		mages.append(VoidMageFortune.MAGE_NAME)
+	
+	if difficulties.size() > 0:
+		for diff in difficulties:
+			caption.append_text("[color=gold]Unlocked New Difficulty![/color]\n")
+			value.append_text("[color=aqua]" + diff + "[/color]\n")
+	if farms.size() > 0:
+		for farm in farms:
+			caption.append_text("[color=gold]Unlocked New Farm![/color]\n")
+			value.append_text("[color=aqua]" + farm + "[/color]\n")
+	if mages.size() > 0:
+		for mage in mages:
+			caption.append_text("[color=gold]Unlocked New Character![/color]\n")
+			value.append_text("[color=aqua]" + mage + "[/color]\n")
+
+	Unlocks.save_unlocks()

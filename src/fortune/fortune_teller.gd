@@ -110,7 +110,8 @@ func add_bad_fortune(rank: int):
 func get_fortune(type: Fortune.FortuneType, rank: int):
 	var options = []
 	for fortune in fortune_map[type]:
-		if fortune.rank == rank and !current_fortunes.has(fortune):
+		if fortune.rank == rank and !current_fortunes.has(fortune) and !current_fortunes.any(func(current):
+			return fortune.name.split(" ")[0] == current.name.split(" ")[0]):
 			options.append(fortune)
 	options.shuffle()
 	return options[0]

@@ -2,7 +2,7 @@ extends MageAbility
 class_name LunarMageFortune
 
 var icon = preload("res://assets/card/temporal_rift.png")
-
+static var MAGE_NAME = "Lunar Priest"
 var strength = 0.5
 var event_type = EventManager.EventType.BeforeGrow
 var event_callable: Callable
@@ -11,9 +11,11 @@ var event_type_allblue = EventManager.EventType.AfterYearStart
 var allblue_callable: Callable
 
 func _init() -> void:
-	super("Lunar Priest", Fortune.FortuneType.GoodFortune, "Entire farm is blue. At the end of the turn, " + str(strength * 100) + "% of " + Helper.blue_mana() + "is converted to" + Helper.mana_icon(), 6, icon)
+	super(MAGE_NAME, Fortune.FortuneType.GoodFortune, "Entire farm is blue. At the end of the turn, " + str(strength * 100) + "% of " + Helper.blue_mana() + "is converted to" + Helper.mana_icon(), 3, icon)
 
 func register_fortune(event_manager: EventManager):
+	super.register_fortune(event_manager)
+	Global.LUNAR_FARM = true
 	allblue_callable = func(args: EventArgs):
 		for tile in args.farm.get_all_tiles():
 			tile.purple = true
@@ -27,5 +29,6 @@ func register_fortune(event_manager: EventManager):
 	event_manager.register_listener(event_type, event_callable)
 
 func unregister_fortune(event_manager: EventManager):
+	Global.LUNAR_FARM = false
 	event_manager.unregister_listener(event_type, event_callable)
 	event_manager.unregister_listener(event_type_allblue, allblue_callable)

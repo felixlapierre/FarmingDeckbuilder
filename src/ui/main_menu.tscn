@@ -270,6 +270,54 @@ theme_override_constants/margin_bottom = 20
 layout_mode = 2
 text = "Start"
 
+[node name="TutorialPrompt" type="CenterContainer" parent="."]
+visible = false
+custom_minimum_size = Vector2(1920, 1080)
+offset_right = 40.0
+offset_bottom = 40.0
+theme = ExtResource("1_l63em")
+
+[node name="Panel" type="PanelContainer" parent="TutorialPrompt"]
+layout_mode = 2
+
+[node name="Margin" type="MarginContainer" parent="TutorialPrompt/Panel"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBox" type="VBoxContainer" parent="TutorialPrompt/Panel/Margin"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="TutorialPrompt/Panel/Margin/VBox"]
+layout_mode = 2
+text = "Would you like to play a tutorial?"
+
+[node name="ReferenceRect" type="ReferenceRect" parent="TutorialPrompt/Panel/Margin/VBox"]
+custom_minimum_size = Vector2(30, 20)
+layout_mode = 2
+border_color = Color(1, 0, 0, 0)
+
+[node name="HBox" type="HBoxContainer" parent="TutorialPrompt/Panel/Margin/VBox"]
+layout_mode = 2
+
+[node name="YesButton" type="Button" parent="TutorialPrompt/Panel/Margin/VBox/HBox"]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Play Tutorial"
+
+[node name="ReferenceRect" type="ReferenceRect" parent="TutorialPrompt/Panel/Margin/VBox/HBox"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+border_color = Color(1, 0, 0, 0)
+
+[node name="NoButton" type="Button" parent="TutorialPrompt/Panel/Margin/VBox/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Skip Tutorial"
+
 [connection signal="item_selected" from="Root/Grid/Panel/VBox/Margin/VBox/FarmTypeBox/TypeOptions" to="." method="_on_type_options_item_selected"]
 [connection signal="item_selected" from="Root/Grid/Panel/VBox/Margin/VBox/DifficultyBox/DiffOptions" to="." method="_on_diff_options_item_selected"]
 [connection signal="item_selected" from="Root/Grid/Panel/VBox/Margin/VBox/CharacterBox/CharOptions" to="." method="_on_char_options_item_selected"]
@@ -279,3 +327,5 @@ text = "Start"
 [connection signal="pressed" from="Root/Grid/SettingsPanel/Margin/VBox/DebugCheck" to="." method="_on_debug_check_pressed"]
 [connection signal="pressed" from="Root/Grid/TutorialPanel/TutorialButton" to="." method="_on_tutorial_button_pressed"]
 [connection signal="pressed" from="Introduction/Panel/VBox/MarginContainer/StoryStartButton" to="." method="_on_story_start_button_pressed"]
+[connection signal="pressed" from="TutorialPrompt/Panel/Margin/VBox/HBox/YesButton" to="." method="_on_tutorial_button_pressed"]
+[connection signal="pressed" from="TutorialPrompt/Panel/Margin/VBox/HBox/NoButton" to="." method="_on_no_button_pressed"]
