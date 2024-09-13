@@ -31,7 +31,7 @@ func is_card_eligible(card: CardData):
 		return false
 	match name:
 		"Size":
-			return card.size < 9
+			return card.size < 9 and card.size > 0
 		"Discount":
 			return card.cost > 0
 		"GrowSpeed", "FlatYield", "Regrow":
