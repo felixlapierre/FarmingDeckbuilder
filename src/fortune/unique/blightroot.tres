@@ -29,3 +29,4 @@ texture_icon_offset = 16
 targets = Array[String]([])
 effects = Array[ExtResource("1_ojs3i")]([SubResource("Resource_qlklo")])
 enhances = Array[String]([])
+strength = 0

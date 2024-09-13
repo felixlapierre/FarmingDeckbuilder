@@ -29,3 +29,4 @@ texture_icon_offset = 16
 targets = Array[String](["Mature", "Growing"])
 effects = Array[ExtResource("1_wow6b")]([SubResource("Resource_0np7m")])
 enhances = Array[String]([])
+strength = 0.0

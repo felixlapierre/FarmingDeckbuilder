@@ -4,8 +4,6 @@ class_name YieldToRandomBlight
 var callback: Callable
 var event_type = EventManager.EventType.BeforeCardPlayed
 
-@export var strength = 1
-var yield_added = 7
 var blighroot_seed = load("res://src/fortune/unique/blightroot.tres")
 
 # To be overridden by specific code seeds
@@ -22,7 +20,7 @@ func register_events(event_manager: EventManager, p_tile: Tile):
 		eligible_blightroot.shuffle()
 		var i = 0
 		while i < eligible.size() and i < args.turn_manager.blight_damage:
-			eligible[i].add_yield(yield_added + strength)
+			eligible[i].add_yield(self.strength)
 			i += 1
 		i = 0
 		while i < eligible_blightroot.size() and i < args.turn_manager.blight_damage:
@@ -32,12 +30,11 @@ func register_events(event_manager: EventManager, p_tile: Tile):
 
 func unregister_events(event_manager: EventManager):
 	event_manager.unregister_listener(event_type, callback)
-	
-func get_description() -> String:
-	var descr = super.get_description()
-	return descr.replace("{STRENGTH}", str(yield_added + strength))
 
 func copy():
 	var new = YieldToRandomBlight.new()
 	new.assign(self)
 	return new
+
+func can_strengthen_custom_effect():
+	return true

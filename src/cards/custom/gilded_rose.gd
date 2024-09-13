@@ -1,8 +1,6 @@
 extends CardData
 class_name GildedRose
 
-@export var strength: float = 1.0
-
 var callback: Callable
 var event_type = EventManager.EventType.OnPlantHarvest
 var my_tile
@@ -20,7 +18,7 @@ func register_seed_events(event_manager: EventManager, p_tile: Tile):
 		if tile == my_tile:
 			var harvest_args = EventArgs.HarvestArgs.new(Global.GILDED_ROSE_TALLY, tile.purple, false)
 			args.farm.gain_yield(tile, harvest_args)
-			Global.GILDED_ROSE_TALLY += strength
+			Global.GILDED_ROSE_TALLY += self.strength
 	event_manager.register_listener(event_type, callback)
 	event_manager.register_listener(EventManager.EventType.BeforeYearStart, func(args: EventArgs):
 		Global.GILDED_ROSE_TALLY = 0.0)

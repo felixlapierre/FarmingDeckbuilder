@@ -47,6 +47,8 @@ func is_card_eligible(card: CardData):
 		"RemoveBurn":
 			return card.get_effect("burn") != null
 		"Strength":
+			if card.can_strengthen_custom_effect():
+				return true
 			for effect in card.effects:
 				if effect.strength != 0:
 					return true

@@ -1,8 +1,6 @@
 extends CardData
 class_name Hyacinth
 
-@export var strength: float = 1.0
-
 var callback: Callable
 var event_type = EventManager.EventType.OnPlantHarvest
 var my_tile

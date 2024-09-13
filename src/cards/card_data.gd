@@ -20,10 +20,11 @@ const CLASS_NAME = "CardData"
 @export var targets: Array[String]
 @export var effects: Array[Effect]
 @export var enhances: Array[String]
+@export var strength: float
 
 func _init(p_type = "CARD", p_name = "PlaceholderCardName", p_rarity = "common", p_cost = 1, p_yld = 1,\
 	p_time = 1, p_size = 1, p_text = "", p_texture = null, p_seed_texture = 1, p_targets = [], p_effects = [],\
-	p_strength_increment = 1.0, p_size_increment = 1, p_text_icon_offset = 16, p_enhances = []):
+	p_strength_increment = 1.0, p_size_increment = 1, p_text_icon_offset = 16, p_enhances = [], p_strength = 0):
 		type = p_type
 		name = p_name
 		rarity = p_rarity
@@ -40,6 +41,7 @@ func _init(p_type = "CARD", p_name = "PlaceholderCardName", p_rarity = "common",
 		strength_increment = p_strength_increment
 		size_increment = p_size_increment
 		texture_icon_offset = p_text_icon_offset
+		strength = p_strength
 
 func get_effect(effect_name):
 	for effect in effects:
@@ -72,6 +74,7 @@ func assign(other: CardData) -> void:
 	strength_increment = other.strength_increment
 	size_increment = other.size_increment
 	texture_icon_offset = other.texture_icon_offset
+	strength = other.strength
 
 func apply_enhance(enhance: Enhance):
 	var n_card = copy()
@@ -112,6 +115,8 @@ func apply_enhance(enhance: Enhance):
 	return n_card
 
 func apply_strength(enhance: Enhance):
+	if can_strengthen_custom_effect():
+		strength += enhance.strength * strength_increment
 	for effect in effects:
 		if effect.strength > 0.0:
 			effect.strength += enhance.strength * strength_increment
@@ -128,7 +133,7 @@ func get_description() -> String:
 			if descr.length() > 0:
 				descr += ". "
 			descr += effect_text
-	return descr
+	return descr.replace("{STRENGTH}", str(strength))
 
 # To be overridden by specific code seeds
 func register_events(event_manager: EventManager, tile: Tile):
@@ -166,7 +171,8 @@ func save_data() -> Dictionary:
 		"strength_increment": strength_increment,
 		"size_increment": size_increment,
 		"texture_icon_offset": texture_icon_offset,
-		"enhances": enhances
+		"enhances": enhances,
+		"strength": strength
 	}
 	return save_dict
 
@@ -190,4 +196,9 @@ func load_data(data) -> CardData:
 	strength_increment = data.strength_increment
 	size_increment = data.size_increment
 	texture_icon_offset = data.texture_icon_offset
+	strength = data.strength
 	return self
+
+# Override with true in subclasses that use the strength member variable
+func can_strengthen_custom_effect():
+	return false
