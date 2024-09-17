@@ -149,8 +149,10 @@ func on_upgrade(upgrade: Upgrade):
 			deck.erase(upgrade.card)
 		Upgrade.UpgradeType.EnergyFragment:
 			Global.ENERGY_FRAGMENTS += int(upgrade.strength)
+			user_interface.create_fortune_display()
 		Upgrade.UpgradeType.CardFragment:
 			Global.SCROLL_FRAGMENTS += int(upgrade.strength)
+			user_interface.create_fortune_display()
 		Upgrade.UpgradeType.GainMoney:
 			$UserInterface/Shop.player_money += int(upgrade.strength)
 			$UserInterface/Shop.update_labels()

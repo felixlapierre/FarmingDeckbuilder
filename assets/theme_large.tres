@@ -3,11 +3,7 @@
 [ext_resource type="FontFile" uid="uid://drlkmr7jve2ep" path="res://assets/m5x7.ttf" id="1_iv030"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vtyjs"]
-bg_color = Color(0.184314, 0.184314, 0.184314, 0.984314)
-border_width_left = 5
-border_width_top = 5
-border_width_right = 5
-border_width_bottom = 5
+bg_color = Color(0.325441, 0.325441, 0.325441, 1)
 border_color = Color(0.137255, 0.137255, 0.137255, 1)
 
 [resource]

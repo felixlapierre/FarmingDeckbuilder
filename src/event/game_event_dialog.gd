@@ -2,7 +2,7 @@ extends Node2D
 
 var current_event: GameEvent
 var completed_events: Array[GameEvent] = []
-var always_do_event: GameEvent = null#preload("res://src/event/data/trader_uncommon.tres")
+var always_do_event: GameEvent = preload("res://src/event/data/mana_flux.tres")
 
 signal on_upgrades_selected
 
@@ -65,8 +65,7 @@ func update_option(flavor: String, upgrades: Array[Upgrade], button: Button):
 		if text.length() > flavor.length(): # if at least one upgrade had text
 			text += ")"
 		button.text = text
-		if tooltip.length() > 0:
-			button.tooltip_text = tooltip 
+		button.tooltip_text = tooltip 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:

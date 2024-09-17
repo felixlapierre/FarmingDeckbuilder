@@ -316,9 +316,6 @@ offset_bottom = 501.0
 [node name="BlightDamage" type="HBoxContainer" parent="UI/DamagePanel"]
 layout_mode = 2
 
-[node name="PassiveDisplay" type="Node2D" parent="UI"]
-position = Vector2(223, 4)
-
 [node name="AlertContainer" parent="." instance=ExtResource("18_ih37u")]
 visible = false
 offset_left = 0.0
@@ -417,6 +414,9 @@ visible = false
 
 [node name="Tooltip" parent="." instance=ExtResource("20_dvki6")]
 visible = false
+
+[node name="PassiveDisplay" type="Node2D" parent="."]
+position = Vector2(225, 0)
 
 [connection signal="pressed" from="UI/EndTurnButton" to="." method="_on_end_turn_button_pressed"]
 [connection signal="pressed" from="UI/Deck/DeckPeek" to="." method="_on_deck_peek_pressed"]

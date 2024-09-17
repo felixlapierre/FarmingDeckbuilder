@@ -45,6 +45,7 @@ func do_card_pick(cards_input, prompt_text):
 		if !display_only:
 			display_card.on_clicked.connect(on_card_selected)
 		$SelectContainer/CardContainer.add_child(display_card)
+		$ConfirmContainer/ConfirmVbox/EnhanceLabel.visible = enhance != null
 
 func do_enhance_pick(cards_input, p_enhance: Enhance, prompt_text):
 	cards = []

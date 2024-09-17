@@ -24,6 +24,31 @@ func setup(fortune: Fortune):
 	fortune_texture.texture = fortune.texture
 	button.texture_normal = fortune.texture
 
+func setup_custom(name: String, text: String, texture: Texture2D, count: int):
+	fortune_name.text = name
+	fortune_descr.text = text
+	fortune_texture.texture = texture
+	button.texture_normal = texture
+	if count > 0:
+		$Label.text = str(count)
+		$Label.visible = true
+	else:
+		$Label.visible = false
+
+func setup_energy_fragments():
+	var count = Global.ENERGY_FRAGMENTS
+	var name = "Energy Fragment" + ("s" if count > 0 else "")
+	var desc = "Each fragment grants one energy every 1 out of 3 turns"
+	var texture = load("res://assets/custom/EnergyFrag.png")
+	setup_custom(name, desc, texture, count)
+
+func setup_card_fragments():
+	var count = Global.SCROLL_FRAGMENTS
+	var name = "Card Fragment" + ("s" if count > 0 else "")
+	var desc = "Each fragment grants one extra card draw every 1 out of 3 turns"
+	var texture = load("res://assets/custom/CardFragment.png")
+	setup_custom(name, desc, texture, count)
+
 func _on_button_mouse_entered() -> void:
 	fortune_display.visible = true
 	hover = true

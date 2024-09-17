@@ -27,7 +27,7 @@ func can_strengthen_custom_effect():
 func preview_yield(tile: Tile):
 	var purple = 0
 	if tile.state == Enums.TileState.Growing:
-		purple = 1
+		purple = self.strength
 	return {
 		"purple": purple,
 		"yellow": 0,

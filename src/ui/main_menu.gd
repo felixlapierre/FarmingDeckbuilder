@@ -60,19 +60,20 @@ func _on_diff_options_item_selected(index):
 
 func _on_start_button_pressed():
 	menu_root.visible = false
+	Global.reset()
 	playspace = PLAYSPACE.instantiate()
 	connect_main_menu_signal(playspace)
 	add_child(playspace)
 	playspace.user_interface.mage_fortune = mage_fortune
-	Global.reset()
+
 	playspace.start_new_game()
 
 func _on_continue_button_pressed():
 	menu_root.visible = false
+	Global.reset()
 	playspace = PLAYSPACE.instantiate()
 	connect_main_menu_signal(playspace)
 	add_child(playspace)
-	Global.reset()
 	playspace.load_game()
 
 
@@ -175,10 +176,10 @@ func _on_tutorial_button_pressed():
 
 func _on_story_start_button_pressed() -> void:
 	introduction.visible = false
+	Global.reset()
 	playspace = PLAYSPACE.instantiate()
 	playspace.set_script(load("res://src/tutorial/tutorial_game.gd"))
 	connect_main_menu_signal(playspace)
-	Global.reset()
 	add_child(playspace)
 	playspace.user_interface.mage_fortune = load("res://src/fortune/characters/blank_mage.gd").new()
 	playspace.start_new_game()

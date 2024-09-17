@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://dvjkkex6w162i"]
+[gd_scene load_steps=5 format=3 uid="uid://dvjkkex6w162i"]
 
 [ext_resource type="Script" path="res://src/upgrade/upgrade_shop.gd" id="1_tdv4b"]
 [ext_resource type="Theme" uid="uid://c21dhy264y6ty" path="res://assets/theme_large.tres" id="2_8i71s"]
 [ext_resource type="Texture2D" uid="uid://i3hxrkvy84y4" path="res://assets/custom/Star.png" id="2_jv3eb"]
+[ext_resource type="PackedScene" uid="uid://cudyk4owfvepm" path="res://src/tutorial/explanation.tscn" id="4_yruyp"]
 
 [node name="UpgradeShop" type="Node2D"]
 z_index = 2
@@ -57,10 +58,11 @@ text = "Energy Fragment
 
 [node name="Draw" type="Button" parent="Panel/VBox"]
 layout_mode = 2
-text = "Draw Fragment
+text = "Card Fragment
 "
 
 [node name="Capacity" type="Button" parent="Panel/VBox"]
+visible = false
 layout_mode = 2
 disabled = true
 text = "+2 Capacity"
@@ -81,6 +83,9 @@ text = "+3"
 layout_mode = 2
 texture = ExtResource("2_jv3eb")
 expand_mode = 2
+
+[node name="Explanation" parent="." instance=ExtResource("4_yruyp")]
+position = Vector2(506, 5)
 
 [connection signal="pressed" from="ClickOutButton" to="." method="_on_click_out_button_pressed"]
 [connection signal="pressed" from="Panel/VBox/HBox/Close" to="." method="_on_click_out_button_pressed"]

@@ -157,6 +157,8 @@ func update():
 	$UI/Deck/DeckCount.text = "Deck: " + str(cards.get_deck_info().size())
 	$UI/Deck/DiscardCount.text = "Discard: " + str(cards.get_discard_info().size())
 	$Obelisk.value = turn_manager.ritual_counter
+	
+	$UpgradeShop.update()
 
 # Fortune Teller
 func _on_fortune_teller_button_pressed() -> void:
@@ -442,14 +444,22 @@ func create_fortune_display():
 		$UI/FortuneDisplay.add_child(fortune_hover)
 		fortune_hover.setup(fortune)
 		fortune_count += 1
-	for child in $UI/PassiveDisplay.get_children():
-		$UI/PassiveDisplay.remove_child(child)
+	for child in $PassiveDisplay.get_children():
+		$PassiveDisplay.remove_child(child)
 	if mage_fortune.name.length() > 0:
 		var mage_fortune_hover = FORTUNE_HOVER.instantiate()
-		$UI/PassiveDisplay.add_child(mage_fortune_hover)
+		$PassiveDisplay.add_child(mage_fortune_hover)
 		mage_fortune_hover.setup(mage_fortune)
-
-	
+	if Global.ENERGY_FRAGMENTS > 0:
+		var energy_fragments = FORTUNE_HOVER.instantiate()
+		$PassiveDisplay.add_child(energy_fragments)
+		energy_fragments.position += Vector2(50, 0) * ($PassiveDisplay.get_child_count() - 1)
+		energy_fragments.setup_energy_fragments()
+	if Global.SCROLL_FRAGMENTS > 0:
+		var card_fragments = FORTUNE_HOVER.instantiate()
+		$PassiveDisplay.add_child(card_fragments)
+		card_fragments.position += Vector2(50, 0) * ($PassiveDisplay.get_child_count() - 1)
+		card_fragments.setup_card_fragments()
 	
 func save_data(save_json):
 	if save_json.state.winter:

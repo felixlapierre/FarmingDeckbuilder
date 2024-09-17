@@ -30,7 +30,7 @@ func can_strengthen_custom_effect():
 func preview_yield(tile: Tile):
 	var purple = 0
 	if has_no_plant(tile):
-		purple = 1
+		purple = self.strength
 	return {
 		"purple": purple,
 		"yellow": 0,
