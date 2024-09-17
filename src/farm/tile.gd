@@ -326,6 +326,7 @@ func remove_blight():
 	else:
 		state = Enums.TileState.Empty
 	$Farmland.modulate = Color8(255, 255, 255)
+	update_display()
 
 func set_tile_size(n_size: Vector2):
 	scale = n_size / Vector2(16, 16)

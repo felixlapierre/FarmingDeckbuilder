@@ -140,7 +140,7 @@ func show_select_overlay():
 			var targeted_tile = tiles[item.x][item.y]
 			error = !is_eligible(targets, targeted_tile)
 			if Global.selected_card != null:
-				var preview = preview_yield(Global.selected_card, targeted_tile)
+				var preview = Global.selected_card.preview_yield(targeted_tile)
 				yld_preview_purple += preview.purple
 				yld_preview_yellow += preview.yellow
 				yld_preview_defer = yld_preview_defer or preview.defer

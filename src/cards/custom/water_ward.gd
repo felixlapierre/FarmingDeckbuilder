@@ -23,3 +23,13 @@ func copy():
 
 func can_strengthen_custom_effect():
 	return true
+
+func preview_yield(tile: Tile):
+	var purple = 0
+	if tile.irrigated and tile.state != Enums.TileState.Inactive:
+		purple = 1
+	return {
+		"purple": purple,
+		"yellow": 0,
+		"defer": false
+	}

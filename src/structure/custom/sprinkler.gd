@@ -1,5 +1,5 @@
 extends Structure
-class_name Harvester
+class_name Sprinkler
 
 var callback: Callable
 
@@ -9,18 +9,15 @@ func _init():
 	super()
 
 func copy():
-	var copy = Harvester.new()
+	var copy = Sprinkler.new()
 	copy.assign(self)
 	return copy
 
 func register_events(event_manager: EventManager, tile: Tile):
 	callback = func(args: EventArgs):
 		for target_tile in args.farm.get_all_tiles():
-			if Helper.is_adjacent(target_tile.grid_location, tile.grid_location)\
-				and target_tile.state == Enums.TileState.Mature:
-				var effects = target_tile.harvest(false)
-				args.farm.effect_queue.append_array(effects)
-		args.farm.process_effect_queue()
+			if Helper.is_adjacent(target_tile.grid_location, tile.grid_location):
+				target_tile.irrigate()
 	event_manager.register_listener(event_type, callback)
 
 func unregister_events(event_manager: EventManager):

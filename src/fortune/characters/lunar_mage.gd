@@ -3,7 +3,7 @@ class_name LunarMageFortune
 
 var icon = preload("res://assets/card/temporal_rift.png")
 static var MAGE_NAME = "Lunar Priest"
-var strength = 0.5
+var strength = 0.7
 var event_type = EventManager.EventType.BeforeGrow
 var event_callable: Callable
 
