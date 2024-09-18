@@ -262,7 +262,11 @@ func get_effects(time) -> Array[Effect]:
 	if seed != null:
 		for effect in seed.effects:
 			if effect.on == time:
-				effects_generated.append(effect.copy().set_location(grid_location).set_card(seed))
+				if effect.range == "adjacent":
+					var shape = Helper.get_tile_shape_rotated(9, Enums.CursorShape.Square, 0)
+					effects_generated.append_array(get_effects_in_shape(effect, shape))
+				else:
+					effects_generated.append(effect.copy().set_location(grid_location).set_card(seed))
 
 	return effects_generated
 
@@ -295,6 +299,7 @@ func destroy():
 	state = Enums.TileState.Destroyed
 	$Farmland.modulate = COLOR_DESTROYED
 	notify_destroyed()
+	notify_tile_destroyed()
 	remove_seed()
 	update_purple_overlay()
 	$DestroyParticles.emitting = true
@@ -318,6 +323,10 @@ func notify_harvest(delay: bool) -> EventArgs.HarvestArgs:
 
 func notify_destroyed():
 	event_manager.notify_specific_args(EventManager.EventType.OnPlantDestroyed,\
+		EventArgs.SpecificArgs.new(self))
+
+func notify_tile_destroyed():
+	event_manager.notify_specific_args(EventManager.EventType.OnTileDestroyed,\
 		EventArgs.SpecificArgs.new(self))
 
 func remove_blight():

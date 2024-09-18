@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="Channeling" load_steps=3 format=3 uid="uid://c31lf2tqgus8b"]
+
+[ext_resource type="Script" path="res://src/cards/custom/invigowater.gd" id="1_50hb3"]
+[ext_resource type="Texture2D" uid="uid://c46q76532nqk" path="res://assets/custom/Temp.png" id="2_vsf2n"]
+
+[resource]
+script = ExtResource("1_50hb3")
+type = "ACTION"
+name = "Channeling"
+rarity = "common"
+cost = 1
+yld = 0
+time = 0
+size = -1
+text = "Add {STRENGTH} [img]res://assets/custom/YellowMana16.png[/img] to all watered tiles"
+strength_increment = 1.0
+size_increment = 1
+texture = ExtResource("2_vsf2n")
+seed_texture = 0
+texture_icon_offset = 16
+targets = Array[String](["Growing", "Mature"])
+effects = Array[Resource("res://src/effect/effect.gd")]([])
+enhances = Array[String]([])
+strength = 1.0
