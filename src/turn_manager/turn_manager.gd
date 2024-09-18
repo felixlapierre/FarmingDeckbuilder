@@ -161,14 +161,15 @@ func set_blight_targeted_tiles(farm: Farm):
 		if target_tile_states.has(tile.state) && !tile.is_protected():
 			valid_targets.append(tile)
 	# In case we are targeting only growing plants and there aren't enough
-	while valid_targets.size() < number_tiles:
+	if valid_targets.size() < number_tiles:
 		for tile in all_tiles:
 			if [Enums.TileState.Empty, Enums.TileState.Mature].has(tile.state) && !tile.is_protected():
 				valid_targets.append(tile)
 				if valid_targets.size() >= number_tiles:
 					break
-	for target in valid_targets:
-		target.set_blight_targeted(true)
+	for i in range(number_tiles):
+		if i < valid_targets.size():
+			valid_targets[i].set_blight_targeted(true)
 
 func destroy_blighted_tiles(farm: Farm):
 	farm.destroy_blighted_tiles()
