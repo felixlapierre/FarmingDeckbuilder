@@ -1,7 +1,7 @@
 extends MageAbility
 class_name ChaosMageFortune
 
-var icon = preload("res://assets/custom/Focus.png")
+var icon = preload("res://assets/card/wild-magic.png")
 static var MAGE_NAME = "Spawn of Chaos"
 
 var event_type = EventManager.EventType.BeforeCardPlayed

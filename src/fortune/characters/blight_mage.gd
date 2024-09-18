@@ -1,7 +1,7 @@
 extends MageAbility
 class_name BlightMageFortune
 
-var icon = preload("res://assets/custom/Blight.png")
+var icon = preload("res://assets/card/corruption.png")
 static var MAGE_NAME = "Blight Druid"
 var event_type = EventManager.EventType.BeforeCardPlayed
 var event_callable: Callable

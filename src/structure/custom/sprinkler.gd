@@ -3,7 +3,8 @@ class_name Sprinkler
 
 var callback: Callable
 
-var event_type = EventManager.EventType.BeforeTurnStart
+var event_type = EventManager.EventType.BeforeYearStart
+var event2 = EventManager.EventType.AfterGrow
 
 func _init():
 	super()
@@ -19,6 +20,8 @@ func register_events(event_manager: EventManager, tile: Tile):
 			if Helper.is_adjacent(target_tile.grid_location, tile.grid_location):
 				target_tile.irrigate()
 	event_manager.register_listener(event_type, callback)
+	event_manager.register_listener(event2, callback)
 
 func unregister_events(event_manager: EventManager):
+	event_manager.unregister_listener(event_type, callback)
 	event_manager.unregister_listener(event_type, callback)

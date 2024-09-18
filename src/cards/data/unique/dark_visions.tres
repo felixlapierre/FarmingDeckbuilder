@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="DrawBlight" load_steps=3 format=3 uid="uid://dpmgmskgoe2du"]
 
 [ext_resource type="Script" path="res://src/cards/custom/draw_blight.gd" id="1_tafo3"]
-[ext_resource type="Texture2D" uid="uid://c46q76532nqk" path="res://assets/custom/Temp.png" id="2_2grlh"]
+[ext_resource type="Texture2D" uid="uid://drtqykwkleiin" path="res://assets/card/dark_visions.png" id="2_8ett1"]
 
 [resource]
 script = ExtResource("1_tafo3")
@@ -15,7 +15,7 @@ size = 0
 text = "Draw 1 card for each [img]res://assets/custom/Blight.png[/img]"
 strength_increment = 1.0
 size_increment = 1
-texture = ExtResource("2_2grlh")
+texture = ExtResource("2_8ett1")
 seed_texture = 0
 texture_icon_offset = 16
 targets = Array[String]([])
