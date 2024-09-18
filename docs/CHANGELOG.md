@@ -1,5 +1,18 @@
 # Changelog
 
+## Version 0.0.4
+
+Released Sept 17th
+
+#### Features
+
+- Added character selection. Each mage has their own unique ability.
+- Added new cards (Water Ward, Wild Magic, Corruption, Bloodrite, Dark Visions)
+- Added smart targeting to make it much easier to place seeds on the farm where you want to
+- Harvester targets only 8 tiles now.
+- Custom cards now work with yield preview
+- Various quality of life improvements 
+
 ## Version 0.0.3
 
 Released Sept 10th
