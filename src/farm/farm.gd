@@ -77,7 +77,7 @@ func use_card(grid_position):
 				card.cost = 1
 	var targets = get_targeted_tiles(grid_position, Global.selected_card, Global.selected_card.size, Global.shape, Global.rotate)
 	card.register_events(event_manager, null)
-	var args = EventArgs.SpecificArgs.new(null)
+	var args = EventArgs.SpecificArgs.new(tiles[grid_position.x][grid_position.y])
 	args.play_args = EventArgs.PlayArgs.new(card)
 	event_manager.notify_specific_args(EventManager.EventType.BeforeCardPlayed, args)
 	use_card_on_targets(card, targets, false)

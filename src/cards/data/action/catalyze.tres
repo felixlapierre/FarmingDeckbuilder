@@ -1,7 +1,15 @@
-[gd_resource type="Resource" script_class="Catalyze" load_steps=3 format=3 uid="uid://cup12bmgqte7v"]
+[gd_resource type="Resource" script_class="Catalyze" load_steps=5 format=3 uid="uid://cup12bmgqte7v"]
 
+[ext_resource type="Script" path="res://src/effect/effect.gd" id="1_1esau"]
 [ext_resource type="Script" path="res://src/cards/custom/catalyze.gd" id="1_8xeex"]
 [ext_resource type="Texture2D" uid="uid://c46q76532nqk" path="res://assets/custom/Temp.png" id="2_2u5nu"]
+
+[sub_resource type="Resource" id="Resource_4f1op"]
+script = ExtResource("1_1esau")
+name = "destroy_tile"
+strength = 0.0
+on = "play"
+range = "self"
 
 [resource]
 script = ExtResource("1_8xeex")
@@ -12,13 +20,13 @@ cost = 1
 yld = null
 time = null
 size = 4
-text = "Destroy targeted tiles and gain 1 energy per tile destroyed"
+text = "Gain 1 energy per tile destroyed"
 strength_increment = 1.0
 size_increment = 1
 texture = ExtResource("2_2u5nu")
 seed_texture = 0
 texture_icon_offset = 16
 targets = Array[String](["Empty", "Growing", "Mature"])
-effects = Array[Resource("res://src/effect/effect.gd")]([])
+effects = Array[ExtResource("1_1esau")]([SubResource("Resource_4f1op")])
 enhances = Array[String]([])
 strength = 0.0
