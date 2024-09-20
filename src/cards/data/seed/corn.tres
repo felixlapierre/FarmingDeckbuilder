@@ -1,7 +1,6 @@
-[gd_resource type="Resource" script_class="Corn" load_steps=3 format=3 uid="uid://bl0b66ym1c475"]
+[gd_resource type="Resource" script_class="Corn" load_steps=2 format=3 uid="uid://bl0b66ym1c475"]
 
 [ext_resource type="Script" path="res://src/cards/custom/corn.gd" id="1_gvkj5"]
-[ext_resource type="Texture2D" uid="uid://c46q76532nqk" path="res://assets/custom/Temp.png" id="2_irprx"]
 
 [resource]
 script = ExtResource("1_gvkj5")
@@ -12,11 +11,10 @@ cost = 1
 yld = 20
 time = 3
 size = 1
-text = "For each card burned while growing, draw 1 card on harvest"
+text = "For each card burned while growing, plant a Popcorn on a random tile"
 strength_increment = 1.0
 size_increment = 1
-texture = ExtResource("2_irprx")
-seed_texture = 0
+seed_texture = 1
 texture_icon_offset = 16
 targets = Array[String]([])
 effects = Array[Resource("res://src/effect/effect.gd")]([])

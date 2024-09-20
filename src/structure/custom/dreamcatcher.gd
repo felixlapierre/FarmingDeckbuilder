@@ -9,7 +9,7 @@ func _init():
 	super()
 
 func copy():
-	var copy = Beehive.new()
+	var copy = Dreamcatcher.new()
 	copy.assign(self)
 	return copy
 

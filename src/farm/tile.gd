@@ -21,6 +21,9 @@ var structure_rotate = 0
 var blight_targeted = false
 var destroy_targeted = false
 
+var destroyed = false
+var blighted = false
+
 signal tile_hovered
 signal on_event
 signal on_yield_gained

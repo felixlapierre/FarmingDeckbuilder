@@ -385,7 +385,8 @@ func use_card_random_tile(card: CardData, times: int):
 	if tiles.size() == 0:
 		return
 	for i in range(times):
-		locations.append(tiles[i].grid_location)
+		if i < tiles.size():
+			locations.append(tiles[i].grid_location)
 	use_card_on_targets(card, locations, false)
 
 func use_card_unprotected_tile(card: CardData, times: int):

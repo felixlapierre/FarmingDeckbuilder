@@ -13,7 +13,7 @@ func register_seed_events(event_manager: EventManager, p_tile: Tile):
 	event_manager.register_listener(EventManager.EventType.BeforeTurnStart, callback)
 
 func unregister_seed_events(event_manager: EventManager):
-	event_manager.unregister_listener(EventManager.EventType.OnPlantDestroyed, callback)
+	event_manager.unregister_listener(EventManager.EventType.BeforeTurnStart, callback)
 
 func get_description() -> String:
 	var descr: String = super.get_description()
