@@ -209,7 +209,7 @@ func preview_yield(tile: Tile):
 	var defer = get_effect("harvest_delay") != null
 	if (get_effect("harvest") != null\
 		or get_effect("harvest_delay") != null)\
-		and targets.has(Enums.TileState.keys()[tile.state]):
+		and tile.card_can_target(self):
 		var harvest: EventArgs.HarvestArgs = tile.preview_harvest()
 		if harvest.purple:
 			yld_purple += harvest.yld

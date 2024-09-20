@@ -218,7 +218,7 @@ func save_game():
 	for tile: Tile in $FarmTiles.get_all_tiles():
 		if tile.structure != null:
 			save_json.structures.append(tile.structure.save_data())
-		if tile.state == Enums.TileState.Blighted:
+		if tile.blighted:
 			save_json.blight_tiles.append({
 				"x": tile.grid_location.x,
 				"y": tile.grid_location.y

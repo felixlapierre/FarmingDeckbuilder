@@ -90,8 +90,7 @@ static func get_smart_select_shape(grid_position: Vector2, tiles, card: CardData
 	var default_valid = true
 	for pos in default:
 		var target = pos + grid_position
-		if !in_bounds(target) or !((card.type == "SEED" and tiles[target.x][target.y].state == Enums.TileState.Empty) or\
-			card.targets.has(Enums.TileState.keys()[tiles[target.x][target.y].state])):
+		if !in_bounds(target) or !(tiles[target.x][target.y].card_can_target(card)):
 				default_valid = false
 	if default_valid:
 		for pos in default:
@@ -111,7 +110,7 @@ static func get_smart_select_shape(grid_position: Vector2, tiles, card: CardData
 	var ineligible = []
 	for pos in all_position:
 		var tile = tiles[pos.x][pos.y]
-		if (card.type == "SEED" and tile.state == Enums.TileState.Empty) or card.targets.has(Enums.TileState.keys()[tile.state]):
+		if tile.card_can_target(card):
 			eligible.append(pos)
 		else:
 			ineligible.append(pos)

@@ -9,11 +9,9 @@ enum CursorShape {
 
 enum TileState {
 	Empty,
-	Destroyed,
 	Growing,
 	Mature,
 	Structure,
-	Blighted,
 	Inactive
 }
 

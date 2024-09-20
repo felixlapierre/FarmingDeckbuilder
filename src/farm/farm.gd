@@ -138,12 +138,15 @@ func show_select_overlay():
 			error = true
 		else:
 			var targeted_tile = tiles[item.x][item.y]
-			error = !is_eligible(targets, targeted_tile)
 			if Global.selected_card != null:
-				var preview = Global.selected_card.preview_yield(targeted_tile)
-				yld_preview_purple += preview.purple
-				yld_preview_yellow += preview.yellow
-				yld_preview_defer = yld_preview_defer or preview.defer
+				error = !targeted_tile.card_can_target(Global.selected_card)
+				if !error:
+					var preview = Global.selected_card.preview_yield(targeted_tile)
+					yld_preview_purple += preview.purple
+					yld_preview_yellow += preview.yellow
+					yld_preview_defer = yld_preview_defer or preview.defer
+			elif Global.selected_structure != null:
+				error = !targeted_tile.structure_can_target()
 		var sprite = Sprite2D.new()
 		sprite.texture = load("res://assets/custom/SelectTile.png")
 		sprite.position = TOP_LEFT + (item) * TILE_SIZE + TILE_SIZE / 2
@@ -161,9 +164,6 @@ func show_select_overlay():
 			"purple": yld_preview_purple,
 			"defer": yld_preview_defer
 		})
-
-func is_eligible(targets, targeted_tile):
-	return targets.has(Enums.TileState.keys()[targeted_tile.state])
 
 func get_targeted_tiles(grid_position, card, size, shape, rotate):
 	var target_tiles = []
@@ -307,7 +307,7 @@ func do_winter_clear():
 		tile.set_blight_targeted(false)
 		tile.set_destroy_targeted(false)
 		tile.lose_irrigate()
-		if tile.state == Enums.TileState.Blighted:
+		if tile.blighted:
 			blighted_tiles.append(tile)
 	if Global.DIFFICULTY < Constants.DIFFICULTY_HEAL_SLOWER:
 		remove_blight_from_all_tiles()
@@ -328,8 +328,7 @@ func use_card_on_targets(card, targets, only_first):
 		if not Helper.in_bounds(target):
 			continue
 		var target_tile = tiles[target.x][target.y]
-		if not is_eligible(card.targets if card.type == "ACTION" else ["Empty"], \
-			target_tile):
+		if not target_tile.card_can_target(card):
 			continue
 		if card.type == "SEED":
 			effect_queue.append_array(target_tile.plant_seed_animate(card.copy()))
@@ -347,7 +346,7 @@ func preview_yield(card, targeted_tile: Tile):
 	var defer = card.get_effect("harvest_delay") != null
 	if (card.get_effect("harvest") != null\
 		or card.get_effect("harvest_delay") != null)\
-		and is_eligible(card.targets, targeted_tile):
+		and targeted_tile.card_can_target(card):
 		var harvest: EventArgs.HarvestArgs = targeted_tile.preview_harvest()
 		if harvest.purple:
 			yld_purple += harvest.yld
@@ -413,7 +412,7 @@ func on_farm_tile_on_event(event_type: EventManager.EventType, specific_args):
 
 func remove_blight_from_all_tiles():
 	for tile in $Tiles.get_children():
-		if tile.state == Enums.TileState.Blighted:
+		if tile.blighted:
 			tile.remove_blight()
 
 func blight_bubble_animation(tile: Tile, args: EventArgs.HarvestArgs, destination: Vector2):

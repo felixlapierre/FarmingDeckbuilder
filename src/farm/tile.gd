@@ -50,6 +50,7 @@ func do_active_check():
 	update_display()
 
 func update_display():
+	update_purple_overlay()
 	if state == Enums.TileState.Inactive:
 		$PurpleOverlay.visible = false
 		$Farmland.visible = false
@@ -193,13 +194,13 @@ func remove_seed():
 	seed = null
 
 func irrigate():
-	if !irrigated and state != Enums.TileState.Blighted and state != Enums.TileState.Destroyed:
+	if !irrigated and not_destroyed():
 		irrigated = true
 		$Farmland.modulate = COLOR_IRRIGATE
 
 func lose_irrigate():
 	irrigated = false
-	if state != Enums.TileState.Blighted and state != Enums.TileState.Destroyed:
+	if not_destroyed():
 		$Farmland.modulate = COLOR_NONE
 
 func build_structure(n_structure: Structure, rotate):
@@ -225,10 +226,12 @@ func preview_harvest() -> EventArgs.HarvestArgs:
 	return EventArgs.HarvestArgs.new(current_yield, purple, false)
 
 func do_winter_clear():
-	if state == Enums.TileState.Growing or state == Enums.TileState.Mature or state == Enums.TileState.Destroyed:
+	if state == Enums.TileState.Growing or state == Enums.TileState.Mature or destroyed:
 		state = Enums.TileState.Empty
+		destroyed = false
 		remove_seed()
 		lose_irrigate()
+		update_purple_overlay()
 	elif structure != null:
 		structure.do_winter_clear()
 
@@ -292,20 +295,22 @@ func set_destroy_targeted(value):
 func set_blighted():
 	notify_destroyed()
 	remove_seed()
-	state = Enums.TileState.Blighted
+	blighted = true
+	state = Enums.TileState.Empty
 	$PlantSprite.visible = false
 	$Farmland.modulate = COLOR_BLIGHTED
 	$DestroyParticles.emitting = true
 
 func destroy():
 	on_event.emit()
-	state = Enums.TileState.Destroyed
+	destroyed = true
 	$Farmland.modulate = COLOR_DESTROYED
 	notify_destroyed()
 	notify_tile_destroyed()
 	remove_seed()
 	update_purple_overlay()
 	$DestroyParticles.emitting = true
+	state = Enums.TileState.Empty
 
 func destroy_plant():
 	state = Enums.TileState.Empty
@@ -314,7 +319,7 @@ func destroy_plant():
 	$DestroyParticles.emitting = true
 
 func update_purple_overlay():
-	$PurpleOverlay.visible = purple and state != Enums.TileState.Inactive and state != Enums.TileState.Destroyed
+	$PurpleOverlay.visible = purple and state != Enums.TileState.Inactive and not_destroyed()
 
 func notify_harvest(delay: bool) -> EventArgs.HarvestArgs:
 	var harvest_args: EventArgs.HarvestArgs = seed.get_yield(self)
@@ -333,6 +338,7 @@ func notify_tile_destroyed():
 		EventArgs.SpecificArgs.new(self))
 
 func remove_blight():
+	blighted = false
 	if structure != null:
 		state = Enums.TileState.Structure
 	else:
@@ -357,3 +363,23 @@ func remove_structure():
 
 func is_protected():
 	return Global.IRRIGATE_PROTECTED and irrigated
+
+func not_destroyed():
+	return !destroyed and !blighted
+
+func is_destroyed():
+	return destroyed or blighted
+
+func card_can_target(card: CardData):
+	var targets = []
+	targets.assign(card.targets)
+	if card.type == "SEED" and targets.size() == 0:
+		targets.append("Empty");
+	if state == Enums.TileState.Empty and (targets.has("Destroyed") or targets.has("Blighted")):
+		return is_destroyed()
+	return (targets.has(Enums.TileState.keys()[state]))\
+		and (!destroyed or state != Enums.TileState.Empty or targets.has("Destroyed"))\
+		and (!blighted or state != Enums.TileState.Empty or targets.has("Blighted"))
+
+func structure_can_target():
+	return state != Enums.TileState.Structure and state != Enums.TileState.Inactive and !blighted
