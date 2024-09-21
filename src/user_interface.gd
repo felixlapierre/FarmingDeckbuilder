@@ -126,13 +126,14 @@ func update():
 	#Blight Panels
 	$UI/BlightPanel.visible = turn_manager.target_blight > 0 or turn_manager.purple_mana > 0
 
-
+	$UI/BlightPanel/AttackParticles.emitting = false
 	if turn_manager.target_blight > 0:
 		$UI/BlightPanel/VBox/BlightCounter/Label.text = str(turn_manager.purple_mana) + " / " + str(turn_manager.target_blight) + " [img]res://assets/custom/PurpleMana.png[/img]"
 	else:
 		$UI/BlightPanel/VBox/BlightCounter/Label.text = str(turn_manager.purple_mana) + "[img]res://assets/custom/PurpleMana.png[/img]"
 	if turn_manager.purple_mana < turn_manager.target_blight:
 		$UI/BlightPanel/VBox/AttackLabel.text = "Blight Attack!"
+		$UI/BlightPanel/AttackParticles.emitting = true
 	elif turn_manager.purple_mana > turn_manager.target_blight and turn_manager.flag_defer_excess:
 		$UI/BlightPanel/VBox/AttackLabel.text = "Defer: " + str(turn_manager.purple_mana - turn_manager.target_blight) + Helper.blue_mana()
 	elif turn_manager.purple_mana > turn_manager.target_blight and turn_manager.target_blight == 0 and mage_fortune.name != "Lunar Priest":

@@ -26,7 +26,8 @@ enum EventType {
 	OnPlantDestroyed,
 	BeforeCardPlayed,
 	AfterCardPlayed,
-	OnTileDestroyed
+	OnTileDestroyed,
+	OnActionCardUsed
 }
 
 # Called when the node enters the scene tree for the first time.

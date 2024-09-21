@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://cswinrop881oo"]
+[gd_scene load_steps=38 format=3 uid="uid://cswinrop881oo"]
 
 [ext_resource type="Script" path="res://src/user_interface.gd" id="1_j28fq"]
 [ext_resource type="Theme" uid="uid://c21dhy264y6ty" path="res://assets/theme_large.tres" id="2_s7754"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://ykuefae3vde0" path="res://assets/custom/Energy.png" id="5_hqwjq"]
 [ext_resource type="Texture2D" uid="uid://bkk1x2nsynl6x" path="res://assets/custom/CardIcon.png" id="6_qk0s7"]
 [ext_resource type="Texture2D" uid="uid://6kjw6wo7u7bw" path="res://assets/custom/EndTurn.png" id="7_dv2x3"]
+[ext_resource type="Texture2D" uid="uid://brhx5tlxxd0hh" path="res://assets/custom/BlightParticle.png" id="7_qmvj5"]
 [ext_resource type="Texture2D" uid="uid://b2k8jysorsjw1" path="res://assets/custom/EndTurnClick.png" id="8_fmhkd"]
 [ext_resource type="Texture2D" uid="uid://jlxw6ypagasj" path="res://assets/custom/EndTurnHover.png" id="9_y4jq3"]
 [ext_resource type="Texture2D" uid="uid://c446mynw3jgpo" path="res://assets/CardBorder.png" id="10_8fmjs"]
@@ -32,6 +33,28 @@
 [ext_resource type="Texture2D" uid="uid://b1x8as1ltlxj0" path="res://assets/custom/PreviewButtonHover.png" id="22_oyub8"]
 [ext_resource type="PackedScene" uid="uid://fy3ffmdb6hgg" path="res://src/ui/expand_farm.tscn" id="26_4sqcm"]
 [ext_resource type="PackedScene" uid="uid://cwkg82hfjopb6" path="res://src/ui/pause_menu.tscn" id="31_35tyo"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_1tbmd"]
+particles_animation = true
+particles_anim_h_frames = 7
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_vnskl"]
+particle_flag_disable_z = true
+emission_shape_offset = Vector3(107, 0, 0)
+emission_shape = 3
+emission_box_extents = Vector3(107, 1, 1)
+angle_min = -720.0
+direction = Vector3(0, 1, 0)
+initial_velocity_max = 49.58
+angular_velocity_min = 227.67
+angular_velocity_max = 453.78
+orbit_velocity_min = -0.066
+orbit_velocity_max = 0.099
+gravity = Vector3(0, -98, 0)
+anim_speed_min = 1.0
+anim_speed_max = 1.0
 
 [sub_resource type="InputEventKey" id="InputEventKey_1m5ts"]
 device = -1
@@ -93,6 +116,15 @@ offset_left = 1346.0
 offset_top = 412.0
 offset_right = 1420.0
 offset_bottom = 453.0
+
+[node name="AttackParticles" type="GPUParticles2D" parent="UI/BlightPanel"]
+material = SubResource("CanvasItemMaterial_1tbmd")
+emitting = false
+amount = 6
+process_material = SubResource("ParticleProcessMaterial_vnskl")
+texture = ExtResource("7_qmvj5")
+lifetime = 0.5
+explosiveness = 0.3
 
 [node name="VBox" type="VBoxContainer" parent="UI/BlightPanel"]
 layout_mode = 2

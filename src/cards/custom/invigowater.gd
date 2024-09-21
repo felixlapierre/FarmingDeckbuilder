@@ -2,7 +2,7 @@ extends CardData
 class_name Channeling
 
 var callback: Callable
-var event_type = EventManager.EventType.BeforeCardPlayed
+var event_type = EventManager.EventType.OnActionCardUsed
 
 # To be overridden by specific code seeds
 func register_events(event_manager: EventManager, p_tile: Tile):

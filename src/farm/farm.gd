@@ -230,6 +230,9 @@ func process_one_week(week: int):
 	process_effect_queue()
 
 func use_action_card(card, grid_location):
+	var args = EventArgs.SpecificArgs.new(tiles[grid_location.x][grid_location.y])
+	args.play_args = EventArgs.PlayArgs.new(card)
+	event_manager.notify_specific_args(EventManager.EventType.OnActionCardUsed, args)
 	for effect in card.effects:
 		var n_effect = effect.copy().set_location(grid_location)
 		if n_effect.name == "spread":
