@@ -18,35 +18,13 @@ func _process(delta: float) -> void:
 	pass
 
 func update():
-	$Panel/VBox/ExpandUp.disabled = Global.FARM_TOPLEFT.y <= 0
-	$Panel/VBox/ExpandLeft.disabled = Global.FARM_TOPLEFT.x <= 0
-	$Panel/VBox/ExpandRight.disabled = Global.FARM_BOTRIGHT.x >= Constants.FARM_DIMENSIONS.x - 1
-	$Panel/VBox/ExpandDown.disabled = Global.FARM_BOTRIGHT.y >= Constants.FARM_DIMENSIONS.y - 1
+	$Panel/VBox/ExpandFarm.disabled = !Helper.can_expand_farm()
 
 func _on_click_out_button_pressed() -> void:
 	on_close.emit()
 
 func expand_up():
-	$Panel/VBox/ExpandUp.disabled = true
 	on_upgrade.emit(load("res://src/upgrade/data/expand_up.tres"))
-	lock = true
-	on_close.emit()
-	
-func expand_down():
-	$Panel/VBox/ExpandDown.disabled = true
-	on_upgrade.emit(load("res://src/upgrade/data/expand_down.tres"))
-	lock = true
-	on_close.emit()
-
-func expand_left():
-	$Panel/VBox/ExpandLeft.disabled = true
-	on_upgrade.emit(load("res://src/upgrade/data/expand_left.tres"))
-	lock = true
-	on_close.emit()
-
-func expand_right():
-	$Panel/VBox/ExpandRight.disabled = true
-	on_upgrade.emit(load("res://src/upgrade/data/expand_right.tres"))
 	lock = true
 	on_close.emit()
 

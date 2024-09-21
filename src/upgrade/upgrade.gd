@@ -56,6 +56,8 @@ func check_prerequisite(deck: Array[CardData], turn_manager: TurnManager):
 			return turn_manager.blight_damage >= strength
 		UpgradeType.RemoveSpecificCard:
 			return deck.has(card)
+		UpgradeType.ExpandFarm:
+			return Helper.can_expand_farm()
 		_:
 			return true
 

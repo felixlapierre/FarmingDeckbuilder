@@ -5,5 +5,5 @@
 [resource]
 script = ExtResource("1_pdny4")
 type = 1
-text = "Expand your farm up"
+text = "Expand your farm"
 strength = 0.0

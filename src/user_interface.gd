@@ -10,6 +10,7 @@ signal on_blight_removed
 signal on_main_menu
 signal farm_preview_show
 signal farm_preview_hide
+signal after_farm_expanded
 
 @export var turn_manager: TurnManager
 
@@ -608,3 +609,9 @@ func _on_menu_button_pressed() -> void:
 
 func _on_pause_menu_go_to_main_menu() -> void:
 	on_main_menu.emit()
+
+func on_expand_farm() -> void:
+	$Winter/ExpandFarm.display_dialogue()
+
+func _on_expand_farm_on_close() -> void:
+	after_farm_expanded.emit()

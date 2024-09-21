@@ -1,9 +1,0 @@
-[gd_resource type="Resource" script_class="Upgrade" load_steps=2 format=3 uid="uid://14q0ggdi3dem"]
-
-[ext_resource type="Script" path="res://src/upgrade/upgrade.gd" id="1_qxr8h"]
-
-[resource]
-script = ExtResource("1_qxr8h")
-type = 1
-text = "Expand your farm down"
-strength = 2.0

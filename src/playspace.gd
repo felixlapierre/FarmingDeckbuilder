@@ -131,16 +131,7 @@ func _on_farm_tiles_on_card_draw(number_of_cards, card) -> void:
 func on_upgrade(upgrade: Upgrade):
 	match upgrade.type:
 		Upgrade.UpgradeType.ExpandFarm:
-			match int(upgrade.strength):
-				0:
-					Global.FARM_TOPLEFT.y -= 1
-				1:
-					Global.FARM_BOTRIGHT.x += 1
-				2:
-					Global.FARM_BOTRIGHT.y += 1
-				3:
-					Global.FARM_TOPLEFT.x -= 1
-			$FarmTiles.on_expand_farm()
+			$UserInterface.on_expand_farm()
 		Upgrade.UpgradeType.RemoveAnyCard:
 			$UserInterface.select_card_to_remove()
 		Upgrade.UpgradeType.CopyAnyCard:
