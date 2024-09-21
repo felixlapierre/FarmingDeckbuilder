@@ -84,8 +84,18 @@ func _on_tile_button_mouse_exited() -> void:
 	tile_hovered.emit(null)
 
 func _on_tile_button_gui_input(event: InputEvent) -> void:
-	if event.is_action_pressed("leftclick"):
+	if event is InputEventScreenTouch:
+		Global.mobile = true
+		Global.pressed = event.pressed
+		if event.pressed:
+			tile_hovered.emit(self)
+		else:
+			tile_hovered.emit(null)
+			if Global.pressed_time <= 0.5:
+				$"../../".use_card(grid_location)
+	elif event.is_action_pressed("leftclick") and !Global.mobile:
 		$"../../".use_card(grid_location)
+
 
 func plant_seed_animate(planted_seed) -> Array[Effect]:
 	var effects = plant_seed(planted_seed)

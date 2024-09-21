@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="FarmingDeckbuilder"
+config/name="Earthrite"
 run/main_scene="res://src/ui/main_menu.tscn"
 config/features=PackedStringArray("4.2", "Mobile")
 boot_splash/show_image=false
@@ -62,3 +62,8 @@ flip={
 [internationalization]
 
 locale/translations=PackedStringArray("res://assets/localization/localization.en.translation")
+
+[rendering]
+
+renderer/rendering_method="mobile"
+textures/vram_compression/import_etc2_astc=true

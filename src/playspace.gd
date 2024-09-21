@@ -35,7 +35,10 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	pass
+	if Global.pressed:
+		Global.pressed_time += delta
+	else:
+		Global.pressed_time = 0.0
 
 func _on_farm_tiles_card_played(card) -> void:
 	if card.CLASS_NAME == "Structure":

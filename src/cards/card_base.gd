@@ -265,20 +265,18 @@ func process_move_linear(delta, totaltime):
 func _on_focus_gui_input(event: InputEvent) -> void:
 	if event.is_action_pressed("leftclick"):
 		match state:
-			Enums.CardState.FocusInHand:
+			Enums.CardState.FocusInHand, Enums.CardState.InHand:
 				set_state(Enums.CardState.InMouse, null, null, resting_scale)
 				Global.selected_card = card_info
 				Global.shape = Enums.CursorShape.Smart
 				Global.rotate = 0
 				reset_hand_card()
 			Enums.CardState.InMouse:
-				var new_position = resting_position
-				new_position.y = Constants.VIEWPORT_SIZE.y - card_size.y*ZoomInSize
-				set_state(Enums.CardState.FocusInHand, new_position, 0, resting_scale * ZoomInSize)
+				set_state(Enums.CardState.ReOrganiseHand, resting_position, resting_rotation, resting_scale)
 				Global.selected_card = null
+				reset_neighbors()
 			Enums.CardState.InShop:
 				on_clicked.emit(self)
-		$Focus.visible = false
 
 func reset_hand_card():
 	var cards = $'../'.get_children()

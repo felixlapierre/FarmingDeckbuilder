@@ -39,6 +39,10 @@ static var MAGE: String = ""
 
 static var END_TURN_DISCARD = true
 
+static var pressed: bool = false
+static var pressed_time: float = 0.0
+static var mobile: bool = false
+
 static func reset():
 	selected_card = null
 	selected_structure = null

@@ -12,6 +12,8 @@ Version 0.0.4 released on Sept 17th ([Changelog](docs/CHANGELOG.md))
 
 [Download for MacOS](https://drive.google.com/file/d/1axoEeiu4KYO_rstGDVbbsQZqViINLOEh/view?usp=sharing)
 
+[Download for Android](https://drive.google.com/file/d/1X-f7vy2LIeOG0_fTCPfsDQs2S5Sszsye/view?usp=sharing)
+
 <details><summary>Running on MacOS</summary>
 
 Download FarmingDeckbuilder.zip from the above link, unzip the folder, and move the application file to the Applications folder.
