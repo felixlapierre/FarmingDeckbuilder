@@ -36,6 +36,8 @@ script = ExtResource("1_hjvjc")
 [connection signal="try_move_structure" from="FarmTiles" to="." method="_on_farm_tiles_try_move_structure"]
 [connection signal="apply_upgrade" from="UserInterface" to="." method="on_upgrade"]
 [connection signal="end_turn_button_pressed" from="UserInterface" to="." method="on_turn_end"]
+[connection signal="farm_preview_hide" from="UserInterface" to="FarmTiles" method="_on_user_interface_farm_preview_hide"]
+[connection signal="farm_preview_show" from="UserInterface" to="FarmTiles" method="_on_user_interface_farm_preview_show"]
 [connection signal="on_blight_removed" from="UserInterface" to="." method="_on_user_interface_on_blight_removed"]
 [connection signal="on_main_menu" from="UserInterface" to="." method="_on_user_interface_on_main_menu"]
 [connection signal="on_next_year" from="UserInterface" to="." method="start_year"]

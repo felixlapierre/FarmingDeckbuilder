@@ -436,3 +436,11 @@ func blight_bubble_animation(tile: Tile, args: EventArgs.HarvestArgs, destinatio
 		tween.tween_callback(func():
 			$Animations.remove_child(sprite))
 		$Animations.add_child(sprite)
+
+func _on_user_interface_farm_preview_hide() -> void:
+	for tile: Tile in get_all_tiles():
+		tile.hide_peek()
+
+func _on_user_interface_farm_preview_show() -> void:
+	for tile: Tile in get_all_tiles():
+		tile.show_peek()

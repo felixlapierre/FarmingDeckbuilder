@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://ccnobfjaguoie"]
+[gd_scene load_steps=17 format=3 uid="uid://ccnobfjaguoie"]
 
 [ext_resource type="Script" path="res://src/farm/tile.gd" id="1_8vnt4"]
 [ext_resource type="Texture2D" uid="uid://cmitvrjj6os0f" path="res://assets/1616tinygarden/Farm.png" id="2_n75y4"]
@@ -9,6 +9,9 @@
 [ext_resource type="Texture2D" uid="uid://cba7uh0mnuoum" path="res://assets/custom/LeafParticle.png" id="7_otjuw"]
 [ext_resource type="Texture2D" uid="uid://jbl8fupoclkv" path="res://assets/custom/GainYieldParticle.png" id="8_hyote"]
 [ext_resource type="Texture2D" uid="uid://clf1ovfisrdg0" path="res://assets/animation/destroy.png" id="9_cvalt"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1iam7"]
+bg_color = Color(0.784314, 0.784314, 0.784314, 0.537255)
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_0du70"]
 particles_animation = true
@@ -112,6 +115,23 @@ visible = false
 texture_filter = 1
 texture = ExtResource("7_023dm")
 offset = Vector2(8, 8)
+
+[node name="PeekCont" type="PanelContainer" parent="."]
+visible = false
+z_index = 1
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_1iam7")
+
+[node name="CenterCont" type="CenterContainer" parent="PeekCont"]
+layout_mode = 2
+
+[node name="PeekLabel" type="Label" parent="PeekCont/CenterCont"]
+texture_filter = 1
+custom_minimum_size = Vector2(16, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 9
+text = "123"
+horizontal_alignment = 1
 
 [node name="HarvestParticles" type="GPUParticles2D" parent="."]
 z_index = 1

@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://cswinrop881oo"]
+[gd_scene load_steps=34 format=3 uid="uid://cswinrop881oo"]
 
 [ext_resource type="Script" path="res://src/user_interface.gd" id="1_j28fq"]
 [ext_resource type="Theme" uid="uid://c21dhy264y6ty" path="res://assets/theme_large.tres" id="2_s7754"]
@@ -27,7 +27,17 @@
 [ext_resource type="PackedScene" uid="uid://cs4xf7kyndygr" path="res://src/ui/tooltip.tscn" id="20_dvki6"]
 [ext_resource type="PackedScene" uid="uid://b7luloyqjcwjb" path="res://src/ui/energy_display.tscn" id="20_i330f"]
 [ext_resource type="Texture2D" uid="uid://cn32li0bwuw1e" path="res://assets/ui/obelisk_full.png" id="20_udohm"]
+[ext_resource type="Texture2D" uid="uid://r85h2ey4h5ks" path="res://assets/custom/PreviewButton.png" id="21_tlcd4"]
 [ext_resource type="PackedScene" uid="uid://bb1j26ivcxqw6" path="res://src/ui/tutorial.tscn" id="22_4s3pk"]
+[ext_resource type="Texture2D" uid="uid://b1x8as1ltlxj0" path="res://assets/custom/PreviewButtonHover.png" id="22_oyub8"]
+[ext_resource type="PackedScene" uid="uid://cwkg82hfjopb6" path="res://src/ui/pause_menu.tscn" id="31_35tyo"]
+
+[sub_resource type="InputEventKey" id="InputEventKey_1m5ts"]
+device = -1
+keycode = 4194305
+
+[sub_resource type="Shortcut" id="Shortcut_e5n85"]
+events = [SubResource("InputEventKey_1m5ts")]
 
 [node name="UserInterface" type="Node2D"]
 script = ExtResource("1_j28fq")
@@ -134,6 +144,11 @@ theme = ExtResource("2_s7754")
 
 [node name="VBox" type="VBoxContainer" parent="UI/Stats"]
 layout_mode = 2
+
+[node name="MenuButton" type="Button" parent="UI/Stats/VBox"]
+layout_mode = 2
+shortcut = SubResource("Shortcut_e5n85")
+text = "Menu"
 
 [node name="YearLabel" type="Label" parent="UI/Stats/VBox"]
 layout_mode = 2
@@ -304,7 +319,7 @@ R: Rotate
 F: Flip"
 
 [node name="EnergyDisplay" parent="UI" instance=ExtResource("20_i330f")]
-position = Vector2(26, 109)
+position = Vector2(28, 153)
 
 [node name="DamagePanel" type="PanelContainer" parent="UI"]
 layout_mode = 0
@@ -315,6 +330,18 @@ offset_bottom = 501.0
 
 [node name="BlightDamage" type="HBoxContainer" parent="UI/DamagePanel"]
 layout_mode = 2
+
+[node name="PeekButton" type="TextureButton" parent="UI"]
+visible = false
+layout_mode = 0
+offset_left = 1076.0
+offset_top = 46.0
+offset_right = 1116.0
+offset_bottom = 86.0
+texture_normal = ExtResource("21_tlcd4")
+texture_pressed = ExtResource("22_oyub8")
+texture_hover = ExtResource("22_oyub8")
+stretch_mode = 0
 
 [node name="AlertContainer" parent="." instance=ExtResource("18_ih37u")]
 visible = false
@@ -418,10 +445,16 @@ visible = false
 [node name="PassiveDisplay" type="Node2D" parent="."]
 position = Vector2(225, 0)
 
+[node name="PauseMenu" parent="." instance=ExtResource("31_35tyo")]
+visible = false
+
+[connection signal="pressed" from="UI/Stats/VBox/MenuButton" to="." method="_on_menu_button_pressed"]
 [connection signal="pressed" from="UI/EndTurnButton" to="." method="_on_end_turn_button_pressed"]
 [connection signal="pressed" from="UI/Deck/DeckPeek" to="." method="_on_deck_peek_pressed"]
 [connection signal="pressed" from="UI/Deck/DiscardPeek" to="." method="_on_discard_peek_pressed"]
 [connection signal="pressed" from="UI/SkipButton" to="." method="_on_skip_button_pressed"]
+[connection signal="mouse_entered" from="UI/PeekButton" to="." method="_on_peek_button_mouse_entered"]
+[connection signal="mouse_exited" from="UI/PeekButton" to="." method="_on_peek_button_mouse_exited"]
 [connection signal="pressed" from="Winter/ShopButton" to="." method="_on_shop_button_pressed"]
 [connection signal="pressed" from="Winter/NextYearButton" to="." method="_on_next_year_button_pressed"]
 [connection signal="pressed" from="Winter/FortuneTellerButton" to="." method="_on_fortune_teller_button_pressed"]
@@ -441,3 +474,4 @@ position = Vector2(225, 0)
 [connection signal="view_deck" from="Shop" to="." method="_on_shop_view_deck"]
 [connection signal="on_close" from="UpgradeShop" to="." method="upgrade_shop_close"]
 [connection signal="on_upgrade" from="UpgradeShop" to="." method="_on_upgrade_shop_on_upgrade"]
+[connection signal="go_to_main_menu" from="PauseMenu" to="." method="_on_pause_menu_go_to_main_menu"]

@@ -345,3 +345,17 @@ func remove_structure():
 
 func is_protected():
 	return Global.IRRIGATE_PROTECTED and irrigated
+
+func show_peek():
+	$PeekCont.visible = true
+	$PeekCont/CenterCont/PeekLabel.text = str(round(current_yield))
+	match state:
+		Enums.TileState.Growing:
+			$PeekCont/CenterCont/PeekLabel.set("theme_override_colors/font_color", Color8(168, 137, 34))
+		Enums.TileState.Mature:
+			$PeekCont/CenterCont/PeekLabel.set("theme_override_colors/font_color", Color8(15, 133, 20))
+		_:
+			$PeekCont.visible = false
+
+func hide_peek():
+	$PeekCont.visible = false

@@ -8,6 +8,8 @@ signal on_skip
 signal on_next_year
 signal on_blight_removed
 signal on_main_menu
+signal farm_preview_show
+signal farm_preview_hide
 
 @export var turn_manager: TurnManager
 
@@ -592,4 +594,17 @@ func _on_farm_tiles_no_energy() -> void:
 
 
 func _on_end_screen_on_main_menu() -> void:
+	on_main_menu.emit()
+
+
+func _on_peek_button_mouse_entered() -> void:
+	farm_preview_show.emit()
+
+func _on_peek_button_mouse_exited() -> void:
+	farm_preview_hide.emit()
+
+func _on_menu_button_pressed() -> void:
+	$PauseMenu.visible = true
+
+func _on_pause_menu_go_to_main_menu() -> void:
 	on_main_menu.emit()
