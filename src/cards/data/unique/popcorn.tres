@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="CardData" load_steps=2 format=3 uid="uid://lavrapn21yro"]
+
+[ext_resource type="Script" path="res://src/cards/card_data.gd" id="1_bmrpi"]
+
+[resource]
+script = ExtResource("1_bmrpi")
+type = "SEED"
+name = "Popcorn"
+rarity = "unique"
+cost = 0
+yld = 7
+time = 1
+size = 1
+text = ""
+strength_increment = 1.0
+size_increment = 1
+seed_texture = 5
+texture_icon_offset = 16
+targets = Array[String]([])
+effects = Array[Resource("res://src/effect/effect.gd")]([])
+enhances = Array[String]([])
+strength = 0.0

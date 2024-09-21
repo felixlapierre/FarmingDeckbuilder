@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="Corn" load_steps=2 format=3 uid="uid://bl0b66ym1c475"]
+
+[ext_resource type="Script" path="res://src/cards/custom/corn.gd" id="1_gvkj5"]
+
+[resource]
+script = ExtResource("1_gvkj5")
+type = "SEED"
+name = "Corn"
+rarity = "rare"
+cost = 1
+yld = 20
+time = 3
+size = 1
+text = "For each card burned while growing, plant a Popcorn on a random tile"
+strength_increment = 1.0
+size_increment = 1
+seed_texture = 1
+texture_icon_offset = 16
+targets = Array[String]([])
+effects = Array[Resource("res://src/effect/effect.gd")]([])
+enhances = Array[String]([])
+strength = 0.0

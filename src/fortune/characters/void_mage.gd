@@ -14,7 +14,7 @@ func register_fortune(event_manager: EventManager):
 	super.register_fortune(event_manager)
 	event_callable = func(args: EventArgs):
 		for tile in args.farm.get_all_tiles():
-			if tile.state == Enums.TileState.Destroyed or tile.state == Enums.TileState.Blighted:
+			if tile.is_destroyed():
 				args.farm.gain_yield(tile, EventArgs.HarvestArgs.new(strength, true, false))
 	event_manager.register_listener(event_type, event_callable)
 
