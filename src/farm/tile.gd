@@ -202,6 +202,7 @@ func remove_seed():
 	current_yield = 0.0
 	$PlantSprite.visible = false
 	seed = null
+	state = Enums.TileState.Empty
 
 func irrigate():
 	if !irrigated and not_destroyed():
@@ -306,7 +307,6 @@ func set_blighted():
 	notify_destroyed()
 	remove_seed()
 	blighted = true
-	state = Enums.TileState.Empty
 	$PlantSprite.visible = false
 	$Farmland.modulate = COLOR_BLIGHTED
 	$DestroyParticles.emitting = true
