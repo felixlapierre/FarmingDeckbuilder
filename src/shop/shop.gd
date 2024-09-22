@@ -88,7 +88,7 @@ func fill_row_one():
 	var options = card_database.get_all_cards()
 	var selected = []
 	for option in options:
-		if option.type == "SEED" or option.type == "ACTION":
+		if (option.type == "SEED" and Global.FARM_TYPE != "WILDERNESS") or option.type == "ACTION":
 			selected.append(option)
 	var stock = generate_random_shop_items(shop_item_capacity, selected)
 	fill_row(STOCK_ONE, 1, stock)

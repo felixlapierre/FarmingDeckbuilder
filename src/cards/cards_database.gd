@@ -89,6 +89,17 @@ static func get_random_cards(rarity: String, count: int):
 			result.append(n_card)
 	return result
 
+static func get_random_action_cards(rarity: String, count: int):
+	var result = []
+	var cards = get_all_cards_rarity(rarity)
+	cards.shuffle()
+	for n_card in cards:
+		if result.size() >= count:
+			return result
+		if n_card.type == "ACTION":
+			result.append(n_card)
+	return result
+
 static func get_random_enhance(rarity: String, count: int, no_discount: bool):
 	var result = []
 	var enhances = get_all_enhance()

@@ -184,7 +184,11 @@ func _on_game_event_dialog_on_upgrades_selected(upgrades: Array[Upgrade]) -> voi
 					rarity = "rare"
 				Upgrade.UpgradeType.AddUncommonCard:
 					rarity = "uncommon"
-			var cards = cards_database.get_random_cards(rarity, 3)
+			var cards;
+			if Global.FARM_TYPE == "WILDERNESS":
+				cards = cards_database.get_random_action_cards(rarity, 3)
+			else:
+				cards = cards_database.get_random_cards(rarity, 3)
 			var pick_option_ui = PickOption.instantiate()
 			GameEventDialog.add_sibling(pick_option_ui)
 			var prompt = "Pick a card to add to your deck"
