@@ -6,6 +6,7 @@ extends Node2D
 @onready var Deck = $Center/Panel/VBoxContainer/Grid/Deck
 
 signal on_main_menu
+signal on_endless_mode
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -21,9 +22,12 @@ func setup(turn_manager: TurnManager, deck: Array[CardData], farm: Farm):
 	if turn_manager.blight_damage < 5:
 		Title.text = "You Win! :)"
 		Description.text = "The Blight has been cleansed"
+		if Global.DIFFICULTY >= 0:
+			$Center/Panel/VBoxContainer/EndlessMode.visible = true
 	else:
 		Title.text = "You Lose! :("
 		Description.text = "Your farm was overtaken by the Blight"
+		$Center/Panel/VBoxContainer/EndlessMode.visible = false
 	
 	Stats.clear()
 	Deck.clear()
@@ -139,3 +143,6 @@ func do_unlocks(turn_manager: TurnManager, deck: Array[CardData]):
 			value.append_text("[color=aqua]" + mage + "[/color]\n")
 
 	Unlocks.save_unlocks()
+
+func _on_endless_mode_pressed() -> void:
+	on_endless_mode.emit()

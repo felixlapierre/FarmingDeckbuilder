@@ -93,16 +93,13 @@ func get_current_fortunes_misfortune():
 			bad_fortune(2)
 		10:
 			bad_fortune(3)
-			bad_fortune(1)
-		11:
-			bad_fortune(3)
 			bad_fortune(2)
 			bad_fortune(2)
 		_:
-			bad_fortune(2)
+			bad_fortune(3)
 			bad_fortune(2)
 			bad_fortune(1)
-			bad_fortune(1)
+			bad_fortune(0)
 
 func add_bad_fortune(rank: int):
 	current_fortunes.append(get_fortune(Fortune.FortuneType.BadFortune, rank))

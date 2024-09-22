@@ -42,4 +42,4 @@ script = ExtResource("1_hjvjc")
 [connection signal="on_blight_removed" from="UserInterface" to="." method="_on_user_interface_on_blight_removed"]
 [connection signal="on_main_menu" from="UserInterface" to="." method="_on_user_interface_on_main_menu"]
 [connection signal="on_next_year" from="UserInterface" to="." method="start_year"]
-[connection signal="on_skip" from="UserInterface" to="." method="end_year"]
+[connection signal="on_skip" from="UserInterface" to="." method="end_year" binds= [false]]

@@ -322,6 +322,7 @@ offset_right = 354.0
 offset_bottom = 425.0
 theme = ExtResource("2_s7754")
 text = "Skip"
+metadata/_edit_use_anchors_ = true
 
 [node name="TilePreview" parent="UI" instance=ExtResource("14_auyx1")]
 visible = false

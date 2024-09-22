@@ -159,32 +159,6 @@ custom_minimum_size = Vector2(0, 600)
 layout_mode = 2
 size_flags_horizontal = 3
 bbcode_enabled = true
-text = "Deck
-
-Card
-CardF
-Card
-Card
-Card
-
-Card
-Card
-Card
-Card
-Card
-Card
-Card
-Card
-Card
-Card
-Card
-Card
-Card
-Card
-Card
-Card
-Card
-Card"
 
 [node name="ContinueButton" type="Button" parent="Root/Grid/ContPanel/VBox/Margin/VBox"]
 layout_mode = 2

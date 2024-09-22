@@ -40,8 +40,8 @@ func _process(delta: float) -> void:
 func save_game():
 	pass
 
-func end_year():
-	await super.end_year()
+func end_year(endless: bool):
+	await super.end_year(endless)
 	user_interface.EventButton.disabled = true
 	if turn_manager.year == 1:
 		year_one_end_year()

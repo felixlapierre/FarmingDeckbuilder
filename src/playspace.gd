@@ -50,7 +50,7 @@ func _on_farm_tiles_card_played(card) -> void:
 		$Cards.play_card()
 		$UserInterface.update()
 		if victory == true:
-			end_year()
+			end_year(false)
 
 func _on_farm_tiles_on_yield_gained(args: EventArgs.HarvestArgs) -> void:
 	if args.purple:
@@ -69,8 +69,8 @@ func _input(event: InputEvent) -> void:
 	elif event.is_action_pressed("flip"):
 		Global.flip = (Global.flip + 1) % 2
 	
-func end_year():
-	if turn_manager.year >= (Global.FINAL_YEAR if Global.DIFFICULTY < Constants.DIFFICULTY_FINAL_RITUAL else Global.FINAL_YEAR + 1):
+func end_year(endless: bool):
+	if turn_manager.year == Global.FINAL_YEAR and !endless:
 		on_win()
 		return
 	$Cards.discard_hand()
@@ -121,6 +121,7 @@ func on_win():
 	$UserInterface/EndScreen.visible = true
 	$UserInterface/EndScreen.setup(turn_manager, deck, $FarmTiles)
 	$UserInterface/EndScreen.do_unlocks(turn_manager, deck)
+	$UserInterface/EndScreen.on_endless_mode.connect(func(): on_endless())
 	$UserInterface/UI/Deck.visible = false
 	$UserInterface/UI/RitualPanel.visible = false
 
@@ -176,7 +177,7 @@ func on_turn_end():
 	await get_tree().create_timer(0.1).timeout
 	$EventManager.notify(EventManager.EventType.AfterGrow)
 	if victory == true:
-		end_year()
+		end_year(false)
 		$UserInterface.turn_ending = false
 		return
 	var damage = $TurnManager.end_turn()
@@ -194,7 +195,7 @@ func on_turn_end():
 	$Cards.draw_hand($TurnManager.get_cards_drawn(), $TurnManager.week)
 	$EventManager.notify(EventManager.EventType.BeforeTurnStart)
 	if victory == true:
-		end_year()
+		end_year(false)
 	set_background_texture()
 	$UserInterface.update()
 
@@ -319,3 +320,10 @@ func _on_farm_tiles_try_move_structure(tile: Tile) -> void:
 
 func _on_user_interface_on_main_menu() -> void:
 	on_main_menu.emit()
+
+func on_endless():
+	$UserInterface/EndScreen.visible = false
+	$UserInterface/UI/EndTurnButton.visible = true
+	$UserInterface/UI/Deck.visible = true
+	$UserInterface/UI/RitualPanel.visible = true
+	end_year(true)
