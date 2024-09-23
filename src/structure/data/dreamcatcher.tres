@@ -1,15 +1,15 @@
 [gd_resource type="Resource" script_class="Dreamcatcher" load_steps=3 format=3 uid="uid://d3h3qilwqhibu"]
 
 [ext_resource type="Script" path="res://src/structure/custom/dreamcatcher.gd" id="1_3fhe8"]
-[ext_resource type="Texture2D" uid="uid://c46q76532nqk" path="res://assets/custom/Temp.png" id="2_da1c2"]
+[ext_resource type="Texture2D" uid="uid://b1ratfwv1d8b8" path="res://assets/structure/spellcatcher.png" id="2_0l7m4"]
 
 [resource]
 script = ExtResource("1_3fhe8")
-name = "Dreamcatcher"
+name = "Spellcatcher"
 rarity = "rare"
 cost = 0
 size = 0
 text = "After a Burn or Fleeting card is played, draw a card"
-texture = ExtResource("2_da1c2")
+texture = ExtResource("2_0l7m4")
 effects = Array[Resource("res://src/effect/effect.gd")]([])
 tooltip = "Burn: Card is destroyed when played\\nFleeting: Card is destroyed when played or at the end of the turn."

@@ -1,6 +1,7 @@
-[gd_resource type="Resource" script_class="Dualcast" load_steps=2 format=3 uid="uid://c7orak5n2fbjc"]
+[gd_resource type="Resource" script_class="Dualcast" load_steps=3 format=3 uid="uid://c7orak5n2fbjc"]
 
 [ext_resource type="Script" path="res://src/cards/custom/dualcast.gd" id="1_6vuq8"]
+[ext_resource type="Texture2D" uid="uid://db68f0w1uqtoo" path="res://assets/seed/iris.png" id="2_gba5h"]
 
 [resource]
 script = ExtResource("1_6vuq8")
@@ -14,8 +15,9 @@ size = 1
 text = "Copy the next card played. On harvest, add {STRENGTH} copies of that card to your hand. "
 strength_increment = 1.0
 size_increment = 1
+texture = ExtResource("2_gba5h")
 seed_texture = 5
-texture_icon_offset = 16
+texture_icon_offset = 15
 targets = Array[String]([])
 effects = Array[Resource("res://src/effect/effect.gd")]([])
 enhances = Array[String]([])

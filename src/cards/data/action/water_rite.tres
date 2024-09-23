@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="WaterRite" load_steps=3 format=3 uid="uid://b88enkcaungil"]
 
 [ext_resource type="Script" path="res://src/cards/custom/waterrite.gd" id="1_ttagq"]
-[ext_resource type="Texture2D" uid="uid://c46q76532nqk" path="res://assets/custom/Temp.png" id="2_nvfed"]
+[ext_resource type="Texture2D" uid="uid://dthha6swxbr7j" path="res://assets/card/waterrite.png" id="2_n4p65"]
 
 [resource]
 script = ExtResource("1_ttagq")
@@ -15,7 +15,7 @@ size = -1
 text = "Plant a Puffshroom on each watered tile"
 strength_increment = 1.0
 size_increment = 1
-texture = ExtResource("2_nvfed")
+texture = ExtResource("2_n4p65")
 seed_texture = 0
 texture_icon_offset = 16
 targets = Array[String](["Empty"])

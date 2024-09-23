@@ -1,7 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://c4gqastokl1qh"]
+[gd_scene load_steps=7 format=3 uid="uid://c4gqastokl1qh"]
 
 [ext_resource type="Script" path="res://src/ui/main_menu.gd" id="1_b0cyn"]
 [ext_resource type="Theme" uid="uid://c21dhy264y6ty" path="res://assets/theme_large.tres" id="1_l63em"]
+[ext_resource type="Texture2D" uid="uid://br43hj4sf1r1l" path="res://assets/mage/forest.png" id="3_2w0ds"]
+[ext_resource type="Texture2D" uid="uid://blyww7sa17sgt" path="res://assets/mage/riverlands.png" id="4_u656s"]
+[ext_resource type="Texture2D" uid="uid://dd1tk8qegcw8t" path="res://assets/mage/wilderness.png" id="5_qrkqy"]
+[ext_resource type="Texture2D" uid="uid://8eb3ks2y5h1r" path="res://assets/fortune/mountains.png" id="6_g5ud0"]
 
 [node name="MainMenu" type="Node2D"]
 script = ExtResource("1_b0cyn")
@@ -56,12 +60,16 @@ item_count = 4
 selected = 0
 allow_reselect = true
 popup/item_0/text = "Forest"
+popup/item_0/icon = ExtResource("3_2w0ds")
 popup/item_0/id = 0
 popup/item_1/text = "Riverlands"
+popup/item_1/icon = ExtResource("4_u656s")
 popup/item_1/id = 1
 popup/item_2/text = "Wilderness"
+popup/item_2/icon = ExtResource("5_qrkqy")
 popup/item_2/id = 2
 popup/item_3/text = "Mountains"
+popup/item_3/icon = ExtResource("6_g5ud0")
 popup/item_3/id = 3
 
 [node name="DifficultyBox" type="HBoxContainer" parent="Root/Grid/Panel/VBox/Margin/VBox"]
