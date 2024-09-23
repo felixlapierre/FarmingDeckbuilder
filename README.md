@@ -1,26 +1,26 @@
-## Farming Deckbuilder
+## Earthrite
 
 by Felix Lapierre
 
-Version 0.0.4 released on Sept 17th ([Changelog](docs/CHANGELOG.md))
+Version 0.0.5 released on Sept 22nd ([Changelog](docs/CHANGELOG.md))
 
 ### Download
 
-[Download for Windows](https://drive.google.com/file/d/1PcUSdRndIwx6YSG7kH4FUZ9J5JX0olmw/view?usp=sharing)
+[Download for Windows](https://drive.google.com/file/d/1leb7dkDjaplnB0dKa3hauKQunD9kOC0a/view?usp=sharing)
 
-[Download for Linux](https://drive.google.com/file/d/1To1PxeOW_y9GlZ4wNOYile1MPXz_Ql4t/view?usp=sharing)
+[Download for Linux](https://drive.google.com/file/d/1Kd9oHDe_nLvkda3v8JInBhzVMozS0jbM/view?usp=sharing)
 
-[Download for MacOS](https://drive.google.com/file/d/1axoEeiu4KYO_rstGDVbbsQZqViINLOEh/view?usp=sharing)
+[Download for MacOS](https://drive.google.com/file/d/1aqqyLbR_wiAv9_s52ZxXlQZF8X8-7ngb/view?usp=sharing)
 
-[Download for Android](https://drive.google.com/file/d/1X-f7vy2LIeOG0_fTCPfsDQs2S5Sszsye/view?usp=sharing)
+[Download for Android](https://drive.google.com/file/d/1u8tIv5_YUiwHJMcnDsD9VrZoobeyw-x6/view?usp=sharing)
 
 <details><summary>Running on MacOS</summary>
 
-Download FarmingDeckbuilder.zip from the above link, unzip the folder, and move the application file to the Applications folder.
+Download Earthrite.zip from the above link, unzip the folder, and move the application file to the Applications folder.
 
 When you run the app for the first time, the following dialog is displayed:
 
-> "FarmingDeckbuilder" can't be opened because Apple cannot check it for malicious software.
+> "Earthrite" can't be opened because Apple cannot check it for malicious software.
 > 
 > The software needs to be updated. Contact the developer for more information
 

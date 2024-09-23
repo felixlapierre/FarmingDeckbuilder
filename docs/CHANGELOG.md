@@ -1,5 +1,20 @@
 # Changelog
 
+## Version 0.0.5
+
+Released Sept 22nd
+
+### Features
+
+- Added new cards (Flow, Puffshroom, Morel, Corn, Catalyze, Spellcatcher, Waterrite, Iris, Transmute, Downpour)
+- Added endless mode
+- Added mobile version, although many usability improvements are still needed
+- Wilderness farm is no longer offered seeds in the shop and events
+- Better UI for expanding the farm
+- Added an animation when the blight is attacking
+- Added a pause / esc menu so that players can return to the main menu without reopening the game
+- Tentatively renamed game to Earthrite
+
 ## Version 0.0.4
 
 Released Sept 17th
