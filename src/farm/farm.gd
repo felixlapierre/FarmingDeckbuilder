@@ -317,7 +317,7 @@ func do_winter_clear():
 	else:
 		blighted_tiles.shuffle()
 		for i in range(0, blighted_tiles.size()):
-			if i < blighted_tiles.size() / 2:
+			if i < ceil(float(blighted_tiles.size()) / 2.0):
 				blighted_tiles[i].remove_blight()
 	next_turn_effects.clear()
 

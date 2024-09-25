@@ -7,16 +7,16 @@
 [sub_resource type="Resource" id="Resource_0sicp"]
 script = ExtResource("1_18lv0")
 name = "harvest"
-strength = 0.0
-on = ""
-range = "self"
+strength = null
+on = null
+range = null
 
 [sub_resource type="Resource" id="Resource_h1jj2"]
 script = ExtResource("1_18lv0")
 name = "fleeting"
-strength = 0.0
-on = ""
-range = "self"
+strength = null
+on = null
+range = null
 
 [resource]
 script = ExtResource("1_uu2d6")

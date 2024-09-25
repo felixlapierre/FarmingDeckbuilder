@@ -82,6 +82,9 @@ static func blue_mana():
 static func mana_icon_small():
 	return "[img]res://assets/custom/YellowMana16.png[/img]"
 
+static func blight_icon():
+	return "[img]res://assets/custom/Blight.png[/img]"
+
 static func get_smart_select_shape(grid_position: Vector2, tiles, card: CardData, mouse_pos: Vector2):
 	var returned = []
 	# First, try the default shape

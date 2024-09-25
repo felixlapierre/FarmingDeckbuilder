@@ -9,7 +9,7 @@ script = ExtResource("1_ojs3i")
 name = "spread"
 strength = 1.0
 on = "grow"
-range = "self"
+range = null
 
 [resource]
 script = ExtResource("1_ea0r0")

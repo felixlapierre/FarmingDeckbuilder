@@ -116,7 +116,7 @@ func get_short_description(card: CardData):
 		"draw_target":
 			return "Add " + get_strength_text() + " Fleeting cop" + ("y" if strength == 1 else "ies") + " of the plant's seed to your hand"
 		"add_blight_yield":
-			return "Add " + get_strength_text() + "×Blight to seed base " + Helper.mana_icon()
+			return "Add " + get_strength_text() + " base " + Helper.mana_icon() + " per " + Helper.blight_icon() + " when planted"
 		_:
 			return ""
 
