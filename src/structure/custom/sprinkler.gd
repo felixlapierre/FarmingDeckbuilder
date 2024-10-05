@@ -24,4 +24,4 @@ func register_events(event_manager: EventManager, tile: Tile):
 
 func unregister_events(event_manager: EventManager):
 	event_manager.unregister_listener(event_type, callback)
-	event_manager.unregister_listener(event_type, callback)
+	event_manager.unregister_listener(event2, callback)

@@ -578,6 +578,7 @@ func try_move_structure(tile: Tile):
 	tile.remove_structure()
 	_on_shop_on_structure_place(structure, func():
 		pass)
+	$CancelStructure.visible = false
 
 func reset_obelisk():
 	$Obelisk.value = 0

@@ -8,7 +8,7 @@
 script = ExtResource("1_blbwp")
 type = "SEED"
 name = "Deathcap"
-rarity = "unique"
+rarity = "blight"
 cost = 1
 yld = 10
 time = 0
@@ -18,5 +18,8 @@ strength_increment = 1.0
 size_increment = 1
 texture = ExtResource("3_nfear")
 seed_texture = 0
+texture_icon_offset = 16
 targets = Array[String]([])
 effects = Array[Resource("res://src/effect/effect.gd")]([ExtResource("1_ylkn0")])
+enhances = Array[String]([])
+strength = 0.0

@@ -7,7 +7,7 @@
 [sub_resource type="Resource" id="Resource_og8gm"]
 script = ExtResource("1_yjkub")
 name = "irrigate"
-strength = null
+strength = 0.0
 on = "turn_start"
 range = "adjacent"
 

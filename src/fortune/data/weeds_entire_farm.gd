@@ -16,4 +16,5 @@ func unregister_fortune(event_manager: EventManager):
 
 func plant_weeds(args: EventArgs):
 	for tile in args.farm.get_all_tiles():
-		tile.plant_seed(weeds.copy())
+		if tile.not_destroyed():
+			tile.plant_seed(weeds.copy())

@@ -60,10 +60,11 @@ func use_card(grid_position):
 		try_move_structure.emit(tiles[grid_position.x][grid_position.y])
 		return
 	if Global.selected_structure != null:
-		tiles[grid_position.x][grid_position.y]\
-				.build_structure(Global.selected_structure, Global.rotate)
-		clear_overlay()
-		card_played.emit(Global.selected_structure)
+		var tile: Tile = tiles[grid_position.x][grid_position.y]
+		if tile.state == Enums.TileState.Empty and tile.not_destroyed():
+			tile.build_structure(Global.selected_structure, Global.rotate)
+			clear_overlay()
+			card_played.emit(Global.selected_structure)
 		return
 	if Global.selected_card == null or Global.selected_card.cost > energy:
 		no_energy.emit()
@@ -379,8 +380,8 @@ func destroy_blighted_tiles():
 
 func use_card_random_tile(card: CardData, times: int):
 	var tiles = []
-	for tile in $Tiles.get_children():
-		if tile.state == Enums.TileState.Empty:
+	for tile: Tile in $Tiles.get_children():
+		if tile.state == Enums.TileState.Empty && tile.not_destroyed():
 			tiles.append(tile)
 	tiles.shuffle()
 	var locations = []
@@ -394,7 +395,7 @@ func use_card_random_tile(card: CardData, times: int):
 func use_card_unprotected_tile(card: CardData, times: int):
 	var tiles = []
 	for tile: Tile in $Tiles.get_children():
-		if tile.state == Enums.TileState.Empty && !tile.is_protected():
+		if tile.state == Enums.TileState.Empty && !tile.is_protected() && tile.not_destroyed():
 			tiles.append(tile)
 	tiles.shuffle()
 	var locations = []

@@ -9,7 +9,7 @@ script = ExtResource("1_ygd83")
 name = "plant"
 strength = 1.0
 on = "harvest"
-range = null
+range = "self"
 
 [resource]
 script = ExtResource("2_t0jwe")

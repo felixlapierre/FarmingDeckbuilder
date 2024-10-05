@@ -194,6 +194,7 @@ func connect_main_menu_signal(playspace):
 		$Root/Grid/Panel/VBox/Margin/VBox/FarmTypeBox/TypeOptions.selected = get_index_of_farm_type(Global.FARM_TYPE)
 		_on_type_options_item_selected(get_index_of_farm_type(Global.FARM_TYPE))
 		set_locked_options()
+		populate_continue_preview()
 		)
 
 

@@ -126,14 +126,14 @@ func apply_strength(enhance: Enhance):
 			break
 
 func get_description() -> String:
-	var descr = text
+	var descr: String = text
 	for effect in effects:
 		var effect_text = effect.get_short_description(self)
 		if effect_text.length() > 0:
 			if descr.length() > 0:
 				descr += ". "
 			descr += effect_text
-	return descr.replace("{STRENGTH}", str(strength))
+	return descr.replace("{STRENGTH}", str(strength)).replace("{BLUE_MANA}", Helper.blue_mana())
 
 # To be overridden by specific code seeds
 func register_events(event_manager: EventManager, tile: Tile):

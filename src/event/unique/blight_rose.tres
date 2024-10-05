@@ -9,7 +9,7 @@ script = ExtResource("1_gatsx")
 name = "add_blight_yield"
 strength = 1.0
 on = "plant"
-range = null
+range = "self"
 
 [resource]
 script = ExtResource("1_2qdjs")

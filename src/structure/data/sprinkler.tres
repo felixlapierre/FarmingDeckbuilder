@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="Sprinkler" load_steps=5 format=3 uid="uid://764xab5gktci"]
+[gd_resource type="Resource" script_class="Sprinkler" load_steps=5 format=3 uid="uid://0w1j1j8k1gpj"]
 
 [ext_resource type="Script" path="res://src/effect/effect.gd" id="1_8bhnu"]
 [ext_resource type="Script" path="res://src/structure/custom/sprinkler.gd" id="1_36kls"]

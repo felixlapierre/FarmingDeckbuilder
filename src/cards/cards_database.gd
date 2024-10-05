@@ -28,7 +28,6 @@ static func get_all_file_paths(path: String) -> Array[String]:
 		if dir.current_is_dir():
 			file_paths += get_all_file_paths(file_path)  
 		else:
-			print(file_path)
 			if file_path.ends_with(".remap"):
 				file_path = file_path.trim_suffix(".remap")
 			file_paths.append(file_path)  

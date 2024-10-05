@@ -87,7 +87,7 @@ func get_short_description(card: CardData):
 		"harvest":
 			return "Harvest " + get_size_target_plants(card)
 		"harvest_delay":
-			return "Harvest " + get_size_target_plants(card) + " and carry excess " + Helper.blue_mana() + " to the next week"
+			return "Harvest " + get_size_target_plants(card) + ". " + Helper.blue_mana() + " will not be lost at the end of this turn."
 		"grow":
 			return "Grow " + get_size_target_plants(card) + " by " + str(strength) + " week" + ("s" if strength != 1 else "")
 		"add_yield":
