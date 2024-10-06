@@ -4,7 +4,7 @@ class_name AttackPreview
 @onready var PromptLabel = $CurrentTurn/VBox/PromptLabel
 @onready var AmountLabel = $CurrentTurn/VBox/HBox/AmountLabel
 @onready var AttackParticles = $CurrentTurn/AttackParticles
-
+@onready var AttackImg = $CurrentTurn/VBox/HBox/Attack
 var FutureTurnPreview = preload("res://src/attack/future_turn_preview.tscn")
 var FortuneHover = preload("res://src/fortune/fortune_hover.tscn")
 
@@ -16,9 +16,11 @@ var attack: AttackPattern
 func _ready():
 	pass # Replace with function body.
 
-func setup(p_turn_manager: TurnManager, p_mage_fortune: Fortune):
+func setup(p_turn_manager: TurnManager, p_mage_fortune: Fortune, event_manager: EventManager):
 	turn_manager = p_turn_manager
 	mage_fortune = p_mage_fortune
+	event_manager.register_listener(EventManager.EventType.OnTurnEnd, func(args):
+		next_week())
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -26,13 +28,15 @@ func _process(delta):
 
 func update():
 	AttackParticles.emitting = false
+	AttackImg.visible = false
 	if turn_manager.target_blight > 0:
-		AmountLabel.text = str(turn_manager.purple_mana) + " / " + str(turn_manager.target_blight) + " [img]res://assets/custom/PurpleMana.png[/img]"
+		AmountLabel.text = str(turn_manager.purple_mana) + " / " + str(turn_manager.target_blight)
 	else:
-		AmountLabel.text = str(turn_manager.purple_mana) + "[img]res://assets/custom/PurpleMana.png[/img]"
+		AmountLabel.text = str(turn_manager.purple_mana)
 	if turn_manager.purple_mana < turn_manager.target_blight:
 		PromptLabel.text = "Blight Attack!"
 		AttackParticles.emitting = true
+		AttackImg.visible = true
 	elif turn_manager.purple_mana > turn_manager.target_blight and turn_manager.flag_defer_excess:
 		PromptLabel.text = "Defer: " + str(turn_manager.purple_mana - turn_manager.target_blight) + Helper.blue_mana()
 	elif turn_manager.purple_mana > turn_manager.target_blight and turn_manager.target_blight == 0 and mage_fortune.name != "Lunar Priest":
@@ -53,9 +57,13 @@ func yield_preview(args):
 
 
 func set_attack(p_attack: AttackPattern):
+	if p_attack == null:
+		return
 	attack = p_attack
 	var pattern = attack.get_blight_pattern()
 	var fortunes = attack.get_fortunes()
+	for child in $NextTurns/List.get_children():
+		$NextTurns/List.remove_child(child)
 	for i in range(1, Global.FINAL_WEEK):
 		var preview = FutureTurnPreview.instantiate()
 		preview.setup(i, pattern[i], fortunes[i])
@@ -65,6 +73,8 @@ func set_attack(p_attack: AttackPattern):
 func next_week():
 	var next = $NextTurns/List.get_child(0)
 	$NextTurns/List.remove_child(next)
+	for preview in $NextTurns/List.get_children():
+		preview.decrement_week()
 	var fortunes = attack.fortunes[turn_manager.week]
 	update_fortunes(fortunes)
 	update()
@@ -74,6 +84,5 @@ func update_fortunes(fortunes: Array[Fortune]):
 		$CurrentTurn/VBox/Fortunes.remove_child(node)
 	for fortune in fortunes:
 		var hover = FortuneHover.instantiate()
-		hover.setup(fortune)
 		$CurrentTurn/VBox/Fortunes.add_child(hover)
-	
+		hover.setup(fortune)

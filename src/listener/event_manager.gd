@@ -56,7 +56,7 @@ func notify(event_type: EventType):
 
 func notify_specific_args(event_type: EventType, specific_args: EventArgs.SpecificArgs):
 	for listener in listeners[event_type]:
-		if listener != null:
+		if !listener.is_null():
 			listener.call(get_event_args(specific_args))
 
 func get_event_args(spec):

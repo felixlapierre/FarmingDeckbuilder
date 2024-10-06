@@ -54,51 +54,52 @@ func get_simple_attack_year(year: int, misfortune: bool):
 	if !misfortune:
 		match year + 1:
 			2, 3:
-				get_simple_attack([0])
+				return get_simple_attack([0])
 			4, 5:
-				get_simple_attack([1])
+				return get_simple_attack([1])
 			6:
-				get_simple_attack([1, 0])
+				return get_simple_attack([1, 0])
 			7:
-				get_simple_attack([2])
+				return get_simple_attack([2])
 			8:
-				get_simple_attack([2, 0])
+				return get_simple_attack([2, 0])
 			9:
-				get_simple_attack([2, 1])
+				return get_simple_attack([2, 1])
 			10:
-				get_simple_attack([3])
+				return get_simple_attack([3])
 			_:
-				get_simple_attack([3, 2, 1])
+				return get_simple_attack([3, 2, 1])
 	else:
 		match year + 1:
 			2, 3:
-				get_simple_attack([0])
+				return get_simple_attack([0])
 			4:
-				get_simple_attack([1])
+				return get_simple_attack([1])
 			5:
-				get_simple_attack([1, 0])
+				return get_simple_attack([1, 0])
 			6:
-				get_simple_attack([1, 1])
+				return get_simple_attack([1, 1])
 			7:
-				get_simple_attack([2, 0])
+				return get_simple_attack([2, 0])
 			8:
-				get_simple_attack([2, 1])
+				return get_simple_attack([2, 1])
 			9:
-				get_simple_attack([2, 2])
+				return get_simple_attack([2, 2])
 			10:
-				get_simple_attack([3, 2, 2])
+				return get_simple_attack([3, 2, 2])
 			_:
-				get_simple_attack([3, 2, 1, 0])
+				return get_simple_attack([3, 2, 1, 0])
 
 func get_simple_attack(ranks: Array[int]) -> AttackPattern:
 	var builder = SimpleAttackBuilder.new()
 	for rank in ranks:
-		var options: Array[SimpleAttackBuilder] = simple_builders[rank]
+		var options: Array[SimpleAttackBuilder] = []
+		options.assign(simple_builders[rank])
 		var eligible = []
 		for opt in options:
 			if builder.compatible(opt):
 				eligible.append(opt)
 			
-		var i = randi_range(0, eligible.size())
+		var i = randi_range(0, eligible.size() - 1)
 		builder.combine(eligible[i])
 	return builder.build()

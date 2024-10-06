@@ -90,7 +90,6 @@ func start_year():
 	$UserInterface.start_year()
 	save_game()
 	$EventManager.notify(EventManager.EventType.BeforeYearStart)
-	$TurnManager.start_new_year()
 	$UserInterface.reset_obelisk()
 	$Cards.set_deck_for_year(deck)
 	$Cards.draw_hand($TurnManager.get_cards_drawn(), $TurnManager.week)

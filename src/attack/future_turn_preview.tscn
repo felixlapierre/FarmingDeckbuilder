@@ -1,15 +1,17 @@
-[gd_scene load_steps=5 format=3 uid="uid://dc7jugd8k6bfj"]
+[gd_scene load_steps=6 format=3 uid="uid://dc7jugd8k6bfj"]
 
-[ext_resource type="Theme" uid="uid://c3hfmpsb3fvhr" path="res://assets/game_theme.tres" id="1_31u2h"]
+[ext_resource type="Theme" uid="uid://c21dhy264y6ty" path="res://assets/theme_large.tres" id="1_k27js"]
 [ext_resource type="Texture2D" uid="uid://bvk0lh8bp63in" path="res://assets/custom/Time.png" id="2_j2jbr"]
 [ext_resource type="Script" path="res://src/attack/future_turn_preview.gd" id="2_ruxjg"]
-[ext_resource type="PackedScene" uid="uid://cxg7equ52kyde" path="res://src/fortune/fortune_hover.tscn" id="3_8v1l3"]
+[ext_resource type="Texture2D" uid="uid://cgmg6rhf832w0" path="res://assets/custom/BlightAttack.png" id="4_0oa0h"]
+[ext_resource type="PackedScene" uid="uid://cxg7equ52kyde" path="res://src/fortune/fortune_hover.tscn" id="5_o3504"]
 
 [node name="FutureTurnPreview" type="PanelContainer"]
-theme = ExtResource("1_31u2h")
+theme = ExtResource("1_k27js")
 script = ExtResource("2_ruxjg")
 
 [node name="VBox" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
 
 [node name="Attack" type="HBoxContainer" parent="VBox"]
@@ -29,14 +31,25 @@ layout_mode = 2
 text = ":"
 
 [node name="Attack" type="RichTextLabel" parent="VBox/Attack"]
-custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
-size_flags_horizontal = 3
 bbcode_enabled = true
 text = "27"
 fit_content = true
+autowrap_mode = 0
+
+[node name="AttackImg" type="TextureRect" parent="VBox/Attack"]
+layout_mode = 2
+size_flags_horizontal = 0
+texture = ExtResource("4_0oa0h")
+stretch_mode = 5
 
 [node name="Fortunes" type="HBoxContainer" parent="VBox/Attack"]
 layout_mode = 2
+size_flags_horizontal = 10
+alignment = 2
 
-[node name="FortuneHover" parent="VBox/Attack/Fortunes" instance=ExtResource("3_8v1l3")]
+[node name="FortuneHover" parent="VBox/Attack/Fortunes" instance=ExtResource("5_o3504")]
+layout_mode = 2
+
+[node name="FortuneHover2" parent="VBox/Attack/Fortunes" instance=ExtResource("5_o3504")]
+layout_mode = 2

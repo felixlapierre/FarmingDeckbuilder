@@ -26,6 +26,7 @@ func setup(p_event_manager: EventManager):
 		fortune_map[fortune.type].append(fortune)
 	simple_attacks = SimpleAttacks.new()
 	simple_attacks.create_simple_attacks()
+	attack_pattern = AttackPattern.new()
 
 func create_fortunes():
 	# Clear last week's fortunes

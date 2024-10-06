@@ -17,6 +17,7 @@ var blight_damage = 0
 const TWEEN_DURATION = 0.8
 
 var blight_pattern = []
+var attack_pattern: AttackPattern
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -70,10 +71,13 @@ func end_turn():
 	flag_defer_excess = false
 	return damage
 
-func start_new_year():
+func start_new_year(p_attack_pattern: AttackPattern):
 	year += 1
 	week = 1
-	compute_blight_pattern(week, year)
+	attack_pattern = p_attack_pattern
+	attack_pattern.compute_blight_pattern(year)
+	attack_pattern.compute_fortunes(year)
+	blight_pattern = attack_pattern.get_blight_pattern()
 	ritual_counter = get_ritual_requirements(year)
 	total_ritual = ritual_counter
 	target_blight = get_blight_requirements(week, year)
@@ -122,15 +126,10 @@ func get_ritual_requirements(year):
 	return amount
 
 func get_blight_requirements(week, year):
-	var amt = 0
 	if week > blight_pattern.size():
-		amt = 40 * get_blight_year_multiplier(year - 1)
+		return blight_pattern[blight_pattern.size() - 1]
 	else:
-		amt = blight_pattern[week - 1] * get_blight_year_multiplier(year)
-	return amt * Global.BLIGHT_TARGET_MULTIPLIER * (1.2 if Global.DIFFICULTY > Constants.DIFFICULTY_INCREASE_TARGETS else 1.0)
-
-func get_blight_year_multiplier(year):
-	return 1.0 + year * 0.1
+		return blight_pattern[week - 1]
 
 func get_max_energy():
 	var new_energy = Constants.MAX_ENERGY

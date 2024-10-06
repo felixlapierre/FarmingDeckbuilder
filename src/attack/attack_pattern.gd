@@ -2,7 +2,7 @@ extends Resource
 class_name AttackPattern
 
 var blight_pattern: Array[int] = []
-var fortunes: Array[Fortune] = []
+var fortunes: = []
 var rank: int = 0
 var simple_attack_callback: Callable
 
@@ -10,13 +10,12 @@ func get_fortunes():
 	return fortunes
 
 func compute_fortunes(year: int):
-	var fortunes = []
-	for i in range(1, Global.FINAL_WEEK):
+	fortunes = []
+	for i in range(1, Global.FINAL_WEEK + 1):
 		fortunes.append(get_fortunes_at_week(i))
-	return fortunes
 
 func get_fortunes_at_week(week: int) -> Array[Fortune]:
-	if simple_attack_callback != null:
+	if !simple_attack_callback.is_null():
 		return simple_attack_callback.call(week)
 	return []
 
@@ -24,7 +23,7 @@ func get_blight_pattern():
 	return blight_pattern
 
 func compute_blight_pattern(year: int):
-	var blight_pattern = [0]
+	blight_pattern = [0]
 	var charge: float = 0.0
 	var chance = 0.0
 	for i in range(1, Global.FINAL_WEEK):
@@ -42,4 +41,13 @@ func compute_blight_pattern(year: int):
 			blight_pattern.append(amount)
 		else:
 			blight_pattern.append(0)
-	return blight_pattern
+	# Winter
+	blight_pattern.append(40)
+	for i in range(blight_pattern.size()):
+		blight_pattern[i] = blight_pattern[i] * get_multiplier(year)
+
+func get_multiplier(year: int):
+	var year_multiplier = 1.0 + (year - 1) * 0.1
+	var difficulty_multiplier = Global.BLIGHT_TARGET_MULTIPLIER * \
+		(1.2 if Global.DIFFICULTY > Constants.DIFFICULTY_INCREASE_TARGETS else 1.0)
+	return year_multiplier * difficulty_multiplier

@@ -6,10 +6,16 @@
 [ext_resource type="Theme" uid="uid://c3hfmpsb3fvhr" path="res://assets/game_theme.tres" id="4_5nh5a"]
 [ext_resource type="Theme" uid="uid://c21dhy264y6ty" path="res://assets/theme_large.tres" id="5_4e4lt"]
 
-[node name="FortuneHover" type="Node2D"]
+[node name="FortuneHover" type="Control"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
 script = ExtResource("1_ydwmp")
 
 [node name="Panel" type="PanelContainer" parent="."]
+layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
@@ -24,10 +30,12 @@ theme_override_constants/margin_bottom = 5
 texture_filter = 1
 layout_mode = 2
 texture_normal = ExtResource("3_m0lms")
-stretch_mode = 0
+stretch_mode = 4
 
 [node name="Fortune" parent="." instance=ExtResource("2_mbj0d")]
 visible = false
+z_index = 1
+layout_mode = 0
 offset_left = 52.0
 offset_top = 33.0
 offset_right = 252.0
@@ -36,6 +44,7 @@ theme = ExtResource("4_5nh5a")
 
 [node name="Label" type="Label" parent="."]
 visible = false
+layout_mode = 0
 offset_left = 20.0
 offset_top = 3.0
 offset_right = 60.0

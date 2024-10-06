@@ -232,10 +232,10 @@ size_flags_horizontal = 3
 
 [node name="EndTurnButton" type="TextureButton" parent="UI"]
 layout_mode = 0
-offset_left = 1701.0
-offset_top = 619.0
-offset_right = 1801.0
-offset_bottom = 669.0
+offset_left = 1464.0
+offset_top = 603.0
+offset_right = 1564.0
+offset_bottom = 653.0
 scale = Vector2(2, 2)
 texture_normal = ExtResource("7_dv2x3")
 texture_pressed = ExtResource("8_fmhkd")
@@ -332,6 +332,7 @@ visible = false
 position = Vector2(1595, 123)
 
 [node name="FortuneDisplay" type="Node2D" parent="UI"]
+visible = false
 position = Vector2(1346, 360)
 
 [node name="RTFPanel" type="PanelContainer" parent="UI"]
@@ -381,7 +382,7 @@ texture_hover = ExtResource("22_oyub8")
 stretch_mode = 0
 
 [node name="AttackPreview" parent="UI" instance=ExtResource("24_5346t")]
-position = Vector2(1431, 412)
+position = Vector2(1425, 388)
 
 [node name="AlertContainer" parent="." instance=ExtResource("18_ih37u")]
 visible = false

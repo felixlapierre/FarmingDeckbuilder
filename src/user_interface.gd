@@ -72,7 +72,7 @@ func setup(p_event_manager: EventManager, p_turn_manager: TurnManager, p_deck: A
 	$Shop.setup(deck, turn_manager)
 	register_tooltips()
 	$Tutorial.setup(p_event_manager)
-	$UI/AttackPreview.setup(turn_manager, mage_fortune)
+	$UI/AttackPreview.setup(turn_manager, mage_fortune, p_event_manager)
 
 # Start and end year
 func end_year():
@@ -93,6 +93,8 @@ func end_year():
 func start_year():
 	$UI/SkipButton.visible = Settings.DEBUG
 	$FortuneTeller.register_fortunes()
+	turn_manager.start_new_year($FortuneTeller.attack_pattern);
+	$UI/AttackPreview.set_attack($FortuneTeller.attack_pattern)
 	$UI.visible = true
 	$Winter.visible = false
 	AlertDisplay.clear(end_year_alert_text)

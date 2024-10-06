@@ -33,7 +33,7 @@ func combine(other: SimpleAttackBuilder) -> SimpleAttackBuilder:
 
 func compatible(other: SimpleAttackBuilder) -> bool:
 	for fortune in other.fortunes_every_turn:
-		if fortunes_every_turn.contains(fortune) or fortunes_every_turn.any(func(current):
+		if fortunes_every_turn.has(fortune) or fortunes_every_turn.any(func(current):
 			return fortune.name.split(" ")[0] == current.name.split(" ")[0]):
 			return false
 	return true
@@ -41,7 +41,7 @@ func compatible(other: SimpleAttackBuilder) -> bool:
 func build() -> AttackPattern:
 	var attack = AttackPattern.new()
 	attack.simple_attack_callback = func(week: int):
-		var result = []
+		var result: Array[Fortune] = []
 		if week == 0:
 			result.append_array(fortunes_once)
 		result.append_array(fortunes_every_turn)

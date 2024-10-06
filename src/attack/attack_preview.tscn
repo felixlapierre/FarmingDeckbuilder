@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://bks8p1urlqgax"]
+[gd_scene load_steps=9 format=3 uid="uid://bks8p1urlqgax"]
 
 [ext_resource type="Script" path="res://src/attack/attack_preview.gd" id="1_bcmmq"]
 [ext_resource type="Theme" uid="uid://c21dhy264y6ty" path="res://assets/theme_large.tres" id="1_nispc"]
 [ext_resource type="Texture2D" uid="uid://c0mxwj13dwpml" path="res://assets/custom/PurpleMana.png" id="2_jpcgr"]
 [ext_resource type="PackedScene" uid="uid://cxg7equ52kyde" path="res://src/fortune/fortune_hover.tscn" id="3_wpjb7"]
+[ext_resource type="Texture2D" uid="uid://cgmg6rhf832w0" path="res://assets/custom/BlightAttack.png" id="4_vip4o"]
 [ext_resource type="Texture2D" uid="uid://brhx5tlxxd0hh" path="res://assets/custom/BlightParticle.png" id="5_30kqw"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_yfc77"]
@@ -49,22 +50,30 @@ fit_content = true
 [node name="HBox" type="HBoxContainer" parent="CurrentTurn/VBox"]
 layout_mode = 2
 
-[node name="BlueMana" type="TextureRect" parent="CurrentTurn/VBox/HBox"]
+[node name="Mana" type="TextureRect" parent="CurrentTurn/VBox/HBox"]
 layout_mode = 2
 texture = ExtResource("2_jpcgr")
 stretch_mode = 5
 
 [node name="AmountLabel" type="RichTextLabel" parent="CurrentTurn/VBox/HBox"]
 layout_mode = 2
-size_flags_horizontal = 3
 bbcode_enabled = true
 text = "27"
 fit_content = true
+scroll_active = false
+autowrap_mode = 0
+
+[node name="Attack" type="TextureRect" parent="CurrentTurn/VBox/HBox"]
+layout_mode = 2
+size_flags_horizontal = 2
+texture = ExtResource("4_vip4o")
+stretch_mode = 5
 
 [node name="Fortunes" type="HBoxContainer" parent="CurrentTurn/VBox"]
 layout_mode = 2
 
 [node name="FortuneHover" parent="CurrentTurn/VBox/Fortunes" instance=ExtResource("3_wpjb7")]
+layout_mode = 2
 
 [node name="AttackParticles" type="GPUParticles2D" parent="CurrentTurn"]
 material = SubResource("CanvasItemMaterial_yfc77")
