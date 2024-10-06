@@ -364,6 +364,8 @@ func set_tile_size(n_size: Vector2):
 	$AddYieldParticles.process_material.scale_max = 2
 	$DestroyParticles.process_material.scale_min = 5
 	$DestroyParticles.process_material.scale_max = 5
+	$EffectParticles.process_material.scale_min = 1.5
+	$EffectParticles.process_material.scale_max = 1.5
 	
 func remove_structure():
 	structure.unregister_events(event_manager)
@@ -407,3 +409,6 @@ func card_can_target(card: CardData):
 
 func structure_can_target():
 	return state != Enums.TileState.Structure and state != Enums.TileState.Inactive and !blighted
+
+func play_effect_particles():
+	$EffectParticles.emitting = true

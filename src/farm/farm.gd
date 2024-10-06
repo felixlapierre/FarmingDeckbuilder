@@ -292,6 +292,7 @@ func perform_effect(effect, tile: Tile):
 				var new_seed = tile.seed.copy()
 				new_seed.effects.append(Effect.new("plant", 0, "harvest", "self", Vector2.ZERO, null))
 				tile.seed = new_seed
+				tile.play_effect_particles()
 		"draw_target":
 			var new_seed = tile.seed.copy()
 			new_seed.effects.append(load("res://src/effect/data/fleeting.tres"))

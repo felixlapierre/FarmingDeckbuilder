@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://ccnobfjaguoie"]
+[gd_scene load_steps=20 format=3 uid="uid://ccnobfjaguoie"]
 
 [ext_resource type="Script" path="res://src/farm/tile.gd" id="1_8vnt4"]
 [ext_resource type="Texture2D" uid="uid://cmitvrjj6os0f" path="res://assets/1616tinygarden/Farm.png" id="2_n75y4"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://cba7uh0mnuoum" path="res://assets/custom/LeafParticle.png" id="7_otjuw"]
 [ext_resource type="Texture2D" uid="uid://jbl8fupoclkv" path="res://assets/custom/GainYieldParticle.png" id="8_hyote"]
 [ext_resource type="Texture2D" uid="uid://clf1ovfisrdg0" path="res://assets/animation/destroy.png" id="9_cvalt"]
+[ext_resource type="Texture2D" uid="uid://dgmqywyoi5u0p" path="res://assets/custom/EffectParticle.png" id="9_iiv5d"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1iam7"]
 bg_color = Color(0.784314, 0.784314, 0.784314, 0.537255)
@@ -58,6 +59,24 @@ hue_variation_min = 0.44
 hue_variation_max = 0.58
 anim_speed_min = 3.03
 anim_speed_max = 3.49
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_q4cp8"]
+particles_animation = true
+particles_anim_h_frames = 7
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_swo03"]
+particle_flag_disable_z = true
+emission_shape_offset = Vector3(8, 8, 0)
+emission_shape = 3
+emission_box_extents = Vector3(8, 8, 1)
+direction = Vector3(0, 1, 0)
+spread = 90.0
+initial_velocity_max = 5.0
+gravity = Vector3(0, -98, 0)
+anim_speed_min = 0.5
+anim_speed_max = 1.0
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_6irwh"]
 particles_animation = true
@@ -151,6 +170,17 @@ emitting = false
 process_material = SubResource("ParticleProcessMaterial_gn4kv")
 texture = ExtResource("8_hyote")
 lifetime = 0.3
+one_shot = true
+explosiveness = 0.8
+
+[node name="EffectParticles" type="GPUParticles2D" parent="."]
+z_index = 1
+texture_filter = 1
+material = SubResource("CanvasItemMaterial_q4cp8")
+emitting = false
+amount = 3
+process_material = SubResource("ParticleProcessMaterial_swo03")
+texture = ExtResource("9_iiv5d")
 one_shot = true
 explosiveness = 0.8
 

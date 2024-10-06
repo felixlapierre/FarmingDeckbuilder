@@ -16,7 +16,7 @@ func register_seed_events(event_manager: EventManager, p_tile: Tile):
 	callback = func(args: EventArgs):
 		var tile: Tile = args.specific.tile
 		if tile == my_tile:
-			pass
+			tile.play_effect_particles()
 	event_manager.register_listener(event_type, callback)
 
 func unregister_seed_events(event_manager: EventManager):

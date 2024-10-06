@@ -132,7 +132,7 @@ static var wilderness_deck = [
 		"count": 3
 	},
 	{
-		"name": "ingrain",
+		"name": "regrow_random",
 		"type": "action",
 		"count": 1,
 	},
