@@ -18,6 +18,7 @@ func _ready():
 
 func setup(p_turn_manager: TurnManager, p_mage_fortune: Fortune):
 	turn_manager = p_turn_manager
+	mage_fortune = p_mage_fortune
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -40,6 +41,16 @@ func update():
 		PromptLabel.text = "Excess: " + str((turn_manager.purple_mana - turn_manager.target_blight) * mage_fortune.strength) + Helper.mana_icon()
 	else:
 		PromptLabel.text = "Safe!"
+
+func yield_preview(args):
+	var yellow = args.yellow
+	var purple = args.purple
+	var blightamt = turn_manager.purple_mana + purple
+	if purple != 0:
+		AmountLabel.text = "[color=9f78e3]"+ str(blightamt) + " / " + str(turn_manager.target_blight)
+	else:
+		AmountLabel.text = str(turn_manager.purple_mana) + " / " + str(turn_manager.target_blight)
+
 
 func set_attack(p_attack: AttackPattern):
 	attack = p_attack

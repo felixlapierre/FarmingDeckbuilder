@@ -1,4 +1,5 @@
 extends Node
+class_name SimpleAttacks
 
 var data_fetcher = preload("res://src/cards/cards_database.gd")
 
@@ -42,11 +43,11 @@ func _process(delta):
 	pass
 
 func create_simple_attacks():
-	for i in range(0, 3):
+	for i in range(0, 4):
 		simple_builders[i] = []
 	for fortune in data_fetcher.get_all_fortunes():
 		if fortune.type == Fortune.FortuneType.BadFortune:
-			var simpleattack = SimpleAttackBuilder.new().every_turn_fortune(fortune).rank(fortune.rank)
+			var simpleattack = SimpleAttackBuilder.new().fortune_every_turn(fortune).rank(fortune.rank)
 			simple_builders[fortune.rank].append(simpleattack)
 
 func get_simple_attack_year(year: int, misfortune: bool):

@@ -64,7 +64,7 @@ func _on_start_button_pressed():
 	playspace = PLAYSPACE.instantiate()
 	connect_main_menu_signal(playspace)
 	add_child(playspace)
-	playspace.user_interface.mage_fortune = mage_fortune
+	playspace.user_interface.set_mage_fortune(mage_fortune)
 
 	playspace.start_new_game()
 
@@ -181,7 +181,7 @@ func _on_story_start_button_pressed() -> void:
 	playspace.set_script(load("res://src/tutorial/tutorial_game.gd"))
 	connect_main_menu_signal(playspace)
 	add_child(playspace)
-	playspace.user_interface.mage_fortune = load("res://src/fortune/characters/blank_mage.gd").new()
+	playspace.user_interface.set_mage_fortune(load("res://src/fortune/characters/blank_mage.gd").new())
 	playspace.start_new_game()
 
 func connect_main_menu_signal(playspace):

@@ -2,6 +2,7 @@ extends Node2D
 class_name FortuneTeller
 
 var event_manager: EventManager
+var simple_attacks: SimpleAttacks
 var data_fetcher = preload("res://src/cards/cards_database.gd")
 var fortune_display_scene = preload("res://src/fortune/fortune.tscn")
 
@@ -9,6 +10,7 @@ var fortune_map = {}
 var size = 0
 
 var current_fortunes: Array[Fortune] = []
+var attack_pattern: AttackPattern
 
 signal on_close
 
@@ -22,6 +24,8 @@ func setup(p_event_manager: EventManager):
 		if !fortune_map.has(fortune.type):
 			fortune_map[fortune.type] = []
 		fortune_map[fortune.type].append(fortune)
+	simple_attacks = SimpleAttacks.new()
+	simple_attacks.create_simple_attacks()
 
 func create_fortunes():
 	# Clear last week's fortunes
@@ -29,16 +33,21 @@ func create_fortunes():
 	for child in $CenterContainer/PanelContainer/VBox/Fortunes.get_children():
 		$CenterContainer/PanelContainer/VBox/Fortunes.remove_child(child)
 
-	# Ensure we get a random fortune
-	for type in Fortune.FortuneType.values():
-		fortune_map[type].shuffle()
-
-	# Select the fortunes based on week
-	if Global.DIFFICULTY < Constants.DIFFICULTY_MISFORTUNE:
-		current_fortunes.append(get_fortune(Fortune.FortuneType.GoodFortune, 0))
-		get_current_fortunes_regular()
-	else:
-		get_current_fortunes_misfortune()
+	var misfortune = Global.DIFFICULTY >= Constants.DIFFICULTY_MISFORTUNE
+	var year = event_manager.turn_manager.year
+	attack_pattern = simple_attacks.get_simple_attack_year(year, misfortune)
+	
+	current_fortunes = attack_pattern.get_fortunes_at_week(0)
+	## Ensure we get a random fortune
+	#for type in Fortune.FortuneType.values():
+		#fortune_map[type].shuffle()
+#
+	## Select the fortunes based on week
+	#if Global.DIFFICULTY < Constants.DIFFICULTY_MISFORTUNE:
+		#current_fortunes.append(get_fortune(Fortune.FortuneType.GoodFortune, 0))
+		#get_current_fortunes_regular()
+	#else:
+		#get_current_fortunes_misfortune()
 
 	# Display the fortunes
 	display_fortunes()
