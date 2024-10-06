@@ -5,8 +5,11 @@ var callback: Callable
 var event_type = EventManager.EventType.AfterYearStart
 var weeds = preload("res://src/fortune/unique/weed.tres")
 var weeds_texture = preload("res://assets/fortune/weed_card_fortune.png")
+
+var strength = 2
+
 func _init() -> void:
-	super("Cursed Scrolls", FortuneType.BadFortune, "Add 2 Weeds to your deck for this year", 0, weeds_texture)
+	super("Cursed Scrolls", FortuneType.BadFortune, "Add Weeds to your deck for this year", 0, weeds_texture)
 
 func register_fortune(event_manager: EventManager):
 	callback = add_daylily
@@ -16,5 +19,5 @@ func unregister_fortune(event_manager: EventManager):
 	event_manager.unregister_listener(event_type, callback)
 
 func add_daylily(args: EventArgs):
-	args.cards.deck_cards.append(weeds.copy())
-	args.cards.deck_cards.append(weeds.copy())
+	for i in range(strength):
+		args.cards.deck_cards.append(weeds.copy())

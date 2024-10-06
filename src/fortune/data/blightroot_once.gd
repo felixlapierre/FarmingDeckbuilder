@@ -1,5 +1,4 @@
 extends Fortune
-class_name BlightrootOnce
 
 @export var count: int
 
