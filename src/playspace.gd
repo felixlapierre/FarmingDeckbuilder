@@ -88,8 +88,10 @@ func end_year(endless: bool):
 
 func start_year():
 	victory = false
+	KaleidoscopeTwo.rotation = 3
 	$UserInterface.start_year()
 	save_game()
+	turn_manager.start_new_year();
 	$EventManager.notify(EventManager.EventType.BeforeYearStart)
 	$UserInterface.reset_obelisk()
 	$Cards.set_deck_for_year(deck)

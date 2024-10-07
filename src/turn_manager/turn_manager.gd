@@ -76,13 +76,15 @@ func end_turn():
 	attack_pattern.register_fortunes(event_manager, week)
 	return damage
 
-func start_new_year(p_attack_pattern: AttackPattern):
+func register_attack_pattern(p_attack_pattern: AttackPattern):
+	attack_pattern = p_attack_pattern
+	attack_pattern.compute_blight_pattern(year+1)
+	attack_pattern.compute_fortunes(year+1)
+	attack_pattern.register_fortunes(event_manager, 1)
+
+func start_new_year():
 	year += 1
 	week = 1
-	attack_pattern = p_attack_pattern
-	attack_pattern.compute_blight_pattern(year)
-	attack_pattern.compute_fortunes(year)
-	attack_pattern.register_fortunes(event_manager, 1)
 	blight_pattern = attack_pattern.get_blight_pattern()
 	ritual_counter = get_ritual_requirements(year)
 	total_ritual = ritual_counter

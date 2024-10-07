@@ -19,6 +19,7 @@ var deck: Array[CardData]
 var cards: Cards
 var turn_ending = false
 var mage_fortune: MageAbility = null
+var event_manager: EventManager
 
 var SELECT_CARD = preload("res://src/cards/select_card.tscn")
 var cards_database = preload("res://src/cards/cards_database.gd")
@@ -70,6 +71,7 @@ func setup(p_event_manager: EventManager, p_turn_manager: TurnManager, p_deck: A
 	deck = p_deck
 	cards = p_cards
 	GameEventDialog.setup(deck, turn_manager)
+	event_manager = p_event_manager
 	$Shop.setup(deck, turn_manager)
 	register_tooltips()
 	$Tutorial.setup(p_event_manager)
@@ -92,7 +94,7 @@ func end_year():
 	
 func start_year():
 	$UI/SkipButton.visible = Settings.DEBUG
-	turn_manager.start_new_year($FortuneTeller.attack_pattern);
+	turn_manager.register_attack_pattern($FortuneTeller.attack_pattern)
 	$UI/AttackPreview.set_attack($FortuneTeller.attack_pattern)
 	$UI.visible = true
 	$Winter.visible = false
@@ -500,6 +502,7 @@ func load_data(save_json: Dictionary):
 	mage_fortune.load_data(save_json.state.mage)
 	var attack: AttackPattern = load(save_json.attack.path).new()
 	attack.load_data(save_json.attack)
+	$UI/AttackPreview.mage_fortune = mage_fortune
 	$FortuneTeller.attack_pattern = attack
 	create_fortune_display()
 	$Shop.player_money = save_json.state.rerolls
