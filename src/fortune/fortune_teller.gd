@@ -5,7 +5,7 @@ var event_manager: EventManager
 var simple_attacks: SimpleAttacks
 var data_fetcher = preload("res://src/cards/cards_database.gd")
 var fortune_display_scene = preload("res://src/fortune/fortune.tscn")
-
+var attacks_advanced: AttacksAdvanced
 var fortune_map = {}
 var size = 0
 
@@ -17,6 +17,7 @@ signal on_close
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	$CenterContainer.custom_minimum_size = Constants.VIEWPORT_SIZE
+	attacks_advanced = AttacksAdvanced.new()
 
 func setup(p_event_manager: EventManager):
 	event_manager = p_event_manager
@@ -36,7 +37,10 @@ func create_fortunes():
 
 	var misfortune = Global.DIFFICULTY >= Constants.DIFFICULTY_MISFORTUNE
 	var year = event_manager.turn_manager.year
-	attack_pattern = simple_attacks.get_simple_attack_year(year, misfortune)
+	if Global.DIFFICULTY == Constants.DIFFICULTY_HARD:
+		attack_pattern = attacks_advanced.get_advanced_attack_year(year)
+	else:
+		attack_pattern = simple_attacks.get_simple_attack_year(year, misfortune)
 	
 	#current_fortunes = attack_pattern.get_fortunes_at_week(0)
 	## Ensure we get a random fortune

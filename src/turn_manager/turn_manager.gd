@@ -25,7 +25,7 @@ func _ready() -> void:
 	pass # Replace with function body.
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	pass
 
 func setup(p_event_manager: EventManager):
@@ -131,6 +131,8 @@ func get_ritual_requirements(year):
 		amount += year * 5
 	if year >= 10 and difficulty_up:
 		amount += 100
+	if Global.DIFFICULTY >= Constants.DIFFICULTY_HARD:
+		amount *= 1.3
 	return amount
 
 func get_blight_requirements(week, year):

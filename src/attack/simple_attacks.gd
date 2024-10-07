@@ -3,34 +3,6 @@ class_name SimpleAttacks
 
 var data_fetcher = preload("res://src/cards/cards_database.gd")
 
-# Plants
-var StartWithWeeds = preload("res://src/fortune/data/weeds_on_farm.gd")
-var BlightrootOnce = preload("res://src/fortune/data/blightroot_once.gd")
-var BlightrootTurnStart = preload("res://src/fortune/data/blightroot_turn_start.gd")
-var DeathcapTurnStart = preload("res://src/fortune/data/deathcap_turnstart.gd")
-var WeedsEntireFarm = preload("res://src/fortune/data/weeds_entire_farm.gd")
-
-# Cards
-var ObliviateRightmost = preload("res://src/fortune/data/end_turn_obliviate.gd")
-var WeedsDeckOnce = preload("res://src/fortune/data/weeds_start_deck.gd")
-var WeedsDeckTurn = preload("res://src/fortune/data/weed_deck_turn_start.gd")
-
-# Kaleidoscope
-var EndTurnRandomize = preload("res://src/fortune/data/end_turn_randomize_colors.gd")
-var EndTurnSwap = preload("res://src/fortune/data/end_turn_swap_colors.gd")
-var EndTurnRotate = preload("res://src/fortune/data/end_turn_rotate_colors.gd")
-
-# Destroy, Piercing
-var DestroyOnePlant = load("res://src/fortune/data/destroy_one_plant.tres")
-var DestroyTwoPlants = load("res://src/fortune/data/destroy_two.tres")
-var PiercingDestroyTwoTiles = load("res://src/fortune/data/piercing_destroy_two.tres")
-var PiercingFour = load("res://src/fortune/data/piercing_four.tres")
-var PiercingTwo = load("res://src/fortune/data/piercing_two.tres")
-
-#Other
-var Catastrophe = load("res://src/fortune/data/double_purple_target.tres")
-var IncreaseRitual10 = preload("res://src/fortune/data/increase_ritual_target.gd")
-
 var simple_builders = {}
 
 # Called when the node enters the scene tree for the first time.

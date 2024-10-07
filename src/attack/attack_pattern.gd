@@ -11,12 +11,12 @@ var current_fortunes = []
 func get_fortunes():
 	return fortunes
 
-func compute_fortunes(year: int):
+func compute_fortunes(_year: int):
 	fortunes = []
 	for i in range(1, Global.FINAL_WEEK + 1):
 		fortunes.append(get_fortunes_at_week(i))
 
-func get_fortunes_at_week(week: int) -> Array[Fortune]:
+func get_fortunes_at_week(_week: int) -> Array[Fortune]:
 	return []
 
 func register_fortunes(event_manager: EventManager, week: int):
@@ -39,6 +39,10 @@ func compute_blight_pattern(year: int):
 	var chance = 0.0
 	for i in range(1, Global.FINAL_WEEK):
 		charge += 10.0
+		if Global.DIFFICULTY >= Constants.DIFFICULTY_INCREASE_TARGETS:
+			charge += 0.4 * year
+		if Global.DIFFICULTY >= Constants.DIFFICULTY_HARD:
+			charge += 0.8 * year
 		chance += 0.3
 		if (year < 4 and i < 3) or (year < 10 and i < 2):
 			blight_pattern.append(0)
@@ -59,8 +63,7 @@ func compute_blight_pattern(year: int):
 
 func get_multiplier(year: int):
 	var year_multiplier = 1.0 + (year - 1) * 0.1
-	var difficulty_multiplier = Global.BLIGHT_TARGET_MULTIPLIER * \
-		(1.2 if Global.DIFFICULTY > Constants.DIFFICULTY_INCREASE_TARGETS else 1.0)
+	var difficulty_multiplier = Global.BLIGHT_TARGET_MULTIPLIER
 	return year_multiplier * difficulty_multiplier
 
 func save_data():
@@ -68,7 +71,7 @@ func save_data():
 	data.path = get_script().get_path()
 	return data
 
-func load_data(data):
+func load_data(_data):
 	pass
 
 func get_all_fortunes_display():

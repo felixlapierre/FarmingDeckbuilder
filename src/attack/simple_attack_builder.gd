@@ -14,6 +14,18 @@ func fortune_every_turn(fortune: Fortune) -> SimpleAttackBuilder:
 	attack.fortunes_every_turn.append(fortune)
 	return self
 
+func fortune_even(fortune: Fortune) -> SimpleAttackBuilder:
+	attack.fortunes_even.append(fortune)
+	return self
+
+func fortune_odd(fortune: Fortune) -> SimpleAttackBuilder:
+	attack.fortunes_odd.append(fortune)
+	return self
+
+func fortune_random(fortune: Fortune) -> SimpleAttackBuilder:
+	attack.fortunes_random.append(fortune)
+	return self
+
 func rank(p_rank: int) -> SimpleAttackBuilder:
 	attack.rank = p_rank
 	return self
@@ -31,4 +43,5 @@ func compatible(other: SimpleAttackBuilder) -> bool:
 	return true
 
 func build() -> AttackPattern:
+	attack.fortunes_random.shuffle()
 	return attack
