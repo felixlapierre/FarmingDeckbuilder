@@ -1,7 +1,7 @@
 extends Fortune
 
 var callback: Callable
-var event_type = EventManager.EventType.AfterYearStart
+var event_type = EventManager.EventType.BeforeYearStart
 var image = preload("res://assets/custom/YellowMana.png")
 
 func _init() -> void:

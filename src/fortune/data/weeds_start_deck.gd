@@ -2,7 +2,7 @@ extends Fortune
 class_name WeedsStartDeck
 
 var callback: Callable
-var event_type = EventManager.EventType.AfterYearStart
+var event_type = EventManager.EventType.BeforeTurnStart
 var weeds = preload("res://src/fortune/unique/weed.tres")
 var weeds_texture = preload("res://assets/fortune/weed_card_fortune.png")
 

@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://cxg7equ52kyde" path="res://src/fortune/fortune_hover.tscn" id="5_o3504"]
 
 [node name="FutureTurnPreview" type="PanelContainer"]
+mouse_filter = 2
 theme = ExtResource("1_k27js")
 script = ExtResource("2_ruxjg")
 
@@ -32,6 +33,7 @@ text = ":"
 
 [node name="Attack" type="RichTextLabel" parent="VBox/Attack"]
 layout_mode = 2
+mouse_filter = 2
 bbcode_enabled = true
 text = "27"
 fit_content = true

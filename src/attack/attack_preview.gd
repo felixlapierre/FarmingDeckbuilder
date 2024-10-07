@@ -68,13 +68,18 @@ func set_attack(p_attack: AttackPattern):
 		var preview = FutureTurnPreview.instantiate()
 		preview.setup(i, pattern[i], fortunes[i])
 		$NextTurns/List.add_child(preview)
+		if i > 3:
+			preview.visible = false
 	update_fortunes(fortunes[0])
 
 func next_week():
 	var next = $NextTurns/List.get_child(0)
 	$NextTurns/List.remove_child(next)
+	var i = 0
 	for preview in $NextTurns/List.get_children():
 		preview.decrement_week()
+		preview.visible = i <= 2
+		i += 1
 	var fortunes = attack.fortunes[turn_manager.week]
 	update_fortunes(fortunes)
 	update()
@@ -86,3 +91,13 @@ func update_fortunes(fortunes: Array[Fortune]):
 		var hover = FortuneHover.instantiate()
 		$CurrentTurn/VBox/Fortunes.add_child(hover)
 		hover.setup(fortune)
+
+
+func _on_next_turns_mouse_entered():
+	for child in $NextTurns/List.get_children():
+		child.visible = true
+
+func _on_next_turns_mouse_exited():
+	for i in range(0, $NextTurns/List.get_child_count()):
+		if i > 2:
+			$NextTurns/List.get_child(i).visible = false

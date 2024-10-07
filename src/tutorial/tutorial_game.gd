@@ -67,7 +67,7 @@ func year_one():
 		if tile.purple:
 			tile.state = Enums.TileState.Inactive
 			tile.update_display()
-	user_interface.BlightPanel.visible = false
+	user_interface.AttackPreview.visible = false
 	turn_manager.blight_pattern = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 	#Hardcode turn 1
 	var cards_copy = []
@@ -128,7 +128,7 @@ func year_two():
 		if !tile.purple:
 			tile.state = Enums.TileState.Inactive
 			tile.update_display()
-	user_interface.BlightPanel.visible = true
+	user_interface.AttackPreview.visible = true
 	turn_manager.blight_pattern = [0, 5, 0, 7, 0, 5, 0, 10, 0, 5, 0, 10, 10, 0, 10, 0]
 	turn_manager.target_blight = 0
 	turn_manager.next_turn_blight = 5

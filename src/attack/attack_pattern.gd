@@ -6,6 +6,8 @@ var fortunes: = []
 var rank: int = 0
 var simple_attack_callback: Callable
 
+var current_fortunes = []
+
 func get_fortunes():
 	return fortunes
 
@@ -18,6 +20,17 @@ func get_fortunes_at_week(week: int) -> Array[Fortune]:
 	if !simple_attack_callback.is_null():
 		return simple_attack_callback.call(week)
 	return []
+
+func register_fortunes(event_manager: EventManager, week: int):
+	unregister_fortunes(event_manager)
+	current_fortunes.append_array(get_fortunes_at_week(week))
+	for fortune: Fortune in current_fortunes:
+		fortune.register_fortune(event_manager)
+
+func unregister_fortunes(event_manager: EventManager):
+	for fortune: Fortune in current_fortunes:
+		fortune.unregister_fortune(event_manager)
+	current_fortunes.clear()
 
 func get_blight_pattern():
 	return blight_pattern

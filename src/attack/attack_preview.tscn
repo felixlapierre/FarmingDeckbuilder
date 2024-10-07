@@ -33,6 +33,7 @@ anim_speed_max = 1.0
 script = ExtResource("1_bcmmq")
 
 [node name="CurrentTurn" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(0, 130)
 offset_right = 40.0
 offset_bottom = 40.0
 theme = ExtResource("1_nispc")
@@ -86,9 +87,11 @@ explosiveness = 0.3
 
 [node name="NextTurns" type="PanelContainer" parent="."]
 offset_left = 232.0
-offset_top = 4.0
 offset_right = 272.0
-offset_bottom = 44.0
+offset_bottom = 40.0
 
 [node name="List" type="VBoxContainer" parent="NextTurns"]
 layout_mode = 2
+
+[connection signal="mouse_entered" from="NextTurns/List" to="." method="_on_next_turns_mouse_entered"]
+[connection signal="mouse_exited" from="NextTurns/List" to="." method="_on_next_turns_mouse_exited"]

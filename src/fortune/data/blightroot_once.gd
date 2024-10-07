@@ -3,7 +3,7 @@ extends Fortune
 @export var count: int
 
 var callback: Callable
-var event_type = EventManager.EventType.AfterYearStart
+var event_type = EventManager.EventType.BeforeTurnStart
 var blightroot = preload("res://src/fortune/unique/blightroot.tres")
 var blightroot_texture = preload("res://assets/fortune/blightroot_fortune.png")
 func _init() -> void:

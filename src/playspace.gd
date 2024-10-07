@@ -31,6 +31,7 @@ func _ready() -> void:
 	$UserInterface.setup($EventManager, $TurnManager, deck, $Cards)
 	$UserInterface.update()
 	$FarmTiles.setup($EventManager)
+	$TurnManager.setup($EventManager)
 	background2.unique_tileset()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

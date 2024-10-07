@@ -42,7 +42,7 @@ func build() -> AttackPattern:
 	var attack = AttackPattern.new()
 	attack.simple_attack_callback = func(week: int):
 		var result: Array[Fortune] = []
-		if week == 0:
+		if week == 1:
 			result.append_array(fortunes_once)
 		result.append_array(fortunes_every_turn)
 		return result

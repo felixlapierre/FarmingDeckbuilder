@@ -38,7 +38,7 @@ func create_fortunes():
 	var year = event_manager.turn_manager.year
 	attack_pattern = simple_attacks.get_simple_attack_year(year, misfortune)
 	
-	current_fortunes = attack_pattern.get_fortunes_at_week(0)
+	#current_fortunes = attack_pattern.get_fortunes_at_week(0)
 	## Ensure we get a random fortune
 	#for type in Fortune.FortuneType.values():
 		#fortune_map[type].shuffle()

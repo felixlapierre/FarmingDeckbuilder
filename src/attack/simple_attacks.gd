@@ -47,7 +47,13 @@ func create_simple_attacks():
 		simple_builders[i] = []
 	for fortune in data_fetcher.get_all_fortunes():
 		if fortune.type == Fortune.FortuneType.BadFortune:
-			var simpleattack = SimpleAttackBuilder.new().fortune_every_turn(fortune).rank(fortune.rank)
+			var simpleattack = SimpleAttackBuilder.new()
+			match fortune.name:
+				"Blightroot", "Ritual Disruption", "Overgrown", "Cursed Scrolls", "Weeds", "Kaleidoscope":
+					simpleattack.fortune_once(fortune)
+				_:
+					simpleattack.fortune_every_turn(fortune)
+			simpleattack.rank(fortune.rank)
 			simple_builders[fortune.rank].append(simpleattack)
 
 func get_simple_attack_year(year: int, misfortune: bool):

@@ -44,6 +44,7 @@ var FORTUNE_HOVER = preload("res://src/fortune/fortune_hover.tscn")
 @onready var FarmingUi = $UI
 @onready var FortuneTeller = $FortuneTeller
 @onready var EndScreen = $EndScreen
+@onready var AttackPreview = $UI/AttackPreview
 
 var end_year_alert_text = "Ritual Complete! Time to rest and prepare for the next year"
 var structure_place_text = "Click on the farm tile where you'd like to place the structure"
@@ -83,7 +84,6 @@ func end_year():
 	$Winter/EventPanel/VB/EventButton.disabled = false
 	GameEventDialog.generate_random_event()
 	$Shop.fill_shop()
-	$FortuneTeller.unregister_fortunes()
 	$FortuneTeller.create_fortunes()
 	create_fortune_display()
 	update()
@@ -92,7 +92,6 @@ func end_year():
 	
 func start_year():
 	$UI/SkipButton.visible = Settings.DEBUG
-	$FortuneTeller.register_fortunes()
 	turn_manager.start_new_year($FortuneTeller.attack_pattern);
 	$UI/AttackPreview.set_attack($FortuneTeller.attack_pattern)
 	$UI.visible = true
@@ -494,8 +493,6 @@ func load_data(save_json: Dictionary):
 		$Shop.load_data(save_json.winter.shop)
 		$Tutorial.on_winter()
 		$Tutorial.position.x = 1234
-	$FortuneTeller.unregister_fortunes()
-	$FortuneTeller.load_fortunes(save_json.fortunes)
 	for event_path: String in save_json.events.completed:
 		GameEventDialog.completed_events.append(load(event_path))
 	mage_fortune = load(save_json.state.mage.path).new()

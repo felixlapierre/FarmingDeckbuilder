@@ -18,6 +18,7 @@ const TWEEN_DURATION = 0.8
 
 var blight_pattern = []
 var attack_pattern: AttackPattern
+var event_manager: EventManager
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -26,6 +27,9 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
+
+func setup(p_event_manager: EventManager):
+	event_manager = p_event_manager
 
 # Return bool indicating if the ritual is complete
 func gain_yellow_mana(amount, delay):
@@ -69,6 +73,7 @@ func end_turn():
 	next_turn_blight = get_blight_requirements(week + 1, year)
 	energy = get_max_energy()
 	flag_defer_excess = false
+	attack_pattern.register_fortunes(event_manager, week)
 	return damage
 
 func start_new_year(p_attack_pattern: AttackPattern):
@@ -77,6 +82,7 @@ func start_new_year(p_attack_pattern: AttackPattern):
 	attack_pattern = p_attack_pattern
 	attack_pattern.compute_blight_pattern(year)
 	attack_pattern.compute_fortunes(year)
+	attack_pattern.register_fortunes(event_manager, 1)
 	blight_pattern = attack_pattern.get_blight_pattern()
 	ritual_counter = get_ritual_requirements(year)
 	total_ritual = ritual_counter
