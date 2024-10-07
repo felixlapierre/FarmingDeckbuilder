@@ -28,7 +28,7 @@ func _process(delta):
 
 func update():
 	AttackParticles.emitting = false
-	AttackImg.visible = false
+	AttackImg.modulate = Color8(94, 102, 115)
 	if turn_manager.target_blight > 0:
 		AmountLabel.text = str(turn_manager.purple_mana) + " / " + str(turn_manager.target_blight)
 	else:
@@ -36,7 +36,7 @@ func update():
 	if turn_manager.purple_mana < turn_manager.target_blight:
 		PromptLabel.text = "Blight Attack!"
 		AttackParticles.emitting = true
-		AttackImg.visible = true
+		AttackImg.modulate = Color8(255, 255, 255)
 	elif turn_manager.purple_mana > turn_manager.target_blight and turn_manager.flag_defer_excess:
 		PromptLabel.text = "Defer: " + str(turn_manager.purple_mana - turn_manager.target_blight) + Helper.blue_mana()
 	elif turn_manager.purple_mana > turn_manager.target_blight and turn_manager.target_blight == 0 and mage_fortune.name != "Lunar Priest":

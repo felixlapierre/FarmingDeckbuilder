@@ -50,14 +50,17 @@ fit_content = true
 
 [node name="HBox" type="HBoxContainer" parent="CurrentTurn/VBox"]
 layout_mode = 2
+alignment = 1
 
 [node name="Mana" type="TextureRect" parent="CurrentTurn/VBox/HBox"]
 layout_mode = 2
+size_flags_horizontal = 6
 texture = ExtResource("2_jpcgr")
 stretch_mode = 5
 
 [node name="AmountLabel" type="RichTextLabel" parent="CurrentTurn/VBox/HBox"]
 layout_mode = 2
+size_flags_horizontal = 2
 bbcode_enabled = true
 text = "27"
 fit_content = true
@@ -66,7 +69,7 @@ autowrap_mode = 0
 
 [node name="Attack" type="TextureRect" parent="CurrentTurn/VBox/HBox"]
 layout_mode = 2
-size_flags_horizontal = 2
+size_flags_horizontal = 6
 texture = ExtResource("4_vip4o")
 stretch_mode = 5
 

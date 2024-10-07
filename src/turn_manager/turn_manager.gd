@@ -92,7 +92,7 @@ func start_new_year(p_attack_pattern: AttackPattern):
 	energy = get_max_energy()
 
 func end_year():
-	pass
+	attack_pattern.unregister_fortunes(event_manager)
 
 func compute_blight_pattern(week, year):
 	blight_pattern = [0]

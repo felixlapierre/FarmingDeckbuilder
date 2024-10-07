@@ -17,8 +17,6 @@ func compute_fortunes(year: int):
 		fortunes.append(get_fortunes_at_week(i))
 
 func get_fortunes_at_week(week: int) -> Array[Fortune]:
-	if !simple_attack_callback.is_null():
-		return simple_attack_callback.call(week)
 	return []
 
 func register_fortunes(event_manager: EventManager, week: int):
@@ -64,3 +62,14 @@ func get_multiplier(year: int):
 	var difficulty_multiplier = Global.BLIGHT_TARGET_MULTIPLIER * \
 		(1.2 if Global.DIFFICULTY > Constants.DIFFICULTY_INCREASE_TARGETS else 1.0)
 	return year_multiplier * difficulty_multiplier
+
+func save_data():
+	var data = {}
+	data.path = get_script().get_path()
+	return data
+
+func load_data(data):
+	pass
+
+func get_all_fortunes_display():
+	return []

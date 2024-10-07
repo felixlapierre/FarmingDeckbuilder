@@ -15,6 +15,8 @@ func setup(week: int, attack: int, fortunes: Array[Fortune]):
 		$VBox/Attack/Fortunes.remove_child(fortune)
 	$VBox/Attack/Turns.text = str(week)
 	$VBox/Attack/Attack.clear()
+	if attack == 0:
+		$VBox/Attack/Attack.append_text("[color=dimgray]")
 	$VBox/Attack/Attack.append_text(str(attack))
 	$VBox/Attack/AttackImg.visible = attack > 0
 	for fortune in fortunes:

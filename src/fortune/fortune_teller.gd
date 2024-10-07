@@ -146,7 +146,7 @@ func load_fortunes(fortunes):
 	display_fortunes()
 
 func display_fortunes():
-	for fortune in current_fortunes:
+	for fortune in attack_pattern.get_all_fortunes_display():
 		var display: Control = fortune_display_scene.instantiate()
 		display.find_child("Name").text = fortune.name
 		display.find_child("Description").text = fortune.text

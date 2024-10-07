@@ -33,7 +33,3 @@ func register_fortune(event_manager: EventManager):
 
 func unregister_fortune(event_manager: EventManager):
 	event_manager.unregister_listener(EventManager.EventType.OnTurnEnd, callable)
-	if farm_ref != null:
-		for tile: Tile in farm_ref.get_node("Tiles").get_children():
-			tile.purple = tile.grid_location.x >= Constants.PURPLE_GTE_INDEX
-			tile.update_purple_overlay()

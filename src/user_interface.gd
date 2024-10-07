@@ -481,6 +481,7 @@ func save_data(save_json):
 	}
 	save_json.state.rerolls = $Shop.player_money
 	save_json.state.mage = mage_fortune.save_data()
+	save_json.attack = $FortuneTeller.attack_pattern.save_data()
 
 func load_data(save_json: Dictionary):
 	if save_json.state.winter == true:
@@ -497,6 +498,9 @@ func load_data(save_json: Dictionary):
 		GameEventDialog.completed_events.append(load(event_path))
 	mage_fortune = load(save_json.state.mage.path).new()
 	mage_fortune.load_data(save_json.state.mage)
+	var attack: AttackPattern = load(save_json.attack.path).new()
+	attack.load_data(save_json.attack)
+	$FortuneTeller.attack_pattern = attack
 	create_fortune_display()
 	$Shop.player_money = save_json.state.rerolls
 	update()

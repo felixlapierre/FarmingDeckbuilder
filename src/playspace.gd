@@ -180,11 +180,11 @@ func on_turn_end():
 		end_year(false)
 		$UserInterface.turn_ending = false
 		return
+	$EventManager.notify(EventManager.EventType.OnTurnEnd)
 	var damage = $TurnManager.end_turn()
 	if damage:
 		$UserInterface.update_damage()
 		$TurnManager.destroy_blighted_tiles($FarmTiles)
-	$EventManager.notify(EventManager.EventType.OnTurnEnd)
 	
 	if $TurnManager.blight_damage >= Constants.MAX_BLIGHT:
 		on_lose()
