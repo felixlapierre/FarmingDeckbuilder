@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="CorpseFlower" load_steps=4 format=3 uid="uid://j1wq7ibk2a3v"]
+
+[ext_resource type="Script" path="res://src/fortune/unique/corpse_flower.gd" id="1_ukawh"]
+[ext_resource type="Resource" uid="uid://cki4kkibw1qbq" path="res://src/effect/data/corrupted.tres" id="1_xogl8"]
+[ext_resource type="Texture2D" uid="uid://cfh5vlbilyh30" path="res://assets/seed/CorpseFlower.png" id="3_yqltd"]
+
+[resource]
+script = ExtResource("1_ukawh")
+type = "SEED"
+name = "Corpse Flower"
+rarity = "blight"
+cost = 1
+yld = 10
+time = 0
+size = 1
+text = "On turn start, destroy 8 adjacent plants and gain {STRENGTH} {MANA} per plant destroyed."
+strength_increment = 1.0
+size_increment = 1
+texture = ExtResource("3_yqltd")
+seed_texture = 0
+texture_icon_offset = 16
+targets = Array[String]([])
+effects = Array[Resource("res://src/effect/effect.gd")]([ExtResource("1_xogl8")])
+enhances = Array[String]([])
+strength = 5.0
