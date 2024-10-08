@@ -93,13 +93,12 @@ func start_year():
 	save_game()
 	turn_manager.start_new_year();
 	$EventManager.notify(EventManager.EventType.BeforeYearStart)
-	$UserInterface.reset_obelisk()
 	$Cards.set_deck_for_year(deck)
 	$Cards.draw_hand($TurnManager.get_cards_drawn(), $TurnManager.week)
 	$Cards.set_cards_visible(true)
-	$UserInterface.update()
 	$EventManager.notify(EventManager.EventType.AfterYearStart)
 	$EventManager.notify(EventManager.EventType.BeforeTurnStart)
+	$UserInterface.update()
 	set_background_texture()
 
 func _on_farm_tiles_on_energy_gained(amount) -> void:

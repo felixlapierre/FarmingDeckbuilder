@@ -166,8 +166,8 @@ func update():
 	$Tutorial.check_visible()
 	$UI/Deck/DeckCount.text = "Deck: " + str(cards.get_deck_info().size())
 	$UI/Deck/DiscardCount.text = "Discard: " + str(cards.get_discard_info().size())
-	$Obelisk.value = turn_manager.ritual_counter
-	
+	$Obelisk.max_value = turn_manager.total_ritual
+	$Obelisk.value = turn_manager.ritual_counter	
 	$UpgradeShop.update()
 
 # Fortune Teller
@@ -579,11 +579,6 @@ func try_move_structure(tile: Tile):
 	_on_shop_on_structure_place(structure, func():
 		pass)
 	$CancelStructure.visible = false
-
-func reset_obelisk():
-	$Obelisk.value = 0
-	$Obelisk.max_value = turn_manager.ritual_counter
-
 
 func _on_cancel_structure_pressed():
 	AlertDisplay.clear(structure_place_text)

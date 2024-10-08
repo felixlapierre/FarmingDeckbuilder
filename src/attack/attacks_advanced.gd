@@ -24,6 +24,8 @@ var DestroyTwoPlants = load("res://src/fortune/data/destroy_two.tres")
 var PiercingDestroyTwoTiles = load("res://src/fortune/data/piercing_destroy_two.tres")
 var PiercingFour = load("res://src/fortune/data/piercing_four.tres")
 var PiercingTwo = load("res://src/fortune/data/piercing_two.tres")
+var DestroyRow = load("res://src/fortune/data/destroy_row.gd").new()
+var DestroyCol = load("res://src/fortune/data/destroy_col.gd").new()
 
 #Other
 var Catastrophe = load("res://src/fortune/data/double_purple_target.tres")
@@ -42,10 +44,17 @@ func get_advanced_attack_year(year: int):
 	#For now let's hard code each year
 	match year + 1:
 		2:
-			return SimpleAttackBuilder.new().fortune_odd(StartWithWeeds).build()
+			var fortune = pick_random([StartWithWeeds, BlightrootOnce])
+			var option1 = SimpleAttackBuilder.new().fortune_once(fortune)\
+				.fortune_at(fortune, 4)\
+				.fortune_at(fortune, 7)\
+				.fortune_at(fortune, 10).build()
+			var option2 = SimpleAttackBuilder.new().fortune_every_turn(pick_random([DestroyOnePlant, PiercingTwo]))\
+				.fortune_once(pick_random([EndTurnRandomize, IncreaseRitual10])).build()
+			return pick_random([option1, option2])
 		3:
-			return SimpleAttackBuilder.new().fortune_once(EndTurnRandomize)\
-				.fortune_every_turn(BlightrootTurnStart).build()
+			return SimpleAttackBuilder.new().fortune_once(pick_random([EndTurnRandomize, StartWithWeeds, WeedsDeckOnce]))\
+				.fortune_every_turn(pick_random([BlightrootTurnStart, EndTurnSwap, DestroyOnePlant])).build()
 		4:
 			return SimpleAttackBuilder.new().fortune_once(BlightrootOnce)\
 				.fortune_even(DestroyOnePlant)\
@@ -60,10 +69,26 @@ func get_advanced_attack_year(year: int):
 				.fortune_random(BlightrootTurnStart)\
 				.fortune_random(DeathcapTurnStart)\
 				.build()
+		7:
+			return SimpleAttackBuilder.new().fortune_every_turn(pick_random([ObliviateRightmost, EndTurnRotate, DeathcapTurnStart]))\
+				.fortune_even(DestroyTwoPlants).build()
+		8:
+			return SimpleAttackBuilder.new().fortune_even(pick_random([DestroyRow, DestroyCol]))\
+				.fortune_once(WeedsEntireFarm)\
+				.build()
+		9:
+			return SimpleAttackBuilder.new().fortune_odd(pick_random([DestroyRow, DestroyCol]))\
+				.fortune_every_turn(ObliviateRightmost)\
+				.build()
+		10:
+			return SimpleAttackBuilder.new().fortune_odd(DestroyRow).fortune_even(DestroyCol).build()
 		_:
 			return SimpleAttackBuilder.new().fortune_every_turn(DeathcapTurnStart)\
 				.fortune_random(EndTurnSwap)\
 				.fortune_random(ObliviateRightmost)\
-				.fortune_random(DestroyTwoPlants)\
+				.fortune_random(pick_random([DestroyRow, DestroyCol]))\
 				.build()
-			
+
+func pick_random(array):
+	var index = randi_range(0, array.size() - 1)
+	return array[index]

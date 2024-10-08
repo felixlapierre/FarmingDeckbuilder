@@ -6,6 +6,7 @@ var fortunes_every_turn = []
 var fortunes_even = []
 var fortunes_odd = []
 var fortunes_random = []
+var fortunes_at = []
 
 func save_data():
 	var data = super.save_data()
@@ -15,6 +16,7 @@ func save_data():
 	data.fortunes_even = []
 	data.fortunes_odd = []
 	data.fortunes_random = []
+	data.fortunes_at = []
 	for fortune in fortunes_once:
 		data.fortunes_once.append(fortune.save_data())
 	for fortune in fortunes_every_turn:
@@ -25,6 +27,11 @@ func save_data():
 		data.fortunes_odd.append(fortune.save_data())
 	for fortune in fortunes_random:
 		data.fortunes_random.append(fortune.save_data())
+	for entry in fortunes_at:
+		data.fortunes_at.append({
+			"week": entry.week,
+			"fortune": entry.fortune.save_data()
+		})
 	return data
 
 func load_data(data):
@@ -39,6 +46,11 @@ func load_data(data):
 		fortunes_odd.append(load_fortune(fortune_data))
 	for fortune_data in data.fortunes_random:
 		fortunes_random.append(load_fortune(fortune_data))
+	for entry_data in data.fortunes_at:
+		var entry = {}
+		entry.week = entry_data.week
+		entry.fortune = load_fortune(entry_data.fortune)
+		fortunes_at.append(entry)
 	fortunes_random.shuffle()
 
 func load_fortune(data):
@@ -58,6 +70,9 @@ func get_fortunes_at_week(week: int) -> Array[Fortune]:
 	if fortunes_random.size() > 0:
 		var rand_index = week % (fortunes_random.size())
 		result.append(fortunes_random[rand_index])
+	for entry in fortunes_at:
+		if entry.week == week:
+			result.append(entry.fortune)
 	return result
 
 func get_all_fortunes_display():
@@ -67,4 +82,6 @@ func get_all_fortunes_display():
 	result.append_array(fortunes_even)
 	result.append_array(fortunes_odd)
 	result.append_array(fortunes_random)
+	for entry in fortunes_at:
+		result.append(entry.fortune)
 	return result

@@ -1,7 +1,7 @@
 extends Fortune
 
 var callback: Callable
-var event_type = EventManager.EventType.BeforeYearStart
+var event_type = EventManager.EventType.BeforeTurnStart
 var image = preload("res://assets/custom/YellowMana.png")
 
 func _init() -> void:
@@ -9,8 +9,9 @@ func _init() -> void:
 
 func register_fortune(event_manager: EventManager):
 	callback = func(args: EventArgs):
-		args.turn_manager.ritual_counter *= 1.1
-		args.turn_manager.total_ritual *= 1.1
+		var increase = args.turn_manager.total_ritual * 0.1
+		args.turn_manager.ritual_counter += increase
+		args.turn_manager.total_ritual += increase
 	event_manager.register_listener(event_type, callback)
 
 func unregister_fortune(event_manager: EventManager):

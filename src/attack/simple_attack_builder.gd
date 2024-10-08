@@ -26,6 +26,13 @@ func fortune_random(fortune: Fortune) -> SimpleAttackBuilder:
 	attack.fortunes_random.append(fortune)
 	return self
 
+func fortune_at(fortune: Fortune, week: int) -> SimpleAttackBuilder:
+	attack.fortunes_at.append({
+		"week": week,
+		"fortune": fortune
+	})
+	return self
+
 func rank(p_rank: int) -> SimpleAttackBuilder:
 	attack.rank = p_rank
 	return self
