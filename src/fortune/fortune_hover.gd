@@ -1,4 +1,4 @@
-extends Node2D
+extends Control
 
 var offset = Vector2(30, 30)
 @onready var fortune_display = $Fortune
@@ -17,12 +17,16 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if hover:
 		fortune_display.global_position = get_global_mouse_position() + offset
+		if fortune_display.global_position.x > 1300:
+			fortune_display.global_position.x -= fortune_display.size.x + 10
+		if fortune_display.global_position.y > 800:
+			fortune_display.global_position.y -= fortune_display.size.y + 30
 
 func setup(fortune: Fortune):
-	fortune_name.text = fortune.name
-	fortune_descr.text = fortune.text
-	fortune_texture.texture = fortune.texture
-	button.texture_normal = fortune.texture
+	$Fortune/VBox/Name.text = fortune.name
+	$Fortune/VBox/Description.text = fortune.text
+	$Fortune/VBox/Texture.texture = fortune.texture
+	$Panel/Margin/Button.texture_normal = fortune.texture
 
 func setup_custom(name: String, text: String, texture: Texture2D, count: int):
 	fortune_name.text = name

@@ -21,10 +21,10 @@ func _init(p_name = "", p_type = FortuneType.GoodFortune, p_text = "", p_rank = 
 	rank = p_rank
 	texture = p_texture
 
-func register_fortune(event_manager: EventManager):
+func register_fortune(_event_manager: EventManager):
 	pass
 
-func unregister_fortune(event_manager: EventManager):
+func unregister_fortune(_event_manager: EventManager):
 	pass
 
 func save_data() -> Dictionary:

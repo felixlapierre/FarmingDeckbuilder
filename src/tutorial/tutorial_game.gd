@@ -67,7 +67,7 @@ func year_one():
 		if tile.purple:
 			tile.state = Enums.TileState.Inactive
 			tile.update_display()
-	user_interface.BlightPanel.visible = false
+	user_interface.AttackPreview.visible = false
 	turn_manager.blight_pattern = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 	#Hardcode turn 1
 	var cards_copy = []
@@ -128,7 +128,7 @@ func year_two():
 		if !tile.purple:
 			tile.state = Enums.TileState.Inactive
 			tile.update_display()
-	user_interface.BlightPanel.visible = true
+	user_interface.AttackPreview.visible = true
 	turn_manager.blight_pattern = [0, 5, 0, 7, 0, 5, 0, 10, 0, 5, 0, 10, 10, 0, 10, 0]
 	turn_manager.target_blight = 0
 	turn_manager.next_turn_blight = 5
@@ -181,7 +181,6 @@ func year_two_end_year():
 func year_three():
 	turn_manager.ritual_counter = 60
 	turn_manager.total_ritual = 60
-	user_interface.reset_obelisk()
 	user_interface.update()
 	turn_manager.blight_pattern = [0, 0, 10, 0, 10, 5, 0, 15, 10, 0, 10, 0, 10, 10, 0, 10]
 	farming_explanation.set_exp_size(650, 350)
@@ -205,7 +204,6 @@ func year_three_end_year():
 func year_four():
 	turn_manager.ritual_counter = 70
 	turn_manager.total_ritual = 70
-	user_interface.reset_obelisk()
 	user_interface.update()
 	turn_manager.blight_pattern = [0, 0, 10, 0, 10, 5, 0, 15, 10, 0, 10, 0, 10, 10, 0, 10]
 	farming_explanation.visible = false

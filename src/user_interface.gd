@@ -19,6 +19,7 @@ var deck: Array[CardData]
 var cards: Cards
 var turn_ending = false
 var mage_fortune: MageAbility = null
+var event_manager: EventManager
 
 var SELECT_CARD = preload("res://src/cards/select_card.tscn")
 var cards_database = preload("res://src/cards/cards_database.gd")
@@ -44,6 +45,7 @@ var FORTUNE_HOVER = preload("res://src/fortune/fortune_hover.tscn")
 @onready var FarmingUi = $UI
 @onready var FortuneTeller = $FortuneTeller
 @onready var EndScreen = $EndScreen
+@onready var AttackPreview = $UI/AttackPreview
 
 var end_year_alert_text = "Ritual Complete! Time to rest and prepare for the next year"
 var structure_place_text = "Click on the farm tile where you'd like to place the structure"
@@ -69,9 +71,11 @@ func setup(p_event_manager: EventManager, p_turn_manager: TurnManager, p_deck: A
 	deck = p_deck
 	cards = p_cards
 	GameEventDialog.setup(deck, turn_manager)
+	event_manager = p_event_manager
 	$Shop.setup(deck, turn_manager)
 	register_tooltips()
 	$Tutorial.setup(p_event_manager)
+	$UI/AttackPreview.setup(turn_manager, mage_fortune, p_event_manager)
 
 # Start and end year
 func end_year():
@@ -82,7 +86,6 @@ func end_year():
 	$Winter/EventPanel/VB/EventButton.disabled = false
 	GameEventDialog.generate_random_event()
 	$Shop.fill_shop()
-	$FortuneTeller.unregister_fortunes()
 	$FortuneTeller.create_fortunes()
 	create_fortune_display()
 	update()
@@ -91,7 +94,8 @@ func end_year():
 	
 func start_year():
 	$UI/SkipButton.visible = Settings.DEBUG
-	$FortuneTeller.register_fortunes()
+	turn_manager.register_attack_pattern($FortuneTeller.attack_pattern)
+	$UI/AttackPreview.set_attack($FortuneTeller.attack_pattern)
 	$UI.visible = true
 	$Winter.visible = false
 	AlertDisplay.clear(end_year_alert_text)
@@ -124,31 +128,33 @@ func update():
 		$UI/Stats/VBox/CardsHbox/Fragments.add_child(fragment)
 
 	#Blight Panels
-	$UI/BlightPanel.visible = turn_manager.target_blight > 0 or turn_manager.purple_mana > 0
+	#$UI/BlightPanel.visible = turn_manager.target_blight > 0 or turn_manager.purple_mana > 0
+#
+	#$UI/BlightPanel/AttackParticles.emitting = false
+	#if turn_manager.target_blight > 0:
+		#$UI/BlightPanel/VBox/BlightCounter/Label.text = str(turn_manager.purple_mana) + " / " + str(turn_manager.target_blight) + " [img]res://assets/custom/PurpleMana.png[/img]"
+	#else:
+		#$UI/BlightPanel/VBox/BlightCounter/Label.text = str(turn_manager.purple_mana) + "[img]res://assets/custom/PurpleMana.png[/img]"
+	#if turn_manager.purple_mana < turn_manager.target_blight:
+		#$UI/BlightPanel/VBox/AttackLabel.text = "Blight Attack!"
+		#$UI/BlightPanel/AttackParticles.emitting = true
+	#elif turn_manager.purple_mana > turn_manager.target_blight and turn_manager.flag_defer_excess:
+		#$UI/BlightPanel/VBox/AttackLabel.text = "Defer: " + str(turn_manager.purple_mana - turn_manager.target_blight) + Helper.blue_mana()
+	#elif turn_manager.purple_mana > turn_manager.target_blight and turn_manager.target_blight == 0 and mage_fortune.name != "Lunar Priest":
+		#$UI/BlightPanel/VBox/AttackLabel.text = "Wasted"
+	#elif turn_manager.purple_mana > turn_manager.target_blight and mage_fortune.name == "Lunar Priest":
+		#$UI/BlightPanel/VBox/AttackLabel.text = "Excess: " + str((turn_manager.purple_mana - turn_manager.target_blight) * mage_fortune.strength) + Helper.mana_icon()
+	#else:
+		#$UI/BlightPanel/VBox/AttackLabel.text = "Safe!"
 
-	$UI/BlightPanel/AttackParticles.emitting = false
-	if turn_manager.target_blight > 0:
-		$UI/BlightPanel/VBox/BlightCounter/Label.text = str(turn_manager.purple_mana) + " / " + str(turn_manager.target_blight) + " [img]res://assets/custom/PurpleMana.png[/img]"
-	else:
-		$UI/BlightPanel/VBox/BlightCounter/Label.text = str(turn_manager.purple_mana) + "[img]res://assets/custom/PurpleMana.png[/img]"
-	if turn_manager.purple_mana < turn_manager.target_blight:
-		$UI/BlightPanel/VBox/AttackLabel.text = "Blight Attack!"
-		$UI/BlightPanel/AttackParticles.emitting = true
-	elif turn_manager.purple_mana > turn_manager.target_blight and turn_manager.flag_defer_excess:
-		$UI/BlightPanel/VBox/AttackLabel.text = "Defer: " + str(turn_manager.purple_mana - turn_manager.target_blight) + Helper.blue_mana()
-	elif turn_manager.purple_mana > turn_manager.target_blight and turn_manager.target_blight == 0 and mage_fortune.name != "Lunar Priest":
-		$UI/BlightPanel/VBox/AttackLabel.text = "Wasted"
-	elif turn_manager.purple_mana > turn_manager.target_blight and mage_fortune.name == "Lunar Priest":
-		$UI/BlightPanel/VBox/AttackLabel.text = "Excess: " + str((turn_manager.purple_mana - turn_manager.target_blight) * mage_fortune.strength) + Helper.mana_icon()
-	else:
-		$UI/BlightPanel/VBox/AttackLabel.text = "Safe!"
-	
 	#Next turn blight
-	$UI/NextBlightPanel.visible = turn_manager.next_turn_blight > 0
-	$UI/NextBlightPanel/NextTurnLabel.text = "Attack\nNext Turn: " + str(turn_manager.next_turn_blight) + " [img]res://assets/custom/PurpleMana.png[/img]"
-	if turn_manager.flag_defer_excess:
-		var next_turn_amount = turn_manager.purple_mana - turn_manager.target_blight
-		$UI/NextBlightPanel/NextTurnLabel.text = "Attack\nNext Turn: [color=9f78e3]" + str(max(turn_manager.next_turn_blight - next_turn_amount, 0)) + "[/color]"
+	#$UI/NextBlightPanel.visible = turn_manager.next_turn_blight > 0
+	#$UI/NextBlightPanel/NextTurnLabel.text = "Attack\nNext Turn: " + str(turn_manager.next_turn_blight) + " [img]res://assets/custom/PurpleMana.png[/img]"
+	#if turn_manager.flag_defer_excess:
+		#var next_turn_amount = turn_manager.purple_mana - turn_manager.target_blight
+		#$UI/NextBlightPanel/NextTurnLabel.text = "Attack\nNext Turn: [color=9f78e3]" + str(max(turn_manager.next_turn_blight - next_turn_amount, 0)) + "[/color]"
+	$UI/AttackPreview.update()
+	
 	$UI/RitualPanel/RitualCounter/Label.text = "[right]" + str(turn_manager.get_current_ritual()) + " /" + str(turn_manager.total_ritual)
 	$Shop.update_labels()
 	$Winter/FarmUpgradeButton.disabled = $UpgradeShop.lock or ![4, 7, 10].has(turn_manager.year)
@@ -160,8 +166,8 @@ func update():
 	$Tutorial.check_visible()
 	$UI/Deck/DeckCount.text = "Deck: " + str(cards.get_deck_info().size())
 	$UI/Deck/DiscardCount.text = "Discard: " + str(cards.get_discard_info().size())
-	$Obelisk.value = turn_manager.ritual_counter
-	
+	$Obelisk.max_value = turn_manager.total_ritual
+	$Obelisk.value = turn_manager.ritual_counter	
 	$UpgradeShop.update()
 
 # Fortune Teller
@@ -279,21 +285,13 @@ func _on_farm_tiles_on_preview_yield(args) -> void:
 
 	var blightamt = turn_manager.purple_mana + purple
 	if purple != 0:
-		$UI/BlightPanel/VBox/BlightCounter/Label.text = "[color=9f78e3]"+ str(blightamt) + " / " + str(turn_manager.target_blight)
 		if turn_manager.target_blight == 0 and mage_fortune.name != "Lunar Priest" and !args.defer:
 			AlertDisplay.set_text(warning_waste_purple_text)
-	else:
-		$UI/BlightPanel/VBox/BlightCounter/Label.text = str(turn_manager.purple_mana) + " / " + str(turn_manager.target_blight)
-	
+
 	if yellow != 0:
 		$UI/RitualPanel/RitualCounter/Label.text = "[right][color=e5e831]"+str(turn_manager.get_current_ritual() + yellow) + " /" + str(turn_manager.total_ritual) + "[/color][/right]"
 	else:
 		$UI/RitualPanel/RitualCounter/Label.text = "[right]" + str(turn_manager.get_current_ritual()) + " /" + str(turn_manager.total_ritual)
-	if args.defer or turn_manager.flag_defer_excess:
-		var next_turn_amount = turn_manager.purple_mana + purple - turn_manager.target_blight
-		if next_turn_amount > 0:
-			$UI/NextBlightPanel/NextTurnLabel.text = "Attack\nNext Turn: [color=9f78e3]" + str(max(turn_manager.next_turn_blight - next_turn_amount, 0)) + "[/color]"
-	$UI/NextBlightPanel/NextTurnLabel.text = "Attack\nNext Turn: " + str(turn_manager.next_turn_blight if turn_manager.next_turn_blight >= 0 else 0)
 # Winter
 func set_winter_visible(visible):
 	$Winter.visible = visible
@@ -303,7 +301,6 @@ func set_ui_visible(visible):
 	$UI/Deck.visible = visible
 	$UI/EndTurnButton.visible = visible
 	$Shop.visible = visible
-	$UI/BlightPanel/VBox/BlightCounter.visible = visible
 	$UI/RitualPanel/RitualCounter.visible = visible
 
 # Shop
@@ -486,6 +483,7 @@ func save_data(save_json):
 	}
 	save_json.state.rerolls = $Shop.player_money
 	save_json.state.mage = mage_fortune.save_data()
+	save_json.attack = $FortuneTeller.attack_pattern.save_data()
 
 func load_data(save_json: Dictionary):
 	if save_json.state.winter == true:
@@ -498,12 +496,14 @@ func load_data(save_json: Dictionary):
 		$Shop.load_data(save_json.winter.shop)
 		$Tutorial.on_winter()
 		$Tutorial.position.x = 1234
-	$FortuneTeller.unregister_fortunes()
-	$FortuneTeller.load_fortunes(save_json.fortunes)
 	for event_path: String in save_json.events.completed:
 		GameEventDialog.completed_events.append(load(event_path))
 	mage_fortune = load(save_json.state.mage.path).new()
 	mage_fortune.load_data(save_json.state.mage)
+	var attack: AttackPattern = load(save_json.attack.path).new()
+	attack.load_data(save_json.attack)
+	$UI/AttackPreview.mage_fortune = mage_fortune
+	$FortuneTeller.attack_pattern = attack
 	create_fortune_display()
 	$Shop.player_money = save_json.state.rerolls
 	update()
@@ -525,12 +525,12 @@ func register_tooltips():
 		"count": turn_manager.ritual_counter,
 		"path": "res://assets/custom/YellowMana.png"
 	}))
-	tooltip.register_tooltip($UI/BlightPanel/VBox/BlightCounter, tr("BLIGHT_ATTACK_TOOLTIP").format({
-		"strength": turn_manager.target_blight,
-		"path": "res://assets/custom/PurpleMana.png"
-	}) if turn_manager.target_blight > 0 else tr("BLIGHT_NO_ATTACK_TOOLTIP").format({
-		"path": "res://assets/custom/PurpleMana.png"
-	}))
+	#tooltip.register_tooltip($UI/BlightPanel/VBox/BlightCounter, tr("BLIGHT_ATTACK_TOOLTIP").format({
+		#"strength": turn_manager.target_blight,
+		#"path": "res://assets/custom/PurpleMana.png"
+	#}) if turn_manager.target_blight > 0 else tr("BLIGHT_NO_ATTACK_TOOLTIP").format({
+		#"path": "res://assets/custom/PurpleMana.png"
+	#}))
 	
 	tooltip.register_tooltip($Winter/NextYearButton, tr("TOOLTIP_NEXTYEAR"))
 	tooltip.register_tooltip($Winter/FarmUpgradeButton, tr("TOOLTIP_UPGRADE"))
@@ -580,11 +580,6 @@ func try_move_structure(tile: Tile):
 		pass)
 	$CancelStructure.visible = false
 
-func reset_obelisk():
-	$Obelisk.value = 0
-	$Obelisk.max_value = turn_manager.ritual_counter
-
-
 func _on_cancel_structure_pressed():
 	AlertDisplay.clear(structure_place_text)
 	$CancelStructure.visible = false
@@ -621,3 +616,7 @@ func on_expand_farm() -> void:
 
 func _on_expand_farm_on_close() -> void:
 	after_farm_expanded.emit()
+
+func set_mage_fortune(fortune):
+	mage_fortune = fortune
+	$UI/AttackPreview.mage_fortune = fortune

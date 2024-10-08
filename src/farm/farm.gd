@@ -307,6 +307,7 @@ func gain_yield(tile: Tile, args: EventArgs.HarvestArgs):
 
 func do_winter_clear():
 	var blighted_tiles: Array[Tile] = []
+	var reset_colors = $Tiles.get_children().any(func(tile): return !tile.purple)
 	for tile: Tile in $Tiles.get_children():
 		tile.do_winter_clear()
 		tile.set_blight_targeted(false)
@@ -314,6 +315,9 @@ func do_winter_clear():
 		tile.lose_irrigate()
 		if tile.blighted:
 			blighted_tiles.append(tile)
+		if reset_colors:
+			tile.purple = tile.grid_location.x >= Constants.PURPLE_GTE_INDEX
+			tile.update_purple_overlay()
 	if Global.DIFFICULTY < Constants.DIFFICULTY_HEAL_SLOWER:
 		remove_blight_from_all_tiles()
 	else:

@@ -31,6 +31,7 @@ func _ready() -> void:
 	$UserInterface.setup($EventManager, $TurnManager, deck, $Cards)
 	$UserInterface.update()
 	$FarmTiles.setup($EventManager)
+	$TurnManager.setup($EventManager)
 	background2.unique_tileset()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -87,17 +88,17 @@ func end_year(endless: bool):
 
 func start_year():
 	victory = false
+	KaleidoscopeTwo.rotation = 3
 	$UserInterface.start_year()
 	save_game()
+	turn_manager.start_new_year();
 	$EventManager.notify(EventManager.EventType.BeforeYearStart)
-	$TurnManager.start_new_year()
-	$UserInterface.reset_obelisk()
 	$Cards.set_deck_for_year(deck)
 	$Cards.draw_hand($TurnManager.get_cards_drawn(), $TurnManager.week)
 	$Cards.set_cards_visible(true)
-	$UserInterface.update()
 	$EventManager.notify(EventManager.EventType.AfterYearStart)
 	$EventManager.notify(EventManager.EventType.BeforeTurnStart)
+	$UserInterface.update()
 	set_background_texture()
 
 func _on_farm_tiles_on_energy_gained(amount) -> void:
@@ -180,11 +181,11 @@ func on_turn_end():
 		end_year(false)
 		$UserInterface.turn_ending = false
 		return
+	$EventManager.notify(EventManager.EventType.OnTurnEnd)
 	var damage = $TurnManager.end_turn()
 	if damage:
 		$UserInterface.update_damage()
 		$TurnManager.destroy_blighted_tiles($FarmTiles)
-	$EventManager.notify(EventManager.EventType.OnTurnEnd)
 	
 	if $TurnManager.blight_damage >= Constants.MAX_BLIGHT:
 		on_lose()

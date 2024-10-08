@@ -17,14 +17,19 @@ var blight_damage = 0
 const TWEEN_DURATION = 0.8
 
 var blight_pattern = []
+var attack_pattern: AttackPattern
+var event_manager: EventManager
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	pass
+
+func setup(p_event_manager: EventManager):
+	event_manager = p_event_manager
 
 # Return bool indicating if the ritual is complete
 func gain_yellow_mana(amount, delay):
@@ -68,12 +73,19 @@ func end_turn():
 	next_turn_blight = get_blight_requirements(week + 1, year)
 	energy = get_max_energy()
 	flag_defer_excess = false
+	attack_pattern.register_fortunes(event_manager, week)
 	return damage
+
+func register_attack_pattern(p_attack_pattern: AttackPattern):
+	attack_pattern = p_attack_pattern
+	attack_pattern.compute_blight_pattern(year+1)
+	attack_pattern.compute_fortunes(year+1)
+	attack_pattern.register_fortunes(event_manager, 1)
 
 func start_new_year():
 	year += 1
 	week = 1
-	compute_blight_pattern(week, year)
+	blight_pattern = attack_pattern.get_blight_pattern()
 	ritual_counter = get_ritual_requirements(year)
 	total_ritual = ritual_counter
 	target_blight = get_blight_requirements(week, year)
@@ -82,7 +94,7 @@ func start_new_year():
 	energy = get_max_energy()
 
 func end_year():
-	pass
+	attack_pattern.unregister_fortunes(event_manager)
 
 func compute_blight_pattern(week, year):
 	blight_pattern = [0]
@@ -119,18 +131,15 @@ func get_ritual_requirements(year):
 		amount += year * 5
 	if year >= 10 and difficulty_up:
 		amount += 100
+	if Global.DIFFICULTY >= Constants.DIFFICULTY_HARD:
+		amount *= 1.3
 	return amount
 
 func get_blight_requirements(week, year):
-	var amt = 0
 	if week > blight_pattern.size():
-		amt = 40 * get_blight_year_multiplier(year - 1)
+		return blight_pattern[blight_pattern.size() - 1]
 	else:
-		amt = blight_pattern[week - 1] * get_blight_year_multiplier(year)
-	return amt * Global.BLIGHT_TARGET_MULTIPLIER * (1.2 if Global.DIFFICULTY > Constants.DIFFICULTY_INCREASE_TARGETS else 1.0)
-
-func get_blight_year_multiplier(year):
-	return 1.0 + year * 0.1
+		return blight_pattern[week - 1]
 
 func get_max_energy():
 	var new_energy = Constants.MAX_ENERGY
