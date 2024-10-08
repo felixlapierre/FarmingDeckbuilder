@@ -7,6 +7,7 @@ var BlightrootOnce = preload("res://src/fortune/data/blightroot_once.gd").new()
 var BlightrootTurnStart = preload("res://src/fortune/data/blightroot_turn_start.gd").new()
 var DeathcapTurnStart = preload("res://src/fortune/data/deathcap_turnstart.gd").new()
 var WeedsEntireFarm = preload("res://src/fortune/data/weeds_entire_farm.gd").new()
+var AddCorpseFlower = preload("res://src/fortune/data/corpse_flower.gd").new()
 
 # Cards
 var ObliviateRightmost = preload("res://src/fortune/data/end_turn_obliviate.gd").new()
@@ -44,6 +45,7 @@ func get_advanced_attack_year(year: int):
 	#For now let's hard code each year
 	match year + 1:
 		2:
+			#return SimpleAttackBuilder.new().fortune_odd(AddCorpseFlower).build()
 			var fortune = pick_random([StartWithWeeds, BlightrootOnce])
 			var option1 = SimpleAttackBuilder.new().fortune_once(fortune)\
 				.fortune_at(fortune, 4)\
@@ -73,20 +75,21 @@ func get_advanced_attack_year(year: int):
 			return SimpleAttackBuilder.new().fortune_every_turn(pick_random([ObliviateRightmost, EndTurnRotate, DeathcapTurnStart]))\
 				.fortune_even(DestroyTwoPlants).build()
 		8:
-			return SimpleAttackBuilder.new().fortune_even(pick_random([DestroyRow, DestroyCol]))\
+			return SimpleAttackBuilder.new().fortune_even(pick_random([DestroyRow, DestroyCol, AddCorpseFlower]))\
 				.fortune_once(WeedsEntireFarm)\
 				.build()
 		9:
-			return SimpleAttackBuilder.new().fortune_odd(pick_random([DestroyRow, DestroyCol]))\
+			return SimpleAttackBuilder.new().fortune_odd(pick_random([DestroyRow, DestroyCol, AddCorpseFlower]))\
 				.fortune_every_turn(ObliviateRightmost)\
 				.build()
 		10:
-			return SimpleAttackBuilder.new().fortune_odd(DestroyRow).fortune_even(DestroyCol).build()
+			return pick_random([SimpleAttackBuilder.new().fortune_odd(DestroyRow).fortune_even(DestroyCol).build(),\
+				SimpleAttackBuilder.new().fortune_every_turn(AddCorpseFlower).build()])
 		_:
 			return SimpleAttackBuilder.new().fortune_every_turn(DeathcapTurnStart)\
 				.fortune_random(EndTurnSwap)\
 				.fortune_random(ObliviateRightmost)\
-				.fortune_random(pick_random([DestroyRow, DestroyCol]))\
+				.fortune_random(pick_random([DestroyRow, DestroyCol, AddCorpseFlower]))\
 				.build()
 
 func pick_random(array):
