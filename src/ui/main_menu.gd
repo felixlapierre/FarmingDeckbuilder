@@ -28,6 +28,8 @@ var playspace
 @onready var DetailsImg = $Root/HBox/Panel/Margin/VBox/HBox/Details/VBox/DetailsImg
 @onready var DetailsDescr = $Root/HBox/Panel/Margin/VBox/HBox/Details/VBox/DetailsDescr
 
+@onready var MasteryContainer = $Root/HBox/Panel/Margin/VBox/HBox/Margin/VBox/MasteryCont
+
 var difficulty_text = [
 	"Base difficulty",
 	"Increase [img]res://assets/custom/YellowMana.png[/img] Ritual Target and [img]res://assets/custom/PurpleMana.png[/img] Blight Attack\n", 
@@ -69,6 +71,7 @@ func _process(delta):
 	pass
 
 func _on_diff_options_item_selected(index):
+	MasteryContainer.visible = false
 	match index:
 		0:
 			Prompt.text = "Difficulty: Easy"
@@ -86,6 +89,7 @@ func _on_diff_options_item_selected(index):
 			Prompt.text = "Difficulty: Mastery"
 			DetailsImg.texture = load("res://assets/ui/Mastery.png")
 			DetailsDescr.text = "Increase the difficulty as much as you can in order to reach new levels of mastery."
+			MasteryContainer.visible = true
 	Global.DIFFICULTY = index
 
 func _on_start_button_pressed():

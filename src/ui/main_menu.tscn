@@ -173,6 +173,42 @@ popup/item_6/id = 6
 popup/item_7/text = "Void Mage"
 popup/item_7/id = 7
 
+[node name="MasteryCont" type="VBoxContainer" parent="Root/HBox/Panel/Margin/VBox/HBox/Margin/VBox"]
+layout_mode = 2
+
+[node name="MasteryPrompt" type="Label" parent="Root/HBox/Panel/Margin/VBox/HBox/Margin/VBox/MasteryCont"]
+layout_mode = 2
+text = "Mastery"
+horizontal_alignment = 1
+
+[node name="Ritual" type="CheckBox" parent="Root/HBox/Panel/Margin/VBox/HBox/Margin/VBox/MasteryCont"]
+layout_mode = 2
+text = "Ritual Disruption"
+
+[node name="Attack" type="CheckBox" parent="Root/HBox/Panel/Margin/VBox/HBox/Margin/VBox/MasteryCont"]
+layout_mode = 2
+text = "Attack Strength"
+
+[node name="Misfortune" type="CheckBox" parent="Root/HBox/Panel/Margin/VBox/HBox/Margin/VBox/MasteryCont"]
+layout_mode = 2
+text = "Misfortune"
+
+[node name="CardRemoval" type="CheckBox" parent="Root/HBox/Panel/Margin/VBox/HBox/Margin/VBox/MasteryCont"]
+layout_mode = 2
+text = "Removal Cost"
+
+[node name="Shop" type="CheckBox" parent="Root/HBox/Panel/Margin/VBox/HBox/Margin/VBox/MasteryCont"]
+layout_mode = 2
+text = "Shop Limit"
+
+[node name="Blind" type="CheckBox" parent="Root/HBox/Panel/Margin/VBox/HBox/Margin/VBox/MasteryCont"]
+layout_mode = 2
+text = "Blindness"
+
+[node name="MasteryLevel" type="Label" parent="Root/HBox/Panel/Margin/VBox/HBox/Margin/VBox/MasteryCont"]
+layout_mode = 2
+text = "Mastery Level: 5"
+
 [node name="Details" type="MarginContainer" parent="Root/HBox/Panel/Margin/VBox/HBox"]
 layout_mode = 2
 size_flags_horizontal = 3
