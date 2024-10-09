@@ -38,6 +38,7 @@ static var LUNAR_FARM = false
 static var MAGE: String = ""
 
 static var END_TURN_DISCARD = true
+static var BLOCK_RITUAL = false
 
 static var pressed: bool = false
 static var pressed_time: float = 0.0
@@ -69,3 +70,4 @@ static func reset():
 	MAX_HAND_SIZE = 10
 	LUNAR_FARM = false
 	MAGE = ""
+	BLOCK_RITUAL = false

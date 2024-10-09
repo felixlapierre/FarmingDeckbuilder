@@ -172,6 +172,7 @@ func on_turn_end():
 	if Global.END_TURN_DISCARD:
 		$Cards.discard_hand()
 	else:
+		$Cards.remove_fleeting()
 		$Cards.unselect_current_card()
 	await get_tree().create_timer(0.3).timeout
 	await $FarmTiles.process_one_week(turn_manager.week)

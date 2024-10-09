@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://c4gqastokl1qh"]
+[gd_scene load_steps=13 format=3 uid="uid://c4gqastokl1qh"]
 
 [ext_resource type="Script" path="res://src/ui/main_menu.gd" id="1_b0cyn"]
 [ext_resource type="Theme" uid="uid://c21dhy264y6ty" path="res://assets/theme_large.tres" id="1_l63em"]
@@ -6,6 +6,12 @@
 [ext_resource type="Texture2D" uid="uid://blyww7sa17sgt" path="res://assets/mage/riverlands.png" id="4_u656s"]
 [ext_resource type="Texture2D" uid="uid://dd1tk8qegcw8t" path="res://assets/mage/wilderness.png" id="5_qrkqy"]
 [ext_resource type="Texture2D" uid="uid://8eb3ks2y5h1r" path="res://assets/fortune/mountains.png" id="6_g5ud0"]
+[ext_resource type="Texture2D" uid="uid://djfe248r85tuq" path="res://assets/ui/Easy.png" id="7_ovbwu"]
+[ext_resource type="Texture2D" uid="uid://c46q76532nqk" path="res://assets/custom/Temp.png" id="7_p3r71"]
+[ext_resource type="Theme" uid="uid://cji2vba6wkk5e" path="res://assets/theme_med.tres" id="8_asg1i"]
+[ext_resource type="Texture2D" uid="uid://k0j5u0imo8k3" path="res://assets/ui/Normal.png" id="8_i7ta0"]
+[ext_resource type="Texture2D" uid="uid://c227lgcxce4ol" path="res://assets/ui/Hard.png" id="9_8e5gb"]
+[ext_resource type="Texture2D" uid="uid://bxn7jkap77xy2" path="res://assets/ui/Mastery.png" id="10_41bla"]
 
 [node name="MainMenu" type="Node2D"]
 script = ExtResource("1_b0cyn")
@@ -16,44 +22,79 @@ offset_right = 40.0
 offset_bottom = 40.0
 theme = ExtResource("1_l63em")
 
-[node name="Grid" type="GridContainer" parent="Root"]
-layout_mode = 2
-columns = 2
-
-[node name="Panel" type="PanelContainer" parent="Root/Grid"]
+[node name="HBox" type="HBoxContainer" parent="Root"]
+custom_minimum_size = Vector2(1200, 0)
 layout_mode = 2
 
-[node name="VBox" type="VBoxContainer" parent="Root/Grid/Panel"]
+[node name="VBox" type="VBoxContainer" parent="Root/HBox"]
 layout_mode = 2
 
-[node name="NewGameLabel" type="Label" parent="Root/Grid/Panel/VBox"]
+[node name="ViewContinue" type="Button" parent="Root/HBox/VBox"]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+disabled = true
+text = "Continue"
+
+[node name="ViewNewGame" type="Button" parent="Root/HBox/VBox"]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+text = "New Game"
+
+[node name="ViewSettings" type="Button" parent="Root/HBox/VBox"]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+text = "Settings"
+
+[node name="ExitGame" type="Button" parent="Root/HBox/VBox"]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+text = "Exit"
+
+[node name="Panel" type="PanelContainer" parent="Root/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Margin" type="MarginContainer" parent="Root/HBox/Panel"]
+layout_mode = 2
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 30
+
+[node name="VBox" type="VBoxContainer" parent="Root/HBox/Panel/Margin"]
+layout_mode = 2
+
+[node name="NewGameLabel" type="Label" parent="Root/HBox/Panel/Margin/VBox"]
 layout_mode = 2
 text = "New Game"
 horizontal_alignment = 1
 
-[node name="Margin" type="MarginContainer" parent="Root/Grid/Panel/VBox"]
+[node name="HBox" type="HBoxContainer" parent="Root/HBox/Panel/Margin/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Margin" type="MarginContainer" parent="Root/HBox/Panel/Margin/VBox/HBox"]
 layout_mode = 2
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
-[node name="VBox" type="VBoxContainer" parent="Root/Grid/Panel/VBox/Margin"]
+[node name="VBox" type="VBoxContainer" parent="Root/HBox/Panel/Margin/VBox/HBox/Margin"]
 layout_mode = 2
 
-[node name="FarmTypeBox" type="HBoxContainer" parent="Root/Grid/Panel/VBox/Margin/VBox"]
+[node name="FarmTypeBox" type="HBoxContainer" parent="Root/HBox/Panel/Margin/VBox/HBox/Margin/VBox"]
 layout_mode = 2
 tooltip_text = "Forest: Basic farm type
 Riverlands: A river waters tiles but takes up space on the farm
 Wilderness: Start with wild plants on your farm and a unique deck with no seed cards
 Mountains: Challenge yourself to win using an extremely small farm"
 
-[node name="TypeLabel" type="Label" parent="Root/Grid/Panel/VBox/Margin/VBox/FarmTypeBox"]
+[node name="TypeLabel" type="Label" parent="Root/HBox/Panel/Margin/VBox/HBox/Margin/VBox/FarmTypeBox"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Farm Type:"
 
-[node name="TypeOptions" type="OptionButton" parent="Root/Grid/Panel/VBox/Margin/VBox/FarmTypeBox"]
+[node name="TypeOptions" type="OptionButton" parent="Root/HBox/Panel/Margin/VBox/HBox/Margin/VBox/FarmTypeBox"]
 layout_mode = 2
 alignment = 1
 item_count = 4
@@ -72,39 +113,45 @@ popup/item_3/text = "Mountains"
 popup/item_3/icon = ExtResource("6_g5ud0")
 popup/item_3/id = 3
 
-[node name="DifficultyBox" type="HBoxContainer" parent="Root/Grid/Panel/VBox/Margin/VBox"]
+[node name="DifficultyBox" type="HBoxContainer" parent="Root/HBox/Panel/Margin/VBox/HBox/Margin/VBox"]
 layout_mode = 2
 tooltip_text = "Normal mode makes all numbers 
 bigger, increases misfortune, makes
  blight more dangerous, and adds
 a difficult Year 11"
 
-[node name="DiffLabel" type="Label" parent="Root/Grid/Panel/VBox/Margin/VBox/DifficultyBox"]
+[node name="DiffLabel" type="Label" parent="Root/HBox/Panel/Margin/VBox/HBox/Margin/VBox/DifficultyBox"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Difficulty"
 
-[node name="DiffOptions" type="OptionButton" parent="Root/Grid/Panel/VBox/Margin/VBox/DifficultyBox"]
+[node name="DiffOptions" type="OptionButton" parent="Root/HBox/Panel/Margin/VBox/HBox/Margin/VBox/DifficultyBox"]
 layout_mode = 2
 alignment = 1
-item_count = 3
+item_count = 4
 selected = 0
 popup/item_0/text = "Easy"
+popup/item_0/icon = ExtResource("7_ovbwu")
 popup/item_0/id = 0
 popup/item_1/text = "Normal"
+popup/item_1/icon = ExtResource("8_i7ta0")
 popup/item_1/id = 1
 popup/item_2/text = "Hard"
+popup/item_2/icon = ExtResource("9_8e5gb")
 popup/item_2/id = 2
+popup/item_3/text = "Mastery"
+popup/item_3/icon = ExtResource("10_41bla")
+popup/item_3/id = 3
 
-[node name="CharacterBox" type="HBoxContainer" parent="Root/Grid/Panel/VBox/Margin/VBox"]
+[node name="CharacterBox" type="HBoxContainer" parent="Root/HBox/Panel/Margin/VBox/HBox/Margin/VBox"]
 layout_mode = 2
 
-[node name="CharLabel" type="Label" parent="Root/Grid/Panel/VBox/Margin/VBox/CharacterBox"]
+[node name="CharLabel" type="Label" parent="Root/HBox/Panel/Margin/VBox/HBox/Margin/VBox/CharacterBox"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Character: "
 
-[node name="CharOptions" type="OptionButton" parent="Root/Grid/Panel/VBox/Margin/VBox/CharacterBox"]
+[node name="CharOptions" type="OptionButton" parent="Root/HBox/Panel/Margin/VBox/HBox/Margin/VBox/CharacterBox"]
 layout_mode = 2
 alignment = 1
 item_count = 8
@@ -126,87 +173,119 @@ popup/item_6/id = 6
 popup/item_7/text = "Void Mage"
 popup/item_7/id = 7
 
-[node name="StartButton" type="Button" parent="Root/Grid/Panel/VBox/Margin/VBox"]
+[node name="Details" type="MarginContainer" parent="Root/HBox/Panel/Margin/VBox/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBox" type="VBoxContainer" parent="Root/HBox/Panel/Margin/VBox/HBox/Details"]
+layout_mode = 2
+
+[node name="DetailsPrompt" type="Label" parent="Root/HBox/Panel/Margin/VBox/HBox/Details/VBox"]
+layout_mode = 2
+text = "Farm Type: Test"
+horizontal_alignment = 1
+
+[node name="DetailsImg" type="TextureRect" parent="Root/HBox/Panel/Margin/VBox/HBox/Details/VBox"]
+texture_filter = 1
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+texture = ExtResource("7_p3r71")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="DetailsDescr" type="RichTextLabel" parent="Root/HBox/Panel/Margin/VBox/HBox/Details/VBox"]
+layout_mode = 2
+theme = ExtResource("8_asg1i")
+bbcode_enabled = true
+text = "Testing 123"
+fit_content = true
+
+[node name="StartButton" type="Button" parent="Root/HBox/Panel/Margin/VBox"]
 layout_mode = 2
 text = "Start New Game
 "
 
-[node name="ContPanel" type="PanelContainer" parent="Root/Grid"]
+[node name="ContPanel" type="PanelContainer" parent="Root/HBox"]
+visible = false
 layout_mode = 2
+size_flags_horizontal = 3
 
-[node name="VBox" type="VBoxContainer" parent="Root/Grid/ContPanel"]
+[node name="VBox" type="VBoxContainer" parent="Root/HBox/ContPanel"]
 custom_minimum_size = Vector2(700, 0)
 layout_mode = 2
 
-[node name="ContinueLabel" type="Label" parent="Root/Grid/ContPanel/VBox"]
+[node name="ContinueLabel" type="Label" parent="Root/HBox/ContPanel/VBox"]
 layout_mode = 2
 text = "Continue"
 horizontal_alignment = 1
 
-[node name="Margin" type="MarginContainer" parent="Root/Grid/ContPanel/VBox"]
+[node name="Margin" type="MarginContainer" parent="Root/HBox/ContPanel/VBox"]
 layout_mode = 2
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
-[node name="VBox" type="VBoxContainer" parent="Root/Grid/ContPanel/VBox/Margin"]
+[node name="VBox" type="VBoxContainer" parent="Root/HBox/ContPanel/VBox/Margin"]
 layout_mode = 2
 
-[node name="Grid" type="GridContainer" parent="Root/Grid/ContPanel/VBox/Margin/VBox"]
+[node name="Grid" type="GridContainer" parent="Root/HBox/ContPanel/VBox/Margin/VBox"]
 layout_mode = 2
 size_flags_vertical = 3
 columns = 2
 
-[node name="StatsLabel" type="RichTextLabel" parent="Root/Grid/ContPanel/VBox/Margin/VBox/Grid"]
+[node name="StatsLabel" type="RichTextLabel" parent="Root/HBox/ContPanel/VBox/Margin/VBox/Grid"]
 layout_mode = 2
 size_flags_horizontal = 3
 bbcode_enabled = true
 fit_content = true
 
-[node name="DeckLabel" type="RichTextLabel" parent="Root/Grid/ContPanel/VBox/Margin/VBox/Grid"]
+[node name="DeckLabel" type="RichTextLabel" parent="Root/HBox/ContPanel/VBox/Margin/VBox/Grid"]
 custom_minimum_size = Vector2(0, 600)
 layout_mode = 2
 size_flags_horizontal = 3
 bbcode_enabled = true
 
-[node name="ContinueButton" type="Button" parent="Root/Grid/ContPanel/VBox/Margin/VBox"]
+[node name="ContinueButton" type="Button" parent="Root/HBox/ContPanel/VBox/Margin/VBox"]
 layout_mode = 2
 size_flags_vertical = 10
 text = "No save data found"
 
-[node name="SettingsPanel" type="PanelContainer" parent="Root/Grid"]
+[node name="SettingsPanel" type="PanelContainer" parent="Root/HBox"]
+visible = false
 layout_mode = 2
+size_flags_horizontal = 3
 
-[node name="Margin" type="MarginContainer" parent="Root/Grid/SettingsPanel"]
+[node name="Margin" type="MarginContainer" parent="Root/HBox/SettingsPanel"]
 layout_mode = 2
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
-[node name="VBox" type="VBoxContainer" parent="Root/Grid/SettingsPanel/Margin"]
+[node name="VBox" type="VBoxContainer" parent="Root/HBox/SettingsPanel/Margin"]
 layout_mode = 2
 
-[node name="SettingsLabel" type="Label" parent="Root/Grid/SettingsPanel/Margin/VBox"]
+[node name="SettingsLabel" type="Label" parent="Root/HBox/SettingsPanel/Margin/VBox"]
 layout_mode = 2
 text = "Settings"
 horizontal_alignment = 1
 
-[node name="TutorialsCheck" type="CheckButton" parent="Root/Grid/SettingsPanel/Margin/VBox"]
+[node name="TutorialsCheck" type="CheckButton" parent="Root/HBox/SettingsPanel/Margin/VBox"]
 layout_mode = 2
 text = "Hints"
 
-[node name="DebugCheck" type="CheckButton" parent="Root/Grid/SettingsPanel/Margin/VBox"]
+[node name="DebugCheck" type="CheckButton" parent="Root/HBox/SettingsPanel/Margin/VBox"]
 layout_mode = 2
 tooltip_text = "Dev Mode: Add Skip button to skip 
 the year. Allow infinite rerolls in the 
 shop to get the cards you want."
 text = "Dev Mode"
 
-[node name="TutorialPanel" type="PanelContainer" parent="Root/Grid"]
+[node name="TutorialPanel" type="PanelContainer" parent="Root/HBox"]
+visible = false
 layout_mode = 2
 
-[node name="TutorialButton" type="Button" parent="Root/Grid/TutorialPanel"]
+[node name="TutorialButton" type="Button" parent="Root/HBox/TutorialPanel"]
 layout_mode = 2
 text = "Play Tutorial"
 
@@ -302,14 +381,18 @@ layout_mode = 2
 size_flags_horizontal = 3
 text = "Skip Tutorial"
 
-[connection signal="item_selected" from="Root/Grid/Panel/VBox/Margin/VBox/FarmTypeBox/TypeOptions" to="." method="_on_type_options_item_selected"]
-[connection signal="item_selected" from="Root/Grid/Panel/VBox/Margin/VBox/DifficultyBox/DiffOptions" to="." method="_on_diff_options_item_selected"]
-[connection signal="item_selected" from="Root/Grid/Panel/VBox/Margin/VBox/CharacterBox/CharOptions" to="." method="_on_char_options_item_selected"]
-[connection signal="pressed" from="Root/Grid/Panel/VBox/Margin/VBox/StartButton" to="." method="_on_start_button_pressed"]
-[connection signal="pressed" from="Root/Grid/ContPanel/VBox/Margin/VBox/ContinueButton" to="." method="_on_continue_button_pressed"]
-[connection signal="pressed" from="Root/Grid/SettingsPanel/Margin/VBox/TutorialsCheck" to="." method="_on_tutorials_check_pressed"]
-[connection signal="pressed" from="Root/Grid/SettingsPanel/Margin/VBox/DebugCheck" to="." method="_on_debug_check_pressed"]
-[connection signal="pressed" from="Root/Grid/TutorialPanel/TutorialButton" to="." method="_on_tutorial_button_pressed"]
+[connection signal="pressed" from="Root/HBox/VBox/ViewContinue" to="." method="_on_view_continue_pressed"]
+[connection signal="pressed" from="Root/HBox/VBox/ViewNewGame" to="." method="_on_view_new_game_pressed"]
+[connection signal="pressed" from="Root/HBox/VBox/ViewSettings" to="." method="_on_view_settings_pressed"]
+[connection signal="pressed" from="Root/HBox/VBox/ExitGame" to="." method="_on_exit_game_pressed"]
+[connection signal="item_selected" from="Root/HBox/Panel/Margin/VBox/HBox/Margin/VBox/FarmTypeBox/TypeOptions" to="." method="_on_type_options_item_selected"]
+[connection signal="item_selected" from="Root/HBox/Panel/Margin/VBox/HBox/Margin/VBox/DifficultyBox/DiffOptions" to="." method="_on_diff_options_item_selected"]
+[connection signal="item_selected" from="Root/HBox/Panel/Margin/VBox/HBox/Margin/VBox/CharacterBox/CharOptions" to="." method="_on_char_options_item_selected"]
+[connection signal="pressed" from="Root/HBox/Panel/Margin/VBox/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="Root/HBox/ContPanel/VBox/Margin/VBox/ContinueButton" to="." method="_on_continue_button_pressed"]
+[connection signal="pressed" from="Root/HBox/SettingsPanel/Margin/VBox/TutorialsCheck" to="." method="_on_tutorials_check_pressed"]
+[connection signal="pressed" from="Root/HBox/SettingsPanel/Margin/VBox/DebugCheck" to="." method="_on_debug_check_pressed"]
+[connection signal="pressed" from="Root/HBox/TutorialPanel/TutorialButton" to="." method="_on_tutorial_button_pressed"]
 [connection signal="pressed" from="Introduction/Panel/VBox/MarginContainer/StoryStartButton" to="." method="_on_story_start_button_pressed"]
 [connection signal="pressed" from="TutorialPrompt/Panel/Margin/VBox/HBox/YesButton" to="." method="_on_tutorial_button_pressed"]
 [connection signal="pressed" from="TutorialPrompt/Panel/Margin/VBox/HBox/NoButton" to="." method="_on_no_button_pressed"]

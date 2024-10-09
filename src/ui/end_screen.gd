@@ -46,6 +46,8 @@ func setup(turn_manager: TurnManager, deck: Array[CardData], farm: Farm):
 			difficulty = "Normal"
 		2:
 			difficulty = "Hard"
+		3:
+			difficulty = "Mastery"
 	Stats.append_text("Difficulty: " + difficulty)
 	
 	Deck.append_text("Deck: " + "\n")

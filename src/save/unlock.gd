@@ -42,6 +42,9 @@ static func load_unlocks():
 	FARMS_UNLOCKED = unlocks_json.farms
 	DIFFICULTIES_UNLOCKED = unlocks_json.difficulties
 	MAGES_UNLOCKED = unlocks_json.mages
+	for i in range(4):
+		if !DIFFICULTIES_UNLOCKED.has(str(i)):
+			DIFFICULTIES_UNLOCKED[str(i)] = false
 
 static func default_unlocks():
 	TUTORIAL_COMPLETE = false
@@ -53,7 +56,9 @@ static func default_unlocks():
 	}
 	DIFFICULTIES_UNLOCKED = {
 		"0": true,
-		"1": false
+		"1": false,
+		"2": false,
+		"3": false
 	}
 	MAGES_UNLOCKED = {
 		"0": true,

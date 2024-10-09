@@ -204,24 +204,15 @@ func can_strengthen_custom_effect():
 	return false
 
 func preview_yield(tile: Tile):
-	var yld_purple = 0.0
-	var yld_yellow = 0.0
 	var defer = get_effect("harvest_delay") != null
 	if (get_effect("harvest") != null\
 		or get_effect("harvest_delay") != null)\
 		and tile.card_can_target(self):
 		var harvest: EventArgs.HarvestArgs = tile.preview_harvest()
-		if harvest.purple:
-			yld_purple += harvest.yld
-		else:
-			yld_yellow += harvest.yld
-		defer = defer or harvest.delay
-	var increase_yield = get_effect("increase_yield")
-	if increase_yield != null:
-		yld_purple *= 1.0 + increase_yield.strength
-		yld_yellow *= 1.0 + increase_yield.strength
-	return {
-		"purple": yld_purple,
-		"yellow": yld_yellow,
-		"defer": defer
-	}
+		harvest.delay = defer or harvest.delay
+		var increase_yield = get_effect("increase_yield")
+		if increase_yield != null:
+			harvest.yld *= 1.0 + increase_yield.strength
+		return harvest
+	else:
+		return EventArgs.HarvestArgs.new(0, tile.purple, defer)

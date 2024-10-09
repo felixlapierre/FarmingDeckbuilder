@@ -142,10 +142,13 @@ func show_select_overlay():
 			if Global.selected_card != null:
 				error = !targeted_tile.card_can_target(Global.selected_card)
 				if !error:
-					var preview = Global.selected_card.preview_yield(targeted_tile)
-					yld_preview_purple += preview.purple
-					yld_preview_yellow += preview.yellow
-					yld_preview_defer = yld_preview_defer or preview.defer
+					var preview: EventArgs.HarvestArgs = Global.selected_card.preview_yield(targeted_tile)
+					var specific = EventArgs.SpecificArgs.new(targeted_tile)
+					specific.harvest_args = preview
+					event_manager.notify_specific_args(EventManager.EventType.OnYieldPreview, specific)
+					yld_preview_purple += preview.yld if preview.purple else 0.0
+					yld_preview_yellow += preview.yld if !preview.purple else 0.0
+					yld_preview_defer = yld_preview_defer or preview.delay
 			elif Global.selected_structure != null:
 				error = !targeted_tile.structure_can_target()
 		var sprite = Sprite2D.new()
@@ -159,7 +162,7 @@ func show_select_overlay():
 			sprite.modulate = Color8(0, 255, 0)
 		sprite.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 		$SelectOverlay.add_child(sprite)
-	if yld_preview_purple + yld_preview_yellow > 0:
+	if yld_preview_purple != 0 or yld_preview_yellow != 0:
 		on_preview_yield.emit({
 			"yellow": yld_preview_yellow, 
 			"purple": yld_preview_purple,
@@ -349,6 +352,7 @@ func use_card_on_targets(card, targets, only_first):
 func gain_energy(amount):
 	on_energy_gained.emit(amount)
 
+# Unused, moved to CardData
 func preview_yield(card, targeted_tile: Tile):
 	var yld_purple = 0.0
 	var yld_yellow = 0.0
@@ -357,6 +361,9 @@ func preview_yield(card, targeted_tile: Tile):
 		or card.get_effect("harvest_delay") != null)\
 		and targeted_tile.card_can_target(card):
 		var harvest: EventArgs.HarvestArgs = targeted_tile.preview_harvest()
+		var specific = EventArgs.SpecificArgs.new(targeted_tile)
+		specific.harvest_args = harvest
+		event_manager.notify_specific_args(EventManager.EventType.OnYieldPreview, specific)
 		if harvest.purple:
 			yld_purple += harvest.yld
 		else:

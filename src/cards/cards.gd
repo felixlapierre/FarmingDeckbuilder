@@ -232,3 +232,9 @@ func unselect_current_card():
 		if card.state == Enums.CardState.InMouse:
 			card.set_state(Enums.CardState.ReOrganiseHand, card.resting_position, card.resting_rotation, card.resting_scale)
 			card.reset_starting_position()
+
+func remove_fleeting():
+	for card in $Hand.get_children():
+		if card.card_info.get_effect("fleeting") != null:
+			remove_hand_card(card)
+	reorganize_hand()

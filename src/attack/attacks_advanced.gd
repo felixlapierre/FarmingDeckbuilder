@@ -31,6 +31,8 @@ var DestroyCol = load("res://src/fortune/data/destroy_col.gd").new()
 #Other
 var Catastrophe = load("res://src/fortune/data/double_purple_target.tres")
 var IncreaseRitual10 = preload("res://src/fortune/data/increase_ritual_target.gd").new()
+var BlockRitual = load("res://src/fortune/custom/block_ritual.gd").new()
+var Counter = load("res://src/fortune/custom/counter.gd").new()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -45,7 +47,7 @@ func get_advanced_attack_year(year: int):
 	#For now let's hard code each year
 	match year + 1:
 		2:
-			#return SimpleAttackBuilder.new().fortune_odd(AddCorpseFlower).build()
+			#return SimpleAttackBuilder.new().fortune_even(Counter).build()
 			var fortune = pick_random([StartWithWeeds, BlightrootOnce])
 			var option1 = SimpleAttackBuilder.new().fortune_once(fortune)\
 				.fortune_at(fortune, 4)\
@@ -80,7 +82,7 @@ func get_advanced_attack_year(year: int):
 				.build()
 		9:
 			return SimpleAttackBuilder.new().fortune_odd(pick_random([DestroyRow, DestroyCol, AddCorpseFlower]))\
-				.fortune_every_turn(ObliviateRightmost)\
+				.fortune_even(pick_random([ObliviateRightmost, BlockRitual, Counter]))\
 				.build()
 		10:
 			return pick_random([SimpleAttackBuilder.new().fortune_odd(DestroyRow).fortune_even(DestroyCol).build(),\
@@ -88,7 +90,7 @@ func get_advanced_attack_year(year: int):
 		_:
 			return SimpleAttackBuilder.new().fortune_every_turn(DeathcapTurnStart)\
 				.fortune_random(EndTurnSwap)\
-				.fortune_random(ObliviateRightmost)\
+				.fortune_random(pick_random([ObliviateRightmost, BlockRitual, Counter]))\
 				.fortune_random(pick_random([DestroyRow, DestroyCol, AddCorpseFlower]))\
 				.build()
 
