@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://c4gqastokl1qh"]
+[gd_scene load_steps=14 format=3 uid="uid://c4gqastokl1qh"]
 
 [ext_resource type="Script" path="res://src/ui/main_menu.gd" id="1_b0cyn"]
 [ext_resource type="Theme" uid="uid://c21dhy264y6ty" path="res://assets/theme_large.tres" id="1_l63em"]
@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://k0j5u0imo8k3" path="res://assets/ui/Normal.png" id="8_i7ta0"]
 [ext_resource type="Texture2D" uid="uid://c227lgcxce4ol" path="res://assets/ui/Hard.png" id="9_8e5gb"]
 [ext_resource type="Texture2D" uid="uid://bxn7jkap77xy2" path="res://assets/ui/Mastery.png" id="10_41bla"]
+[ext_resource type="PackedScene" uid="uid://duwe02c6s4kkq" path="res://src/ui/incrementer.tscn" id="11_ui556"]
 
 [node name="MainMenu" type="Node2D"]
 script = ExtResource("1_b0cyn")
@@ -51,6 +52,7 @@ layout_mode = 2
 text = "Exit"
 
 [node name="Panel" type="PanelContainer" parent="Root/HBox"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 
@@ -181,29 +183,33 @@ layout_mode = 2
 text = "Mastery"
 horizontal_alignment = 1
 
-[node name="Ritual" type="CheckBox" parent="Root/HBox/Panel/Margin/VBox/HBox/Margin/VBox/MasteryCont"]
+[node name="RitualDisruption" parent="Root/HBox/Panel/Margin/VBox/HBox/Margin/VBox/MasteryCont" instance=ExtResource("11_ui556")]
 layout_mode = 2
 text = "Ritual Disruption"
 
-[node name="Attack" type="CheckBox" parent="Root/HBox/Panel/Margin/VBox/HBox/Margin/VBox/MasteryCont"]
+[node name="BlightAttack" parent="Root/HBox/Panel/Margin/VBox/HBox/Margin/VBox/MasteryCont" instance=ExtResource("11_ui556")]
 layout_mode = 2
-text = "Attack Strength"
+text = "Blight Attack"
 
-[node name="Misfortune" type="CheckBox" parent="Root/HBox/Panel/Margin/VBox/HBox/Margin/VBox/MasteryCont"]
+[node name="Misfortune" parent="Root/HBox/Panel/Margin/VBox/HBox/Margin/VBox/MasteryCont" instance=ExtResource("11_ui556")]
 layout_mode = 2
+max_value = 1
 text = "Misfortune"
 
-[node name="CardRemoval" type="CheckBox" parent="Root/HBox/Panel/Margin/VBox/HBox/Margin/VBox/MasteryCont"]
+[node name="Blindness" parent="Root/HBox/Panel/Margin/VBox/HBox/Margin/VBox/MasteryCont" instance=ExtResource("11_ui556")]
 layout_mode = 2
-text = "Removal Cost"
-
-[node name="Shop" type="CheckBox" parent="Root/HBox/Panel/Margin/VBox/HBox/Margin/VBox/MasteryCont"]
-layout_mode = 2
-text = "Shop Limit"
-
-[node name="Blind" type="CheckBox" parent="Root/HBox/Panel/Margin/VBox/HBox/Margin/VBox/MasteryCont"]
-layout_mode = 2
+max_value = 1
 text = "Blindness"
+
+[node name="Lost Pages" parent="Root/HBox/Panel/Margin/VBox/HBox/Margin/VBox/MasteryCont" instance=ExtResource("11_ui556")]
+layout_mode = 2
+max_value = 2
+text = "Lost Pages"
+
+[node name="Memoria" parent="Root/HBox/Panel/Margin/VBox/HBox/Margin/VBox/MasteryCont" instance=ExtResource("11_ui556")]
+layout_mode = 2
+max_value = 2
+text = "Memoria"
 
 [node name="MasteryLevel" type="Label" parent="Root/HBox/Panel/Margin/VBox/HBox/Margin/VBox/MasteryCont"]
 layout_mode = 2
@@ -242,7 +248,6 @@ text = "Start New Game
 "
 
 [node name="ContPanel" type="PanelContainer" parent="Root/HBox"]
-visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 
@@ -424,6 +429,12 @@ text = "Skip Tutorial"
 [connection signal="item_selected" from="Root/HBox/Panel/Margin/VBox/HBox/Margin/VBox/FarmTypeBox/TypeOptions" to="." method="_on_type_options_item_selected"]
 [connection signal="item_selected" from="Root/HBox/Panel/Margin/VBox/HBox/Margin/VBox/DifficultyBox/DiffOptions" to="." method="_on_diff_options_item_selected"]
 [connection signal="item_selected" from="Root/HBox/Panel/Margin/VBox/HBox/Margin/VBox/CharacterBox/CharOptions" to="." method="_on_char_options_item_selected"]
+[connection signal="on_value_updated" from="Root/HBox/Panel/Margin/VBox/HBox/Margin/VBox/MasteryCont/RitualDisruption" to="." method="_on_ritual_disruption_on_value_updated"]
+[connection signal="on_value_updated" from="Root/HBox/Panel/Margin/VBox/HBox/Margin/VBox/MasteryCont/BlightAttack" to="." method="_on_blight_attack_on_value_updated"]
+[connection signal="on_value_updated" from="Root/HBox/Panel/Margin/VBox/HBox/Margin/VBox/MasteryCont/Misfortune" to="." method="_on_misfortune_on_value_updated"]
+[connection signal="on_value_updated" from="Root/HBox/Panel/Margin/VBox/HBox/Margin/VBox/MasteryCont/Blindness" to="." method="_on_blindness_on_value_updated"]
+[connection signal="on_value_updated" from="Root/HBox/Panel/Margin/VBox/HBox/Margin/VBox/MasteryCont/Lost Pages" to="." method="_on_lost_pages_on_value_updated"]
+[connection signal="on_value_updated" from="Root/HBox/Panel/Margin/VBox/HBox/Margin/VBox/MasteryCont/Memoria" to="." method="_on_memoria_on_value_updated"]
 [connection signal="pressed" from="Root/HBox/Panel/Margin/VBox/StartButton" to="." method="_on_start_button_pressed"]
 [connection signal="pressed" from="Root/HBox/ContPanel/VBox/Margin/VBox/ContinueButton" to="." method="_on_continue_button_pressed"]
 [connection signal="pressed" from="Root/HBox/SettingsPanel/Margin/VBox/TutorialsCheck" to="." method="_on_tutorials_check_pressed"]

@@ -240,6 +240,7 @@ func save_game():
 		}
 	}
 	user_interface.save_data(save_json)
+	save_json.mastery = Mastery.save_data()
 
 	var save_game = FileAccess.open("user://savegame.save", FileAccess.WRITE)
 	save_game.store_line(JSON.stringify(save_json))
@@ -276,6 +277,8 @@ func load_game():
 	Global.FARM_TYPE = save_json.state.farm_type
 	Global.FARM_TOPLEFT = Vector2(save_json.state.farm_topleft.x, save_json.state.farm_topleft.y)
 	Global.FARM_BOTRIGHT = Vector2(save_json.state.farm_botright.x, save_json.state.farm_botright.y)
+
+	Mastery.load_data(save_json.mastery)
 
 	StartupHelper.load_farm($FarmTiles, $EventManager)
 	$UserInterface.load_data(save_json)

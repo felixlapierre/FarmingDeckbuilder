@@ -68,7 +68,7 @@ func set_attack(p_attack: AttackPattern):
 		var preview = FutureTurnPreview.instantiate()
 		preview.setup(i, pattern[i], fortunes[i])
 		$NextTurns/List.add_child(preview)
-		if i > 3:
+		if (i > 3 if Mastery.HidePreview < 1 else i >= 0):
 			preview.visible = false
 	update_fortunes(fortunes[0])
 
@@ -78,7 +78,7 @@ func next_week():
 	var i = 0
 	for preview in $NextTurns/List.get_children():
 		preview.decrement_week()
-		preview.visible = i <= 2
+		preview.visible = i <= 2 if Mastery.HidePreview < 1 else i == 0
 		i += 1
 	var fortunes = attack.fortunes[turn_manager.week]
 	update_fortunes(fortunes)
@@ -94,10 +94,12 @@ func update_fortunes(fortunes: Array[Fortune]):
 
 
 func _on_next_turns_mouse_entered():
+	if Mastery.HidePreview >= 1: return
 	for child in $NextTurns/List.get_children():
 		child.visible = true
 
 func _on_next_turns_mouse_exited():
+	if Mastery.HidePreview >= 1: return
 	for i in range(0, $NextTurns/List.get_child_count()):
 		if i > 2:
 			$NextTurns/List.get_child(i).visible = false
