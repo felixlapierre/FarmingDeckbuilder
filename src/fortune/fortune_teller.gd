@@ -37,7 +37,7 @@ func create_fortunes():
 
 	var misfortune = Global.DIFFICULTY >= Constants.DIFFICULTY_MISFORTUNE
 	var year = event_manager.turn_manager.year
-	if Global.DIFFICULTY == Constants.DIFFICULTY_HARD:
+	if Global.DIFFICULTY >= Constants.DIFFICULTY_HARD:
 		attack_pattern = attacks_advanced.get_advanced_attack_year(year)
 	else:
 		attack_pattern = simple_attacks.get_simple_attack_year(year, misfortune)

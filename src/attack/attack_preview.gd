@@ -81,7 +81,8 @@ func next_week():
 		preview.decrement_week()
 		preview.visible = i <= 2 if Mastery.HidePreview < 1 else i == 0
 		i += 1
-	var fortunes = attack.fortunes[turn_manager.week]
+	
+	var fortunes = attack.fortunes[turn_manager.week % attack.fortunes.size()]
 	update_fortunes(fortunes)
 	update()
 

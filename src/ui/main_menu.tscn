@@ -193,7 +193,6 @@ text = "Blight Attack"
 
 [node name="Misfortune" parent="Root/HBox/Panel/Margin/VBox/HBox/Margin/VBox/MasteryCont" instance=ExtResource("11_ui556")]
 layout_mode = 2
-max_value = 1
 text = "Misfortune"
 
 [node name="Blindness" parent="Root/HBox/Panel/Margin/VBox/HBox/Margin/VBox/MasteryCont" instance=ExtResource("11_ui556")]
