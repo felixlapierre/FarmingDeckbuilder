@@ -246,6 +246,10 @@ layout_mode = 2
 text = "Start New Game
 "
 
+[node name="TutorialButton" type="Button" parent="Root/HBox/Panel/Margin/VBox"]
+layout_mode = 2
+text = "Play Tutorial"
+
 [node name="ContPanel" type="PanelContainer" parent="Root/HBox"]
 layout_mode = 2
 size_flags_horizontal = 3
@@ -320,14 +324,6 @@ tooltip_text = "Dev Mode: Add Skip button to skip
 the year. Allow infinite rerolls in the 
 shop to get the cards you want."
 text = "Dev Mode"
-
-[node name="TutorialPanel" type="PanelContainer" parent="Root/HBox"]
-visible = false
-layout_mode = 2
-
-[node name="TutorialButton" type="Button" parent="Root/HBox/TutorialPanel"]
-layout_mode = 2
-text = "Play Tutorial"
 
 [node name="Introduction" type="CenterContainer" parent="."]
 visible = false
@@ -435,10 +431,10 @@ text = "Skip Tutorial"
 [connection signal="on_value_updated" from="Root/HBox/Panel/Margin/VBox/HBox/Margin/VBox/MasteryCont/Lost Pages" to="." method="_on_lost_pages_on_value_updated"]
 [connection signal="on_value_updated" from="Root/HBox/Panel/Margin/VBox/HBox/Margin/VBox/MasteryCont/Memoria" to="." method="_on_memoria_on_value_updated"]
 [connection signal="pressed" from="Root/HBox/Panel/Margin/VBox/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="Root/HBox/Panel/Margin/VBox/TutorialButton" to="." method="_on_tutorial_button_pressed"]
 [connection signal="pressed" from="Root/HBox/ContPanel/VBox/Margin/VBox/ContinueButton" to="." method="_on_continue_button_pressed"]
 [connection signal="pressed" from="Root/HBox/SettingsPanel/Margin/VBox/TutorialsCheck" to="." method="_on_tutorials_check_pressed"]
 [connection signal="pressed" from="Root/HBox/SettingsPanel/Margin/VBox/DebugCheck" to="." method="_on_debug_check_pressed"]
-[connection signal="pressed" from="Root/HBox/TutorialPanel/TutorialButton" to="." method="_on_tutorial_button_pressed"]
 [connection signal="pressed" from="Introduction/Panel/VBox/MarginContainer/StoryStartButton" to="." method="_on_story_start_button_pressed"]
 [connection signal="pressed" from="TutorialPrompt/Panel/Margin/VBox/HBox/YesButton" to="." method="_on_tutorial_button_pressed"]
 [connection signal="pressed" from="TutorialPrompt/Panel/Margin/VBox/HBox/NoButton" to="." method="_on_no_button_pressed"]

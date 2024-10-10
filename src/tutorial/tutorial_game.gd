@@ -130,6 +130,7 @@ func year_two():
 			tile.update_display()
 	user_interface.AttackPreview.visible = true
 	turn_manager.blight_pattern = [0, 5, 0, 7, 0, 5, 0, 10, 0, 5, 0, 10, 10, 0, 10, 0]
+	dummy_attack_pattern(turn_manager.blight_pattern)
 	turn_manager.target_blight = 0
 	turn_manager.next_turn_blight = 5
 	farming_explanation.set_text("Plants harvested on [color=aqua]Blue Tiles[/color] will generate [color=aqua]Blue Mana[/color] (" + Helper.blue_mana() + ") instead of Yellow Mana " + Helper.mana_icon() + ". Blue mana will not progress the ritual; instead, it will protect you from the Blight's attacks.\n\nThe 'Attack Next Turn: 5' display means that you will need to generate 5 " + Helper.blue_mana() + " next turn to protect yourself from the Blight.\n\nPlant a Radish Seed; it will be ready on time as they only take 1 week [img]res://assets/custom/Time.png[/img] to grow")
@@ -183,6 +184,7 @@ func year_three():
 	turn_manager.total_ritual = 60
 	user_interface.update()
 	turn_manager.blight_pattern = [0, 0, 10, 0, 10, 5, 0, 15, 10, 0, 10, 0, 10, 10, 0, 10]
+	dummy_attack_pattern(turn_manager.blight_pattern)
 	farming_explanation.set_exp_size(650, 350)
 	farming_explanation.set_text("Each year, various positive and negative Fortunes will help or hinder your progress.\n\nHover over the icons underneath this text to see the details of this year's Fortunes.\n\nMake sure to adapt your strategy in order to complete this year's Ritual safely!")
 	user_interface.EndScreen.hide_send_pics()
@@ -206,6 +208,7 @@ func year_four():
 	turn_manager.total_ritual = 70
 	user_interface.update()
 	turn_manager.blight_pattern = [0, 0, 10, 0, 10, 5, 0, 15, 10, 0, 10, 0, 10, 10, 0, 10]
+	dummy_attack_pattern(turn_manager.blight_pattern)
 	farming_explanation.visible = false
 	user_interface.EndScreen.hide_send_pics()
 
@@ -213,3 +216,12 @@ func on_win():
 	super.on_win()
 	Unlocks.TUTORIAL_COMPLETE = true
 	Unlocks.save_unlocks()
+
+func dummy_attack_pattern(blight_pattern):
+	var attack_pattern = AttackPattern.new()
+	var pattern: Array[int] = []
+	pattern.assign(blight_pattern)
+	attack_pattern.blight_pattern = pattern
+	attack_pattern.compute_fortunes(1)
+	user_interface.AttackPreview.set_attack(attack_pattern)
+
