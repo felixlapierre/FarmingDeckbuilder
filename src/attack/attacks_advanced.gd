@@ -17,7 +17,7 @@ var WeedsDeckTurn = preload("res://src/fortune/data/weed_deck_turn_start.gd").ne
 # Kaleidoscope
 var EndTurnRandomize = preload("res://src/fortune/data/end_turn_randomize_colors.gd").new()
 var EndTurnSwap = preload("res://src/fortune/data/end_turn_swap_colors.gd").new()
-var EndTurnRotate = preload("res://src/fortune/data/end_turn_rotate_colors.gd").new()
+var EndTurnRotate = preload("res://src/fortune/data/end_turn_rotate_colors.gd")
 
 # Destroy, Piercing
 var DestroyOnePlant = load("res://src/fortune/data/destroy_one_plant.tres")
@@ -47,7 +47,7 @@ func get_advanced_attack_year(year: int):
 	#For now let's hard code each year
 	match year + 1 + Mastery.Misfortune:
 		2:
-			#return SimpleAttackBuilder.new().fortune_every_turn(AddCorpseFlower).build()
+			#return SimpleAttackBuilder.new().fortune_every_turn(EndTurnRotate.new()).build()
 			var fortune = pick_random([StartWithWeeds, BlightrootOnce])
 			var option1 = SimpleAttackBuilder.new().fortune_once(fortune)\
 				.fortune_at(fortune, 4)\
@@ -74,7 +74,7 @@ func get_advanced_attack_year(year: int):
 				.fortune_random(DeathcapTurnStart)\
 				.build()
 		7:
-			return SimpleAttackBuilder.new().fortune_every_turn(pick_random([ObliviateRightmost, EndTurnRotate, DeathcapTurnStart]))\
+			return SimpleAttackBuilder.new().fortune_every_turn(pick_random([ObliviateRightmost, EndTurnRotate.new(), DeathcapTurnStart]))\
 				.fortune_even(DestroyTwoPlants).build()
 		8:
 			return SimpleAttackBuilder.new().fortune_even(pick_random([DestroyRow, DestroyCol, AddCorpseFlower]))\
@@ -95,7 +95,7 @@ func get_advanced_attack_year(year: int):
 		12:
 			return SimpleAttackBuilder.new()\
 				.fortune_every_turn(pick_random([DestroyRow, DestroyCol, CorpseFlower]))\
-				.fortune_even(IncreaseRitual10)\
+				.fortune_even(pick_random([IncreaseRitual10, EndTurnRotate.new()]))\
 				.fortune_odd(Counter)\
 				.build()
 		13:
@@ -110,7 +110,7 @@ func get_advanced_attack_year(year: int):
 			return SimpleAttackBuilder.new()\
 				.fortune_every_turn(pick_random([DestroyRow, DestroyCol, CorpseFlower]))\
 				.fortune_every_turn(IncreaseRitual10)\
-				.fortune_odd(pick_random([Counter, ObliviateRightmost]))\
+				.fortune_odd(pick_random([Counter, ObliviateRightmost, EndTurnRotate.new()]))\
 				.fortune_once(pick_random([StartWithWeeds, BlightrootTurnStart]))\
 				.fortune_at(WeedsEntireFarm, 3)\
 				.build()
