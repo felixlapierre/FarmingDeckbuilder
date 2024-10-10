@@ -47,7 +47,7 @@ func get_advanced_attack_year(year: int):
 	#For now let's hard code each year
 	match year + 1 + Mastery.Misfortune:
 		2:
-			return SimpleAttackBuilder.new().fortune_every_turn(AddCorpseFlower).build()
+			#return SimpleAttackBuilder.new().fortune_every_turn(AddCorpseFlower).build()
 			var fortune = pick_random([StartWithWeeds, BlightrootOnce])
 			var option1 = SimpleAttackBuilder.new().fortune_once(fortune)\
 				.fortune_at(fortune, 4)\

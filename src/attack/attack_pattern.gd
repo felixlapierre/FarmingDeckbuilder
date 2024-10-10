@@ -34,6 +34,8 @@ func get_blight_pattern():
 	return blight_pattern
 
 func compute_blight_pattern(year: int):
+	if blight_pattern.size() > 0:
+		return
 	blight_pattern = [0]
 	var charge: float = 0.0
 	var chance = 0.0

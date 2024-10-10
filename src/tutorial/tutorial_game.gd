@@ -114,6 +114,7 @@ func year_one_end_year():
 	user_interface.WinterUi.move_child(winter_explanation, 0)
 	user_interface.update()
 	user_interface.FortuneTeller.current_fortunes.clear()
+	user_interface.FortuneTeller.attack_pattern = dummy_attack_pattern([0, 5, 0, 7, 0, 5, 0, 10, 0, 5, 0, 10, 10, 0, 10, 0], [])
 	user_interface.create_fortune_display()
 	user_interface.shop.STOCK_ONE.get_child(0).set_data(load("res://src/cards/data/action/invigorate.tres"))
 	user_interface.shop.STOCK_ONE.get_child(1).set_data(load("res://src/cards/data/seed/daylily.tres"))
@@ -130,7 +131,7 @@ func year_two():
 			tile.update_display()
 	user_interface.AttackPreview.visible = true
 	turn_manager.blight_pattern = [0, 5, 0, 7, 0, 5, 0, 10, 0, 5, 0, 10, 10, 0, 10, 0]
-	dummy_attack_pattern(turn_manager.blight_pattern)
+	dummy_attack_pattern(turn_manager.blight_pattern, [])
 	turn_manager.target_blight = 0
 	turn_manager.next_turn_blight = 5
 	farming_explanation.set_text("Plants harvested on [color=aqua]Blue Tiles[/color] will generate [color=aqua]Blue Mana[/color] (" + Helper.blue_mana() + ") instead of Yellow Mana " + Helper.mana_icon() + ". Blue mana will not progress the ritual; instead, it will protect you from the Blight's attacks.\n\nThe 'Attack Next Turn: 5' display means that you will need to generate 5 " + Helper.blue_mana() + " next turn to protect yourself from the Blight.\n\nPlant a Radish Seed; it will be ready on time as they only take 1 week [img]res://assets/custom/Time.png[/img] to grow")
@@ -175,19 +176,18 @@ func year_two_end_year():
 	user_interface.shop.STOCK_TWO.get_child(1).set_data(load("res://src/enhance/data/discount.tres"))
 	user_interface.shop.STOCK_TWO.get_child(2).set_data(load("res://src/enhance/data/growspeed.tres"))
 	user_interface.FortuneTeller.current_fortunes.clear()
-	user_interface.FortuneTeller.current_fortunes.append(load("res://src/fortune/data/daylily_fortune.gd").new())
-	user_interface.FortuneTeller.current_fortunes.append(load("res://src/fortune/data/blightroot_once.gd").new())
+	var fortunes: Array[Fortune] = [load("res://src/fortune/data/daylily_fortune.gd").new(), load("res://src/fortune/data/blightroot_once.gd").new()]
+	user_interface.FortuneTeller.attack_pattern = dummy_attack_pattern([0, 0, 10, 0, 10, 5, 0, 15, 10, 0, 10, 0, 10, 10, 0, 10], fortunes)
 	user_interface.create_fortune_display()
 
 func year_three():
 	turn_manager.ritual_counter = 60
 	turn_manager.total_ritual = 60
-	user_interface.update()
 	turn_manager.blight_pattern = [0, 0, 10, 0, 10, 5, 0, 15, 10, 0, 10, 0, 10, 10, 0, 10]
-	dummy_attack_pattern(turn_manager.blight_pattern)
 	farming_explanation.set_exp_size(650, 350)
 	farming_explanation.set_text("Each year, various positive and negative Fortunes will help or hinder your progress.\n\nHover over the icons underneath this text to see the details of this year's Fortunes.\n\nMake sure to adapt your strategy in order to complete this year's Ritual safely!")
 	user_interface.EndScreen.hide_send_pics()
+	user_interface.update()
 
 func year_three_end_year():
 	user_interface.FortuneTellerButton.visible = true
@@ -208,7 +208,7 @@ func year_four():
 	turn_manager.total_ritual = 70
 	user_interface.update()
 	turn_manager.blight_pattern = [0, 0, 10, 0, 10, 5, 0, 15, 10, 0, 10, 0, 10, 10, 0, 10]
-	dummy_attack_pattern(turn_manager.blight_pattern)
+	dummy_attack_pattern(turn_manager.blight_pattern, [])
 	farming_explanation.visible = false
 	user_interface.EndScreen.hide_send_pics()
 
@@ -217,11 +217,12 @@ func on_win():
 	Unlocks.TUTORIAL_COMPLETE = true
 	Unlocks.save_unlocks()
 
-func dummy_attack_pattern(blight_pattern):
-	var attack_pattern = AttackPattern.new()
+func dummy_attack_pattern(blight_pattern, fortunes: Array[Fortune]):
+	var attack_pattern = SimpleAttackBuilder.new()
+	for fortune in fortunes:
+		attack_pattern.fortune_once(fortune)
+	attack_pattern = attack_pattern.build()
 	var pattern: Array[int] = []
 	pattern.assign(blight_pattern)
 	attack_pattern.blight_pattern = pattern
-	attack_pattern.compute_fortunes(1)
-	user_interface.AttackPreview.set_attack(attack_pattern)
-
+	return attack_pattern

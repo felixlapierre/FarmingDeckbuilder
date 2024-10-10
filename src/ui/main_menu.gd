@@ -160,6 +160,7 @@ func populate_continue_preview():
 		NewGamePanel.visible = true
 		ViewContinue.disabled = false
 		ViewNewGame.disabled = true
+		MasteryContainer.visible = false
 		return
 	ContinueButton.text = "Load Saved Game"
 	var save_game = FileAccess.open("user://savegame.save", FileAccess.READ)
