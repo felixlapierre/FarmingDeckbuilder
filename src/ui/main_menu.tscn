@@ -208,7 +208,7 @@ text = "Lost Pages"
 
 [node name="Memoria" parent="Root/HBox/Panel/Margin/VBox/HBox/Margin/VBox/MasteryCont" instance=ExtResource("11_ui556")]
 layout_mode = 2
-max_value = 2
+max_value = 1
 text = "Memoria"
 
 [node name="MasteryLevel" type="Label" parent="Root/HBox/Panel/Margin/VBox/HBox/Margin/VBox/MasteryCont"]

@@ -68,7 +68,8 @@ func set_attack(p_attack: AttackPattern):
 		var preview = FutureTurnPreview.instantiate()
 		preview.setup(i, pattern[i], fortunes[i])
 		$NextTurns/List.add_child(preview)
-		if (i > 3 if Mastery.HidePreview < 1 else i >= 0):
+		var last_visible = 3 if Mastery.HidePreview == 0 else 1
+		if i > last_visible:
 			preview.visible = false
 	update_fortunes(fortunes[0])
 

@@ -8,9 +8,12 @@ var corpse_flower = preload("res://src/fortune/unique/corpse_flower.tres")
 var flower_texture = preload("res://assets/fortune/CorpseFlowerFortune.png")
 
 var targeted_tiles = []
+var strength = 1
 
 func _init() -> void:
 	super("Gluttony", FortuneType.BadFortune, "Plant a Corpse Flower on your farm", 3, flower_texture)
+	if Mastery.Misfortune > 0:
+		strength += Mastery.Misfortune
 
 func register_fortune(event_manager: EventManager):
 	callback_start = func(args: EventArgs):
@@ -21,7 +24,7 @@ func register_fortune(event_manager: EventManager):
 				and !tile.is_protected() and (tile.seed == null or tile.seed.get_effect("corrupted") != null or tile.seed_base_yield != 0.0):
 				options.append(tile)
 		options.shuffle()
-		for i in range(min(1, options.size())):
+		for i in range(min(strength, options.size())):
 			options[i].set_destroy_targeted(true)
 			targeted_tiles.append(options[i])
 	callback_end = func(args: EventArgs):
@@ -30,7 +33,7 @@ func register_fortune(event_manager: EventManager):
 				if tile.seed != null:
 					tile.destroy_plant()
 				tile.set_destroy_targeted(false)
-				tile.plant_seed_animate(corpse_flower)
+				tile.plant_seed_animate(corpse_flower.copy())
 	event_manager.register_listener(event_start, callback_start)
 	event_manager.register_listener(event_end, callback_end)
 

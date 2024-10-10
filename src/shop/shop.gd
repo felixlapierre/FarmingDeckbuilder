@@ -90,7 +90,8 @@ func fill_row_one():
 	for option in options:
 		if (option.type == "SEED" and Global.FARM_TYPE != "WILDERNESS") or option.type == "ACTION":
 			selected.append(option)
-	var stock = generate_random_shop_items(shop_item_capacity, selected)
+	var reduced_capacity = Mastery.BlockShop
+	var stock = generate_random_shop_items(shop_item_capacity - reduced_capacity, selected)
 	fill_row(STOCK_ONE, 1, stock)
 	STOCK_ONE.add_child(create_scrap_option(1, 1))
 
@@ -111,7 +112,10 @@ func fill_row_two():
 	#	fill_row(STOCK_TWO, 2, [item1, item3])
 	#	STOCK_TWO.add_child(create_remove_blight_option())
 	#else:
-	fill_row(STOCK_TWO, 2, [item1, item2, item3])
+	var items = [item1, item2, item3]
+	for i in range(Mastery.BlockShop):
+		items.remove_at(randi_range(0, items.size() - 1))
+	fill_row(STOCK_TWO, 2, items)
 	STOCK_TWO.add_child(create_remove_card_option())
 	STOCK_TWO.add_child(create_scrap_option(2, 2))
 
@@ -159,7 +163,7 @@ func create_remove_card_option():
 	var remove = ShopButton.instantiate()
 	remove.title = "Remove Card"
 	remove.text = "Remove a card from your deck"
-	remove.cost = 0
+	remove.cost = 0 if Mastery.CardRemoveCost == 0 else -1
 	remove.row = 2
 	remove.option_selected.connect(_on_remove_card_button_pressed)
 	return remove
@@ -235,6 +239,7 @@ func _on_close_button_pressed() -> void:
 	on_shop_closed.emit()
 
 func _on_remove_card_button_pressed(cost, row) -> void:
+	player_money += cost
 	$RemoveCardContainer.visible = true
 	$RemoveCardContainer/SelectCard.select_callback = func(card_data):
 		on_card_removed.emit(card_data)
