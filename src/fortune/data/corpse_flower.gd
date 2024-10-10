@@ -4,7 +4,7 @@ var callback_start: Callable
 var callback_end: Callable
 var event_start = EventManager.EventType.BeforeTurnStart
 var event_end = EventManager.EventType.OnTurnEnd
-var corpse_flower = preload("res://src/fortune/unique/corpse_flower.tres")
+var corpse_flower = load("res://src/fortune/unique/corpse_flower.tres")
 var flower_texture = preload("res://assets/fortune/CorpseFlowerFortune.png")
 
 var targeted_tiles = []
