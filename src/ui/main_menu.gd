@@ -71,6 +71,7 @@ func _ready():
 	if !Unlocks.TUTORIAL_COMPLETE:
 		$Root.visible = false
 		$TutorialPrompt.visible = true
+	update_prompt("", null, "")
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -80,21 +81,13 @@ func _on_diff_options_item_selected(index):
 	MasteryContainer.visible = false
 	match index:
 		0:
-			Prompt.text = "Difficulty: Easy"
-			DetailsImg.texture = load("res://assets/ui/Easy.png")
-			DetailsDescr.text = "Base difficulty. Blight is more forgiving"
+			update_prompt("Difficulty: Easy", load("res://assets/ui/Easy.png"), "Base difficulty. Blight is less dangerous.")
 		1:
-			Prompt.text = "Difficulty: Normal"
-			DetailsImg.texture = load("res://assets/ui/Normal.png")
-			DetailsDescr.text = "Ritual requires more mana to complete. Blight is more dangerous, and blighted tiles heal slower."
+			update_prompt("Difficulty: Normal", load("res://assets/ui/Normal.png"), "Ritual requires more mana to complete. Blight is more dangerous, and blighted tiles heal slower.")
 		2:
-			Prompt.text = "Difficulty: Hard"
-			DetailsImg.texture = load("res://assets/ui/Hard.png")
-			DetailsDescr.text = "Ritual requires even more mana to complete. Blight is even more dangerous. Blight will use new attacks, and will change attacks from week to week."
+			update_prompt("Difficulty: Hard", load("res://assets/ui/Hard.png"), "Ritual requires even more mana to complete. Blight is even more dangerous. Blight will use new attacks, and will change attacks from week to week.")
 		3:
-			Prompt.text = "Difficulty: Mastery"
-			DetailsImg.texture = load("res://assets/ui/Mastery.png")
-			DetailsDescr.text = "Increase the difficulty as much as you can in order to reach new levels of mastery."
+			update_prompt("Difficulty: Mastery", load("res://assets/ui/Mastery.png"), "Increase the difficulty as much as you can in order to reach new levels of mastery.")
 			MasteryContainer.visible = true
 	Global.DIFFICULTY = index
 	update_mastery()
@@ -123,24 +116,16 @@ func _on_type_options_item_selected(index):
 	match index:
 		0:
 			Global.FARM_TYPE = "FOREST"
-			Prompt.text = "Farm Type: Forest"
-			DetailsImg.texture = load("res://assets/mage/forest.png")
-			DetailsDescr.text = "Basic farm, with no special effects."
+			update_prompt("Farm Type: Forest", load("res://assets/mage/forest.png"), "Basic farm, with no special effects.")
 		1:
 			Global.FARM_TYPE = "RIVERLANDS"
-			Prompt.text = "Farm Type: Riverlands"
-			DetailsImg.texture = load("res://assets/mage/riverlands.png")
-			DetailsDescr.text = "A farm with ponds that take up space but water nearby plants."
+			update_prompt("Farm Type: Riverlands", load("res://assets/mage/riverlands.png"), "A farm with ponds that take up space but water nearby plants.")
 		2:
 			Global.FARM_TYPE = "WILDERNESS"
-			Prompt.text = "Farm Type: Wilderness"
-			DetailsImg.texture = load("res://assets/mage/wilderness.png")
-			DetailsDescr.text = "Start with seeds already planted on the farm. Starting deck has no Seed cards. You cannot add Seed cards to your deck."
+			update_prompt("Farm Type: Wilderness", load("res://assets/mage/wilderness.png"), "Start with seeds already planted on the farm. Starting deck has no Seed cards. You cannot add Seed cards to your deck.")
 		3:
 			Global.FARM_TYPE = "MOUNTAINS"
-			Prompt.text = "Farm Type: Mountains"
-			DetailsImg.texture = load("res://assets/fortune/mountains.png")
-			DetailsDescr.text = "A very small farm. Good luck!"
+			update_prompt("Farm Type: Mountains", load("res://assets/fortune/mountains.png"), "A very small farm. Good luck!")
 
 func get_index_of_farm_type(type):
 	match type:
@@ -194,7 +179,10 @@ func populate_continue_preview():
 		_on_char_options_item_selected(0)
 
 	var difficulty
-	Mastery.load_data(save_json.mastery)
+	if save_json.has("mastery"):
+		Mastery.load_data(save_json.mastery)
+	else:
+		Mastery.reset()
 	match int(save_json.state.difficulty):
 		0:
 			difficulty = "Easy"
@@ -291,9 +279,7 @@ func connect_main_menu_signal(playspace):
 
 func _on_char_options_item_selected(index: int) -> void:
 	mage_fortune = mages_map[index]
-	Prompt.text = mage_fortune.name
-	DetailsImg.texture = mage_fortune.texture
-	DetailsDescr.text = mage_fortune.text
+	update_prompt(mage_fortune.name, mage_fortune.texture, mage_fortune.text)
 
 func set_locked_options():
 	var farms = Unlocks.FARMS_UNLOCKED
@@ -374,5 +360,7 @@ func _on_memoria_on_value_updated(value: int):
 
 func update_prompt(title: String, image: Texture2D, description: String):
 	$Root/HBox/Panel/Margin/VBox/HBox/Details/VBox/DetailsPrompt.text = title
-	$Root/HBox/Panel/Margin/VBox/HBox/Details/VBox/DetailsImg.texture = image
+	$Root/HBox/Panel/Margin/VBox/HBox/Details/VBox/DetailsImg.visible = image != null
+	if image != null:
+		$Root/HBox/Panel/Margin/VBox/HBox/Details/VBox/DetailsImg.texture = image
 	$Root/HBox/Panel/Margin/VBox/HBox/Details/VBox/DetailsDescr.text = description
