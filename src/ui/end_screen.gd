@@ -90,10 +90,16 @@ func do_unlocks(turn_manager: TurnManager, deck: Array[CardData]):
 	var caption = $Center/Panel/VBoxContainer/Grid/UnlockedCaption
 	var value = $Center/Panel/VBoxContainer/Grid/UnlockValue
 	
-	#Normal
+	#Difficulty
 	if !Unlocks.DIFFICULTIES_UNLOCKED["1"] and win:
 		Unlocks.DIFFICULTIES_UNLOCKED["1"] = true
 		difficulties.append("Normal")
+	if !Unlocks.DIFFICULTIES_UNLOCKED["2"] and win and Global.DIFFICULTY == 1:
+		Unlocks.DIFFICULTIES_UNLOCKED["2"] = true
+		difficulties.append("Hard")
+	if !Unlocks.DIFFICULTIES_UNLOCKED["3"] and win and Global.DIFFICULTY == 2:
+		Unlocks.DIFFICULTIES_UNLOCKED["3"] = true
+		difficulties.append("Mastery")
 	
 	# Riverland Farm
 	if !Unlocks.FARMS_UNLOCKED["1"]:

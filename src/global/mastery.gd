@@ -37,3 +37,11 @@ static func load_data(data):
 
 static func get_total_mastery():
 	return RitualTarget + BlightAttack + Misfortune + HidePreview + BlockShop + CardRemoveCost
+
+static func reset():
+	RitualTarget = 0
+	BlightAttack = 0
+	Misfortune = 0
+	HidePreview = 0
+	BlockShop = 0
+	CardRemoveCost = 0

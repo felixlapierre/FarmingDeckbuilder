@@ -97,6 +97,7 @@ func _on_diff_options_item_selected(index):
 			DetailsDescr.text = "Increase the difficulty as much as you can in order to reach new levels of mastery."
 			MasteryContainer.visible = true
 	Global.DIFFICULTY = index
+	update_mastery()
 
 func _on_start_button_pressed():
 	menu_root.visible = false
@@ -105,7 +106,8 @@ func _on_start_button_pressed():
 	connect_main_menu_signal(playspace)
 	add_child(playspace)
 	playspace.user_interface.set_mage_fortune(mage_fortune)
-
+	if Global.DIFFICULTY < 3:
+		Mastery.reset()
 	playspace.start_new_game()
 
 func _on_continue_button_pressed():
@@ -239,6 +241,7 @@ func populate_continue_preview():
 	LostPages.update_value()
 	Memoria.value = Mastery.CardRemoveCost
 	Memoria.update_value()
+	update_mastery()
 	
 func _on_tutorials_check_pressed() -> void:
 	Settings.TUTORIALS_ENABLED = TutorialsCheck.button_pressed
@@ -264,6 +267,8 @@ func _on_story_start_button_pressed() -> void:
 	connect_main_menu_signal(playspace)
 	add_child(playspace)
 	playspace.user_interface.set_mage_fortune(load("res://src/fortune/characters/blank_mage.gd").new())
+	if Global.DIFFICULTY < 3:
+		Mastery.reset()
 	playspace.start_new_game()
 
 func connect_main_menu_signal(playspace):
@@ -279,6 +284,7 @@ func connect_main_menu_signal(playspace):
 		populate_continue_preview()
 		reset_tabs()
 		_on_view_continue_pressed()
+		update_mastery()
 		)
 
 
@@ -333,6 +339,7 @@ func _on_exit_game_pressed():
 
 func update_mastery():
 	$Root/HBox/Panel/Margin/VBox/HBox/Margin/VBox/MasteryCont/MasteryLevel.text = "Mastery Level: " + str(Mastery.get_total_mastery())
+	$Root/HBox/Panel/Margin/VBox/StartButton.disabled = Mastery.get_total_mastery() == 0 and Global.DIFFICULTY == 3
 
 func _on_ritual_disruption_on_value_updated(value: int):
 	Mastery.RitualTarget = value
