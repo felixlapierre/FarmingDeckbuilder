@@ -99,6 +99,7 @@ func draw_specific_card_from(card_data: CardData, from: Vector2):
 	# Add it to the hand and call reorganize_hand which will position it
 	$Hand.add_child(new_card);
 	number_of_cards_in_hand += 1
+	reorganize_hand()
 
 func draw_springbound_cards(count: int):
 	var springbound_cards = []
@@ -138,9 +139,10 @@ func play_card():
 	
 func reorganize_hand():
 	var card_number = 0
+	var cards_in_hand = $Hand.get_children().size()
 	for HandCard in $Hand.get_children():
 		# Calculate the card's new rotation and position using oval math I don't really understand
-		Angle = PI/2 + CardSpread*(float(number_of_cards_in_hand-1)/2 - card_number)
+		Angle = PI/2 + CardSpread*(float(cards_in_hand-1)/2 - card_number)
 		OvalAngleVector = Vector2(HorizontalRadius * cos(Angle), -VerticalRadius * sin(Angle))
 		var newPosition = CenterCardOval + OvalAngleVector - HandCard.size * 0.4
 		var newRotation = -Angle/4 + PI/8
@@ -149,7 +151,7 @@ func reorganize_hand():
 		# Set card number and change its state
 		HandCard.card_number_in_hand = card_number
 		card_number += 1
-		if HandCard.state == Enums.CardState.InHand:
+		if HandCard.state == Enums.CardState.InHand or HandCard.state == Enums.CardState.ReOrganiseHand:
 			HandCard.set_state(Enums.CardState.ReOrganiseHand, newPosition, newRotation, null)
 		elif HandCard.state == Enums.CardState.MoveDrawnCardToHand:
 			HandCard.set_state(Enums.CardState.MoveDrawnCardToHand, newPosition, newRotation, null)
