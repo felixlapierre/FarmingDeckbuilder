@@ -28,8 +28,4 @@ func preview_yield(tile: Tile):
 	var purple = 0
 	if tile.state == Enums.TileState.Growing:
 		purple = self.strength
-	return {
-		"purple": purple,
-		"yellow": 0,
-		"defer": false
-	}
+	return EventArgs.HarvestArgs.new(purple, true, false)

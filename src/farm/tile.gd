@@ -402,7 +402,7 @@ func card_can_target(card: CardData):
 	if card.type == "SEED" and targets.size() == 0:
 		targets.append("Empty");
 	if state == Enums.TileState.Empty and (targets.has("Destroyed") or targets.has("Blighted")):
-		return is_destroyed()
+		return is_destroyed() or targets.has("Empty")
 	return (targets.has(Enums.TileState.keys()[state]))\
 		and (!destroyed or state != Enums.TileState.Empty or targets.has("Destroyed"))\
 		and (!blighted or state != Enums.TileState.Empty or targets.has("Blighted"))

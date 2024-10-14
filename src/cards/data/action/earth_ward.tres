@@ -1,6 +1,7 @@
-[gd_resource type="Resource" script_class="EarthWard" load_steps=3 format=3 uid="uid://dey5rmdro05hw"]
+[gd_resource type="Resource" script_class="EarthWard" load_steps=4 format=3 uid="uid://dey5rmdro05hw"]
 
 [ext_resource type="Script" path="res://src/cards/custom/earth_ward.gd" id="1_3kl8v"]
+[ext_resource type="Resource" uid="uid://b71hdqvt7x0ao" path="res://src/effect/data/remembrance.tres" id="1_gptgb"]
 [ext_resource type="Texture2D" uid="uid://des6dcog7cdhr" path="res://assets/card/earthward.png" id="2_87j4e"]
 
 [resource]
@@ -19,6 +20,6 @@ texture = ExtResource("2_87j4e")
 seed_texture = 0
 texture_icon_offset = 16
 targets = Array[String](["Empty", "Structure", "Destroyed", "Blighted"])
-effects = Array[Resource("res://src/effect/effect.gd")]([])
+effects = Array[Resource("res://src/effect/effect.gd")]([ExtResource("1_gptgb")])
 enhances = Array[String]([])
-strength = 2.0
+strength = 1.0

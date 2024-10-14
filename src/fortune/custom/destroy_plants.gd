@@ -25,8 +25,9 @@ func register_fortune(event_manager: EventManager):
 	
 	callback_after_grow = func(args: EventArgs):
 		for tile in args.farm.get_all_tiles():
-			if tile.destroy_targeted and !tile.is_protected():
-				tile.destroy_plant()
+			if tile.destroy_targeted:
+				if !tile.is_protected():
+					tile.destroy_plant()
 				tile.set_destroy_targeted(false)
 	event_manager.register_listener(type_after_grow, callback_after_grow)
 

@@ -323,7 +323,7 @@ func _on_view_settings_pressed():
 
 
 func _on_exit_game_pressed():
-	pass # Replace with function body.
+	get_tree().quit()
 
 func update_mastery():
 	$Root/HBox/Panel/Margin/VBox/HBox/Margin/VBox/MasteryCont/MasteryLevel.text = "Mastery Level: " + str(Mastery.get_total_mastery())

@@ -185,11 +185,11 @@ func on_turn_end():
 	var damage = $TurnManager.end_turn()
 	if damage:
 		$UserInterface.update_damage()
+		$TurnManager.set_blight_targeted_tiles($FarmTiles)
 		$TurnManager.destroy_blighted_tiles($FarmTiles)
 	
 	if $TurnManager.blight_damage >= Constants.MAX_BLIGHT:
 		on_lose()
-	$TurnManager.set_blight_targeted_tiles($FarmTiles)
 	#$UserInterface.update()
 	#await get_tree().create_timer(1).timeout
 	$UserInterface.turn_ending = false
