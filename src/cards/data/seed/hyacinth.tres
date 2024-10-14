@@ -4,17 +4,19 @@
 
 [resource]
 script = ExtResource("1_72x0k")
-strength = 1.0
 type = "SEED"
 name = "Tiger Lily"
 rarity = "rare"
 cost = 1
-yld = 2
+yld = 4
 time = 2
 size = 2
 text = "On harvest, set the cost of one card in your hand to 0"
 strength_increment = 1.0
 size_increment = 1
 seed_texture = 1
+texture_icon_offset = 16
 targets = Array[String]([])
 effects = Array[Resource("res://src/effect/effect.gd")]([])
+enhances = Array[String]([])
+strength = 1.0

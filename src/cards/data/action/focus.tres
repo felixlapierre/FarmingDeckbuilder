@@ -15,7 +15,7 @@ range = "self"
 script = ExtResource("1_m15qg")
 name = "draw"
 strength = 2.0
-on = ""
+on = "play"
 range = "self"
 
 [resource]
@@ -32,5 +32,8 @@ strength_increment = 1.0
 size_increment = 1
 texture = ExtResource("2_8at1y")
 seed_texture = 3
+texture_icon_offset = 16
 targets = Array[String](["Growing"])
 effects = Array[ExtResource("1_m15qg")]([SubResource("Resource_hx2j1"), SubResource("Resource_gosjx")])
+enhances = Array[String]([])
+strength = 0.0

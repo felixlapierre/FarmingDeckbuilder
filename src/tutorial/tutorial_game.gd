@@ -119,7 +119,7 @@ func year_one_end_year():
 	user_interface.shop.STOCK_ONE.get_child(0).set_data(load("res://src/cards/data/action/invigorate.tres"))
 	user_interface.shop.STOCK_ONE.get_child(1).set_data(load("res://src/cards/data/seed/daylily.tres"))
 	user_interface.shop.STOCK_ONE.get_child(2).set_data(load("res://src/cards/data/action/time_bubble.tres"))
-	user_interface.shop.STOCK_ONE.get_child(3).set_data(load("res://src/cards/data/action/trusty_hoe.tres"))
+	user_interface.shop.STOCK_ONE.get_child(3).set_data(load("res://src/cards/data/action/frostcut.tres"))
 	user_interface.shop.STOCK_ONE.get_child(4).set_data(load("res://src/cards/data/seed/mint.tres"))
 
 func year_two():

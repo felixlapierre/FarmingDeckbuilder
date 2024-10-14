@@ -30,3 +30,4 @@ texture_icon_offset = 16
 targets = Array[String]([])
 effects = Array[ExtResource("1_dhx3u")]([SubResource("Resource_agk17"), ExtResource("2_ch62j")])
 enhances = Array[String]([])
+strength = 0.0

@@ -22,7 +22,7 @@ func register_events(event_manager: EventManager, tile: Tile):
 				tiles.append(neartile)
 		tiles.shuffle()
 		if tiles.size() > 0:
-			tiles[0].add_yield(1)
+			tiles[0].add_yield(2)
 
 	event_manager.register_listener(event_type_cardplay, callback_cardplay)
 
