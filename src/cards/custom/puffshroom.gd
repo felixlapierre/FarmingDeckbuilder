@@ -9,7 +9,8 @@ func register_seed_events(event_manager: EventManager, p_tile: Tile):
 	tile = p_tile
 	callback = func(args: EventArgs):
 		if tile.state == Enums.TileState.Mature and randf() > strength:
-			tile.harvest(false)
+			args.farm.effect_queue.append_array(tile.harvest(false))
+			args.farm.process_effect_queue()
 	event_manager.register_listener(EventManager.EventType.BeforeTurnStart, callback)
 
 func unregister_seed_events(event_manager: EventManager):

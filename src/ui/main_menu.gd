@@ -274,6 +274,7 @@ func connect_main_menu_signal(playspace):
 		reset_tabs()
 		_on_view_continue_pressed()
 		update_mastery()
+		update_prompt("", null, "")
 		)
 
 

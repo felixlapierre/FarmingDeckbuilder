@@ -29,6 +29,9 @@ func is_card_eligible(card: CardData):
 		return false
 	if card.enhances.size() > 1:
 		return false
+	if card.enhances.any(func(enh): 
+			return name == enh):
+		return false
 	match name:
 		"Size":
 			return card.size < 9 and card.size > 0

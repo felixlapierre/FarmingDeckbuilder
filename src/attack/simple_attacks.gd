@@ -40,13 +40,13 @@ func get_simple_attack_year(year: int, misfortune: bool):
 			7:
 				return get_simple_attack([2])
 			8:
-				return get_simple_attack([2, 0])
+				return get_simple_attack([2])
 			9:
 				return get_simple_attack([2, 1])
 			10:
-				return get_simple_attack([3])
+				return get_simple_attack([2, 1])
 			_:
-				return get_simple_attack([3, 2, 1])
+				return get_simple_attack([2, 2])
 	else:
 		match year + 1:
 			2, 3:
@@ -64,9 +64,9 @@ func get_simple_attack_year(year: int, misfortune: bool):
 			9:
 				return get_simple_attack([2, 2])
 			10:
-				return get_simple_attack([3, 2, 2])
+				return get_simple_attack([3])
 			_:
-				return get_simple_attack([3, 2, 1, 0])
+				return get_simple_attack([3, 0])
 
 func get_simple_attack(ranks: Array[int]) -> AttackPattern:
 	var builder = SimpleAttackBuilder.new()

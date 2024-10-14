@@ -1,5 +1,5 @@
 extends CardData
-class_name Channeling
+class_name Downpour
 
 var callback: Callable
 var event_type = EventManager.EventType.OnActionCardUsed
@@ -9,7 +9,7 @@ func register_events(event_manager: EventManager, p_tile: Tile):
 	callback = func(args: EventArgs):
 		var inc = 0
 		for tile in args.farm.get_all_tiles():
-			if tile.irrigated and (tile.state == Enums.TileState.Growing or tile.state == Enums.TileState.Mature):
+			if tile.irrigated:
 				inc += strength
 		args.specific.tile.add_yield(inc)
 	event_manager.register_listener(event_type, callback)
@@ -18,7 +18,7 @@ func unregister_events(event_manager: EventManager):
 	event_manager.unregister_listener(event_type, callback)
 
 func copy():
-	var new = Channeling.new()
+	var new = Downpour.new()
 	new.assign(self)
 	return new
 

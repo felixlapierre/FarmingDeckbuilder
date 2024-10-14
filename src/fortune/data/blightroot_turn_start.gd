@@ -15,4 +15,4 @@ func unregister_fortune(event_manager: EventManager):
 	event_manager.unregister_listener(event_type, callback)
 
 func plant_weeds(args: EventArgs):
-	args.farm.use_card_random_tile(blightroot, 1)
+	args.farm.use_card_unprotected_tile(blightroot, 1)

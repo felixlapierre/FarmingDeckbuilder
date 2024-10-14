@@ -61,7 +61,7 @@ custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 theme = ExtResource("2_0ukb6")
 bbcode_enabled = true
-text = "[color=gold]Note[/color]: A card can be enhanced a maximum of two times, as indicated by the [img]res://assets/custom/EnhanceChevron.png[/img]"
+text = "[color=gold]Note[/color]: A card can be enhanced a maximum of two times, as indicated by the [img]res://assets/custom/EnhanceChevron.png[/img]. The same enhance cannot be applied twice to the same card."
 fit_content = true
 scroll_active = false
 

@@ -48,10 +48,12 @@ static func load_deck(data):
 static func setup_farm(farm: Farm, event_manager: EventManager):
 	match Global.FARM_TYPE:
 		"RIVERLANDS":
-			for i in range(0, 5):
-				farm.tiles[3][i].build_structure(Water, 0)
-			for i in range(3, 8):
-				farm.tiles[4][i].build_structure(Water, 0)
+			for i in range(1, 3):
+				farm.tiles[1][i].build_structure(Water, 0)
+				farm.tiles[2][i].build_structure(Water, 0)
+			for i in range(5, 7):
+				farm.tiles[5][i].build_structure(Water, 0)
+				farm.tiles[6][i].build_structure(Water, 0)
 		"WILDERNESS":
 			setup_wilderness_farm_callback(farm, event_manager)
 		"MOUNTAINS":
@@ -83,7 +85,7 @@ static var forest_deck = [
 	{
 		"name": "carrot",
 		"type": "seed",
-		"count": 3
+		"count": 2
 	},
 	{
 		"name": "blueberry",
@@ -93,7 +95,7 @@ static var forest_deck = [
 	{
 		"name": "scythe",
 		"type": "action",
-		"count": 3
+		"count": 4
 	},
 	{
 		"name": "pumpkin",
@@ -106,7 +108,7 @@ static var riverlands_deck = [
 	{
 		"name": "potato",
 		"type": "seed",
-		"count": 3
+		"count": 2
 	},
 	{
 		"name": "pumpkin",
@@ -121,7 +123,7 @@ static var riverlands_deck = [
 	{
 		"name": "scythe",
 		"type": "action",
-		"count": 3
+		"count": 4
 	}
 ]
 
@@ -139,12 +141,12 @@ static var wilderness_deck = [
 	{
 		"name": "fertilize",
 		"type": "action",
-		"count": 3
+		"count": 2
 	},
 	{
 		"name": "scythe",
 		"type": "action",
-		"count": 3
+		"count": 4
 	}
 ]
 
@@ -157,7 +159,7 @@ static var mountains_deck = [
 	{
 		"name": "radish",
 		"type": "seed",
-		"count": 3,
+		"count": 2,
 	},
 	{
 		"name": "leek",
@@ -167,7 +169,7 @@ static var mountains_deck = [
 	{
 		"name": "scythe",
 		"type": "action",
-		"count": 3
+		"count": 4
 	}
 ]
 
@@ -180,12 +182,12 @@ static var tutorial_deck = [
 	{
 		"name": "scythe",
 		"type": "action",
-		"count": 3
+		"count": 4
 	},
 	{
 		"name": "potato",
 		"type": "seed",
-		"count": 3
+		"count": 2
 	},
 	{
 		"name": "pumpkin",
