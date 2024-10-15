@@ -14,6 +14,7 @@ var playspace
 @onready var ContinueButton = $Root/HBox/ContPanel/VBox/Margin/VBox/ContinueButton
 @onready var TutorialsCheck = $Root/HBox/SettingsPanel/Margin/VBox/TutorialsCheck
 @onready var DebugCheck = $Root/HBox/SettingsPanel/Margin/VBox/DebugCheck
+@onready var ClickModeCheck = $Root/HBox/SettingsPanel/Margin/VBox/ClickModeCheck
 
 @onready var ViewContinue = $Root/HBox/VBox/ViewContinue
 @onready var ViewNewGame = $Root/HBox/VBox/ViewNewGame
@@ -67,6 +68,7 @@ func _ready():
 	Unlocks.load_unlocks()
 	TutorialsCheck.button_pressed = Settings.TUTORIALS_ENABLED
 	DebugCheck.button_pressed = Settings.DEBUG
+	ClickModeCheck.button_pressed = Settings.CLICK_MODE
 	set_locked_options()
 	if !Unlocks.TUTORIAL_COMPLETE:
 		$Root.visible = false
@@ -173,7 +175,7 @@ func populate_continue_preview():
 	if save_json.state.has("mage"):
 		$Root/HBox/Panel/Margin/VBox/HBox/Margin/VBox/CharacterBox/CharOptions.selected = save_json.state.mage.rank
 		_on_char_options_item_selected(save_json.state.mage.rank)
-		$Root/HBox/ContPanel/VBox/Margin/VBox/Grid/StatsLabel.append_text("Character: " + save_json.state.mage.name + " ")
+		$Root/HBox/ContPanel/VBox/Margin/VBox/Grid/StatsLabel.append_text("Character: " + save_json.state.mage.name + "\n")
 	else:
 		$Root/HBox/Panel/Margin/VBox/HBox/Margin/VBox/CharacterBox/CharOptions.selected = 0
 		_on_char_options_item_selected(0)
@@ -365,3 +367,14 @@ func update_prompt(title: String, image: Texture2D, description: String):
 	if image != null:
 		$Root/HBox/Panel/Margin/VBox/HBox/Details/VBox/DetailsImg.texture = image
 	$Root/HBox/Panel/Margin/VBox/HBox/Details/VBox/DetailsDescr.text = description
+
+func _on_click_mode_check_pressed() -> void:
+	Settings.CLICK_MODE = ClickModeCheck.button_pressed
+	Settings.save_settings()
+
+func _input(event: InputEvent):
+	if event is InputEventScreenTouch:
+		Settings.CLICK_MODE = true
+		Settings.save_settings()
+		Global.MOBILE = true
+		ClickModeCheck.visible = false

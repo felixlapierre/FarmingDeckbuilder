@@ -20,9 +20,11 @@ theme = ExtResource("1_phr11")
 [node name="VBox" type="VBoxContainer" parent="VBox/StatsPanel"]
 layout_mode = 2
 
-[node name="StateLabel" type="Label" parent="VBox/StatsPanel/VBox"]
+[node name="StateLabel" type="RichTextLabel" parent="VBox/StatsPanel/VBox"]
 layout_mode = 2
+bbcode_enabled = true
 text = "State: Destroyed"
+fit_content = true
 
 [node name="YieldLabel" type="RichTextLabel" parent="VBox/StatsPanel/VBox"]
 custom_minimum_size = Vector2(200, 22)
@@ -34,6 +36,11 @@ scroll_active = false
 [node name="DurationLabel" type="Label" parent="VBox/StatsPanel/VBox"]
 layout_mode = 2
 text = "Duration: 0 / 3"
+
+[node name="TagsLabel" type="RichTextLabel" parent="VBox/StatsPanel/VBox"]
+layout_mode = 2
+bbcode_enabled = true
+fit_content = true
 
 [node name="CardBase" parent="VBox" instance=ExtResource("2_xjwpf")]
 layout_mode = 2

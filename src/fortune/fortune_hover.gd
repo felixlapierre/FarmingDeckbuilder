@@ -11,16 +11,19 @@ var hover = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass
+	Global.register_click_callback(self)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if hover:
-		fortune_display.global_position = get_global_mouse_position() + offset
-		if fortune_display.global_position.x > 1300:
-			fortune_display.global_position.x -= fortune_display.size.x + 10
-		if fortune_display.global_position.y > 800:
-			fortune_display.global_position.y -= fortune_display.size.y + 30
+		reposition()
+
+func reposition():
+	fortune_display.global_position = get_global_mouse_position() + offset
+	if fortune_display.global_position.x > 1300:
+		fortune_display.global_position.x -= fortune_display.size.x + 10
+	if fortune_display.global_position.y > 800:
+		fortune_display.global_position.y -= fortune_display.size.y + 30
 
 func setup(fortune: Fortune):
 	$Fortune/VBox/Name.text = fortune.name
@@ -54,9 +57,19 @@ func setup_card_fragments():
 	setup_custom(name, desc, texture, count)
 
 func _on_button_mouse_entered() -> void:
-	fortune_display.visible = true
-	hover = true
+	if !Settings.CLICK_MODE:
+		fortune_display.visible = true
+		hover = true
 
 func _on_button_mouse_exited() -> void:
+	if !Settings.CLICK_MODE:
+		fortune_display.visible = false
+		hover = false
+
+func _on_button_pressed() -> void:
+	if Settings.CLICK_MODE:
+		fortune_display.visible = true
+		reposition()
+
+func on_other_clicked():
 	fortune_display.visible = false
-	hover = false

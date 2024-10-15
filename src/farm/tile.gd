@@ -37,6 +37,7 @@ var COLOR_BLIGHTED = Color8(110, 41, 110)
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	Global.register_click_callback(self)
 	do_active_check()
 
 func do_active_check():
@@ -78,14 +79,16 @@ func _process(delta: float) -> void:
 	pass
 
 func _on_tile_button_mouse_entered() -> void:
-	tile_hovered.emit(self)
+	if !Settings.CLICK_MODE:
+		tile_hovered.emit(self)
 
 func _on_tile_button_mouse_exited() -> void:
-	tile_hovered.emit(null)
+	if !Settings.CLICK_MODE:
+		tile_hovered.emit(null)
 
 func _on_tile_button_gui_input(event: InputEvent) -> void:
-	if event is InputEventScreenTouch:
-		Global.mobile = true
+	if event is InputEventScreenTouch and !Settings.CLICK_MODE:
+		Global.MOBILE = true
 		Global.pressed = event.pressed
 		if event.pressed:
 			tile_hovered.emit(self)
@@ -93,9 +96,17 @@ func _on_tile_button_gui_input(event: InputEvent) -> void:
 			tile_hovered.emit(null)
 			if Global.pressed_time <= 0.5:
 				$"../../".use_card(grid_location)
-	elif event.is_action_pressed("leftclick") and !Global.mobile:
+	elif event.is_action_pressed("leftclick") and Settings.CLICK_MODE:
+		if $"../../".hovered_tile == self:
+			$"../../".use_card(grid_location)
+		else:
+			tile_hovered.emit(self)
+	elif event.is_action_pressed("leftclick") and !Global.MOBILE:
 		$"../../".use_card(grid_location)
 
+func on_other_clicked():
+	if Settings.CLICK_MODE:
+		tile_hovered.emit(null)
 
 func plant_seed_animate(planted_seed) -> Array[Effect]:
 	var effects = plant_seed(planted_seed)

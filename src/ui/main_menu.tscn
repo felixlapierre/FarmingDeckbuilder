@@ -325,6 +325,10 @@ the year. Allow infinite rerolls in the
 shop to get the cards you want."
 text = "Dev Mode"
 
+[node name="ClickModeCheck" type="CheckButton" parent="Root/HBox/SettingsPanel/Margin/VBox"]
+layout_mode = 2
+text = "Click Mode"
+
 [node name="Introduction" type="CenterContainer" parent="."]
 visible = false
 custom_minimum_size = Vector2(1920, 1080)
@@ -435,6 +439,7 @@ text = "Skip Tutorial"
 [connection signal="pressed" from="Root/HBox/ContPanel/VBox/Margin/VBox/ContinueButton" to="." method="_on_continue_button_pressed"]
 [connection signal="pressed" from="Root/HBox/SettingsPanel/Margin/VBox/TutorialsCheck" to="." method="_on_tutorials_check_pressed"]
 [connection signal="pressed" from="Root/HBox/SettingsPanel/Margin/VBox/DebugCheck" to="." method="_on_debug_check_pressed"]
+[connection signal="pressed" from="Root/HBox/SettingsPanel/Margin/VBox/ClickModeCheck" to="." method="_on_click_mode_check_pressed"]
 [connection signal="pressed" from="Introduction/Panel/VBox/MarginContainer/StoryStartButton" to="." method="_on_story_start_button_pressed"]
 [connection signal="pressed" from="TutorialPrompt/Panel/Margin/VBox/HBox/YesButton" to="." method="_on_tutorial_button_pressed"]
 [connection signal="pressed" from="TutorialPrompt/Panel/Margin/VBox/HBox/NoButton" to="." method="_on_no_button_pressed"]

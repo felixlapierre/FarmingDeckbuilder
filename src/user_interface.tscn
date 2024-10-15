@@ -228,10 +228,10 @@ size_flags_horizontal = 3
 
 [node name="EndTurnButton" type="TextureButton" parent="UI"]
 layout_mode = 0
-offset_left = 1464.0
-offset_top = 603.0
-offset_right = 1564.0
-offset_bottom = 653.0
+offset_left = 1477.0
+offset_top = 726.0
+offset_right = 1577.0
+offset_bottom = 776.0
 scale = Vector2(2, 2)
 texture_normal = ExtResource("7_dv2x3")
 texture_pressed = ExtResource("8_fmhkd")

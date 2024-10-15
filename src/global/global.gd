@@ -42,7 +42,9 @@ static var BLOCK_RITUAL = false
 
 static var pressed: bool = false
 static var pressed_time: float = 0.0
-static var mobile: bool = false
+static var MOBILE: bool = false
+
+static var click_callbacks = []
 
 static func reset():
 	selected_card = null
@@ -71,3 +73,10 @@ static func reset():
 	LUNAR_FARM = false
 	MAGE = ""
 	BLOCK_RITUAL = false
+
+static func register_click_callback(obj):
+	click_callbacks.append(obj)
+
+static func notify_click_callback():
+	for callback in click_callbacks:
+		callback.on_other_clicked()

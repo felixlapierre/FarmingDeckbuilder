@@ -4,6 +4,7 @@ extends Node2D
 @onready var yield_label = $VBox/StatsPanel/VBox/YieldLabel
 @onready var duration_label = $VBox/StatsPanel/VBox/DurationLabel
 @onready var card_base = $VBox/CardBase
+@onready var tags_label = $VBox/StatsPanel/VBox/TagsLabel
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -31,6 +32,12 @@ func setup(tile: Tile):
 		yield_label.text = str(snapped(tile.current_yield, 0.01)) + " " + Helper.mana_icon_small()
 	else:
 		yield_label.visible = false
+	if tile.irrigated:
+		tags_label.append_text("[color=deepskyblue]Watered[/color]\n")
+	if tile.is_destroyed():
+		tags_label.append_text("[color=crimson]Destroyed[/color]")
+	if tile.is_protected():
+		tags_label.append_text("[color=gold]Protected[/color]")
 	card_base.state = Enums.CardState.InShop
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

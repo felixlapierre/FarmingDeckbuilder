@@ -63,6 +63,10 @@ func _on_farm_tiles_on_yield_gained(args: EventArgs.HarvestArgs) -> void:
 	$UserInterface.update()
 
 func _input(event: InputEvent) -> void:
+	if event is InputEventScreenTouch:
+		Global.MOBILE = true
+	if event is InputEventMouseButton and event.pressed:
+		Global.notify_click_callback()
 	if event.is_action_pressed("transform"):
 		Global.shape = (Global.shape + 1) % 3
 	elif event.is_action_pressed("rotate"):

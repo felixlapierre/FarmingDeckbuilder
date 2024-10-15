@@ -73,10 +73,18 @@ size_flags_horizontal = 6
 texture = ExtResource("4_vip4o")
 stretch_mode = 5
 
-[node name="Fortunes" type="HBoxContainer" parent="CurrentTurn/VBox"]
+[node name="Margin" type="MarginContainer" parent="CurrentTurn/VBox"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 17
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 17
+
+[node name="Fortunes" type="HBoxContainer" parent="CurrentTurn/VBox/Margin"]
 layout_mode = 2
 
-[node name="FortuneHover" parent="CurrentTurn/VBox/Fortunes" instance=ExtResource("3_wpjb7")]
+[node name="FortuneHover" parent="CurrentTurn/VBox/Margin/Fortunes" instance=ExtResource("3_wpjb7")]
+visible = false
 layout_mode = 2
 
 [node name="AttackParticles" type="GPUParticles2D" parent="CurrentTurn"]
@@ -96,5 +104,6 @@ offset_bottom = 40.0
 [node name="List" type="VBoxContainer" parent="NextTurns"]
 layout_mode = 2
 
+[connection signal="gui_input" from="NextTurns/List" to="." method="_on_list_gui_input"]
 [connection signal="mouse_entered" from="NextTurns/List" to="." method="_on_next_turns_mouse_entered"]
 [connection signal="mouse_exited" from="NextTurns/List" to="." method="_on_next_turns_mouse_exited"]

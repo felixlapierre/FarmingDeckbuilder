@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://bbmiskr3ha0we"]
+[gd_scene load_steps=3 format=3 uid="uid://bbmiskr3ha0we"]
 
 [ext_resource type="Script" path="res://src/farm/farm.gd" id="1_1ma26"]
+[ext_resource type="Theme" uid="uid://c21dhy264y6ty" path="res://assets/theme_large.tres" id="2_itouy"]
 
 [node name="Farm" type="Node2D"]
 script = ExtResource("1_1ma26")
@@ -10,3 +11,15 @@ script = ExtResource("1_1ma26")
 [node name="SelectOverlay" type="Node" parent="."]
 
 [node name="Animations" type="Node" parent="."]
+
+[node name="ConfirmButton" type="Button" parent="."]
+visible = false
+offset_left = 1250.0
+offset_top = 620.0
+offset_right = 1428.0
+offset_bottom = 684.0
+theme = ExtResource("2_itouy")
+theme_override_font_sizes/font_size = 70
+text = "Confirm"
+
+[connection signal="pressed" from="ConfirmButton" to="." method="_on_confirm_button_pressed"]

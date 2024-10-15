@@ -5,6 +5,7 @@ class_name AttackPreview
 @onready var AmountLabel = $CurrentTurn/VBox/HBox/AmountLabel
 @onready var AttackParticles = $CurrentTurn/AttackParticles
 @onready var AttackImg = $CurrentTurn/VBox/HBox/Attack
+@onready var Fortunes = $CurrentTurn/VBox/Margin/Fortunes
 var FutureTurnPreview = preload("res://src/attack/future_turn_preview.tscn")
 var FortuneHover = preload("res://src/fortune/fortune_hover.tscn")
 
@@ -14,7 +15,7 @@ var attack: AttackPattern
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	Global.register_click_callback(self)
 
 func setup(p_turn_manager: TurnManager, p_mage_fortune: Fortune, event_manager: EventManager):
 	turn_manager = p_turn_manager
@@ -87,20 +88,36 @@ func next_week():
 	update()
 
 func update_fortunes(fortunes: Array[Fortune]):
-	for node in $CurrentTurn/VBox/Fortunes.get_children():
-		$CurrentTurn/VBox/Fortunes.remove_child(node)
+	for node in Fortunes.get_children():
+		Fortunes.remove_child(node)
 	for fortune in fortunes:
 		var hover = FortuneHover.instantiate()
-		$CurrentTurn/VBox/Fortunes.add_child(hover)
+		Fortunes.add_child(hover)
 		hover.setup(fortune)
 
 
 func _on_next_turns_mouse_entered():
-	if Mastery.HidePreview >= 1: return
-	for child in $NextTurns/List.get_children():
-		child.visible = true
+	if !Settings.CLICK_MODE:
+		show_full_preview()
 
 func _on_next_turns_mouse_exited():
+	if !Settings.CLICK_MODE:
+		hide_full_preview()
+
+func _on_list_gui_input(event: InputEvent) -> void:
+	if event.is_action_pressed("leftclick") and Settings.CLICK_MODE:
+		show_full_preview()
+
+func on_other_clicked():
+	hide_full_preview()
+
+func show_full_preview():
+	if Mastery.HidePreview >= 1: return
+	for i in range(0, $NextTurns/List.get_child_count()):
+		if i < 9:
+			$NextTurns/List.get_child(i).visible = true
+	
+func hide_full_preview():
 	if Mastery.HidePreview >= 1: return
 	for i in range(0, $NextTurns/List.get_child_count()):
 		if i > 2:

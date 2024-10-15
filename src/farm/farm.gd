@@ -90,9 +90,10 @@ func use_card(grid_position):
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	hover_time += delta
-	if current_shape != Global.shape and hovered_tile != null:
-		show_select_overlay()
+	if !Settings.CLICK_MODE:
+		hover_time += delta
+		if current_shape != Global.shape and hovered_tile != null:
+			show_select_overlay()
 	if hovered_tile == null or (Global.selected_card == null and Global.selected_structure == null) and $SelectOverlay.get_children().size() > 0:
 		clear_overlay()
 	
@@ -106,7 +107,7 @@ func show_select_overlay():
 	elif Global.selected_structure != null:
 		size = Global.selected_structure.size
 		targets = ["Empty", "Growing", "Mature"]
-	elif hovered_tile != null and hover_time > Constants.HOVER_PREVIEW_DELAY:
+	elif hovered_tile != null and (hover_time > Constants.HOVER_PREVIEW_DELAY or Settings.CLICK_MODE):
 		clear_overlay()
 		on_show_tile_preview.emit(hovered_tile)
 		return
@@ -117,6 +118,7 @@ func show_select_overlay():
 		return
 	var grid_position = hovered_tile.grid_location
 	var shape = Global.shape
+	$ConfirmButton.visible = Settings.CLICK_MODE
 	if Global.selected_structure != null:
 		shape = Enums.CursorShape.Elbow
 		var sprite = Sprite2D.new()
@@ -190,10 +192,15 @@ func pct(num):
 	return float(num)/100.0
 
 func on_tile_hover(tile):
-	hover_time = 0.0
-	hovered_tile = tile
-	if tile != null:
+	if Settings.CLICK_MODE:
+		await get_tree().create_timer(0.1).timeout
+		hovered_tile = tile
 		show_select_overlay()
+	else:
+		hover_time = 0.0
+		hovered_tile = tile
+		if tile != null:
+			show_select_overlay()
 
 func clear_overlay():
 	for node in $SelectOverlay.get_children():
@@ -205,6 +212,7 @@ func clear_overlay():
 		"defer": false
 	}) #This signals to clear the preview
 	on_hide_tile_preview.emit()
+	$ConfirmButton.visible = false
 
 func process_one_week(week: int):
 	for tile in $Tiles.get_children():
@@ -461,3 +469,7 @@ func _on_user_interface_farm_preview_hide() -> void:
 func _on_user_interface_farm_preview_show() -> void:
 	for tile: Tile in get_all_tiles():
 		tile.show_peek()
+
+func _on_confirm_button_pressed() -> void:
+	if hovered_tile != null:
+		use_card(hovered_tile.grid_location)
