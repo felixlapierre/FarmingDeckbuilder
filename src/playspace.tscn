@@ -13,8 +13,6 @@ script = ExtResource("1_hjvjc")
 
 [node name="Background" parent="." instance=ExtResource("2_2qbwg")]
 
-[node name="Background2" parent="." instance=ExtResource("2_2qbwg")]
-
 [node name="FarmTiles" parent="." instance=ExtResource("2_4q20t")]
 
 [node name="Cards" parent="." instance=ExtResource("16_bvmlh")]

@@ -11,7 +11,6 @@ signal on_main_menu
 @onready var turn_manager: TurnManager = $TurnManager
 @onready var user_interface: UserInterface = $UserInterface
 @onready var background = $Background
-@onready var background2 = $Background2
 @onready var farm: Farm = $FarmTiles
 @onready var cards: Cards = $Cards
 @onready var event_manager: EventManager = $EventManager
@@ -32,7 +31,6 @@ func _ready() -> void:
 	$UserInterface.update()
 	$FarmTiles.setup($EventManager)
 	$TurnManager.setup($EventManager)
-	background2.unique_tileset()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -300,27 +298,18 @@ func start_new_game():
 	start_year()
 
 func set_background_texture():
-	var old_texture
-	var new_texture
+	var texture
 	if $UserInterface/Winter.visible == true:
-		old_texture = background2.get_background_texture()
-		new_texture = spring_tileset
+		texture = spring_tileset
 	if turn_manager.week == Global.SPRING_WEEK:
-		old_texture = background2.get_background_texture()
-		new_texture = spring_tileset
+		texture = spring_tileset
 	elif turn_manager.week == Global.SUMMER_WEEK:
-		old_texture = spring_tileset
-		new_texture = summer_tileset
+		texture = summer_tileset
 	elif turn_manager.week == Global.FALL_WEEK:
-		old_texture = summer_tileset
-		new_texture = fall_tileset
+		texture = fall_tileset
 	elif turn_manager.week == Global.WINTER_WEEK:
-		old_texture = fall_tileset
-		new_texture = winter_tileset
-	if new_texture != old_texture:
-		background.set_background_texture(old_texture)
-		background2.set_background_texture(new_texture)
-		background2.tween_to_visible(1.0)
+		texture = winter_tileset
+	background.set_background_texture(texture)
 
 
 func _on_farm_tiles_try_move_structure(tile: Tile) -> void:
