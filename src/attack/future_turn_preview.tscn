@@ -12,7 +12,7 @@ theme = ExtResource("1_k27js")
 script = ExtResource("2_ruxjg")
 
 [node name="VBox" type="VBoxContainer" parent="."]
-custom_minimum_size = Vector2(250, 0)
+custom_minimum_size = Vector2(270, 0)
 layout_mode = 2
 
 [node name="Attack" type="HBoxContainer" parent="VBox"]

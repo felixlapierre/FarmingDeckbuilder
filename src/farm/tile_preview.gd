@@ -11,6 +11,7 @@ func _ready() -> void:
 	pass
 
 func setup(tile: Tile):
+	tags_label.clear()
 	state_label.text = "State: " + str(Enums.TileState.find_key(tile.state))
 	if tile.seed != null:
 		card_base.set_card_info(tile.seed)
@@ -32,12 +33,16 @@ func setup(tile: Tile):
 		yield_label.text = str(snapped(tile.current_yield, 0.01)) + " " + Helper.mana_icon_small()
 	else:
 		yield_label.visible = false
+	if tile.purple:
+		tags_label.append_text("[color=cornflowerblue]Color: Blue[/color]\n")
+	else:
+		tags_label.append_text("[color=gold]Color: Yellow[/color]\n")
 	if tile.irrigated:
 		tags_label.append_text("[color=deepskyblue]Watered[/color]\n")
 	if tile.is_destroyed():
-		tags_label.append_text("[color=crimson]Destroyed[/color]")
+		tags_label.append_text("[color=crimson]Destroyed[/color]\n")
 	if tile.is_protected():
-		tags_label.append_text("[color=gold]Protected[/color]")
+		tags_label.append_text("[color=green]Protected[/color]\n")
 	card_base.state = Enums.CardState.InShop
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

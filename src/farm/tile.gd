@@ -31,7 +31,7 @@ signal on_yield_gained
 var event_manager: EventManager
 
 var COLOR_NONE = Color8(255, 255, 255)
-var COLOR_IRRIGATE = Color8(58, 130, 240)
+var COLOR_IRRIGATE = Color8(136, 183, 252)
 var COLOR_DESTROYED = Color8(45, 45, 45)
 var COLOR_BLIGHTED = Color8(110, 41, 110)
 

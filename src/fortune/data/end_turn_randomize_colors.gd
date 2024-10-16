@@ -5,7 +5,7 @@ var farm_ref: Farm
 
 var kaleidoscope_texture = preload("res://assets/fortune/kaleidoscope0.png")
 func _init() -> void:
-	super("Kaleidoscope", FortuneType.BadFortune, "Randomize purple and yellow zones at end of turn", 0, kaleidoscope_texture)
+	super("Kaleidoscope", FortuneType.BadFortune, "Randomize blue and yellow zones at end of turn", 0, kaleidoscope_texture)
 
 func register_fortune(event_manager: EventManager):
 	callable = func(args):
@@ -13,7 +13,7 @@ func register_fortune(event_manager: EventManager):
 		var tiles_ordered: Array[Tile] = []
 		var tile_colors_randomized: Array[bool] = []
 		for tile: Tile in farm_ref.get_all_tiles():
-			if tile.state != Enums.TileState.Inactive:
+			if tile.state != Enums.TileState.Inactive and !tile.is_protected():
 				tiles_ordered.append(tile)
 		for tile: Tile in tiles_ordered:
 			tile_colors_randomized.append(tile.purple)
