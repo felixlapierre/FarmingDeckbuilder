@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="Piercing" load_steps=3 format=3 uid="uid://dejbtvvu01ari"]
 
 [ext_resource type="Script" path="res://src/fortune/custom/piercing.gd" id="1_er1xx"]
-[ext_resource type="Texture2D" uid="uid://dbbhalo3edxpk" path="res://assets/custom/BlightTarget.png" id="2_fir6k"]
+[ext_resource type="Texture2D" uid="uid://cc3c12r5q120b" path="res://assets/fortune/BlightTargetFortune.png" id="2_tu02f"]
 
 [resource]
 script = ExtResource("1_er1xx")
@@ -11,4 +11,4 @@ name = "Piercing"
 type = 1
 text = "Even if blocked, blight will destroy the plants on 4 targeted tiles"
 rank = 1
-texture = ExtResource("2_fir6k")
+texture = ExtResource("2_tu02f")
