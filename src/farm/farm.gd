@@ -395,6 +395,7 @@ func destroy_blighted_tiles():
 	for tile in $Tiles.get_children():
 		if tile.blight_targeted == true and !tile.is_protected():
 			tile.destroy()
+			tile.set_blight_targeted(false)
 		elif tile.destroy_targeted == true and !tile.is_protected():
 			tile.destroy()
 

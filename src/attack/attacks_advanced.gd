@@ -89,18 +89,18 @@ func get_advanced_attack_year(year: int):
 				SimpleAttackBuilder.new().fortune_every_turn(AddCorpseFlower).build()])
 		11:
 			return SimpleAttackBuilder.new()\
-				.fortune_every_turn(pick_random([DestroyRow, DestroyCol, CorpseFlower]))\
+				.fortune_every_turn(pick_random([DestroyRow, DestroyCol, AddCorpseFlower]))\
 				.fortune_even(IncreaseRitual10)\
 				.build()
 		12:
 			return SimpleAttackBuilder.new()\
-				.fortune_every_turn(pick_random([DestroyRow, DestroyCol, CorpseFlower]))\
+				.fortune_every_turn(pick_random([DestroyRow, DestroyCol, AddCorpseFlower]))\
 				.fortune_even(pick_random([IncreaseRitual10, EndTurnRotate.new()]))\
 				.fortune_odd(Counter)\
 				.build()
 		13:
 			return SimpleAttackBuilder.new()\
-				.fortune_every_turn(pick_random([DestroyRow, DestroyCol, CorpseFlower]))\
+				.fortune_every_turn(pick_random([DestroyRow, DestroyCol, AddCorpseFlower]))\
 				.fortune_even(IncreaseRitual10)\
 				.fortune_odd(Counter)\
 				.fortune_once(StartWithWeeds)\
@@ -108,7 +108,7 @@ func get_advanced_attack_year(year: int):
 				.build()
 		_:
 			return SimpleAttackBuilder.new()\
-				.fortune_every_turn(pick_random([DestroyRow, DestroyCol, CorpseFlower]))\
+				.fortune_every_turn(pick_random([DestroyRow, DestroyCol, AddCorpseFlower]))\
 				.fortune_every_turn(IncreaseRitual10)\
 				.fortune_odd(pick_random([Counter, ObliviateRightmost, EndTurnRotate.new()]))\
 				.fortune_once(pick_random([StartWithWeeds, BlightrootTurnStart]))\
