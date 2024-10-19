@@ -218,3 +218,11 @@ func preview_yield(tile: Tile):
 		return harvest
 	else:
 		return EventArgs.HarvestArgs.new(0, tile.purple, defer)
+
+func get_long_description():
+	var description_tooltip = ""
+	for effect in effects:
+		if description_tooltip.length() > 0:
+			description_tooltip += "\n"
+		description_tooltip += effect.get_long_description()
+	return description_tooltip

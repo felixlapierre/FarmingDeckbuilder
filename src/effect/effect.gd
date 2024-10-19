@@ -136,13 +136,17 @@ func get_long_description():
 		"spread":
 			return "Spread: Plant a copy of this plant on an adjacent tile"
 		"harvest", "harvest_delay":
-			return "Harvest: Gain [img]res://assets/custom/YellowMana16.png[/img] or [img]res://assets/custom/PurpleMana16.png[/img] equal to the plant's Yield, then remove it"
+			return "Harvest: Turn mature plants into Mana [img]res://assets/custom/YellowMana16.png[/img]"
 		"irrigate", "absorb":
 			return "Watered: Watered tiles give 40% more " + Helper.mana_icon()
 		"fleeting", "draw_target":
 			return "Fleeting: Destroy card when played or discarded"
 		"corrupted":
 			return "On harvest, " + Helper.mana_icon() + " is lost, not gained."
+		"destroy_tile":
+			return "Destroy Tile: Destroyed tiles are unusable until the end of the year."
+		"destroy_plant":
+			return "Destroy Plant: Removes a plant from your farm, without gaining its Mana (" + Helper.mana_icon() + ")"
 		_:
 			return ""
 

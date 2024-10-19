@@ -8,6 +8,7 @@ var CardBase = preload("res://src/cards/card_base.tscn")
 var ShopCard = preload("res://src/shop/shop_card.tscn")
 var ShopButton = preload("res://src/shop/shop_button.tscn")
 var ShopDisplay = preload("res://src/shop/shop_display.tscn")
+var Confirm = preload("res://src/ui/menus/confirm.tscn")
 
 signal on_shop_closed
 signal on_item_bought
@@ -135,7 +136,7 @@ func fill_row(node, row_number, stock):
 			var new_node = ShopCard.instantiate()
 			new_node.tooltip = tooltip
 			new_node.card_data = item
-			new_node.on_clicked.connect(func(option): on_buy(option, row_number))
+			new_node.on_clicked.connect(func(option): on_select_card(option, row_number))
 			node.add_child(new_node)
 		elif item.CLASS_NAME == "Structure":
 			var new_node = ShopDisplay.instantiate()
@@ -149,6 +150,16 @@ func fill_row(node, row_number, stock):
 			new_node.set_data(item)
 			new_node.callback = func(option): on_enhance_selected(option, row_number)
 			node.add_child(new_node)
+
+func on_select_card(card_base, row_number):
+	var confirm = Confirm.instantiate()
+	confirm.setup(card_base.card_info)
+	add_child(confirm)
+	confirm.on_yes.connect(func(): 
+		on_buy(card_base, row_number)
+		remove_child(confirm))
+	confirm.on_no.connect(func():
+		remove_child(confirm))
 
 func create_scrap_option(amount, row):
 	var scrap = ShopButton.instantiate()

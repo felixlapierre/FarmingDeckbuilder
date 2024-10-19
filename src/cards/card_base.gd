@@ -1,4 +1,5 @@
 extends MarginContainer
+class_name CardBase
 
 var card_info;
 var card_image = "res://assets/1616tinygarden/objects.png"

@@ -32,6 +32,8 @@ region = Rect2(0, 0, 16, 16)
 texture_filter = 1
 custom_minimum_size = Vector2(200, 280)
 pivot_offset = Vector2(100, 140)
+size_flags_horizontal = 4
+size_flags_vertical = 4
 script = ExtResource("1_ohx6w")
 
 [node name="CardBorder" type="Sprite2D" parent="."]
