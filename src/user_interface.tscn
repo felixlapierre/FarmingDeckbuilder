@@ -277,12 +277,13 @@ theme = ExtResource("2_s7754")
 theme_override_font_sizes/font_size = 60
 text = "Discard"
 
-[node name="Preview" type="MarginContainer" parent="UI"]
-z_index = 1
+[node name="Preview" type="CenterContainer" parent="UI"]
+z_index = 2
+custom_minimum_size = Vector2(300, 0)
 layout_mode = 0
-offset_left = 917.0
+offset_left = 810.0
 offset_top = 44.0
-offset_right = 1035.0
+offset_right = 1110.0
 offset_bottom = 85.0
 theme = ExtResource("2_s7754")
 
@@ -308,9 +309,14 @@ horizontal_alignment = 2
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
-theme_override_colors/font_color = Color(0.623529, 0.470588, 0.890196, 1)
+theme_override_colors/font_color = Color(0, 0.807843, 0.819608, 1)
 theme_override_fonts/font = ExtResource("13_3dxy7")
 theme_override_font_sizes/font_size = 50
+text = "+12"
+
+[node name="PreviewGreen" type="Label" parent="UI/Preview/Panel/HBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.498039, 1, 0, 1)
 text = "+12"
 
 [node name="SkipButton" type="Button" parent="UI"]
@@ -470,7 +476,7 @@ visible = false
 layout_mode = 1
 
 [node name="MenuButton" type="Button" parent="."]
-offset_right = 114.0
+offset_right = 200.0
 offset_bottom = 49.0
 theme = ExtResource("2_s7754")
 shortcut = SubResource("Shortcut_e5n85")

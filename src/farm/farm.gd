@@ -133,6 +133,7 @@ func show_select_overlay():
 	var targeted_grid_locations = get_targeted_tiles(grid_position, selected, selected.size, shape, Global.rotate)
 	var yld_preview_yellow = 0
 	var yld_preview_purple = 0
+	var yld_preview_green = 0
 	var yld_preview_defer = false
 
 	for item in targeted_grid_locations:
@@ -150,6 +151,7 @@ func show_select_overlay():
 					event_manager.notify_specific_args(EventManager.EventType.OnYieldPreview, specific)
 					yld_preview_purple += preview.yld if preview.purple else 0.0
 					yld_preview_yellow += preview.yld if !preview.purple else 0.0
+					yld_preview_green += preview.green
 					yld_preview_defer = yld_preview_defer or preview.delay
 			elif Global.selected_structure != null:
 				error = !targeted_tile.structure_can_target()
@@ -164,10 +166,11 @@ func show_select_overlay():
 			sprite.modulate = Color8(0, 255, 0)
 		sprite.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 		$SelectOverlay.add_child(sprite)
-	if yld_preview_purple != 0 or yld_preview_yellow != 0:
+	if yld_preview_purple != 0 or yld_preview_yellow != 0 or yld_preview_green != 0:
 		on_preview_yield.emit({
 			"yellow": yld_preview_yellow, 
 			"purple": yld_preview_purple,
+			"green": yld_preview_green,
 			"defer": yld_preview_defer
 		})
 
@@ -209,6 +212,7 @@ func clear_overlay():
 	on_preview_yield.emit({
 		"purple": 0,
 		"yellow": 0,
+		"green": 0,
 		"defer": false
 	}) #This signals to clear the preview
 	on_hide_tile_preview.emit()

@@ -215,9 +215,17 @@ func preview_yield(tile: Tile):
 		var increase_yield = get_effect("increase_yield")
 		if increase_yield != null:
 			harvest.yld *= 1.0 + increase_yield.strength
+			harvest.green = tile.current_yield * (increase_yield.strength)
 		return harvest
 	else:
-		return EventArgs.HarvestArgs.new(0, tile.purple, defer)
+		var args = EventArgs.HarvestArgs.new(0, tile.purple, defer);
+		var add_yield = get_effect("add_yield")
+		if add_yield != null:
+			args.green += add_yield.strength
+		var increase_yield = get_effect("increase_yield")
+		if increase_yield != null:
+			args.green += tile.current_yield * (increase_yield.strength)
+		return args
 
 func get_long_description():
 	var description_tooltip = ""

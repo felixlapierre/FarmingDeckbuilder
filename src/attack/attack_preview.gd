@@ -52,7 +52,9 @@ func yield_preview(args):
 	var purple = args.purple
 	var blightamt = turn_manager.purple_mana + purple
 	if purple != 0:
-		AmountLabel.text = "[color=9f78e3]"+ str(blightamt) + " / " + str(turn_manager.target_blight)
+		var color = "[color=aquamarine]" if blightamt > turn_manager.target_blight\
+			else "[color=white]"
+		AmountLabel.text = color + str(blightamt) + " / " + str(turn_manager.target_blight)
 	else:
 		AmountLabel.text = str(turn_manager.purple_mana) + " / " + str(turn_manager.target_blight)
 

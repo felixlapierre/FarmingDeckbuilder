@@ -25,10 +25,12 @@ class HarvestArgs:
 	var yld: float
 	var purple: bool
 	var delay: bool
+	var green: float
 	func _init(p_yld: float = 0.0, p_purple: bool = false, p_delay: bool = false):
 		yld = p_yld
 		purple = p_purple
 		delay = p_delay
+		green = 0.0
 
 class DestroyArgs:
 	var protect: bool

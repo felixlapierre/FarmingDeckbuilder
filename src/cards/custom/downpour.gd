@@ -24,3 +24,13 @@ func copy():
 
 func can_strengthen_custom_effect():
 	return true
+
+func preview_yield(tile: Tile):
+	var args = EventArgs.HarvestArgs.new(0, tile.purple, false)
+	var farm: Farm = tile.get_parent().get_parent()
+	var inc = 0
+	for farm_tile in farm.get_all_tiles():
+		if farm_tile.irrigated:
+			inc += strength
+	args.green = inc
+	return args

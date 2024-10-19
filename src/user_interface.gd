@@ -281,13 +281,20 @@ func _on_farm_tiles_on_preview_yield(args) -> void:
 	AlertDisplay.clear(warning_waste_purple_text)
 	var yellow = args.yellow
 	var purple = args.purple
-	$UI/Preview.visible = yellow + purple > 0
+	var green = args.green
+	if green < 0:
+		green *= -1 * turn_manager.energy
 	$UI/Preview/Panel/HBox/PreviewYellow.text = "+" + str(yellow)
+	$UI/Preview/Panel/HBox/PreviewYellow.visible = yellow != 0
 	$UI/Preview/Panel/HBox/PreviewPurple.text = "+" + str(purple)
-
+	$UI/Preview/Panel/HBox/PreviewPurple.visible = purple != 0
+	$UI/Preview/Panel/HBox/PreviewGreen.text = "+" + str(green)
+	$UI/Preview/Panel/HBox/PreviewGreen.visible = green != 0
+	AttackPreview.yield_preview(args)
+	
 	var blightamt = turn_manager.purple_mana + purple
 	if purple != 0:
-		if turn_manager.target_blight == 0 and mage_fortune.name != "Lunar Priest" and !args.defer:
+		if turn_manager.target_blight == 0 and mage_fortune.name != "Lunar Priest" and !args.defer and !turn_manager.flag_defer_excess:
 			AlertDisplay.set_text(warning_waste_purple_text)
 
 	if yellow != 0:
