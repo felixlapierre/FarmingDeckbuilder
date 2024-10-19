@@ -48,9 +48,11 @@ Between years, use the Shop and Events to acquire more cards and make your deck 
 
 ## Screenshots
 
-![The farm](docs/farm.png)
+![The farm](docs/farm2.png)
 
-![The shop](docs/shop.png)
+![The shop](docs/shop2.png)
+
+![Main menu](docs/menu.png)
 
 ## Credits
 
