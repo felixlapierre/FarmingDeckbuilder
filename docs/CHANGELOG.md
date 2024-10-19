@@ -1,5 +1,22 @@
 # Changelog
 
+## Version 0.0.6
+
+Released Oct 19th
+
+### Features
+
+- Added two new difficulty options: Hard and Mastery
+- On mobile, hover controls have been replaced with tap controls. Improved UX for playing cards and buying from the shop
+- UI now shows a full preview of how strong the blight's attacks will be each turn
+- Blight's attacks can now change from turn to turn. Added new blight attacks (Corpse flower, destroy row / column, counter)
+- Added more particle effects for cards that previously had no animation
+- Redid main menu
+- Can no longer apply the same enhance twice to a card
+- Cards that add yield will now show a green number in the preview to indicate how much yield they will give
+- Added a "More Info" button under the currently selected card that shows a detailed explanation of what each icon and text on a card means
+- Fixed bugs and rebalanced cards
+
 ## Version 0.0.5
 
 Released Sept 22nd
