@@ -85,6 +85,9 @@ static func mana_icon_small():
 static func blight_icon():
 	return "[img]res://assets/custom/Blight.png[/img]"
 
+static func time_icon():
+	return "[img]res://assets/custom/Time32.png[/img]"
+
 static func get_smart_select_shape(grid_position: Vector2, tiles, card: CardData, mouse_pos: Vector2):
 	var returned = []
 	# First, try the default shape

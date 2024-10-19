@@ -380,6 +380,16 @@ stretch_mode = 0
 [node name="AttackPreview" parent="UI" instance=ExtResource("24_5346t")]
 position = Vector2(1425, 388)
 
+[node name="HelpButton" type="Button" parent="UI"]
+custom_minimum_size = Vector2(340, 0)
+layout_mode = 0
+offset_left = 50.0
+offset_top = 651.0
+offset_right = 390.0
+offset_bottom = 700.0
+theme = ExtResource("2_s7754")
+text = "More Info"
+
 [node name="AlertContainer" parent="." instance=ExtResource("18_ih37u")]
 visible = false
 offset_left = 0.0
@@ -502,6 +512,7 @@ visible = false
 [connection signal="pressed" from="UI/SkipButton" to="." method="_on_skip_button_pressed"]
 [connection signal="mouse_entered" from="UI/PeekButton" to="." method="_on_peek_button_mouse_entered"]
 [connection signal="mouse_exited" from="UI/PeekButton" to="." method="_on_peek_button_mouse_exited"]
+[connection signal="pressed" from="UI/HelpButton" to="." method="_on_help_button_pressed"]
 [connection signal="pressed" from="Winter/ShopButton" to="." method="_on_shop_button_pressed"]
 [connection signal="pressed" from="Winter/NextYearButton" to="." method="_on_next_year_button_pressed"]
 [connection signal="pressed" from="Winter/FortuneTellerButton" to="." method="_on_fortune_teller_button_pressed"]

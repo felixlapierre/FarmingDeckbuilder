@@ -12,8 +12,8 @@ BLIGHT_ATTACK_TOOLTIP,"This turn, the blight is attacking you with a strength of
 BLIGHT_NO_ATTACK_TOOLTIP,"This turn, the blight is not attacking you. During a turn when the blight is attacking you, you must generate [img]{path}[/img] equal to the strength of its attack. When a plant is harvested on a purple tile, you gain [img]{path}[/img] equal to its Yield."
 SIZE_TOOLTIP_ACTION,This action affects {size} tile(s) on the farm.
 SIZE_TOOLTIP_SEED,This card plants seeds on {size} tile(s) on the farm.
-CARD_ENERGY_COST_TOOLTIP,This card costs {cost} energy to play.
-CARD_YIELD_TOOLTIP,"This seed will provide {yield} base yield when it is harvested. Since this card plants {size} seeds, the total yield it will produce is {total_yield}"
+CARD_ENERGY_COST_TOOLTIP,This card costs {cost} energy to play. You can only play a card if you have enough Energy to pay its cost.
+CARD_YIELD_TOOLTIP,"This seed will provide {yield} Mana when it is harvested. Since this card plants {size} seeds, the total Mana it will produce is {total_yield}"
 CARD_DURATION_TOOLTIP,This seed will take {duration} weeks to grow.
 TUTORIAL_TURN1,Plant Seed cards on both the yellow side and the purple side of your farm. The purple side is important - those plants will be used to protect you from the Blight.
 TUTORIAL_YELLOW,You have plants ready for harvest on the yellow side of your farm. Play Scythe cards to harvest them and advance the cleansing ritual.

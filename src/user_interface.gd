@@ -25,6 +25,7 @@ var SELECT_CARD = preload("res://src/cards/select_card.tscn")
 var cards_database = preload("res://src/cards/cards_database.gd")
 var PickOption = preload("res://src/ui/pick_option.tscn")
 var FORTUNE_HOVER = preload("res://src/fortune/fortune_hover.tscn")
+var CARD_ANATOMY = preload("res://src/ui/menus/card_anatomy.tscn")
 
 @onready var shop: Shop = $Shop
 @onready var tooltip: Tooltip = $Tooltip
@@ -64,6 +65,7 @@ func _process(delta: float) -> void:
 		$UI/RTFPanel.visible = false
 		var shape = Enums.CursorShape.keys()[Global.shape]
 		$UI/RTFPanel/VBox/ShapeLabel.text = "Shape: " + shape
+	$UI/HelpButton.visible = Global.selected_card != null
 
 func setup(p_event_manager: EventManager, p_turn_manager: TurnManager, p_deck: Array[CardData], p_cards: Cards):
 	$FortuneTeller.setup(p_event_manager)
@@ -620,3 +622,11 @@ func _on_expand_farm_on_close() -> void:
 func set_mage_fortune(fortune):
 	mage_fortune = fortune
 	$UI/AttackPreview.mage_fortune = fortune
+
+
+func _on_help_button_pressed() -> void:
+	var anatomy = CARD_ANATOMY.instantiate()
+	add_child(anatomy)
+	anatomy.setup(Global.selected_card)
+	anatomy.z_index = 1
+	anatomy.on_close.connect(func(): remove_child(anatomy))
