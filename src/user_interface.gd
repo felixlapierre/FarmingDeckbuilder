@@ -85,8 +85,7 @@ func setup(p_event_manager: EventManager, p_turn_manager: TurnManager, p_deck: A
 		var prompt = "Pick a card to add to your hand"
 		pick_option_ui.setup(prompt, options, func(selected):
 			args.cards.draw_specific_card_from(selected.card_info, get_global_mouse_position())
-			remove_child(pick_option_ui), func():
-				remove_child(pick_option_ui))
+			remove_child(pick_option_ui), null)
 		)
 
 # Start and end year

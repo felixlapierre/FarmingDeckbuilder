@@ -76,10 +76,15 @@ static func teardown_wilderness_farm_callback(event_manager: EventManager):
 	event_manager.unregister_listener(EventManager.EventType.BeforeYearStart, wilderness_callable)
 
 static var wilderness_callable = func(event_args: EventArgs):
-	event_args.farm.use_card_random_tile(Carrot, 2)
-	event_args.farm.use_card_random_tile(Blueberry, 2)
-	event_args.farm.use_card_random_tile(Potato, 2)
-	event_args.farm.use_card_random_tile(Wildflower, 2)
+	#event_args.farm.use_card_random_tile(Carrot, 2)
+	event_args.farm.use_card_random_tile(Blueberry, 1)
+	#event_args.farm.use_card_random_tile(Potato, 2)
+	event_args.farm.use_card_random_tile(Wildflower, 1)
+	
+	event_args.farm.use_card_random_tile(load("res://src/cards/data/seed/inky_cap.tres"), 1)
+	event_args.farm.use_card_random_tile(load("res://src/cards/data/seed/dark_rose.tres"), 1)
+	event_args.farm.use_card_random_tile(load("res://src/cards/data/seed/coffee.tres"), 1)
+	event_args.farm.use_card_random_tile(load("res://src/cards/data/seed/defer_purple_seed.tres"), 1)
 	
 static var forest_deck = [
 	{
@@ -134,7 +139,7 @@ static var wilderness_deck = [
 		"count": 3
 	},
 	{
-		"name": "wild_magic",
+		"name": "regrow",
 		"type": "action",
 		"count": 1,
 	},

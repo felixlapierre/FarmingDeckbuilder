@@ -15,9 +15,11 @@ func _ready():
 func _process(delta):
 	pass
 
-func setup(prompt: String, items, pick_callback: Callable, skip_callback: Callable):
+func setup(prompt: String, items, pick_callback: Callable, skip_callback):
 	prompt_label.text = prompt
-	on_skip = skip_callback
+	if skip_callback != null:
+		on_skip = skip_callback
+	$Center/Panel/VBox/SkipButton.visible = skip_callback != null
 	for item in items:
 		if item.CLASS_NAME == "CardData":
 			var new_node = ShopCard.instantiate()
