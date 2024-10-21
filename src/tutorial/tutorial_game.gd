@@ -134,7 +134,7 @@ func year_two():
 	dummy_attack_pattern(turn_manager.blight_pattern, [])
 	turn_manager.target_blight = 0
 	turn_manager.next_turn_blight = 5
-	farming_explanation.set_text("Plants harvested on [color=aqua]Blue Tiles[/color] will generate [color=aqua]Blue Mana[/color] (" + Helper.blue_mana() + ") instead of Yellow Mana " + Helper.mana_icon() + ". Blue mana will not progress the ritual; instead, it will protect you from the Blight's attacks.\n\nThe 'Attack Next Turn: 5' display means that you will need to generate 5 " + Helper.blue_mana() + " next turn to protect yourself from the Blight.\n\nPlant a Radish Seed; it will be ready on time as they only take 1 week [img]res://assets/custom/Time.png[/img] to grow")
+	farming_explanation.set_text("Plants harvested on [color=aqua]Blue Tiles[/color] will generate [color=aqua]Blue Mana[/color] (" + Helper.blue_mana() + ") instead of Yellow Mana " + Helper.mana_icon() + ". Blue mana will not progress the ritual; instead, it will protect you from the Blight's attacks.\n\nThe 'Attack Preview' (1" + Helper.time_icon() + ": 5[img]res://assets/custom/BlightAttack.png[/img]) indicates that an attack of strength 5 is coming in 1 week. You will need to generate 5 " + Helper.blue_mana() + " next turn.\n\nPlant a Radish Seed; it will be ready on time as they only take 1 week [img]res://assets/custom/Time.png[/img] to grow")
 	# Hardcode turn 1
 	var cards_copy = []
 	cards_copy.assign(cards.deck_cards)

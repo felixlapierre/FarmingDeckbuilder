@@ -22,9 +22,9 @@ var EndTurnRotate = preload("res://src/fortune/data/end_turn_rotate_colors.gd")
 # Destroy, Piercing
 var DestroyOnePlant = load("res://src/fortune/data/destroy_one_plant.tres")
 var DestroyTwoPlants = load("res://src/fortune/data/destroy_two.tres")
-var PiercingDestroyTwoTiles = load("res://src/fortune/data/piercing_destroy_two.tres")
-var PiercingFour = load("res://src/fortune/data/piercing_four.tres")
-var PiercingTwo = load("res://src/fortune/data/piercing_two.tres")
+#var PiercingDestroyTwoTiles = load("res://src/fortune/data/piercing_destroy_two.tres")
+#var PiercingFour = load("res://src/fortune/data/piercing_four.tres")
+#var PiercingTwo = load("res://src/fortune/data/piercing_two.tres")
 var DestroyRow = load("res://src/fortune/data/destroy_row.gd").new()
 var DestroyCol = load("res://src/fortune/data/destroy_col.gd").new()
 
@@ -53,7 +53,7 @@ func get_advanced_attack_year(year: int):
 				.fortune_at(fortune, 4)\
 				.fortune_at(fortune, 7)\
 				.fortune_at(fortune, 10).build()
-			var option2 = SimpleAttackBuilder.new().fortune_every_turn(pick_random([DestroyOnePlant, PiercingTwo]))\
+			var option2 = SimpleAttackBuilder.new().fortune_every_turn(pick_random([DestroyOnePlant]))\
 				.fortune_once(pick_random([EndTurnRandomize, IncreaseRitual10])).build()
 			return pick_random([option1, option2])
 		3:
@@ -62,13 +62,13 @@ func get_advanced_attack_year(year: int):
 		4:
 			return SimpleAttackBuilder.new().fortune_once(BlightrootOnce)\
 				.fortune_even(DestroyOnePlant)\
-				.fortune_every_turn(PiercingTwo).build()
+				.fortune_odd(IncreaseRitual10).build()
 		5:
 			return SimpleAttackBuilder.new().fortune_every_turn(BlightrootOnce)\
 				.fortune_odd(EndTurnSwap)\
 				.fortune_even(ObliviateRightmost).build()
 		6:
-			return SimpleAttackBuilder.new().fortune_every_turn(PiercingFour)\
+			return SimpleAttackBuilder.new().fortune_every_turn(DestroyOnePlant)\
 				.fortune_random(ObliviateRightmost)\
 				.fortune_random(BlightrootTurnStart)\
 				.fortune_random(DeathcapTurnStart)\

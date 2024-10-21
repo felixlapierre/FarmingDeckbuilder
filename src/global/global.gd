@@ -73,6 +73,8 @@ static func reset():
 	LUNAR_FARM = false
 	MAGE = ""
 	BLOCK_RITUAL = false
+	click_callbacks = []
+	Constants.BASE_HAND_SIZE = 5
 
 static func register_click_callback(obj):
 	click_callbacks.append(obj)

@@ -10,5 +10,5 @@ also_destroy_tile = true
 name = "Shatter"
 type = 1
 text = "Even if blocked, blight will destroy two targeted tiles"
-rank = 0
+rank = -1
 texture = ExtResource("2_34vc2")
