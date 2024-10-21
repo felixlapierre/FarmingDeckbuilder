@@ -119,3 +119,11 @@ static func get_random_structures(count: int):
 			return result
 		result.append(str)
 	return result
+
+static func get_element_cards(text: String):
+	if text.contains("Blight"):
+		return [
+			load("res://src/event/unique/blight_rose.tres"),
+			load("res://src/cards/data/unique/bloodrite.tres"),
+			load("res://src/cards/data/unique/dark_visions.tres")
+		]

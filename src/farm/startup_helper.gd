@@ -134,7 +134,7 @@ static var wilderness_deck = [
 		"count": 3
 	},
 	{
-		"name": "regrow_random",
+		"name": "wild_magic",
 		"type": "action",
 		"count": 1,
 	},

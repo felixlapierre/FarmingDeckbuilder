@@ -78,6 +78,16 @@ func setup(p_event_manager: EventManager, p_turn_manager: TurnManager, p_deck: A
 	register_tooltips()
 	$Tutorial.setup(p_event_manager)
 	$UI/AttackPreview.setup(turn_manager, mage_fortune, p_event_manager)
+	event_manager.register_listener(EventManager.EventType.OnPickCard, func(args: EventArgs):
+		var options = args.specific.pick_args.options
+		var pick_option_ui = PickOption.instantiate()
+		add_child(pick_option_ui)
+		var prompt = "Pick a card to add to your hand"
+		pick_option_ui.setup(prompt, options, func(selected):
+			args.cards.draw_specific_card_from(selected.card_info, get_global_mouse_position())
+			remove_child(pick_option_ui), func():
+				remove_child(pick_option_ui))
+		)
 
 # Start and end year
 func end_year():
@@ -259,6 +269,18 @@ func _on_game_event_dialog_on_upgrades_selected(upgrades: Array[Upgrade]) -> voi
 				$CancelStructure.visible = false
 			var on_cancel = func(): $Winter.remove_child(pick_option_ui)
 			pick_option_ui.setup(prompt, structures, on_pick, on_cancel)
+		elif upgrade.type == Upgrade.UpgradeType.PickElementalCard:
+			var options = cards_database.get_element_cards(upgrade.text)
+			var pick_option_ui = PickOption.instantiate()
+			GameEventDialog.add_sibling(pick_option_ui)
+			var prompt = "Pick a card to add to your deck"
+			pick_option_ui.setup(prompt, options, func(selected):
+				var add_card_upgrade = Upgrade.new()
+				add_card_upgrade.type = Upgrade.UpgradeType.AddSpecificCard
+				add_card_upgrade.card = selected.card_info
+				apply_upgrade.emit(add_card_upgrade)
+				$Winter.remove_child(pick_option_ui), func():
+					$Winter.remove_child(pick_option_ui))
 		else:
 			apply_upgrade.emit(upgrade)
 	GameEventDialog.visible = false

@@ -18,6 +18,7 @@ class SpecificArgs:
 	var harvest_args: HarvestArgs
 	var destroy_args: DestroyArgs
 	var play_args: PlayArgs
+	var pick_args: PickArgs
 	func _init(p_tile: Tile):
 		tile = p_tile
 
@@ -41,3 +42,9 @@ class PlayArgs:
 	var card: CardData
 	func _init(p_card: CardData = null):
 		card = p_card
+
+class PickArgs:
+	var options: Array[CardData]
+	func _init(p_options = []):
+		options = []
+		options.assign(p_options)

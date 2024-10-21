@@ -12,9 +12,12 @@ func register_events(event_manager: EventManager, p_tile: Tile):
 		candidates.append(load("res://src/cards/data/unique/dark_visions.tres"))
 		candidates.append(load("res://src/event/unique/blight_rose.tres"))
 		candidates.append(load("res://src/cards/data/unique/bloodrite.tres"))
-		for i in range(self.strength):
-			var selected = randi_range(0, candidates.size() - 1)
-			args.cards.draw_specific_card_from(candidates[selected], args.cards.get_global_mouse_position())
+		var specific = EventArgs.SpecificArgs.new(p_tile)
+		specific.pick_args = EventArgs.PickArgs.new(candidates)
+		event_manager.notify_specific_args(EventManager.EventType.OnPickCard, specific)
+		#for i in range(self.strength):
+		#	var selected = randi_range(0, candidates.size() - 1)
+		#	args.cards.draw_specific_card_from(candidates[selected], args.cards.get_global_mouse_position())
 	event_manager.register_listener(event_type, callback)
 
 func unregister_events(event_manager: EventManager):
@@ -27,4 +30,4 @@ func copy():
 	return new
 
 func can_strengthen_custom_effect():
-	return true
+	return false

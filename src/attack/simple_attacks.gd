@@ -26,7 +26,8 @@ func create_simple_attacks():
 				_:
 					simpleattack.fortune_every_turn(fortune)
 			simpleattack.rank(fortune.rank)
-			simple_builders[fortune.rank].append(simpleattack)
+			if fortune.rank != -1:
+				simple_builders[fortune.rank].append(simpleattack)
 
 func get_simple_attack_year(year: int, misfortune: bool):
 	if !misfortune:

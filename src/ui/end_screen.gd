@@ -124,7 +124,8 @@ func do_unlocks(turn_manager: TurnManager, deck: Array[CardData]):
 	if !Unlocks.MAGES_UNLOCKED["3"] and Global.MAGE == IceMageFortune.MAGE_NAME:
 		Unlocks.MAGES_UNLOCKED["3"] = true
 		mages.append(LunarMageFortune.MAGE_NAME)
-	if !Unlocks.MAGES_UNLOCKED["4"] and win and deck.any(func(card: CardData): return card.name == "Blightrose"):
+	if !Unlocks.MAGES_UNLOCKED["4"] and win and deck.any(func(card: CardData):
+			return card.name == "Blightrose" or card.name == "Bloodrite" or card.name == "Dark Visions"):
 		Unlocks.MAGES_UNLOCKED["4"] = true
 		mages.append(BlightMageFortune.MAGE_NAME)
 	if !Unlocks.MAGES_UNLOCKED["5"] and win and deck.size() >= 18:
