@@ -20,6 +20,8 @@ var discard_pile_cards: Array[CardData] = []
 @onready var tooltip = $Tooltip
 @onready var HAND_CARDS = $Hand
 
+signal on_card_clicked
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	CardBase = preload("res://src/cards/card_base.tscn")
@@ -95,6 +97,8 @@ func draw_specific_card_from(card_data: CardData, from: Vector2):
 	new_card.scale = new_card.resting_scale
 	new_card.starting_rotation = 0
 	new_card.state = Enums.CardState.MoveDrawnCardToHand
+	new_card.on_clicked.connect(func(_ignored): 
+		on_card_clicked.emit())
 	
 	# Add it to the hand and call reorganize_hand which will position it
 	$Hand.add_child(new_card);

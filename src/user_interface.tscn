@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://cswinrop881oo"]
+[gd_scene load_steps=36 format=3 uid="uid://cswinrop881oo"]
 
 [ext_resource type="Script" path="res://src/user_interface.gd" id="1_j28fq"]
 [ext_resource type="Theme" uid="uid://c21dhy264y6ty" path="res://assets/theme_large.tres" id="2_s7754"]
@@ -6,10 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://c0mxwj13dwpml" path="res://assets/custom/PurpleMana.png" id="4_o6t76"]
 [ext_resource type="Texture2D" uid="uid://ykuefae3vde0" path="res://assets/custom/Energy.png" id="5_hqwjq"]
 [ext_resource type="Texture2D" uid="uid://bkk1x2nsynl6x" path="res://assets/custom/CardIcon.png" id="6_qk0s7"]
-[ext_resource type="Texture2D" uid="uid://6kjw6wo7u7bw" path="res://assets/custom/EndTurn.png" id="7_dv2x3"]
 [ext_resource type="Texture2D" uid="uid://brhx5tlxxd0hh" path="res://assets/custom/BlightParticle.png" id="7_qmvj5"]
-[ext_resource type="Texture2D" uid="uid://b2k8jysorsjw1" path="res://assets/custom/EndTurnClick.png" id="8_fmhkd"]
-[ext_resource type="Texture2D" uid="uid://jlxw6ypagasj" path="res://assets/custom/EndTurnHover.png" id="9_y4jq3"]
 [ext_resource type="Texture2D" uid="uid://c446mynw3jgpo" path="res://assets/CardBorder.png" id="10_8fmjs"]
 [ext_resource type="Texture2D" uid="uid://c8cs8b5ibrdjn" path="res://icon.svg" id="11_cpxin"]
 [ext_resource type="Script" path="res://src/cards/DeckDraw.gd" id="12_73glk"]
@@ -226,17 +223,6 @@ expand_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="EndTurnButton" type="TextureButton" parent="UI"]
-layout_mode = 0
-offset_left = 1477.0
-offset_top = 726.0
-offset_right = 1577.0
-offset_bottom = 776.0
-scale = Vector2(2, 2)
-texture_normal = ExtResource("7_dv2x3")
-texture_pressed = ExtResource("8_fmhkd")
-texture_hover = ExtResource("9_y4jq3")
-
 [node name="Deck" type="Node2D" parent="UI"]
 position = Vector2(24, 914)
 scale = Vector2(0.439903, 0.409635)
@@ -396,6 +382,17 @@ offset_bottom = 700.0
 theme = ExtResource("2_s7754")
 text = "More Info"
 
+[node name="EndTurnButton" type="Button" parent="UI"]
+custom_minimum_size = Vector2(230, 80)
+layout_mode = 0
+offset_left = 1582.0
+offset_top = 726.0
+offset_right = 1782.0
+offset_bottom = 806.0
+theme = ExtResource("2_s7754")
+theme_override_font_sizes/font_size = 70
+text = "End Turn"
+
 [node name="AlertContainer" parent="." instance=ExtResource("18_ih37u")]
 visible = false
 offset_left = 0.0
@@ -512,13 +509,13 @@ position = Vector2(225, 0)
 [node name="PauseMenu" parent="." instance=ExtResource("31_35tyo")]
 visible = false
 
-[connection signal="pressed" from="UI/EndTurnButton" to="." method="_on_end_turn_button_pressed"]
 [connection signal="pressed" from="UI/Deck/DeckPeek" to="." method="_on_deck_peek_pressed"]
 [connection signal="pressed" from="UI/Deck/DiscardPeek" to="." method="_on_discard_peek_pressed"]
 [connection signal="pressed" from="UI/SkipButton" to="." method="_on_skip_button_pressed"]
 [connection signal="mouse_entered" from="UI/PeekButton" to="." method="_on_peek_button_mouse_entered"]
 [connection signal="mouse_exited" from="UI/PeekButton" to="." method="_on_peek_button_mouse_exited"]
 [connection signal="pressed" from="UI/HelpButton" to="." method="_on_help_button_pressed"]
+[connection signal="pressed" from="UI/EndTurnButton" to="." method="_on_end_turn_button_pressed"]
 [connection signal="pressed" from="Winter/ShopButton" to="." method="_on_shop_button_pressed"]
 [connection signal="pressed" from="Winter/NextYearButton" to="." method="_on_next_year_button_pressed"]
 [connection signal="pressed" from="Winter/FortuneTellerButton" to="." method="_on_fortune_teller_button_pressed"]

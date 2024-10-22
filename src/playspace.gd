@@ -324,3 +324,10 @@ func on_endless():
 	$UserInterface/UI/Deck.visible = true
 	$UserInterface/UI/RitualPanel.visible = true
 	end_year(true)
+
+
+func _on_cards_on_card_clicked():
+	if Settings.CLICK_MODE and Global.selected_card != null and Global.selected_card.size < 1:
+		await get_tree().create_timer(0.1).timeout
+		$FarmTiles.hovered_tile = $FarmTiles.tiles[2][2]
+		$FarmTiles.show_select_overlay()

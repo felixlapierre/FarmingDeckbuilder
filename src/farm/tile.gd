@@ -23,6 +23,7 @@ var destroy_targeted = false
 
 var destroyed = false
 var blighted = false
+var protected = false
 
 signal tile_hovered
 signal on_event
@@ -222,6 +223,7 @@ func irrigate():
 
 func lose_irrigate():
 	irrigated = false
+	protected = false
 	if not_destroyed():
 		$Farmland.modulate = COLOR_NONE
 
@@ -385,7 +387,7 @@ func remove_structure():
 	state = Enums.TileState.Empty
 
 func is_protected():
-	return Global.IRRIGATE_PROTECTED and irrigated
+	return (Global.IRRIGATE_PROTECTED and irrigated) or protected
 
 func show_peek():
 	$PeekCont.visible = true

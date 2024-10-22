@@ -13,6 +13,7 @@ var effect_queue = []
 var next_turn_effects = []
 var hovered_tile = null
 var current_shape
+var selection = []
 
 signal card_played
 signal on_yield_gained
@@ -76,7 +77,11 @@ func use_card(grid_position):
 			if effect.strength < 0:
 				effect.strength = (effect.strength * -1) * energy
 				card.cost = 1
-	var targets = get_targeted_tiles(grid_position, Global.selected_card, Global.selected_card.size, Global.shape, Global.rotate)
+	var targets
+	if selection.size() > 0:
+		targets = selection
+	else:
+		targets = get_targeted_tiles(grid_position, Global.selected_card, Global.selected_card.size, Global.shape, Global.rotate)
 	card.register_events(event_manager, null)
 	var args = EventArgs.SpecificArgs.new(tiles[grid_position.x][grid_position.y])
 	args.play_args = EventArgs.PlayArgs.new(card)
@@ -166,6 +171,7 @@ func show_select_overlay():
 			sprite.modulate = Color8(0, 255, 0)
 		sprite.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 		$SelectOverlay.add_child(sprite)
+		selection.append(item)
 	if yld_preview_purple != 0 or yld_preview_yellow != 0 or yld_preview_green != 0:
 		on_preview_yield.emit({
 			"yellow": yld_preview_yellow, 
@@ -209,6 +215,7 @@ func clear_overlay():
 	for node in $SelectOverlay.get_children():
 		$SelectOverlay.remove_child(node)
 		node.queue_free()
+	selection.clear()
 	on_preview_yield.emit({
 		"purple": 0,
 		"yellow": 0,

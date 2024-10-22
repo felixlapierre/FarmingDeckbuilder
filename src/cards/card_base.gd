@@ -283,7 +283,8 @@ func _on_focus_gui_input(event: InputEvent) -> void:
 				Global.selected_card = null
 				reset_neighbors()
 			Enums.CardState.InShop:
-				on_clicked.emit(self)
+				pass
+		on_clicked.emit(self)
 
 func reset_hand_card():
 	var cards = $'../'.get_children()
