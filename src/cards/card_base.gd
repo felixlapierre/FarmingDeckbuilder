@@ -145,15 +145,9 @@ func _process(delta: float) -> void:
 		Enums.CardState.InPlay:
 			pass
 		Enums.CardState.InMouse:
-			var mouse_position = get_global_mouse_position() - card_size
-			if mouse_position.y < HAND_TOP_Y:
-				target_position = Constants.VIEWPORT_SIZE / Vector2(16, 4)
-				scale = resting_scale * 1.7
-				target_scale = scale
-			else:
-				target_position = mouse_position
-				scale = resting_scale
-				target_scale = scale
+			target_position = Constants.VIEWPORT_SIZE / Vector2(16, 4)
+			scale = resting_scale * 1.7
+			target_scale = scale
 			process_move_linear(delta, 0.1)
 		Enums.CardState.FocusInHand:
 			process_move_linear(delta, ZOOMTIME/2)
@@ -279,7 +273,7 @@ func _on_focus_gui_input(event: InputEvent) -> void:
 	if event.is_action_pressed("leftclick"):
 		match state:
 			Enums.CardState.FocusInHand, Enums.CardState.InHand:
-				set_state(Enums.CardState.InMouse, null, null, resting_scale)
+				set_state(Enums.CardState.InMouse, null, 0, resting_scale)
 				Global.selected_card = card_info
 				Global.shape = Enums.CursorShape.Smart
 				Global.rotate = 0
