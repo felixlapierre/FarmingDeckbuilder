@@ -10,7 +10,7 @@ func register_events(event_manager: EventManager, p_tile: Tile):
 		var cards = DataFetcher.get_all_cards()
 		var candidates = []
 		for card in cards:
-			if card.type == "SEED" and card.rarity != "basic":
+			if card.type == "SEED" and card.rarity != "basic" and card.rarity != "unique":
 				candidates.append(card)
 		candidates.shuffle()
 		var specific = EventArgs.SpecificArgs.new(p_tile)

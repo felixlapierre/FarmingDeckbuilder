@@ -7,7 +7,7 @@
 script = ExtResource("1_tafo3")
 type = "ACTION"
 name = "Dark Visions"
-rarity = "unique"
+rarity = "blight"
 cost = 1
 yld = 0
 time = 0

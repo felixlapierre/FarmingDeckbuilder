@@ -83,6 +83,10 @@ theme_override_constants/margin_bottom = 10
 [node name="ImageCont" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/ImageMargin"]
 layout_mode = 2
 
+[node name="Spacer" type="Control" parent="HBoxContainer/VBoxContainer/ImageMargin/ImageCont"]
+custom_minimum_size = Vector2(16, 0)
+layout_mode = 2
+
 [node name="CardIconCont" type="CenterContainer" parent="HBoxContainer/VBoxContainer/ImageMargin/ImageCont"]
 layout_mode = 2
 size_flags_horizontal = 3
@@ -112,6 +116,8 @@ texture = ExtResource("3_4ormi")
 
 [node name="VBox" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/ImageMargin/ImageCont"]
 layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
 
 [node name="Chev1" type="TextureRect" parent="HBoxContainer/VBoxContainer/ImageMargin/ImageCont/VBox"]
 layout_mode = 2

@@ -51,6 +51,8 @@ var SIZE_LABEL
 var ChevronTexture = preload("res://assets/custom/EnhanceChevron.png")
 var BorderUncommon = preload("res://assets/ui/border_common.png")
 var BorderRare = preload("res://assets/ui/border_uncommon.png")
+var BorderUnique = preload("res://assets/ui/border_unique.png")
+var BorderBlight = preload("res://assets/ui/border_blight.png")
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:	
@@ -65,6 +67,10 @@ func set_card_info(card_data):
 		$CardBorder.texture = BorderUncommon
 	elif card_data.rarity == 'rare':
 		$CardBorder.texture = BorderRare
+	elif card_data.rarity == 'unique':
+		$CardBorder.texture = BorderUnique
+	elif card_data.rarity == 'blight':
+		$CardBorder.texture = BorderBlight
 	CARD_ICON = $HBoxContainer/VBoxContainer/ImageMargin/ImageCont/CardIconCont/CardIcon
 	SIZE_LABEL = $HBoxContainer/VBoxContainer/ImageMargin/ImageCont/SizeCont/SizeLabel
 	match card_info.type:

@@ -7,7 +7,7 @@
 script = ExtResource("1_ogqhf")
 type = "ACTION"
 name = "Corruption"
-rarity = "unique"
+rarity = "blight"
 cost = 0
 yld = 0
 time = 0

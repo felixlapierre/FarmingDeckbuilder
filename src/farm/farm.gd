@@ -120,6 +120,7 @@ func show_select_overlay():
 		return
 	clear_overlay()
 	if size == 0 and Global.selected_structure == null:
+		$ConfirmButton.visible = Settings.CLICK_MODE
 		return
 	var grid_position = hovered_tile.grid_location
 	var shape = Global.shape
