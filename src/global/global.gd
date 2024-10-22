@@ -36,6 +36,7 @@ static var FINAL_WEEK = 13
 static var FARM_TYPE = "FOREST"
 static var LUNAR_FARM = false
 static var MAGE: String = ""
+static var WILDERNESS_PLANT = null
 
 static var END_TURN_DISCARD = true
 static var BLOCK_RITUAL = false
@@ -75,6 +76,7 @@ static func reset():
 	BLOCK_RITUAL = false
 	click_callbacks = []
 	Constants.BASE_HAND_SIZE = 5
+	WILDERNESS_PLANT = null
 
 static func register_click_callback(obj):
 	click_callbacks.append(obj)

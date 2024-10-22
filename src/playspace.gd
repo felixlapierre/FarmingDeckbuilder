@@ -242,6 +242,9 @@ func save_game():
 	}
 	user_interface.save_data(save_json)
 	save_json.mastery = Mastery.save_data()
+	save_json.misc = {
+		"wilderness_plant": Global.WILDERNESS_PLANT.save_data() if Global.WILDERNESS_PLANT != null else null
+	}
 
 	var save_game = FileAccess.open("user://savegame.save", FileAccess.WRITE)
 	save_game.store_line(JSON.stringify(save_json))
@@ -280,6 +283,9 @@ func load_game():
 	Global.FARM_BOTRIGHT = Vector2(save_json.state.farm_botright.x, save_json.state.farm_botright.y)
 
 	Mastery.load_data(save_json.mastery)
+	if save_json.misc.wilderness_plant != null:
+		Global.WILDERNESS_PLANT = load(save_json.misc.wilderness_plant.path).new()
+		Global.WILDERNESS_PLANT.load_data(save_json.misc.wilderness_plant)
 
 	StartupHelper.load_farm($FarmTiles, $EventManager)
 	$UserInterface.load_data(save_json)

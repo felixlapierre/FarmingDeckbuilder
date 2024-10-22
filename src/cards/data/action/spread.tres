@@ -1,0 +1,32 @@
+[gd_resource type="Resource" script_class="CardData" load_steps=5 format=3 uid="uid://b65jurpo4gvj6"]
+
+[ext_resource type="Script" path="res://src/cards/card_data.gd" id="1_56j61"]
+[ext_resource type="Script" path="res://src/effect/effect.gd" id="1_jl1wt"]
+[ext_resource type="Texture2D" uid="uid://cgg3mai8qr22p" path="res://assets/enhance/spread-harvest.png" id="3_bmld4"]
+
+[sub_resource type="Resource" id="Resource_aykjq"]
+script = ExtResource("1_jl1wt")
+name = "spread"
+strength = 2.0
+on = ""
+range = "self"
+
+[resource]
+script = ExtResource("1_56j61")
+type = "ACTION"
+name = "Spread"
+rarity = "basic"
+cost = 1
+yld = 0
+time = 0
+size = 1
+text = ""
+strength_increment = 1.0
+size_increment = 1
+texture = ExtResource("3_bmld4")
+seed_texture = 0
+texture_icon_offset = 16
+targets = Array[String](["Growing", "Mature"])
+effects = Array[ExtResource("1_jl1wt")]([SubResource("Resource_aykjq")])
+enhances = Array[String]([])
+strength = 0.0

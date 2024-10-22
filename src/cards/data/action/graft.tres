@@ -1,0 +1,32 @@
+[gd_resource type="Resource" script_class="CardData" load_steps=5 format=3 uid="uid://cdxd0oa02wv0n"]
+
+[ext_resource type="Script" path="res://src/cards/card_data.gd" id="1_ekxg3"]
+[ext_resource type="Script" path="res://src/effect/effect.gd" id="1_tgw8x"]
+[ext_resource type="Texture2D" uid="uid://c46q76532nqk" path="res://assets/custom/Temp.png" id="2_sb2di"]
+
+[sub_resource type="Resource" id="Resource_t8shg"]
+script = ExtResource("1_tgw8x")
+name = "draw_target"
+strength = 1.0
+on = ""
+range = "self"
+
+[resource]
+script = ExtResource("1_ekxg3")
+type = "ACTION"
+name = "Graft"
+rarity = "basic"
+cost = 1
+yld = 0
+time = 0
+size = 1
+text = ""
+strength_increment = 1.0
+size_increment = 1
+texture = ExtResource("2_sb2di")
+seed_texture = 0
+texture_icon_offset = 16
+targets = Array[String](["Growing", "Mature"])
+effects = Array[ExtResource("1_tgw8x")]([SubResource("Resource_t8shg")])
+enhances = Array[String]([])
+strength = 0.0

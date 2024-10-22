@@ -55,6 +55,20 @@ static func setup_farm(farm: Farm, event_manager: EventManager):
 				farm.tiles[5][i].build_structure(Water, 0)
 				farm.tiles[6][i].build_structure(Water, 0)
 		"WILDERNESS":
+			if Global.WILDERNESS_PLANT == null:
+				# select random
+				var options = [
+					load("res://src/cards/data/seed/inky_cap.tres"),
+					load("res://src/fortune/unique/wildflower.tres"),
+					load("res://src/cards/data/seed/dark_rose.tres"),
+					load("res://src/cards/data/seed/gilded_rose.tres"),
+					load("res://src/cards/data/seed/corn.tres"),
+					load("res://src/cards/data/seed/watermelon.tres"),
+					load("res://src/cards/data/seed/mint.tres"),
+					load("res://src/cards/data/unique/puffshroom.tres")
+				]
+				var selection = options[randi_range(0, options.size() - 1)]
+				Global.WILDERNESS_PLANT = selection
 			setup_wilderness_farm_callback(farm, event_manager)
 		"MOUNTAINS":
 			Global.FARM_TOPLEFT = Vector2(2, 2)
@@ -76,15 +90,7 @@ static func teardown_wilderness_farm_callback(event_manager: EventManager):
 	event_manager.unregister_listener(EventManager.EventType.BeforeYearStart, wilderness_callable)
 
 static var wilderness_callable = func(event_args: EventArgs):
-	#event_args.farm.use_card_random_tile(Carrot, 2)
-	event_args.farm.use_card_random_tile(Blueberry, 1)
-	#event_args.farm.use_card_random_tile(Potato, 2)
-	event_args.farm.use_card_random_tile(Wildflower, 1)
-	
-	event_args.farm.use_card_random_tile(load("res://src/cards/data/seed/inky_cap.tres"), 1)
-	event_args.farm.use_card_random_tile(load("res://src/cards/data/seed/dark_rose.tres"), 1)
-	event_args.farm.use_card_random_tile(load("res://src/cards/data/seed/coffee.tres"), 1)
-	event_args.farm.use_card_random_tile(load("res://src/cards/data/seed/defer_purple_seed.tres"), 1)
+	event_args.farm.use_card_random_tile(Global.WILDERNESS_PLANT.copy(), Global.WILDERNESS_PLANT.size)
 	
 static var forest_deck = [
 	{
@@ -134,12 +140,12 @@ static var riverlands_deck = [
 
 static var wilderness_deck = [
 	{
-		"name": "propagation",
+		"name": "spread",
 		"type": "action",
 		"count": 3
 	},
 	{
-		"name": "regrow",
+		"name": "graft",
 		"type": "action",
 		"count": 1,
 	},
