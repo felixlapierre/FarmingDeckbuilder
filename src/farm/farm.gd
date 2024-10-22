@@ -373,6 +373,7 @@ func preview_yield(card, targeted_tile: Tile):
 		or card.get_effect("harvest_delay") != null)\
 		and targeted_tile.card_can_target(card):
 		var harvest: EventArgs.HarvestArgs = targeted_tile.preview_harvest()
+		harvest.yld = round(harvest.yld)
 		var specific = EventArgs.SpecificArgs.new(targeted_tile)
 		specific.harvest_args = harvest
 		event_manager.notify_specific_args(EventManager.EventType.OnYieldPreview, specific)
@@ -386,8 +387,8 @@ func preview_yield(card, targeted_tile: Tile):
 		yld_purple *= 1.0 + increase_yield.strength
 		yld_yellow *= 1.0 + increase_yield.strength
 	return {
-		"purple": yld_purple,
-		"yellow": yld_yellow,
+		"purple": round(yld_purple),
+		"yellow": round(yld_yellow),
 		"defer": defer
 	}
 

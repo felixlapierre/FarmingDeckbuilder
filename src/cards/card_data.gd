@@ -152,6 +152,7 @@ func unregister_seed_events(event_manager: EventManager):
 
 func get_yield(tile: Tile) -> EventArgs.HarvestArgs:
 	var yld = tile.current_yield if get_effect("corrupted") == null else -tile.current_yield
+	yld = round(yld)
 	return EventArgs.HarvestArgs.new(yld, tile.purple, false)
 
 func save_data() -> Dictionary:
@@ -216,6 +217,8 @@ func preview_yield(tile: Tile):
 		if increase_yield != null:
 			harvest.yld *= 1.0 + increase_yield.strength
 			harvest.green = tile.current_yield * (increase_yield.strength)
+		harvest.yld = round(harvest.yld)
+		harvest.green = round(harvest.green)
 		return harvest
 	else:
 		var args = EventArgs.HarvestArgs.new(0, tile.purple, defer);
@@ -225,6 +228,7 @@ func preview_yield(tile: Tile):
 		var increase_yield = get_effect("increase_yield")
 		if increase_yield != null:
 			args.green += tile.current_yield * (increase_yield.strength)
+		args.green = round(args.green)
 		return args
 
 func get_long_description():
