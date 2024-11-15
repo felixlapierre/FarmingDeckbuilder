@@ -16,6 +16,7 @@ var current_shape
 var selection = []
 
 signal card_played
+signal after_card_played
 signal on_yield_gained
 signal on_preview_yield
 signal on_energy_gained
@@ -77,28 +78,24 @@ func use_card(grid_position):
 			if effect.strength < 0:
 				effect.strength = (effect.strength * -1) * energy
 				card.cost = 1
-	var targets
+	var targets = []
 	if selection.size() > 0:
-		targets = selection
+		targets.assign(selection)
 	else:
 		targets = get_targeted_tiles(grid_position, Global.selected_card, Global.selected_card.size, Global.shape, Global.rotate)
 	card.register_events(event_manager, null)
 	var args = EventArgs.SpecificArgs.new(tiles[grid_position.x][grid_position.y])
 	args.play_args = EventArgs.PlayArgs.new(card)
 	event_manager.notify_specific_args(EventManager.EventType.BeforeCardPlayed, args)
-	use_card_on_targets(card, targets, false)
-	clear_overlay()
-	process_effect_queue()
-	event_manager.notify_specific_args(EventManager.EventType.AfterCardPlayed, args)
-	card.unregister_events(event_manager)
-	card_played.emit(Global.selected_card)
-	
-	#anim?
+	# Animate
 	var spriteframes = null
+	var delay = 0.0
 	if card.name == "Earthrite":
 		spriteframes = load("res://src/animation/earthrite.tres")
+		delay = 0.4
 	elif card.get_effect("harvest") != null:
 		spriteframes = load("res://src/animation/scythe_frames.tres")
+		delay = 0.2	
 	if spriteframes != null:
 		var anim = AnimatedSprite2D.new()
 		anim.sprite_frames = spriteframes
@@ -109,7 +106,14 @@ func use_card(grid_position):
 		anim.play("default")
 		anim.animation_finished.connect(func():
 			remove_child(anim))
-
+	card_played.emit(Global.selected_card)
+	await get_tree().create_timer(delay).timeout
+	use_card_on_targets(card, targets, false)
+	clear_overlay()
+	process_effect_queue()
+	event_manager.notify_specific_args(EventManager.EventType.AfterCardPlayed, args)
+	card.unregister_events(event_manager)
+	after_card_played.emit()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:

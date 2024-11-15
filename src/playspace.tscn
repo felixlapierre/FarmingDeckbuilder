@@ -23,6 +23,7 @@ script = ExtResource("1_hjvjc")
 
 [node name="UserInterface" parent="." instance=ExtResource("7_xiqpp")]
 
+[connection signal="after_card_played" from="FarmTiles" to="." method="_on_farm_tiles_after_card_played"]
 [connection signal="card_played" from="FarmTiles" to="." method="_on_farm_tiles_card_played"]
 [connection signal="no_energy" from="FarmTiles" to="UserInterface" method="_on_farm_tiles_no_energy"]
 [connection signal="on_card_draw" from="FarmTiles" to="." method="_on_farm_tiles_on_card_draw"]

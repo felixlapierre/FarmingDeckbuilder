@@ -391,3 +391,8 @@ func _on_cards_on_card_clicked():
 
 func _on_user_interface_on_skip() -> void:
 	end_year(false)
+
+
+func _on_farm_tiles_after_card_played():
+	if victory == true:
+		end_year(false)
