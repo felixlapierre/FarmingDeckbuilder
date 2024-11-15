@@ -92,6 +92,24 @@ func use_card(grid_position):
 	event_manager.notify_specific_args(EventManager.EventType.AfterCardPlayed, args)
 	card.unregister_events(event_manager)
 	card_played.emit(Global.selected_card)
+	
+	#anim?
+	var spriteframes = null
+	if card.name == "Earthrite":
+		spriteframes = load("res://src/animation/earthrite.tres")
+	elif card.get_effect("harvest") != null:
+		spriteframes = load("res://src/animation/scythe_frames.tres")
+	if spriteframes != null:
+		var anim = AnimatedSprite2D.new()
+		anim.sprite_frames = spriteframes
+		anim.position = TOP_LEFT + grid_position * Constants.TILE_SIZE + Constants.TILE_SIZE / 2
+		anim.scale = Constants.TILE_SIZE / Vector2(16, 16)
+		anim.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+		add_child(anim)
+		anim.play("default")
+		anim.animation_finished.connect(func():
+			remove_child(anim))
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
