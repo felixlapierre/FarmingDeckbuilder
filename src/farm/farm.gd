@@ -91,9 +91,9 @@ func use_card(grid_position):
 	var spriteframes: SpriteFrames = null
 	var delay = 0.0
 	var on = Enums.AnimOn.Mouse
+	delay = card.delay
 	if card.animation != null:
 		spriteframes = card.animation
-		delay = card.delay
 		on = card.anim_on
 	elif card.get_effect("harvest") != null:
 		spriteframes = load("res://src/animation/scythe_frames.tres")
@@ -107,7 +107,6 @@ func use_card(grid_position):
 				var inbounds = Helper.in_bounds(target)
 				var cantarget = tiles[target.x][target.y].card_can_target(card)
 				if inbounds and cantarget:
-					print(str(target.x) + ", " + str(target.y))
 					do_animation(spriteframes, target)
 		elif on == Enums.AnimOn.Mouse:
 			do_animation(spriteframes, null)
@@ -533,4 +532,3 @@ func do_animation(spriteframes, grid_location):
 	anim.play("default")
 	anim.animation_finished.connect(func():
 		remove_child(anim))
-	print("Animation: " + spriteframes.resource_path)

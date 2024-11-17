@@ -217,9 +217,10 @@ func remove_seed():
 	state = Enums.TileState.Empty
 
 func irrigate():
-	if !irrigated and not_destroyed():
+	if !irrigated:
 		irrigated = true
-		$Farmland.modulate = COLOR_IRRIGATE
+		if not_destroyed():
+			$Farmland.modulate = COLOR_IRRIGATE
 
 func lose_irrigate():
 	irrigated = false

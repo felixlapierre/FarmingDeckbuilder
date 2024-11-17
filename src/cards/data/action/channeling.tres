@@ -25,4 +25,4 @@ enhances = Array[String]([])
 strength = 1.0
 animation = ExtResource("1_mommq")
 delay = 0.5
-anim_on = 0
+anim_on = 1
