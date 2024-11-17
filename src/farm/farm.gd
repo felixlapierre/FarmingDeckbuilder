@@ -88,7 +88,7 @@ func use_card(grid_position):
 	args.play_args = EventArgs.PlayArgs.new(card)
 	event_manager.notify_specific_args(EventManager.EventType.BeforeCardPlayed, args)
 	# Animate
-	var spriteframes = null
+	var spriteframes: SpriteFrames = null
 	var delay = 0.0
 	var on = Enums.AnimOn.Mouse
 	if card.animation != null:
@@ -99,12 +99,13 @@ func use_card(grid_position):
 		spriteframes = load("res://src/animation/scythe_frames.tres")
 		delay = 0.2
 	if spriteframes != null:
-		if on == Enums.AnimOn.Tiles:
-			for target in targets:
-				do_animation(spriteframes, target)
-		elif on == Enums.AnimOn.Mouse:
+		if on == Enums.AnimOn.Mouse:
 			var location = grid_position if card.size == 9 else targets[0]
 			do_animation(spriteframes, location)
+		elif on == Enums.AnimOn.Tiles:
+			for target in targets:
+				if Helper.in_bounds(target) and tiles[target.x][target.x].card_can_target(card):
+					do_animation(spriteframes, target)
 		elif on == Enums.AnimOn.Mouse:
 			do_animation(spriteframes, null)
 	card_played.emit(Global.selected_card)
@@ -522,7 +523,11 @@ func do_animation(spriteframes, grid_location):
 		anim.position = TOP_LEFT + Vector2(4, 4) * Constants.TILE_SIZE
 	anim.scale = Constants.TILE_SIZE / Vector2(16, 16)
 	anim.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	var path: String = spriteframes.resource_path
+	if path.contains("catalyze") or path.contains("downpour"):
+		anim.position -= Vector2(0, Constants.TILE_SIZE.y / 2)
 	add_child(anim)
 	anim.play("default")
 	anim.animation_finished.connect(func():
 		remove_child(anim))
+	print("Animation: " + spriteframes.resource_path)

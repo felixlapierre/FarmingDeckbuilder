@@ -26,4 +26,4 @@ enhances = Array[String]([])
 strength = 1.0
 animation = ExtResource("1_c222n")
 delay = 0.4
-anim_on = 0
+anim_on = 1
