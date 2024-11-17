@@ -37,3 +37,5 @@ targets = Array[String](["Mature"])
 effects = Array[ExtResource("1_18lv0")]([SubResource("Resource_0sicp"), SubResource("Resource_h1jj2")])
 enhances = Array[String]([])
 strength = 0.0
+delay = 0.0
+anim_on = 0

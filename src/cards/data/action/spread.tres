@@ -1,5 +1,6 @@
-[gd_resource type="Resource" script_class="CardData" load_steps=5 format=3 uid="uid://b65jurpo4gvj6"]
+[gd_resource type="Resource" script_class="CardData" load_steps=6 format=3 uid="uid://b65jurpo4gvj6"]
 
+[ext_resource type="SpriteFrames" uid="uid://c4x1lty0v16mm" path="res://src/animation/propagation.tres" id="1_1r7fw"]
 [ext_resource type="Script" path="res://src/cards/card_data.gd" id="1_56j61"]
 [ext_resource type="Script" path="res://src/effect/effect.gd" id="1_jl1wt"]
 [ext_resource type="Texture2D" uid="uid://cgg3mai8qr22p" path="res://assets/enhance/spread-harvest.png" id="3_bmld4"]
@@ -30,3 +31,6 @@ targets = Array[String](["Growing", "Mature"])
 effects = Array[ExtResource("1_jl1wt")]([SubResource("Resource_aykjq")])
 enhances = Array[String]([])
 strength = 0.0
+animation = ExtResource("1_1r7fw")
+delay = 0.2
+anim_on = 1

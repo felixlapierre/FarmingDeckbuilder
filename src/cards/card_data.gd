@@ -22,9 +22,13 @@ const CLASS_NAME = "CardData"
 @export var enhances: Array[String]
 @export var strength: float
 
+@export var animation: SpriteFrames
+@export var delay: float
+@export var anim_on: Enums.AnimOn
+
 func _init(p_type = "CARD", p_name = "PlaceholderCardName", p_rarity = "common", p_cost = 1, p_yld = 1,\
 	p_time = 1, p_size = 1, p_text = "", p_texture = null, p_seed_texture = 1, p_targets = [], p_effects = [],\
-	p_strength_increment = 1.0, p_size_increment = 1, p_text_icon_offset = 16, p_enhances = [], p_strength = 0):
+	p_strength_increment = 1.0, p_size_increment = 1, p_text_icon_offset = 16, p_enhances = [], p_strength = 0, p_animation = null, p_delay = 0.0, p_anim_on = Enums.AnimOn.Mouse):
 		type = p_type
 		name = p_name
 		rarity = p_rarity
@@ -42,6 +46,9 @@ func _init(p_type = "CARD", p_name = "PlaceholderCardName", p_rarity = "common",
 		size_increment = p_size_increment
 		texture_icon_offset = p_text_icon_offset
 		strength = p_strength
+		animation = p_animation
+		delay = p_delay
+		anim_on = p_anim_on
 
 func get_effect(effect_name):
 	for effect in effects:
@@ -75,6 +82,9 @@ func assign(other: CardData) -> void:
 	size_increment = other.size_increment
 	texture_icon_offset = other.texture_icon_offset
 	strength = other.strength
+	animation = other.animation
+	delay = other.delay
+	anim_on = other.anim_on
 
 func apply_enhance(enhance: Enhance):
 	var n_card = copy()
@@ -175,7 +185,10 @@ func save_data() -> Dictionary:
 		"size_increment": size_increment,
 		"texture_icon_offset": texture_icon_offset,
 		"enhances": enhances,
-		"strength": strength
+		"strength": strength,
+		"animation": animation.resource_path if animation != null else null,
+		"delay": delay,
+		"anim_on": anim_on
 	}
 	return save_dict
 
@@ -200,6 +213,9 @@ func load_data(data) -> CardData:
 	size_increment = data.size_increment
 	texture_icon_offset = data.texture_icon_offset
 	strength = data.strength
+	animation = load(data.animation) if data.animation != null else null
+	delay = data.delay
+	anim_on = data.anim_on
 	return self
 
 # Override with true in subclasses that use the strength member variable

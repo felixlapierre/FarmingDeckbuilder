@@ -1,5 +1,6 @@
-[gd_resource type="Resource" script_class="CardData" load_steps=5 format=3 uid="uid://beaye7namxw3o"]
+[gd_resource type="Resource" script_class="CardData" load_steps=6 format=3 uid="uid://beaye7namxw3o"]
 
+[ext_resource type="SpriteFrames" uid="uid://bn1myqnsh43b4" path="res://src/animation/invigorate.tres" id="1_8qwtl"]
 [ext_resource type="Script" path="res://src/cards/card_data.gd" id="1_kys65"]
 [ext_resource type="Script" path="res://src/effect/effect.gd" id="1_y6kup"]
 [ext_resource type="Texture2D" uid="uid://bi4hsmh0ase3b" path="res://assets/custom/Invigorate.png" id="2_72aai"]
@@ -30,3 +31,6 @@ targets = Array[String](["Growing", "Mature"])
 effects = Array[ExtResource("1_y6kup")]([SubResource("Resource_q64ga")])
 enhances = Array[String]([])
 strength = 0.0
+animation = ExtResource("1_8qwtl")
+delay = 0.2
+anim_on = 2

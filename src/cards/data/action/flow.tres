@@ -1,6 +1,7 @@
-[gd_resource type="Resource" script_class="GrowWatered" load_steps=3 format=3 uid="uid://d3ci7at83up4k"]
+[gd_resource type="Resource" script_class="GrowWatered" load_steps=4 format=3 uid="uid://d3ci7at83up4k"]
 
 [ext_resource type="Script" path="res://src/cards/custom/grow_watered.gd" id="1_jtyyi"]
+[ext_resource type="SpriteFrames" uid="uid://jiri6b2ydiou" path="res://src/animation/frames/flow_sf.tres" id="1_w8gve"]
 [ext_resource type="Texture2D" uid="uid://buk7m0cvdpduu" path="res://assets/card/timeflow.png" id="2_dn060"]
 
 [resource]
@@ -22,3 +23,6 @@ targets = Array[String](["Growing"])
 effects = Array[Resource("res://src/effect/effect.gd")]([])
 enhances = Array[String]([])
 strength = 1.0
+animation = ExtResource("1_w8gve")
+delay = 0.4
+anim_on = 1

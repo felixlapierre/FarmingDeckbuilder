@@ -90,22 +90,23 @@ func use_card(grid_position):
 	# Animate
 	var spriteframes = null
 	var delay = 0.0
-	if card.name == "Earthrite":
-		spriteframes = load("res://src/animation/earthrite.tres")
-		delay = 0.4
+	var on = Enums.AnimOn.Mouse
+	if card.animation != null:
+		spriteframes = card.animation
+		delay = card.delay
+		on = card.anim_on
 	elif card.get_effect("harvest") != null:
 		spriteframes = load("res://src/animation/scythe_frames.tres")
-		delay = 0.2	
+		delay = 0.2
 	if spriteframes != null:
-		var anim = AnimatedSprite2D.new()
-		anim.sprite_frames = spriteframes
-		anim.position = TOP_LEFT + grid_position * Constants.TILE_SIZE + Constants.TILE_SIZE / 2
-		anim.scale = Constants.TILE_SIZE / Vector2(16, 16)
-		anim.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
-		add_child(anim)
-		anim.play("default")
-		anim.animation_finished.connect(func():
-			remove_child(anim))
+		if on == Enums.AnimOn.Tiles:
+			for target in targets:
+				do_animation(spriteframes, target)
+		elif on == Enums.AnimOn.Mouse:
+			var location = grid_position if card.size == 9 else targets[0]
+			do_animation(spriteframes, location)
+		elif on == Enums.AnimOn.Mouse:
+			do_animation(spriteframes, null)
 	card_played.emit(Global.selected_card)
 	await get_tree().create_timer(delay).timeout
 	use_card_on_targets(card, targets, false)
@@ -375,7 +376,9 @@ func do_winter_clear():
 func spread(card, grid_position, size, shape):
 	var targets = get_targeted_tiles(grid_position, card, size, shape, 0)
 	targets.shuffle()
-	use_card_on_targets(card, targets, true)
+	var targeted_tile = use_card_on_targets(card, targets, true)
+	if targeted_tile != null:
+		do_animation(load("res://src/animation/spread.tres"), targeted_tile.grid_location)
 
 func use_card_on_targets(card, targets, only_first):
 	for target in targets:
@@ -389,7 +392,7 @@ func use_card_on_targets(card, targets, only_first):
 		elif card.type == "ACTION":
 			use_action_card(card, Vector2(target.x, target.y))
 		if only_first:
-			return
+			return target_tile
 
 func gain_energy(amount):
 	on_energy_gained.emit(amount)
@@ -509,3 +512,17 @@ func _on_user_interface_farm_preview_show() -> void:
 func _on_confirm_button_pressed() -> void:
 	if hovered_tile != null:
 		use_card(hovered_tile.grid_location)
+
+func do_animation(spriteframes, grid_location):
+	var anim = AnimatedSprite2D.new()
+	anim.sprite_frames = spriteframes
+	if grid_location != null:
+		anim.position = TOP_LEFT + grid_location * Constants.TILE_SIZE + Constants.TILE_SIZE / 2
+	else:
+		anim.position = TOP_LEFT + Vector2(4, 4) * Constants.TILE_SIZE
+	anim.scale = Constants.TILE_SIZE / Vector2(16, 16)
+	anim.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	add_child(anim)
+	anim.play("default")
+	anim.animation_finished.connect(func():
+		remove_child(anim))
