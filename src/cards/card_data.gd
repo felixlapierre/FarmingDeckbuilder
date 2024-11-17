@@ -105,6 +105,8 @@ func apply_enhance(enhance: Enhance):
 			n_card.effects.append(load("res://src/effect/data/obliviate.tres"))
 		"Frozen":
 			n_card.effects.append(load("res://src/effect/data/remembrance.tres"))
+		"Echo":
+			n_card.effects.append(load("res://src/effect/data/echo.tres"))
 		"RemoveObliviate":
 			n_card.effects.erase(load("res://src/effect/data/obliviate.tres"))
 		"Strength":

@@ -104,7 +104,7 @@ static var forest_deck = [
 		"count": 3
 	},
 	{
-		"name": "scythe",
+		"name": "echo_scythe",
 		"type": "action",
 		"count": 4
 	},

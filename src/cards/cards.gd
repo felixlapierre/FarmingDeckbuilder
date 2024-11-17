@@ -136,6 +136,14 @@ func play_card():
 	else:
 		discard_card(playedcard)
 	
+	if playedcard.card_info.get_effect("echo") != null:
+		var copy: CardData = playedcard.card_info.copy()
+		if copy.cost == 0:
+			copy.cost = 1
+		if copy.get_effect("fleeting") == null:
+			copy.effects.append(load("res://src/effect/data/fleeting.tres"))
+		draw_specific_card_from(copy, get_global_mouse_position())
+	
 	# Remove it from selected_card global var
 	Global.selected_card = null
 	# Rearrange the rest of the hand cards
