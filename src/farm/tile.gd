@@ -410,6 +410,8 @@ func is_destroyed():
 	return destroyed or blighted
 
 func card_can_target(card: CardData):
+	if state == Enums.TileState.Inactive:
+		return false
 	var targets = []
 	targets.assign(card.targets)
 	if card.type == "SEED" and targets.size() == 0:

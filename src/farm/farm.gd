@@ -104,7 +104,10 @@ func use_card(grid_position):
 			do_animation(spriteframes, location)
 		elif on == Enums.AnimOn.Tiles:
 			for target in targets:
-				if Helper.in_bounds(target) and tiles[target.x][target.x].card_can_target(card):
+				var inbounds = Helper.in_bounds(target)
+				var cantarget = tiles[target.x][target.y].card_can_target(card)
+				if inbounds and cantarget:
+					print(str(target.x) + ", " + str(target.y))
 					do_animation(spriteframes, target)
 		elif on == Enums.AnimOn.Mouse:
 			do_animation(spriteframes, null)
