@@ -167,6 +167,7 @@ explosiveness = 0.91
 texture_filter = 1
 material = SubResource("CanvasItemMaterial_hdtle")
 emitting = false
+amount = 4
 process_material = SubResource("ParticleProcessMaterial_gn4kv")
 texture = ExtResource("8_hyote")
 lifetime = 0.3

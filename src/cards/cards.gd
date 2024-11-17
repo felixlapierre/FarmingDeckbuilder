@@ -252,3 +252,7 @@ func remove_fleeting():
 		if card.card_info.get_effect("fleeting") != null:
 			remove_hand_card(card)
 	reorganize_hand()
+
+func burn_hand():
+	for card in $Hand.get_children():
+		remove_hand_card(card)

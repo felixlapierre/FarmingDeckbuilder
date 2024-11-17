@@ -1,0 +1,46 @@
+[gd_resource type="SpriteFrames" load_steps=7 format=3 uid="uid://dfm0u4ub3seyl"]
+
+[ext_resource type="Texture2D" uid="uid://65u14dqrvmgj" path="res://assets/animations/flamerite.png" id="1_a36lw"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w3i6g"]
+atlas = ExtResource("1_a36lw")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sm3nh"]
+atlas = ExtResource("1_a36lw")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qiorw"]
+atlas = ExtResource("1_a36lw")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g3qfm"]
+atlas = ExtResource("1_a36lw")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5l4ec"]
+atlas = ExtResource("1_a36lw")
+region = Rect2(256, 0, 64, 64)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w3i6g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sm3nh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qiorw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g3qfm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5l4ec")
+}],
+"loop": false,
+"name": &"default",
+"speed": 20.0
+}]
