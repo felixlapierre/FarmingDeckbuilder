@@ -100,6 +100,7 @@ func end_year(endless: bool):
 	$TurnManager.end_year()
 	$UserInterface.end_year()
 	set_background_texture()
+	$Background.do_winter($TurnManager.week)
 	save_game()
 
 func start_year():
@@ -340,6 +341,7 @@ func set_background_texture():
 		for i in range(start, sequence.size()):
 			get_tree().create_timer(0.1 * i).timeout.connect(func():
 				background.set_background_texture(sequence[i]))
+		background.do_week(turn_manager.week)
 	else:
 		match turn_manager.week:
 			1:
@@ -366,6 +368,7 @@ func set_background_texture():
 					background.set_background_texture(winter_tr4))
 				get_tree().create_timer(0.9).timeout.connect(func():
 					background.set_background_texture(winter))
+		background.do_week(turn_manager.week)
 	background.set_background_texture(texture)
 
 

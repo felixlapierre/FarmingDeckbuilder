@@ -51,7 +51,7 @@ func compute_blight_pattern(year: int):
 		if i < 3: #(year < 4 and i < 3) or (year < 10 and i < 2):
 			blight_pattern.append(0)
 		elif i == Global.FINAL_WEEK - 1:
-			blight_pattern.append(charge)
+			blight_pattern.append(int(charge))
 			charge = 0.0
 		elif randf() < chance:
 			chance = 0.0
@@ -63,7 +63,7 @@ func compute_blight_pattern(year: int):
 	# Winter
 	blight_pattern.append(40)
 	for i in range(blight_pattern.size()):
-		blight_pattern[i] = blight_pattern[i] * get_multiplier(year)
+		blight_pattern[i] = int(blight_pattern[i] * get_multiplier(year))
 
 func get_multiplier(year: int):
 	var year_multiplier = 1.0 + (year - 1) * 0.1

@@ -23,3 +23,5 @@ targets = Array[String]([])
 effects = Array[Resource("res://src/effect/effect.gd")]([ExtResource("1_ylkn0")])
 enhances = Array[String]([])
 strength = 0.0
+delay = 0.0
+anim_on = 0

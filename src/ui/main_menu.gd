@@ -3,7 +3,6 @@ extends Node2D
 var PLAYSPACE = preload("res://src/playspace.tscn")
 
 var playspace
-@onready var tutorial_game = $TutorialGame
 @onready var menu_root = $Root
 @onready var introduction = $Introduction
 @onready var tutorial_prompt = $TutorialPrompt
