@@ -30,3 +30,5 @@ targets = Array[String]([])
 effects = Array[ExtResource("1_fu00j")]([SubResource("Resource_jafp6")])
 enhances = Array[String]([])
 strength = 0.0
+delay = 0.0
+anim_on = 0

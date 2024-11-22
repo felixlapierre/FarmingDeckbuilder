@@ -1,6 +1,7 @@
-[gd_resource type="Resource" script_class="Inscribe" load_steps=5 format=3 uid="uid://dwcjvqh17w6x0"]
+[gd_resource type="Resource" script_class="Inscribe" load_steps=6 format=3 uid="uid://dwcjvqh17w6x0"]
 
 [ext_resource type="Script" path="res://src/cards/custom/inscribe.gd" id="1_04rdl"]
+[ext_resource type="SpriteFrames" uid="uid://cigt6n1vr7otk" path="res://src/animation/frames/inscribe_sf.tres" id="1_jqyop"]
 [ext_resource type="Script" path="res://src/effect/effect.gd" id="1_wd1yo"]
 [ext_resource type="Texture2D" uid="uid://cvct3ak02uwin" path="res://assets/card/inscribe.png" id="3_km15a"]
 
@@ -30,3 +31,6 @@ targets = Array[String](["Growing", "Mature"])
 effects = Array[ExtResource("1_wd1yo")]([SubResource("Resource_clgxc")])
 enhances = Array[String]([])
 strength = 0.0
+animation = ExtResource("1_jqyop")
+delay = 0.4
+anim_on = 1

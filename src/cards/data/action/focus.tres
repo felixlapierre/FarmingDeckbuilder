@@ -1,6 +1,7 @@
-[gd_resource type="Resource" script_class="CardData" load_steps=6 format=3 uid="uid://d3psv0rfycx64"]
+[gd_resource type="Resource" script_class="CardData" load_steps=7 format=3 uid="uid://d3psv0rfycx64"]
 
 [ext_resource type="Script" path="res://src/effect/effect.gd" id="1_m15qg"]
+[ext_resource type="SpriteFrames" uid="uid://kx4k8ndphvbc" path="res://src/animation/frames/focus_sf.tres" id="1_pa8o7"]
 [ext_resource type="Script" path="res://src/cards/card_data.gd" id="1_yvnts"]
 [ext_resource type="Texture2D" uid="uid://d0iu1fr8o2q6c" path="res://assets/custom/Focus.png" id="2_8at1y"]
 
@@ -37,3 +38,6 @@ targets = Array[String](["Growing"])
 effects = Array[ExtResource("1_m15qg")]([SubResource("Resource_hx2j1"), SubResource("Resource_gosjx")])
 enhances = Array[String]([])
 strength = 0.0
+animation = ExtResource("1_pa8o7")
+delay = 0.7
+anim_on = 1

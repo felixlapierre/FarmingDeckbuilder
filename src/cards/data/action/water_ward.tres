@@ -23,3 +23,5 @@ targets = Array[String](["Empty", "Growing", "Mature", "Structure"])
 effects = Array[Resource("res://src/effect/effect.gd")]([ExtResource("1_ia5tf")])
 enhances = Array[String]([])
 strength = 1.0
+delay = 0.4
+anim_on = 1

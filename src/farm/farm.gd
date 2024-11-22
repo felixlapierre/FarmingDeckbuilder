@@ -16,6 +16,7 @@ var current_shape
 var selection = []
 
 signal card_played
+signal after_card_played
 signal on_yield_gained
 signal on_preview_yield
 signal on_energy_gained
@@ -77,21 +78,46 @@ func use_card(grid_position):
 			if effect.strength < 0:
 				effect.strength = (effect.strength * -1) * energy
 				card.cost = 1
-	var targets
+	var targets = []
 	if selection.size() > 0:
-		targets = selection
+		targets.assign(selection)
 	else:
 		targets = get_targeted_tiles(grid_position, Global.selected_card, Global.selected_card.size, Global.shape, Global.rotate)
 	card.register_events(event_manager, null)
 	var args = EventArgs.SpecificArgs.new(tiles[grid_position.x][grid_position.y])
 	args.play_args = EventArgs.PlayArgs.new(card)
 	event_manager.notify_specific_args(EventManager.EventType.BeforeCardPlayed, args)
+	# Animate
+	var spriteframes: SpriteFrames = null
+	var delay = 0.0
+	var on = Enums.AnimOn.Mouse
+	delay = card.delay
+	if card.animation != null:
+		spriteframes = card.animation
+		on = card.anim_on
+	elif card.get_effect("harvest") != null:
+		spriteframes = load("res://src/animation/scythe_frames.tres")
+		delay = 0.2
+	if spriteframes != null:
+		if on == Enums.AnimOn.Mouse:
+			var location = grid_position if card.size == 9 else targets[0]
+			do_animation(spriteframes, location)
+		elif on == Enums.AnimOn.Tiles:
+			for target in targets:
+				var inbounds = Helper.in_bounds(target)
+				var cantarget = tiles[target.x][target.y].card_can_target(card)
+				if inbounds and cantarget:
+					do_animation(spriteframes, target)
+		elif on == Enums.AnimOn.Mouse:
+			do_animation(spriteframes, null)
+	card_played.emit(Global.selected_card)
+	await get_tree().create_timer(delay).timeout
 	use_card_on_targets(card, targets, false)
 	clear_overlay()
 	process_effect_queue()
 	event_manager.notify_specific_args(EventManager.EventType.AfterCardPlayed, args)
 	card.unregister_events(event_manager)
-	card_played.emit(Global.selected_card)
+	after_card_played.emit()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -353,7 +379,9 @@ func do_winter_clear():
 func spread(card, grid_position, size, shape):
 	var targets = get_targeted_tiles(grid_position, card, size, shape, 0)
 	targets.shuffle()
-	use_card_on_targets(card, targets, true)
+	var targeted_tile = use_card_on_targets(card, targets, true)
+	if targeted_tile != null:
+		do_animation(load("res://src/animation/spread.tres"), targeted_tile.grid_location)
 
 func use_card_on_targets(card, targets, only_first):
 	for target in targets:
@@ -367,7 +395,7 @@ func use_card_on_targets(card, targets, only_first):
 		elif card.type == "ACTION":
 			use_action_card(card, Vector2(target.x, target.y))
 		if only_first:
-			return
+			return target_tile
 
 func gain_energy(amount):
 	on_energy_gained.emit(amount)
@@ -487,3 +515,20 @@ func _on_user_interface_farm_preview_show() -> void:
 func _on_confirm_button_pressed() -> void:
 	if hovered_tile != null:
 		use_card(hovered_tile.grid_location)
+
+func do_animation(spriteframes, grid_location):
+	var anim = AnimatedSprite2D.new()
+	anim.sprite_frames = spriteframes
+	if grid_location != null:
+		anim.position = TOP_LEFT + grid_location * Constants.TILE_SIZE + Constants.TILE_SIZE / 2
+	else:
+		anim.position = TOP_LEFT + Vector2(4, 4) * Constants.TILE_SIZE
+	anim.scale = Constants.TILE_SIZE / Vector2(16, 16)
+	anim.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	var path: String = spriteframes.resource_path
+	if path.contains("catalyze") or path.contains("downpour"):
+		anim.position -= Vector2(0, Constants.TILE_SIZE.y / 2)
+	add_child(anim)
+	anim.play("default")
+	anim.animation_finished.connect(func():
+		remove_child(anim))

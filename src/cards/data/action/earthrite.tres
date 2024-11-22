@@ -1,5 +1,6 @@
-[gd_resource type="Resource" script_class="CardData" load_steps=7 format=3 uid="uid://uynxilpsmb2c"]
+[gd_resource type="Resource" script_class="CardData" load_steps=8 format=3 uid="uid://uynxilpsmb2c"]
 
+[ext_resource type="SpriteFrames" uid="uid://bu4diu3rsggq1" path="res://src/animation/earthrite.tres" id="1_23rf6"]
 [ext_resource type="Script" path="res://src/cards/card_data.gd" id="1_holry"]
 [ext_resource type="Script" path="res://src/effect/effect.gd" id="1_sy7m2"]
 [ext_resource type="Resource" uid="uid://cqfvdr8thdmfu" path="res://src/effect/data/harvest.tres" id="2_laiyt"]
@@ -32,3 +33,6 @@ targets = Array[String](["Mature"])
 effects = Array[ExtResource("1_sy7m2")]([SubResource("Resource_j36iy"), ExtResource("2_laiyt"), ExtResource("3_nq72m")])
 enhances = Array[String]([])
 strength = 0.0
+animation = ExtResource("1_23rf6")
+delay = 0.4
+anim_on = 0

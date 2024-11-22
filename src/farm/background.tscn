@@ -1,7 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://c0hbi7fqujvbn"]
+[gd_scene load_steps=34 format=3 uid="uid://c0hbi7fqujvbn"]
 
 [ext_resource type="Script" path="res://src/farm/background.gd" id="1_gbnjo"]
+[ext_resource type="Texture2D" uid="uid://cvtymdsmvlt5c" path="res://assets/farm/ground.png" id="2_6aw4d"]
 [ext_resource type="Texture2D" uid="uid://dejmbtpxa2rtc" path="res://assets/1616tinygarden/tileset.png" id="2_ff0ec"]
+[ext_resource type="SpriteFrames" uid="uid://kq0oilxeu05b" path="res://src/animation/frames_bg/tree_sf.tres" id="4_i4prq"]
+[ext_resource type="Texture2D" uid="uid://h2kf4qgrofsd" path="res://assets/farm/snowpoff2.png" id="5_2teuv"]
+[ext_resource type="Texture2D" uid="uid://hqbvii1kv3il" path="res://assets/farm/snowpoff.png" id="6_33alu"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_n4x4v"]
 texture = ExtResource("2_ff0ec")
@@ -109,12 +113,272 @@ texture = ExtResource("2_ff0ec")
 21:5/0 = 0
 22:5/0 = 0
 6:4/0 = 0
+15:2/0 = 0
+15:3/0 = 0
+15:4/0 = 0
+16:3/0 = 0
+16:2/0 = 0
+14:4/0 = 0
+16:4/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_djvk5"]
 sources/0 = SubResource("TileSetAtlasSource_n4x4v")
 
-[node name="Background" type="Sprite2D"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_6tymq"]
+atlas = ExtResource("5_2teuv")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nij6p"]
+atlas = ExtResource("5_2teuv")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iqccf"]
+atlas = ExtResource("5_2teuv")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dv6ld"]
+atlas = ExtResource("5_2teuv")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_hn4br"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6tymq")
+}],
+"loop": false,
+"name": &"spring1",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nij6p")
+}, {
+"duration": 1.0,
+"texture": null
+}],
+"loop": false,
+"name": &"spring2",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iqccf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dv6ld")
+}],
+"loop": false,
+"name": &"winter",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e62wk"]
+atlas = ExtResource("5_2teuv")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8hvnj"]
+atlas = ExtResource("5_2teuv")
+region = Rect2(16, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g1jlj"]
+atlas = ExtResource("5_2teuv")
+region = Rect2(32, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nw000"]
+atlas = ExtResource("5_2teuv")
+region = Rect2(48, 16, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ewk5n"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e62wk")
+}],
+"loop": false,
+"name": &"spring1",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8hvnj")
+}, {
+"duration": 1.0,
+"texture": null
+}],
+"loop": false,
+"name": &"spring2",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g1jlj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nw000")
+}],
+"loop": false,
+"name": &"winter",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nlpo1"]
+atlas = ExtResource("5_2teuv")
+region = Rect2(0, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h6qyk"]
+atlas = ExtResource("5_2teuv")
+region = Rect2(16, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h2w1m"]
+atlas = ExtResource("5_2teuv")
+region = Rect2(32, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_at7wk"]
+atlas = ExtResource("5_2teuv")
+region = Rect2(48, 32, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_rro7x"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nlpo1")
+}],
+"loop": false,
+"name": &"spring1",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h6qyk")
+}, {
+"duration": 1.0,
+"texture": null
+}],
+"loop": false,
+"name": &"spring2",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h2w1m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_at7wk")
+}],
+"loop": false,
+"name": &"winter",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2mpis"]
+atlas = ExtResource("6_33alu")
+region = Rect2(0, 0, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fefa4"]
+atlas = ExtResource("6_33alu")
+region = Rect2(32, 0, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_blyrc"]
+atlas = ExtResource("6_33alu")
+region = Rect2(64, 0, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f7l8o"]
+atlas = ExtResource("6_33alu")
+region = Rect2(96, 0, 32, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_db805"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2mpis")
+}],
+"loop": false,
+"name": &"spring1",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fefa4")
+}, {
+"duration": 1.0,
+"texture": null
+}],
+"loop": false,
+"name": &"spring2",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_blyrc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f7l8o")
+}],
+"loop": false,
+"name": &"winter",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nhw6u"]
+atlas = ExtResource("6_33alu")
+region = Rect2(0, 16, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_680du"]
+atlas = ExtResource("6_33alu")
+region = Rect2(32, 16, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k7q45"]
+atlas = ExtResource("6_33alu")
+region = Rect2(64, 16, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jmeaa"]
+atlas = ExtResource("6_33alu")
+region = Rect2(96, 16, 32, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_tby74"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nhw6u")
+}],
+"loop": false,
+"name": &"spring1",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_680du")
+}, {
+"duration": 1.0,
+"texture": null
+}],
+"loop": false,
+"name": &"spring2",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k7q45")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jmeaa")
+}],
+"loop": false,
+"name": &"winter",
+"speed": 5.0
+}]
+
+[node name="Background" type="Node2D"]
 script = ExtResource("1_gbnjo")
+
+[node name="Ground" type="Sprite2D" parent="."]
+visible = false
+texture_repeat = 2
+scale = Vector2(5.7, 5.7)
+texture = ExtResource("2_6aw4d")
+region_enabled = true
+region_rect = Rect2(0, 0, 1920, 1080)
 
 [node name="TileMap" type="TileMap" parent="."]
 texture_filter = 1
@@ -122,8 +386,64 @@ scale = Vector2(5.71384, 5.62504)
 tile_set = SubResource("TileSet_djvk5")
 format = 2
 layer_0/name = "Ground"
-layer_0/tile_data = PackedInt32Array(65536, 1048576, 5, 131072, 1048576, 5, 196608, 1048576, 5, 262144, 1048576, 5, 327680, 1048576, 5, 393216, 1048576, 5, 458752, 1048576, 5, 524288, 1048576, 5, 589824, 1048576, 5, 65537, 1048576, 5, 131073, 1048576, 5, 196609, 1048576, 5, 262145, 1048576, 5, 327681, 1048576, 5, 393217, 1048576, 5, 458753, 1048576, 5, 524289, 1048576, 5, 589825, 1048576, 5, 65538, 1048576, 5, 131074, 1048576, 5, 196610, 1048576, 5, 262146, 1048576, 5, 327682, 1048576, 5, 393218, 1048576, 5, 458754, 1048576, 5, 524290, 1048576, 5, 589826, 1048576, 5, 65539, 1048576, 5, 524291, 1048576, 5, 589827, 1048576, 5, 65540, 1048576, 5, 524292, 1048576, 5, 589828, 1048576, 5, 65541, 1048576, 5, 524293, 1048576, 5, 589829, 1048576, 5, 65542, 1048576, 5, 524294, 1048576, 5, 589830, 1048576, 5, 65543, 1048576, 5, 524295, 1048576, 5, 589831, 1048576, 5, 65544, 1048576, 5, 524296, 1048576, 5, 589832, 1048576, 5, 65545, 1048576, 5, 524297, 1048576, 5, 589833, 1048576, 5, 65546, 1048576, 5, 524298, 1048576, 5, 589834, 1048576, 5, 65547, 1048576, 5, 524299, 1048576, 5, 589835, 1048576, 5, 65548, 1048576, 5, 524300, 1048576, 5, 589836, 589824, 1, 0, 1048576, 5, 1, 1048576, 5, 2, 1048576, 5, 3, 1048576, 5, 4, 1048576, 5, 5, 1048576, 5, 6, 1048576, 5, 7, 1048576, 5, 8, 1048576, 5, 9, 1048576, 5, 10, 1048576, 5, 11, 1048576, 5, 12, 1048576, 5, 655360, 1048576, 5, 655361, 1048576, 5, 655362, 1048576, 5, 655363, 1048576, 5, 720900, 589824, 1, 720901, 786432, 3, 720902, 1048576, 5, 720903, 1048576, 5, 720904, 1048576, 5, 720905, 1048576, 5, 720906, 1048576, 5, 720907, 1048576, 5, 720896, 1048576, 5, 720897, 1048576, 5, 720898, 1048576, 5, 720899, 1048576, 5, 655364, 1048576, 5, 655365, 589824, 1, 655366, 655360, 1, 655367, 655360, 1, 655368, 720896, 1, 655369, 655360, 1, 655370, 655360, 1, 655371, 720896, 1, 655372, 786432, 4, 720908, 1048576, 5, 655373, 1048576, 5, 720909, 1048576, 5, 655374, 1048576, 5, 720910, 1048576, 5, 655375, 1048576, 5, 720911, 1048576, 5, 655376, 1048576, 5, 720912, 1048576, 5, 655377, 1048576, 5, 720913, 1048576, 5, 655378, 1048576, 5, 720914, 1048576, 5, 655379, 1048576, 5, 720915, 1048576, 5, 655380, 1048576, 5, 720916, 1048576, 5, 196622, 1048576, 5, 262158, 1048576, 5, 327694, 1048576, 5, 393230, 1048576, 5, 458766, 1048576, 5, 524302, 589824, 1, 589838, 786432, 4, 196623, 1048576, 5, 262159, 1048576, 5, 327695, 1048576, 5, 393231, 1048576, 5, 458767, 589824, 1, 524303, 786432, 4, 589839, 1048576, 5, 196624, 1048576, 5, 262160, 589824, 0, 327696, 589824, 2, 393232, 851968, 2, 458768, 786432, 4, 524304, 1048576, 5, 589840, 1048576, 5, 196625, 851968, 2, 262161, 786432, 2, 327697, 786432, 4, 393233, 1048576, 5, 458769, 1048576, 5, 524305, 1048576, 5, 589841, 1048576, 5, 196626, 1048576, 5, 262162, 1048576, 5, 327698, 1048576, 5, 393234, 1048576, 5, 458770, 1048576, 5, 524306, 1048576, 5, 589842, 1048576, 5, 196627, 1048576, 5, 262163, 1048576, 5, 327699, 1048576, 5, 393235, 1048576, 5, 458771, 1048576, 5, 524307, 1048576, 5, 589843, 1048576, 5, 196628, 1048576, 5, 262164, 1048576, 5, 327700, 1048576, 5, 393236, 1048576, 5, 458772, 1048576, 5, 524308, 1048576, 5, 589844, 1048576, 5, 13, 1048576, 5, 65549, 1048576, 5, 131085, 1048576, 5, 196621, 1048576, 5, 262157, 1048576, 5, 327693, 1048576, 5, 393229, 1048576, 5, 458765, 1048576, 5, 524301, 1048576, 5, 589837, 720896, 1, 14, 1048576, 5, 65550, 1048576, 5, 131086, 1048576, 5, 15, 1048576, 5, 65551, 1048576, 5, 131087, 1048576, 5, 16, 1048576, 5, 65552, 1048576, 5, 131088, 1048576, 5, 17, 851968, 1, 65553, 851968, 2, 131089, 851968, 1, 18, 1048576, 5, 65554, 1048576, 5, 131090, 1048576, 5, 19, 1048576, 5, 65555, 1048576, 5, 131091, 1048576, 5, 20, 1048576, 5, 65556, 1048576, 5, 131092, 1048576, 5, 131079, 1048576, 5, 196615, 1048576, 5, 262151, 1048576, 5, 327687, 1048576, 5, 393223, 1048576, 5, 458759, 1048576, 5, 131080, 1048576, 5, 196616, 1048576, 5, 262152, 1048576, 5, 327688, 1048576, 5, 393224, 1048576, 5, 458760, 1048576, 5, 131081, 1048576, 5, 196617, 1048576, 5, 262153, 1048576, 5, 327689, 1048576, 5, 393225, 1048576, 5, 458761, 1048576, 5, 131082, 1048576, 5, 196618, 1048576, 5, 262154, 1048576, 5, 327690, 1048576, 5, 393226, 1048576, 5, 458762, 1048576, 5, 131083, 1048576, 5, 196619, 1048576, 5, 262155, 1048576, 5, 327691, 1048576, 5, 393227, 1048576, 5, 458763, 1048576, 5, 131084, 1048576, 5, 196620, 1048576, 5, 262156, 1048576, 5, 327692, 1048576, 5, 393228, 1048576, 5, 458764, 1048576, 5, 131075, 1048576, 5, 196611, 1048576, 5, 262147, 1048576, 5, 327683, 1048576, 5, 393219, 1048576, 5, 458755, 1048576, 5, 458756, 1048576, 5, 458757, 1048576, 5, 393222, 1048576, 5, 327686, 1048576, 5, 262150, 1048576, 5, 196614, 1048576, 5, 131078, 1048576, 5, 131077, 1048576, 5, 131076, 1048576, 5, 196612, 1048576, 5, 262148, 1048576, 5, 327684, 1048576, 5, 393220, 1048576, 5, 393221, 1048576, 5, 327685, 1048576, 5, 262149, 1048576, 5, 196613, 1048576, 5, 458758, 1048576, 5)
+layer_0/tile_data = PackedInt32Array(589836, 589824, 1, 655365, 589824, 1, 655366, 655360, 1, 524302, 589824, 1, 589838, 786432, 4, 458767, 589824, 1, 524303, 786432, 4, 262160, 589824, 0, 327696, 589824, 2, 393232, 851968, 2, 458768, 786432, 4, 196625, 851968, 2, 262161, 786432, 2, 327697, 786432, 4, 589837, 720896, 1, 17, 851968, 1, 131089, 851968, 1, 65553, 851968, 2, 655372, 786432, 4, 655371, 720896, 1, 655370, 655360, 1, 655369, 655360, 1, 655368, 720896, 1, 655367, 655360, 1, 720901, 786432, 3, 720900, 589824, 1)
 layer_1/name = "Props"
-layer_1/tile_data = PackedInt32Array(6, 1048576, 1, 655370, 917504, 2, 720906, 1048576, 1, 327697, 983040, 0, 327696, 983040, 0, 327698, 983040, 1, 327699, 983040, 1, 327700, 983040, 1, 327694, 1048576, 1, 327695, 983040, 1, 131090, 1114112, 0, 196626, 1114112, 1, 262162, 1114112, 2, 131091, 1179648, 0, 196627, 1179648, 1, 262163, 1179648, 2, 262144, 1114112, 0, 327680, 1114112, 1, 393216, 1114112, 2, 262145, 1179648, 0, 327681, 1179648, 1, 393217, 1179648, 2, 524303, 1114112, 0, 589839, 1114112, 1, 655375, 1114112, 2, 524304, 1179648, 0, 589840, 1179648, 1, 655376, 1179648, 2, 589826, 851968, 5, 65537, 917504, 5, 131074, 1114112, 3, 524301, 983040, 1, 655378, 0, 5, 524307, 720896, 5, 65555, 131072, 5, 131087, 589824, 5, 65551, 720896, 5, 589830, 327680, 5, 720896, 131072, 5, 131075, 1179648, 3, 196611, 1179648, 4, 262147, 1179648, 5, 131076, 1245184, 3, 196612, 1245184, 4, 262148, 1245184, 5, 458754, 917504, 5, 458765, 1048576, 1, 524300, 983040, 1, 524299, 983040, 1, 524298, 983040, 1, 524297, 983040, 1, 524296, 1048576, 1, 524295, 983040, 1, 524294, 983040, 1, 524293, 1048576, 1, 589834, 983040, 1, 458757, 983040, 1, 7, 1048576, 1, 8, 983040, 1, 9, 1048576, 1, 10, 1048576, 1, 11, 1048576, 1, 65547, 1048576, 1, 65548, 983040, 1, 65549, 1048576, 1, 131085, 1048576, 1, 131086, 1048576, 1, 196622, 983040, 1, 262158, 1048576, 1, 393230, 983040, 1, 393229, 983040, 1, 196610, 1114112, 4, 262146, 1114112, 5, 458756, 1048576, 1, 458755, 1048576, 1, 393219, 1048576, 1, 327683, 1048576, 1, 393220, 458752, 5)
+layer_1/tile_data = PackedInt32Array(6, 1048576, 1, 655370, 917504, 2, 720906, 1048576, 1, 327697, 983040, 0, 327696, 983040, 0, 327698, 983040, 1, 327699, 983040, 1, 327700, 983040, 1, 327694, 1048576, 1, 327695, 983040, 1, 589826, 851968, 5, 65537, 917504, 5, 131074, 1114112, 3, 524301, 983040, 1, 655378, 0, 5, 65555, 131072, 5, 131087, 589824, 5, 65551, 720896, 5, 589830, 327680, 5, 720896, 131072, 5, 131075, 1179648, 3, 196611, 1179648, 4, 262147, 1179648, 5, 131076, 1245184, 3, 196612, 1245184, 4, 262148, 1245184, 5, 458765, 1048576, 1, 524300, 983040, 1, 524299, 983040, 1, 524298, 983040, 1, 524297, 983040, 1, 524296, 1048576, 1, 524295, 983040, 1, 524294, 983040, 1, 524293, 1048576, 1, 589834, 983040, 1, 458757, 983040, 1, 7, 1048576, 1, 8, 983040, 1, 9, 1048576, 1, 10, 1048576, 1, 11, 1048576, 1, 65547, 1048576, 1, 65548, 983040, 1, 65549, 1048576, 1, 131085, 1048576, 1, 131086, 1048576, 1, 196622, 983040, 1, 262158, 1048576, 1, 393230, 983040, 1, 393229, 983040, 1, 196610, 1114112, 4, 262146, 1114112, 5, 458756, 1048576, 1, 458755, 1048576, 1, 393219, 1048576, 1, 327683, 1048576, 1, 393220, 458752, 5)
 layer_2/name = "Props 2"
 layer_2/tile_data = PackedInt32Array(720906, 917504, 3, 589834, 917504, 1, 327695, 917504, 0, 327698, 1048576, 0)
+
+[node name="Tree" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+position = Vector2(92, 499)
+scale = Vector2(5.7, 5.7)
+sprite_frames = ExtResource("4_i4prq")
+animation = &"spring1"
+
+[node name="Tree2" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+position = Vector2(1735, 307)
+scale = Vector2(5.7, 5.7)
+sprite_frames = ExtResource("4_i4prq")
+animation = &"spring1"
+
+[node name="Tree3" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+position = Vector2(1457, 850)
+scale = Vector2(5.7, 5.7)
+sprite_frames = ExtResource("4_i4prq")
+animation = &"spring1"
+
+[node name="Snow1" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+position = Vector2(320, 49)
+scale = Vector2(5.7, 5.7)
+sprite_frames = SubResource("SpriteFrames_hn4br")
+animation = &"spring1"
+
+[node name="Snow2" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+position = Vector2(591, 136)
+scale = Vector2(5.7, 5.7)
+sprite_frames = SubResource("SpriteFrames_ewk5n")
+animation = &"spring1"
+
+[node name="Snow3" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+position = Vector2(1693, 44)
+scale = Vector2(5.7, 5.7)
+sprite_frames = SubResource("SpriteFrames_rro7x")
+animation = &"spring1"
+
+[node name="Snow4" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+position = Vector2(233, 954)
+scale = Vector2(5.7, 5.7)
+sprite_frames = SubResource("SpriteFrames_db805")
+animation = &"spring1"
+
+[node name="Snow5" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+position = Vector2(1644, 854)
+scale = Vector2(5.7, 5.7)
+sprite_frames = SubResource("SpriteFrames_tby74")
+animation = &"spring1"

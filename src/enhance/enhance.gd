@@ -47,6 +47,8 @@ func is_card_eligible(card: CardData):
 			return card.get_effect("springbound") == null
 		"Burn":
 			return card.get_effect("burn") == null
+		"Echo":
+			return card.get_effect("echo") == null
 		"RemoveBurn":
 			return card.get_effect("burn") != null
 		"Strength":
@@ -85,6 +87,8 @@ func get_description():
 			return "Increase the strength of a card's special effects"
 		"Regrow":
 			return "Add Regrow 3 and 1 week [img]res://assets/custom/Time.png[/img] of grow time to a card "
+		"Echo":
+			return "Add Echo to a card (When played, add a non-zero-cost Fleeting copy of the card to your hand)"
 		_:
 			return "TODO"
 

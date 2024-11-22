@@ -1,5 +1,6 @@
-[gd_resource type="Resource" script_class="CardData" load_steps=6 format=3 uid="uid://c01lyfyhbn0il"]
+[gd_resource type="Resource" script_class="CardData" load_steps=7 format=3 uid="uid://c01lyfyhbn0il"]
 
+[ext_resource type="SpriteFrames" uid="uid://bwm618m81nylq" path="res://src/animation/frames/cycle_sf.tres" id="1_ml4um"]
 [ext_resource type="Script" path="res://src/effect/effect.gd" id="1_skkj3"]
 [ext_resource type="Script" path="res://src/cards/card_data.gd" id="2_shgbg"]
 [ext_resource type="Texture2D" uid="uid://bdtyog2sgrc7f" path="res://assets/custom/Reroll.png" id="3_fxkm5"]
@@ -37,3 +38,6 @@ targets = Array[String](["Mature"])
 effects = Array[ExtResource("1_skkj3")]([SubResource("Resource_583mr"), SubResource("Resource_prupb")])
 enhances = Array[String]([])
 strength = 0.0
+animation = ExtResource("1_ml4um")
+delay = 0.2
+anim_on = 0

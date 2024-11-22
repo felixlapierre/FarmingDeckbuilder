@@ -25,3 +25,9 @@ enum CardState {
 	MoveToDiscard,
 	InShop
 }
+
+enum AnimOn {
+	Mouse,
+	Tiles,
+	Center
+}

@@ -1,6 +1,7 @@
-[gd_resource type="Resource" script_class="CardData" load_steps=6 format=3 uid="uid://cjlt0pkdf6lyb"]
+[gd_resource type="Resource" script_class="CardData" load_steps=7 format=3 uid="uid://cjlt0pkdf6lyb"]
 
 [ext_resource type="Script" path="res://src/cards/card_data.gd" id="1_c5yxm"]
+[ext_resource type="SpriteFrames" uid="uid://doevney0jy8ti" path="res://src/animation/frames/gather_sf.tres" id="1_i43e8"]
 [ext_resource type="Script" path="res://src/effect/effect.gd" id="1_tftdn"]
 [ext_resource type="Texture2D" uid="uid://dau5clxh37urh" path="res://assets/card/gather.png" id="3_qtugd"]
 
@@ -37,3 +38,6 @@ targets = Array[String](["Mature"])
 effects = Array[ExtResource("1_tftdn")]([SubResource("Resource_k4tb7"), SubResource("Resource_g3occ")])
 enhances = Array[String]([])
 strength = 0.0
+animation = ExtResource("1_i43e8")
+delay = 0.4
+anim_on = 0

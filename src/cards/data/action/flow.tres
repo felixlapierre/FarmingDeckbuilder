@@ -22,3 +22,5 @@ targets = Array[String](["Growing"])
 effects = Array[Resource("res://src/effect/effect.gd")]([])
 enhances = Array[String]([])
 strength = 1.0
+delay = 0.4
+anim_on = 1

@@ -65,7 +65,7 @@ func get_short_description(card: CardData):
 		"plant":
 			if on == "harvest":
 				return "Regrow " + (str(strength) if strength > 0 else "")
-		"springbound", "fleeting", "corrupted", "frozen", "burn":
+		"springbound", "fleeting", "corrupted", "frozen", "burn", "echo":
 			return name.capitalize()
 		"energy":
 			return "Gain " + str(strength) + " [img]res://assets/custom/Energy.png[/img]" + get_on_text()
@@ -147,6 +147,8 @@ func get_long_description():
 			return "Destroy Tile: Destroyed tiles are unusable until the end of the year."
 		"destroy_plant":
 			return "Destroy Plant: Removes a plant from your farm, without gaining its Mana (" + Helper.mana_icon() + ")"
+		"echo":
+			return "Echo: When played, add a Fleeting copy of this card to your hand. The copy costs at least 1 energy."
 		_:
 			return ""
 

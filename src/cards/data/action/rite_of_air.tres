@@ -1,7 +1,8 @@
-[gd_resource type="Resource" script_class="CardData" load_steps=5 format=3 uid="uid://b220qkg3my7lm"]
+[gd_resource type="Resource" script_class="CardData" load_steps=6 format=3 uid="uid://b220qkg3my7lm"]
 
 [ext_resource type="Script" path="res://src/effect/effect.gd" id="1_ltf2n"]
 [ext_resource type="Script" path="res://src/cards/card_data.gd" id="1_ma565"]
+[ext_resource type="SpriteFrames" uid="uid://mbkl7t4tvbye" path="res://src/animation/frames/rite_of_air_sf.tres" id="1_vqs7i"]
 [ext_resource type="Texture2D" uid="uid://bphgt36lwt0oy" path="res://assets/card/slash.png" id="3_h07p5"]
 
 [sub_resource type="Resource" id="Resource_itl5y"]
@@ -30,3 +31,6 @@ targets = Array[String](["Growing", "Mature"])
 effects = Array[ExtResource("1_ltf2n")]([SubResource("Resource_itl5y")])
 enhances = Array[String]([])
 strength = 0.0
+animation = ExtResource("1_vqs7i")
+delay = 0.2
+anim_on = 0

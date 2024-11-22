@@ -7,6 +7,7 @@ var event_type = EventManager.EventType.BeforeCardPlayed
 # To be overridden by specific code seeds
 func register_events(event_manager: EventManager, p_tile: Tile):
 	callback = func(args: EventArgs):
+		await args.farm.get_tree().create_timer(delay).timeout
 		for tile in args.farm.get_all_tiles():
 			if tile.state == Enums.TileState.Growing:
 				var harvest_args = EventArgs.HarvestArgs.new(self.strength, true, false)
