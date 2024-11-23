@@ -1,4 +1,4 @@
-[gd_scene load_steps=69 format=3 uid="uid://c0hbi7fqujvbn"]
+[gd_scene load_steps=71 format=3 uid="uid://c0hbi7fqujvbn"]
 
 [ext_resource type="Script" path="res://src/farm/background.gd" id="1_gbnjo"]
 [ext_resource type="Texture2D" uid="uid://cvtymdsmvlt5c" path="res://assets/farm/ground.png" id="2_6aw4d"]
@@ -661,6 +661,21 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_odq5m"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_1tbwx"]
+particle_flag_disable_z = true
+emission_shape_offset = Vector3(990, 300, 0)
+emission_shape = 3
+emission_box_extents = Vector3(990, 300, 1)
+direction = Vector3(0, 1, 0)
+spread = 0.0
+initial_velocity_min = 73.03
+initial_velocity_max = 73.03
+gravity = Vector3(0, 0, 0)
+scale_min = 10.0
+scale_max = 10.0
+
 [node name="Background" type="Node2D"]
 script = ExtResource("1_gbnjo")
 
@@ -746,3 +761,11 @@ position = Vector2(1644, 854)
 scale = Vector2(5.7, 5.7)
 sprite_frames = SubResource("SpriteFrames_tby74")
 animation = &"spring1"
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+visible = false
+material = SubResource("CanvasItemMaterial_odq5m")
+amount = 40
+process_material = SubResource("ParticleProcessMaterial_1tbwx")
+lifetime = 5.0
+preprocess = 5.0

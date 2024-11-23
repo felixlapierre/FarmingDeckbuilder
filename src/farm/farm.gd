@@ -109,7 +109,7 @@ func use_card(grid_position):
 				var cantarget = tiles[target.x][target.y].card_can_target(card)
 				if inbounds and cantarget:
 					do_animation(spriteframes, target)
-		elif on == Enums.AnimOn.Mouse:
+		elif on == Enums.AnimOn.Center:
 			do_animation(spriteframes, null)
 	card_played.emit(Global.selected_card)
 	await get_tree().create_timer(delay).timeout
