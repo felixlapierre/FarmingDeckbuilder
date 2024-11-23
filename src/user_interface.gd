@@ -92,7 +92,6 @@ func setup(p_event_manager: EventManager, p_turn_manager: TurnManager, p_deck: A
 # Start and end year
 func end_year():
 	AlertDisplay.clear(end_year_alert_text)
-	$UI.visible = false
 	$Winter.visible = true
 	$UpgradeShop.lock = false
 	$Winter/EventPanel/VB/EventButton.disabled = false
@@ -601,6 +600,7 @@ func _on_shop_view_deck() -> void:
 
 func before_end_year() -> void:
 	AlertDisplay.set_text(end_year_alert_text)
+	$UI.visible = false
 
 func try_move_structure(tile: Tile):
 	if !is_winter() or tile.structure == null or tile.structure.name == "River":
