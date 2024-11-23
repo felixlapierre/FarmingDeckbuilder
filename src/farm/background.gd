@@ -15,6 +15,7 @@ var snows = []
 func _ready() -> void:
 	$Ground.modulate = spring1
 	$Ground.visible = true
+	$Blightroots.play("none")
 	trees = [$Tree, $Tree2, $Tree3]
 	snows = [$Snow1, $Snow2, $Snow3, $Snow4, $Snow5]
 
@@ -120,3 +121,6 @@ func set_background_texture(texture: Texture2D):
 		var tileset: TileSet = $TileMap.tile_set
 		var src: TileSetAtlasSource = tileset.get_source(0)
 		src.texture = texture
+
+func animate_blightroots(animation: String):
+	$Blightroots.play(animation)
