@@ -20,6 +20,8 @@ var blight_pattern = []
 var attack_pattern: AttackPattern
 var event_manager: EventManager
 
+signal animate_blightroot
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
@@ -41,6 +43,11 @@ func gain_yellow_mana(amount, delay):
 	return false
 
 func gain_purple_mana(amount, delay):
+	if purple_mana < target_blight and purple_mana + amount >= target_blight:
+		if next_turn_blight > 0:
+			animate_blightroot.emit("attack_to_threat")
+		else:
+			animate_blightroot.emit("attack_to_safe")
 	flag_defer_excess = flag_defer_excess or delay
 	if purple_mana + amount < 0: #meaning amount < 0
 		amount += purple_mana
@@ -55,12 +62,17 @@ func gain_purple_mana(amount, delay):
 # Return boolean if the player took damage
 func end_turn():
 	var damage = false
+
 	if purple_mana < target_blight:
 		damage = true
 		if week < Global.FINAL_WEEK:
 			blight_damage += 1
 		else:
 			blight_damage = 5
+	elif next_turn_blight > 0:
+		animate_blightroot.emit("attack")
+	elif get_blight_requirements(week + 2, year) > 0:
+		animate_blightroot.emit("threat")
 	
 	var blight_remaining = target_blight - purple_mana
 	blight_remaining = 0 if blight_remaining < 0 else blight_remaining

@@ -93,14 +93,26 @@ func end_year(endless: bool):
 	$Cards.discard_hand()
 	$Cards.do_winter_clear()
 	$UserInterface.before_end_year()
-	await get_tree().create_timer(0.5 if Settings.DEBUG else 3).timeout
+	
+
+	if $TurnManager.target_blight > 0 and $TurnManager.purple_mana < $TurnManager.target_blight:
+		$Background.animate_blightroots("attack_to_none")
+	elif $TurnManager.next_turn_blight > 0:
+		$Background.animate_blightroots("threat_to_none")
+	else:
+		$Background.animate_blightroots("safe_to_none")
+		
+	await get_tree().create_timer(1 if Settings.DEBUG else 1).timeout
+	set_background_texture()
+	$Background.do_winter($TurnManager.week)
+
+	await get_tree().create_timer(2 if Settings.DEBUG else 2).timeout
 
 	$Cards.set_cards_visible(false)
 	$FarmTiles.do_winter_clear()
 	$TurnManager.end_year()
 	$UserInterface.end_year()
-	set_background_texture()
-	$Background.do_winter($TurnManager.week)
+
 	save_game()
 
 func start_year():
@@ -116,6 +128,7 @@ func start_year():
 	$EventManager.notify(EventManager.EventType.BeforeTurnStart)
 	$UserInterface.update()
 	set_background_texture()
+	$Background.animate_blightroots("safe")
 
 func _on_farm_tiles_on_energy_gained(amount) -> void:
 	$TurnManager.energy += amount
