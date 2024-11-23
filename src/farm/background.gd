@@ -27,6 +27,7 @@ func do_week(week: int):
 	do_ground(week)
 	do_trees(week)
 	do_snow(week)
+	$SnowParticles.visible = false
 	pass
 	
 func do_snow(week: int):
@@ -69,14 +70,18 @@ func do_winter(current_week: int):
 			animation = "winter2"
 			$Ground.modulate = winter
 	if current_week <= 12:
-		tween.tween_callback(func(): do_snow(13))
+		tween.tween_callback(func(): 
+			do_snow(13)
+			$SnowParticles.visible = true)
 	for tree in trees:
 		tree.play(animation)
+
 
 func load_winter():
 	$Ground.modulate = winter
 	for tree in trees:
 		tree.play("winter2")
+	$SnowParticles.visible = true
 
 func do_trees(week: int):
 	var animation = null
