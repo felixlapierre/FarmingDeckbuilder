@@ -94,22 +94,22 @@ static var wilderness_callable = func(event_args: EventArgs):
 	
 static var forest_deck = [
 	{
-		"name": "carrot",
+		"name": "Carrot",
 		"type": "seed",
 		"count": 2
 	},
 	{
-		"name": "blueberry",
+		"name": "Blueberry",
 		"type": "seed",
 		"count": 3
 	},
 	{
-		"name": "scythe",
+		"name": "Scythe",
 		"type": "action",
 		"count": 4
 	},
 	{
-		"name": "pumpkin",
+		"name": "Pumpkin",
 		"type": "seed",
 		"count": 1
 	}
@@ -117,22 +117,22 @@ static var forest_deck = [
 
 static var riverlands_deck = [
 	{
-		"name": "potato",
+		"name": "Potato",
 		"type": "seed",
 		"count": 2
 	},
 	{
-		"name": "pumpkin",
+		"name": "Pumpkin",
 		"type": "seed",
 		"count": 3
 	},
 	{
-		"name": "radish",
+		"name": "Radish",
 		"type": "seed",
 		"count": 1
 	},
 	{
-		"name": "scythe",
+		"name": "Scythe",
 		"type": "action",
 		"count": 4
 	}
@@ -140,22 +140,22 @@ static var riverlands_deck = [
 
 static var wilderness_deck = [
 	{
-		"name": "spread",
+		"name": "Spread",
 		"type": "action",
 		"count": 3
 	},
 	{
-		"name": "graft",
+		"name": "Graft",
 		"type": "action",
 		"count": 1,
 	},
 	{
-		"name": "fertilize",
+		"name": "Fertilize",
 		"type": "action",
 		"count": 2
 	},
 	{
-		"name": "scythe",
+		"name": "Scythe",
 		"type": "action",
 		"count": 4
 	}
@@ -163,22 +163,22 @@ static var wilderness_deck = [
 
 static var mountains_deck = [
 		{
-		"name": "pumpkin",
+		"name": "Pumpkin",
 		"type": "seed",
 		"count": 3
 	},
 	{
-		"name": "radish",
+		"name": "Radish",
 		"type": "seed",
 		"count": 2,
 	},
 	{
-		"name": "leek",
+		"name": "Leek",
 		"type": "seed",
 		"count": 1
 	},
 	{
-		"name": "scythe",
+		"name": "Scythe",
 		"type": "action",
 		"count": 4
 	}
@@ -186,22 +186,22 @@ static var mountains_deck = [
 
 static var tutorial_deck = [
 	{
-		"name": "radish",
+		"name": "Radish",
 		"type": "seed",
 		"count": 3
 	},
 	{
-		"name": "scythe",
+		"name": "Scythe",
 		"type": "action",
 		"count": 4
 	},
 	{
-		"name": "potato",
+		"name": "Potato",
 		"type": "seed",
 		"count": 2
 	},
 	{
-		"name": "pumpkin",
+		"name": "Pumpkin",
 		"type": "seed",
 		"count": 1
 	}

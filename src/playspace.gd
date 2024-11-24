@@ -23,19 +23,7 @@ var fall_tileset = preload("res://assets/1616tinygarden/tileset-fall.png")
 var winter_tileset = preload("res://assets/1616tinygarden/tileset-winter.png")
 var winter_night_tileset = preload("res://assets/1616tinygarden/tileset-winter-night.png")
 
-var spring1 = preload("res://assets/farm/tileset-seasons2.png")
-var spring2 = preload("res://assets/farm/tileset-seasons4.png")
-var summer = preload("res://assets/farm/tileset-seasons5.png")
-var summer_end = preload("res://assets/farm/tileset-seasons6.png")
-var fall_tr1 = preload("res://assets/farm/tileset-seasons7.png")
-var fall_tr2 = preload("res://assets/farm/tileset-seasons8.png")
-var fall = preload("res://assets/farm/tileset-seasons9.png")
-var winter_tr1 = preload("res://assets/farm/tileset-seasons10.png")
-var winter_tr2 = preload("res://assets/farm/tileset-seasons11.png")
-var winter_tr3 = preload("res://assets/farm/tileset-seasons12.png")
-var winter_tr4 = preload("res://assets/farm/tileset-seasons13.png")
-var winter = preload("res://assets/farm/tileset-seasons14.png")
-var winter_night = preload("res://assets/farm/tileset-seasons15.png")
+
 
 func _ready() -> void:
 	randomize()
@@ -103,7 +91,7 @@ func end_year(endless: bool):
 		$Background.animate_blightroots("safe_to_none")
 		
 	await get_tree().create_timer(1 if Settings.DEBUG else 1).timeout
-	set_background_texture()
+	$Background.set_background_winter($TurnManager.week)
 	$Background.do_winter($TurnManager.week)
 
 	await get_tree().create_timer(2 if Settings.DEBUG else 2).timeout
@@ -127,7 +115,7 @@ func start_year():
 	$EventManager.notify(EventManager.EventType.AfterYearStart)
 	$EventManager.notify(EventManager.EventType.BeforeTurnStart)
 	$UserInterface.update()
-	set_background_texture()
+	$Background.set_background($TurnManager.week)
 	$Background.animate_blightroots("safe")
 
 func _on_farm_tiles_on_energy_gained(amount) -> void:
@@ -227,7 +215,7 @@ func on_turn_end():
 	$EventManager.notify(EventManager.EventType.BeforeTurnStart)
 	if victory == true:
 		end_year(false)
-	set_background_texture()
+	$Background.set_background($TurnManager.week)
 	$UserInterface.update()
 
 func _on_user_interface_on_blight_removed() -> void:
@@ -320,6 +308,8 @@ func load_game():
 	user_interface.mage_fortune.register_fortune($EventManager)
 	if !save_json.state.winter:
 		start_year()
+	else:
+		background.load_winter()
 
 func start_new_game():
 	if FileAccess.file_exists("user://savegame.save"):
@@ -330,59 +320,6 @@ func start_new_game():
 	StartupHelper.setup_farm($FarmTiles, $EventManager)
 	user_interface.mage_fortune.register_fortune($EventManager)
 	start_year()
-
-func set_background_texture():
-	var texture
-	if $UserInterface/Winter.visible == true:
-		var sequence = [spring1, spring2, summer, summer_end, fall_tr1, fall_tr2, fall, winter_tr1, winter_tr2, winter_tr3, winter_tr4, winter]
-		var start
-		match turn_manager.week:
-			1:
-				start = 1
-			2:
-				start = 2
-			3, 4, 5, 6, 7:
-				start = 3
-			8:
-				start = 4
-			9, 10, 11:
-				start = 7
-			12:
-				start = 8
-			_:
-				start = 11
-		for i in range(start, sequence.size()):
-			get_tree().create_timer(0.1 * i).timeout.connect(func():
-				background.set_background_texture(sequence[i]))
-		background.do_week(turn_manager.week)
-	else:
-		match turn_manager.week:
-			1:
-				texture = spring1
-			2:
-				texture = spring2
-			3:
-				texture = summer
-			8:
-				texture = summer_end
-			9:
-				texture = fall_tr1
-				get_tree().create_timer(0.3).timeout.connect(func():
-					background.set_background_texture(fall_tr2))
-				get_tree().create_timer(0.6).timeout.connect(func():
-					background.set_background_texture(fall))
-			12:
-				texture = winter_tr1
-			13:
-				texture = winter_tr2
-				get_tree().create_timer(0.3).timeout.connect(func():
-					background.set_background_texture(winter_tr3))
-				get_tree().create_timer(0.6).timeout.connect(func():
-					background.set_background_texture(winter_tr4))
-				get_tree().create_timer(0.9).timeout.connect(func():
-					background.set_background_texture(winter))
-		background.do_week(turn_manager.week)
-	background.set_background_texture(texture)
 
 
 func _on_farm_tiles_try_move_structure(tile: Tile) -> void:
