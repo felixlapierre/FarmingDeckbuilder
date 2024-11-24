@@ -485,39 +485,31 @@ func remove_blight_from_all_tiles():
 
 func blight_bubble_animation(tile: Tile, args: EventArgs.HarvestArgs, destination: Vector2):
 	var bubbles = args.yld
-	for i in range(bubbles):
-		var glow = Glow.instantiate()
-		#TODO Remove
-		#var sprite = Sprite2D.new()
-		#sprite.texture = load("res://assets/custom/PurpleMana.png") if args.purple else load("res://assets/custom/YellowMana.png")
-		#sprite.modulate.a = 0
-		#sprite.scale = Vector2.ZERO
-		#sprite.position = tile.position + Vector2(TILE_SIZE.x * randf(), TILE_SIZE.y * randf())
-		#sprite.z_index = 1
-		#sprite.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
-		#var target_position = Vector2(destination)
-		#target_position.x += 200.0 if args.delay and args.purple else 0.0
-		#target_position += Vector2(-8 + 16 * randf(), -8 + 16 * randf())
-		#var time = Constants.MANA_MOVE_TIME + randf() * Constants.MANA_MOVE_VARIANCE
-		#var tween = get_tree().create_tween()
-		#tween.tween_property(sprite, "modulate:a", 1, 0.3).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
-		#tween.parallel().tween_property(sprite, "scale", Vector2.ONE, 0.3).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
-		#tween.parallel().tween_property(sprite, "position", target_position, time).set_trans(Tween.TRANS_EXPO)
-		#tween.tween_callback(func():
-		#	$Animations.remove_child(sprite))
-		#$Animations.add_child(sprite)
-		glow.modulate = Color8(166, 252, 219) if args.purple else Color8(255, 255, 64)
-		glow.position = tile.position + Vector2(TILE_SIZE.x * randf(), TILE_SIZE.y * randf())
-		var target_position = Vector2(destination)
-		target_position.x += 200.0 if args.delay and args.purple else 0.0
-		target_position += Vector2(-8 + 16 * randf(), -8 + 16 * randf())
-		var time = Constants.MANA_MOVE_TIME + randf() * Constants.MANA_MOVE_VARIANCE
-		var tween = get_tree().create_tween()
-		tween.tween_property(glow, "position", target_position, time).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
-		tween.tween_callback(func():
-			$Animations.remove_child(glow))
-		$Animations.add_child(glow)
-		
+	var purple = args.purple
+	for i in range(min(10, bubbles)):
+		create_bubble(tile, destination, Color8(166, 252, 219) if purple else Color8(255, 252, 64), purple)
+	while bubbles > 100:
+		create_bubble(tile, destination, Color8(32, 214, 199) if purple else Color8(255, 213, 65), purple)
+		create_bubble(tile, destination, Color8(32, 214, 199) if purple else Color8(255, 213, 65), purple)
+		bubbles -= 100
+	while bubbles > 20:
+		create_bubble(tile, destination, Color8(40, 92, 196) if purple else Color8(249, 163, 27), purple)
+		create_bubble(tile, destination, Color8(40, 92, 196) if purple else Color8(249, 163, 27), purple)
+		bubbles -= 20
+
+
+func create_bubble(tile: Tile, destination: Vector2, color: Color, purple: bool):
+	var glow = Glow.instantiate()
+	glow.modulate = color
+	glow.position = tile.position + Vector2(TILE_SIZE.x * randf(), TILE_SIZE.y * randf())
+	var target_position = Vector2(destination)
+	target_position += Vector2(-8 + 16 * randf(), -8 + 16 * randf())
+	var time = Constants.MANA_MOVE_TIME + randf() * Constants.MANA_MOVE_VARIANCE
+	var tween = get_tree().create_tween()
+	tween.tween_property(glow, "position", target_position, time).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
+	tween.tween_callback(func():
+		$Animations.remove_child(glow))
+	$Animations.add_child(glow)
 
 func _on_user_interface_farm_preview_hide() -> void:
 	for tile: Tile in get_all_tiles():

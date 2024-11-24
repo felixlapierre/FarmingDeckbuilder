@@ -20,7 +20,7 @@ static var BLIGHT_TARGET_MULTIPLIER: float = 1.0
 static var DESTROY_TILES_THIS_TURN: int = 1
 static var IRRIGATE_PROTECTED = false
 
-static var MANA_TARGET_LOCATION_YELLOW: Vector2 = Vector2(558, 442)
+static var MANA_TARGET_LOCATION_YELLOW: Vector2 = Vector2(628, 442)
 static var MANA_TARGET_LOCATION_PURPLE: Vector2 = Vector2(1461, 456)
 
 static var GILDED_ROSE_TALLY: float = 0.0
