@@ -170,7 +170,7 @@ emitting = false
 amount = 4
 process_material = SubResource("ParticleProcessMaterial_gn4kv")
 texture = ExtResource("8_hyote")
-lifetime = 0.3
+lifetime = 0.25
 one_shot = true
 explosiveness = 0.8
 

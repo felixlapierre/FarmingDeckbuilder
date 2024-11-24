@@ -15,8 +15,11 @@ func register_events(event_manager: EventManager, p_tile: Tile):
 			for tile in args.farm.get_all_tiles():
 				if tile.state == Enums.TileState.Growing or tile.state == Enums.TileState.Mature:
 					tile.add_yield(strength)
+					tile.yield_particles.one_shot = false
 			args.farm.do_animation(load("res://src/animation/frames/flamerite_sf.tres"), null)
 			await args.farm.get_tree().create_timer(0.25).timeout
+		for tile in args.farm.get_all_tiles():
+			tile.yield_particles.one_shot = true
 	event_manager.register_listener(event_type, callback)
 
 func unregister_events(event_manager: EventManager):

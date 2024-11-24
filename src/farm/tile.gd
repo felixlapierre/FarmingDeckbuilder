@@ -36,10 +36,13 @@ var COLOR_IRRIGATE = Color8(136, 183, 252)
 var COLOR_DESTROYED = Color8(45, 45, 45)
 var COLOR_BLIGHTED = Color8(110, 41, 110)
 
+var yield_particles
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	Global.register_click_callback(self)
 	do_active_check()
+	yield_particles = $AddYieldParticles
 
 func do_active_check():
 	if grid_location.x < Global.FARM_TOPLEFT.x\
@@ -263,6 +266,7 @@ func do_winter_clear():
 func multiply_yield(strength):
 	$AddYieldParticles.emitting = true
 	current_yield *= strength
+
 func add_yield(strength):
 	$AddYieldParticles.emitting = true
 	current_yield += strength
