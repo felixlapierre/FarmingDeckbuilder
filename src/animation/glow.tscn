@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://bqdgd4kl2ww0j"]
+[gd_scene load_steps=6 format=3 uid="uid://ceywhh4lric4i"]
 
 [ext_resource type="Texture2D" uid="uid://bu1oua5b0wne4" path="res://assets/animation/glow.png" id="1_6oes8"]
 
@@ -17,9 +17,7 @@ spread = 0.0
 gravity = Vector3(0, 0, 0)
 scale_curve = SubResource("CurveTexture_8lo0y")
 
-[node name="Glow" type="Node2D"]
-
-[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+[node name="Glow" type="GPUParticles2D"]
 texture_filter = 1
 material = SubResource("CanvasItemMaterial_rqmsu")
 process_material = SubResource("ParticleProcessMaterial_p5hyl")

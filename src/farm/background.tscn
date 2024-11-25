@@ -1,4 +1,4 @@
-[gd_scene load_steps=71 format=3 uid="uid://c0hbi7fqujvbn"]
+[gd_scene load_steps=79 format=3 uid="uid://c0hbi7fqujvbn"]
 
 [ext_resource type="Script" path="res://src/farm/background.gd" id="1_gbnjo"]
 [ext_resource type="Texture2D" uid="uid://cvtymdsmvlt5c" path="res://assets/farm/ground.png" id="2_6aw4d"]
@@ -7,6 +7,8 @@
 [ext_resource type="Texture2D" uid="uid://fkkebykg1n4c" path="res://assets/farm/blightroots.png" id="4_smcf2"]
 [ext_resource type="Texture2D" uid="uid://h2kf4qgrofsd" path="res://assets/farm/snowpoff2.png" id="5_2teuv"]
 [ext_resource type="Texture2D" uid="uid://hqbvii1kv3il" path="res://assets/farm/snowpoff.png" id="6_33alu"]
+[ext_resource type="Texture2D" uid="uid://bpuagaautrtsc" path="res://assets/farm/ritual-complete.png" id="8_yajlm"]
+[ext_resource type="PackedScene" uid="uid://ceywhh4lric4i" path="res://src/animation/glow.tscn" id="9_uq747"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_n4x4v"]
 texture = ExtResource("2_ff0ec")
@@ -676,6 +678,62 @@ gravity = Vector3(0, 0, 0)
 scale_min = 10.0
 scale_max = 10.0
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_p74vu"]
+atlas = ExtResource("8_yajlm")
+region = Rect2(0, 0, 144, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0l4ag"]
+atlas = ExtResource("8_yajlm")
+region = Rect2(144, 0, 144, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fiqsr"]
+atlas = ExtResource("8_yajlm")
+region = Rect2(288, 0, 144, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1bc4m"]
+atlas = ExtResource("8_yajlm")
+region = Rect2(432, 0, 144, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_nj16o"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p74vu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0l4ag")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fiqsr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1bc4m")
+}, {
+"duration": 1.0,
+"texture": null
+}],
+"loop": false,
+"name": &"default",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": null
+}],
+"loop": false,
+"name": &"hidden",
+"speed": 10.0
+}]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_kr0tn"]
+spread = 180.0
+initial_velocity_min = 1000.0
+initial_velocity_max = 1000.0
+gravity = Vector3(0, 0, 0)
+sub_emitter_mode = 1
+sub_emitter_frequency = 100.0
+sub_emitter_keep_velocity = true
+
 [node name="Background" type="Node2D"]
 script = ExtResource("1_gbnjo")
 
@@ -770,3 +828,25 @@ process_material = SubResource("ParticleProcessMaterial_1tbwx")
 lifetime = 15.0
 preprocess = 15.0
 randomness = 1.0
+
+[node name="RitualComplete" type="AnimatedSprite2D" parent="."]
+z_index = 2
+texture_filter = 1
+position = Vector2(553, 340)
+scale = Vector2(5.7, 5.7)
+sprite_frames = SubResource("SpriteFrames_nj16o")
+
+[node name="RitualParticles" type="GPUParticles2D" parent="."]
+z_index = 2
+position = Vector2(553, 399)
+emitting = false
+amount = 500
+sub_emitter = NodePath("../Glow")
+process_material = SubResource("ParticleProcessMaterial_kr0tn")
+one_shot = true
+explosiveness = 1.0
+
+[node name="Glow" parent="." instance=ExtResource("9_uq747")]
+modulate = Color(1, 0.988235, 0.25098, 1)
+z_index = 2
+amount = 10000

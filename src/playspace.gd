@@ -81,7 +81,6 @@ func end_year(endless: bool):
 	$Cards.discard_hand()
 	$Cards.do_winter_clear()
 	$UserInterface.before_end_year()
-	
 
 	if $TurnManager.target_blight > 0 and $TurnManager.purple_mana < $TurnManager.target_blight:
 		$Background.animate_blightroots("attack_to_none")
@@ -89,8 +88,10 @@ func end_year(endless: bool):
 		$Background.animate_blightroots("threat_to_none")
 	else:
 		$Background.animate_blightroots("safe_to_none")
-		
-	await get_tree().create_timer(1 if Settings.DEBUG else 1).timeout
+	
+	await get_tree().create_timer(Constants.MANA_MOVE_TIME).timeout
+	$Background.ritual_complete()
+	await get_tree().create_timer(2 if Settings.DEBUG else 2).timeout
 	$Background.set_background_winter($TurnManager.week)
 	$Background.do_winter($TurnManager.week)
 

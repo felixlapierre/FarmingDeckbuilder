@@ -25,6 +25,8 @@ var ts_winter_tr4 = preload("res://assets/farm/tileset-seasons13.png")
 var ts_winter = preload("res://assets/farm/tileset-seasons14.png")
 var ts_winter_night = preload("res://assets/farm/tileset-seasons15.png")
 
+var Glow = preload("res://src/animation/glow.tscn")
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	$Ground.modulate = spring1
@@ -32,6 +34,7 @@ func _ready() -> void:
 	$Blightroots.play("none")
 	trees = [$Tree, $Tree2, $Tree3]
 	snows = [$Snow1, $Snow2, $Snow3, $Snow4, $Snow5]
+	$RitualComplete.play("hidden")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -199,3 +202,7 @@ func set_background(week: int):
 				set_background_texture(winter))
 	do_week(week)
 	set_background_texture(texture)
+
+func ritual_complete():
+	$RitualComplete.play("default")
+	$RitualParticles.emitting = true
