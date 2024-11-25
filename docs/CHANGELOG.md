@@ -1,5 +1,21 @@
 # Changelog
 
+## Version 0.0.7
+
+Released Nov 24th
+
+- Added animations for roughly half of the action cards in the game
+- Added seasonal transitions
+- Added animation for completing the ritual. Added blight roots on the right side of the screen that animate whenever the player is attacked.
+- Added new enhance: Echo
+- Added new cards: Echo Scythe and Flamerite. Reworked Waterrite.
+- Changed visuals for mana bubbles when gaining mana
+- Reworked wilderness farm
+- Added card borders based on rarity.
+- Wild Magic and Corruption give 3 options to pick from instead of granting a random card
+- Sunflower (from squirrel seed event) protects nearby tiles
+- Fixed bugs, and made misc QOL improvements
+
 ## Version 0.0.6
 
 Released Oct 19th
