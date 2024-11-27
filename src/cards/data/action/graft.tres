@@ -30,3 +30,5 @@ targets = Array[String](["Growing", "Mature"])
 effects = Array[ExtResource("1_tgw8x")]([SubResource("Resource_t8shg")])
 enhances = Array[String]([])
 strength = 0.0
+delay = 0.0
+anim_on = 0

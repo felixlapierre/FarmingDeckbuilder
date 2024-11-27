@@ -19,7 +19,7 @@ static func get_all_cards_rarity(rarity) -> Array[CardData]:
 	load_cards()
 	var cards: Array[CardData] = []
 	for card in all_cards:
-		if rarity == null or rarity == card.rarity\
+		if (rarity == null or rarity == card.rarity)\
 			and card.rarity != "unique" and card.rarity != "blight" and card.rarity != "basic":
 			cards.append(card)
 	return cards
