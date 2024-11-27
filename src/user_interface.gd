@@ -679,9 +679,9 @@ func _on_card_button_pressed():
 	var pick_option_ui = PickOption.instantiate()
 	var cards;
 	if Global.FARM_TYPE == "WILDERNESS":
-		cards = cards_database.get_random_action_cards(null, 5)
+		cards = cards_database.get_random_action_cards(null, 5 - Mastery.BlockShop)
 	else:
-		cards = cards_database.get_random_cards(null, 5)
+		cards = cards_database.get_random_cards(null, 5 - Mastery.BlockShop)
 	$Winter/Explore.add_sibling(pick_option_ui)
 	var prompt = "Pick a card to add to your deck"
 

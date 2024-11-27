@@ -19,7 +19,8 @@ static func get_all_cards_rarity(rarity) -> Array[CardData]:
 	load_cards()
 	var cards: Array[CardData] = []
 	for card in all_cards:
-		if rarity == null or rarity == card.rarity:
+		if rarity == null or rarity == card.rarity\
+			and card.rarity != "unique" and card.rarity != "blight" and card.rarity != "basic":
 			cards.append(card)
 	return cards
 
@@ -120,6 +121,11 @@ static func get_random_enhance(rarity: String, count: int, no_discount: bool):
 		if !no_discount or enh.name != "Discount":
 			result.append(enh)
 	return result
+
+static func get_random_enhance_noseed(count):
+	return get_random_enhance("", count, false).filter(func(el):
+				return ["Discount", "Echo", "Burn", "Frozen", "Size", "Springbound", "Strength"]\
+					.has(el.name))
 
 static func get_random_structures(count: int):
 	var result = []

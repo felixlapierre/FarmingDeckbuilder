@@ -83,9 +83,9 @@ func add_card():
 	var pick_option_ui = PickOption.instantiate()
 	var cards;
 	if Global.FARM_TYPE == "WILDERNESS":
-		cards = cards_database.get_random_action_cards(null, 5)
+		cards = cards_database.get_random_action_cards(null, 5 - Mastery.BlockShop)
 	else:
-		cards = cards_database.get_random_cards(null, 5)
+		cards = cards_database.get_random_cards(null, 5 - Mastery.BlockShop)
 	add_sibling(pick_option_ui)
 	var prompt = "Pick a card to add to your deck"
 
@@ -111,7 +111,11 @@ func select_card_to_remove():
 	select_card.do_card_pick(player_deck, "Select a card to remove")
 
 func select_enhance():
-	var enhances = cards_database.get_random_enhance("", 3, false)
+	var enhances
+	if Global.FARM_TYPE == "WILDERNESS":
+		enhances = cards_database.get_random_enhance_noseed(3)
+	else:
+		enhances = cards_database.get_random_enhance("", 3, false)
 	var pick_option_ui = PickOption.instantiate()
 	add_sibling(pick_option_ui)
 	var prompt = "Pick an enhance to apply"
