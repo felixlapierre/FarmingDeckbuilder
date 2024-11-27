@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://cswinrop881oo"]
+[gd_scene load_steps=38 format=3 uid="uid://cswinrop881oo"]
 
 [ext_resource type="Script" path="res://src/user_interface.gd" id="1_j28fq"]
 [ext_resource type="Theme" uid="uid://c21dhy264y6ty" path="res://assets/theme_large.tres" id="2_s7754"]
@@ -29,6 +29,7 @@
 [ext_resource type="PackedScene" uid="uid://bb1j26ivcxqw6" path="res://src/ui/tutorial.tscn" id="22_4s3pk"]
 [ext_resource type="Texture2D" uid="uid://b1x8as1ltlxj0" path="res://assets/custom/PreviewButtonHover.png" id="22_oyub8"]
 [ext_resource type="PackedScene" uid="uid://bks8p1urlqgax" path="res://src/attack/attack_preview.tscn" id="24_5346t"]
+[ext_resource type="Theme" uid="uid://bdodinwpnjkw8" path="res://assets/theme_huge.tres" id="24_jal2o"]
 [ext_resource type="PackedScene" uid="uid://d1p8rm8huvmt0" path="res://src/ui/menus/explore.tscn" id="25_julh2"]
 [ext_resource type="PackedScene" uid="uid://fy3ffmdb6hgg" path="res://src/ui/expand_farm.tscn" id="26_4sqcm"]
 [ext_resource type="PackedScene" uid="uid://cwkg82hfjopb6" path="res://src/ui/pause_menu.tscn" id="31_35tyo"]
@@ -407,6 +408,7 @@ anchors_preset = 0
 theme = ExtResource("2_s7754")
 
 [node name="ShopButton" type="TextureButton" parent="Winter"]
+visible = false
 layout_mode = 0
 offset_left = 1781.0
 offset_top = -1.0
@@ -421,6 +423,7 @@ offset_left = 235.0
 offset_top = 114.0
 offset_right = 405.0
 offset_bottom = 163.0
+theme = ExtResource("24_jal2o")
 text = "Next Year"
 
 [node name="FortuneTellerButton" type="Button" parent="Winter"]
@@ -429,6 +432,7 @@ offset_left = 832.0
 offset_top = 835.0
 offset_right = 1074.0
 offset_bottom = 884.0
+theme = ExtResource("24_jal2o")
 text = "Fortune Teller"
 
 [node name="FarmUpgradeButton" type="Button" parent="Winter"]
@@ -437,17 +441,30 @@ offset_left = 254.0
 offset_top = 434.0
 offset_right = 392.0
 offset_bottom = 483.0
+theme = ExtResource("24_jal2o")
 text = "Upgrade"
 
 [node name="ExploreButton" type="Button" parent="Winter"]
 layout_mode = 0
-offset_left = 1384.0
-offset_top = 590.0
-offset_right = 1512.0
-offset_bottom = 639.0
+offset_left = 1465.0
+offset_top = 440.0
+offset_right = 1638.0
+offset_bottom = 504.0
+theme = ExtResource("24_jal2o")
 text = "Explore"
+metadata/_edit_use_anchors_ = true
+
+[node name="CardButton" type="Button" parent="Winter"]
+layout_mode = 0
+offset_left = 1321.0
+offset_top = 218.0
+offset_right = 1513.0
+offset_bottom = 279.0
+theme = ExtResource("24_jal2o")
+text = "Add Card"
 
 [node name="EventPanel" type="PanelContainer" parent="Winter"]
+visible = false
 layout_mode = 0
 offset_left = 1454.0
 offset_top = 380.0
@@ -466,10 +483,10 @@ horizontal_alignment = 1
 layout_mode = 2
 text = "Event"
 
-[node name="GameEventDialog" parent="Winter" instance=ExtResource("16_a3egv")]
+[node name="Explore" parent="Winter" instance=ExtResource("25_julh2")]
 visible = false
 
-[node name="Explore" parent="Winter" instance=ExtResource("25_julh2")]
+[node name="GameEventDialog" parent="Winter" instance=ExtResource("16_a3egv")]
 visible = false
 
 [node name="ViewDeck" type="Button" parent="Winter"]
@@ -478,6 +495,7 @@ offset_left = 12.0
 offset_top = 1016.0
 offset_right = 178.0
 offset_bottom = 1065.0
+theme = ExtResource("24_jal2o")
 text = "View Deck"
 
 [node name="ExpandFarm" parent="Winter" instance=ExtResource("26_4sqcm")]
@@ -533,7 +551,10 @@ visible = false
 [connection signal="pressed" from="Winter/FortuneTellerButton" to="." method="_on_fortune_teller_button_pressed"]
 [connection signal="pressed" from="Winter/FarmUpgradeButton" to="." method="_on_farm_upgrade_button_pressed"]
 [connection signal="pressed" from="Winter/ExploreButton" to="." method="_on_explore_button_pressed"]
+[connection signal="pressed" from="Winter/CardButton" to="." method="_on_card_button_pressed"]
 [connection signal="pressed" from="Winter/EventPanel/VB/EventButton" to="." method="_on_event_button_pressed"]
+[connection signal="on_event" from="Winter/Explore" to="." method="_on_explore_on_event"]
+[connection signal="on_structure_select" from="Winter/Explore" to="." method="_on_explore_on_structure_select"]
 [connection signal="on_upgrades_selected" from="Winter/GameEventDialog" to="." method="_on_game_event_dialog_on_upgrades_selected"]
 [connection signal="pressed" from="Winter/ViewDeck" to="." method="_on_shop_view_deck"]
 [connection signal="on_close" from="Winter/ExpandFarm" to="." method="_on_expand_farm_on_close"]

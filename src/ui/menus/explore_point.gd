@@ -16,3 +16,6 @@ func setup(name: String):
 
 func _on_button_pressed():
 	on_select.emit()
+
+func disable():
+	$Button.disabled = true

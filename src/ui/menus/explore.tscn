@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://d1p8rm8huvmt0"]
 
 [ext_resource type="Script" path="res://src/ui/menus/explore.gd" id="1_r8lja"]
-[ext_resource type="Theme" uid="uid://c21dhy264y6ty" path="res://assets/theme_large.tres" id="2_13re5"]
+[ext_resource type="Theme" uid="uid://bdodinwpnjkw8" path="res://assets/theme_huge.tres" id="2_vnlw6"]
 
 [node name="Explore" type="Node2D"]
 script = ExtResource("1_r8lja")
@@ -10,20 +10,30 @@ script = ExtResource("1_r8lja")
 custom_minimum_size = Vector2(1920, 1080)
 offset_right = 1920.0
 offset_bottom = 1080.0
+theme = ExtResource("2_vnlw6")
 
 [node name="PanelContainer" type="PanelContainer" parent="CenterContainer"]
-custom_minimum_size = Vector2(720, 540)
+custom_minimum_size = Vector2(900, 900)
 layout_mode = 2
+
+[node name="VBox" type="VBoxContainer" parent="CenterContainer/PanelContainer"]
+layout_mode = 2
+
+[node name="HBox" type="HBoxContainer" parent="CenterContainer/PanelContainer/VBox"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CenterContainer/PanelContainer/VBox/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Explorations Remaining: 3"
+horizontal_alignment = 1
+
+[node name="Close" type="Button" parent="CenterContainer/PanelContainer/VBox/HBox"]
+layout_mode = 2
+size_flags_horizontal = 8
+text = "Close"
 
 [node name="Points" type="Node2D" parent="."]
 position = Vector2(960, 540)
 
-[node name="Close" type="Button" parent="."]
-offset_left = 1226.0
-offset_top = 270.0
-offset_right = 1319.0
-offset_bottom = 319.0
-theme = ExtResource("2_13re5")
-text = "Close"
-
-[connection signal="pressed" from="Close" to="." method="_on_close_pressed"]
+[connection signal="pressed" from="CenterContainer/PanelContainer/VBox/HBox/Close" to="." method="_on_close_pressed"]

@@ -100,7 +100,8 @@ func end_year():
 	$Shop.fill_shop()
 	$FortuneTeller.create_fortunes()
 	create_fortune_display()
-	$Winter/Explore.create_explore()
+	$Winter/Explore.create_explore(3)
+	$Winter/CardButton.disabled = false
 	update()
 	$Tutorial.on_winter()
 	$Tutorial.position.x = 1234
@@ -538,7 +539,7 @@ func load_data(save_json: Dictionary):
 	$FortuneTeller.attack_pattern = attack
 	create_fortune_display()
 	$Shop.player_money = save_json.state.rerolls
-	$Winter/Explore.create_explore()
+	$Winter/Explore.create_explore(3)
 	update()
 
 func register_tooltips():
@@ -665,3 +666,26 @@ func _on_help_button_pressed() -> void:
 
 func _on_explore_button_pressed():
 	$Winter/Explore.visible = true
+
+func _on_explore_on_structure_select(selected, callable):
+	_on_shop_on_structure_place(selected, callable)
+	$CancelStructure.visible = false
+
+func _on_explore_on_event():
+	$Winter/GameEventDialog.visible = true
+
+func _on_card_button_pressed():
+	$Winter/CardButton.disabled = true
+	var pick_option_ui = PickOption.instantiate()
+	var cards;
+	if Global.FARM_TYPE == "WILDERNESS":
+		cards = cards_database.get_random_action_cards(null, 5)
+	else:
+		cards = cards_database.get_random_cards(null, 5)
+	$Winter/Explore.add_sibling(pick_option_ui)
+	var prompt = "Pick a card to add to your deck"
+
+	pick_option_ui.setup(prompt, cards, func(selected):
+		deck.append(selected.card_info)
+		$Winter.remove_child(pick_option_ui), func():
+			$Winter.remove_child(pick_option_ui))
