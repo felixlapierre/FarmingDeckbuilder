@@ -102,6 +102,7 @@ func end_year():
 	create_fortune_display()
 	$Winter/Explore.create_explore(3)
 	$Winter/CardButton.disabled = false
+	$Winter/AnyCardButton.visible = Settings.DEBUG
 	update()
 	$Tutorial.on_winter()
 	$Tutorial.position.x = 1234
@@ -540,6 +541,7 @@ func load_data(save_json: Dictionary):
 	create_fortune_display()
 	$Shop.player_money = save_json.state.rerolls
 	$Winter/Explore.create_explore(3)
+	$Winter/AnyCardButton.visible = Settings.DEBUG
 	update()
 
 func register_tooltips():
@@ -689,3 +691,20 @@ func _on_card_button_pressed():
 		deck.append(selected.card_info)
 		$Winter.remove_child(pick_option_ui), func():
 			$Winter.remove_child(pick_option_ui))
+
+
+func _on_any_card_button_pressed():
+	var all_cards = cards_database.get_all_cards()
+	var select_card = SELECT_CARD.instantiate()
+	select_card.tooltip = tooltip
+	select_card.size = Constants.VIEWPORT_SIZE
+	select_card.z_index = 2
+	select_card.theme = load("res://assets/theme_large.tres")
+	select_card.select_callback = func(card_data):
+		remove_child(select_card)
+		deck.append(card_data)
+		$Shop.setup(deck, turn_manager)
+	select_card.select_cancelled.connect(func():
+		remove_child(select_card))
+	add_child(select_card)
+	select_card.do_card_pick(all_cards, "Select a card to add to your deck")

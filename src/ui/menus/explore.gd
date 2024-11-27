@@ -28,37 +28,43 @@ func setup(deck, p_tooltip):
 	tooltip = p_tooltip
 
 func create_explore(p_explores):
+	for point in $Points.get_children():
+		$Points.remove_child(point)
 	explores = p_explores
 	var DIST = 250
 	var positions = [
 		Vector2(-DIST, -DIST),
-		Vector2(-DIST, 0),
+		Vector2(-DIST - 70, 0),
 		Vector2(-DIST, DIST),
-		Vector2(0, -DIST),
-		Vector2(0, DIST),
+		Vector2(0, -DIST - 70),
+		Vector2(0, DIST + 70),
 		Vector2(DIST, -DIST),
-		Vector2(DIST, 0),
+		Vector2(DIST + 70, 0),
 		Vector2(DIST, DIST)
 	]
 	positions.shuffle()
 	# Add card
-	create_point("Gain Card", positions.pop_front(), func():
+	create_point("Gain Card", positions.pop_front(), func(pt):
+		use_explore(pt)
 		add_card())
 	
 	# Event
-	create_point("Event", positions.pop_front(), func():
+	create_point("Event", positions.pop_front(), func(pt):
+		use_explore(pt)
 		on_event.emit())
 	
 	# Remove card
-	create_point("Remove Card", positions.pop_front(), func():
-		select_card_to_remove())
+	create_point("Remove Card", positions.pop_front(), func(pt):
+		select_card_to_remove(pt))
 	
 	# Structure
-	create_point("Structure", positions.pop_front(), func():
+	create_point("Structure", positions.pop_front(), func(pt):
+		use_explore(pt)
 		add_structure())
 	
 	# Enhance
-	create_point("Enhance Card", positions.pop_front(), func():
+	create_point("Enhance Card", positions.pop_front(), func(pt):
+		use_explore(pt)
 		select_enhance())
 
 func use_explore(node):
@@ -74,9 +80,8 @@ func create_point(name: String, pos: Vector2, callback: Callable):
 	point.setup(name)
 	point.position = pos
 	point.on_select.connect(func():
-		use_explore(point)
 		visible = false
-		callback.call())
+		callback.call(point))
 	$Points.add_child(point)
 
 func add_card():
@@ -96,17 +101,20 @@ func add_card():
 			remove_sibling(pick_option_ui)
 			visible = true)
 
-func select_card_to_remove():
+func select_card_to_remove(pt):
 	var select_card = SelectCard.instantiate()
 	select_card.tooltip = tooltip
 	select_card.size = Constants.VIEWPORT_SIZE
 	select_card.z_index = 2
 	select_card.theme = load("res://assets/theme_large.tres")
-	select_card.disable_cancel()
 	select_card.select_callback = func(card_data):
 		remove_sibling(select_card)
 		player_deck.erase(card_data)
 		visible = true
+		use_explore(pt)
+	select_card.select_cancelled.connect(func():
+		remove_sibling(select_card)
+		visible = true)
 	add_sibling(select_card)
 	select_card.do_card_pick(player_deck, "Select a card to remove")
 

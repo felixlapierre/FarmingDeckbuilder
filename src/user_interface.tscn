@@ -419,28 +419,28 @@ texture_normal = ExtResource("14_m3jdw")
 
 [node name="NextYearButton" type="Button" parent="Winter"]
 layout_mode = 0
-offset_left = 235.0
-offset_top = 114.0
-offset_right = 405.0
-offset_bottom = 163.0
+offset_left = 211.0
+offset_top = 113.0
+offset_right = 423.0
+offset_bottom = 174.0
 theme = ExtResource("24_jal2o")
 text = "Next Year"
 
 [node name="FortuneTellerButton" type="Button" parent="Winter"]
 layout_mode = 0
-offset_left = 832.0
-offset_top = 835.0
-offset_right = 1074.0
-offset_bottom = 884.0
+offset_left = 816.0
+offset_top = 834.0
+offset_right = 1120.0
+offset_bottom = 895.0
 theme = ExtResource("24_jal2o")
 text = "Fortune Teller"
 
 [node name="FarmUpgradeButton" type="Button" parent="Winter"]
 layout_mode = 0
-offset_left = 254.0
+offset_left = 234.0
 offset_top = 434.0
-offset_right = 392.0
-offset_bottom = 483.0
+offset_right = 406.0
+offset_bottom = 495.0
 theme = ExtResource("24_jal2o")
 text = "Upgrade"
 
@@ -462,6 +462,14 @@ offset_right = 1513.0
 offset_bottom = 279.0
 theme = ExtResource("24_jal2o")
 text = "Add Card"
+
+[node name="AnyCardButton" type="Button" parent="Winter"]
+layout_mode = 0
+offset_left = 1675.0
+offset_top = 11.0
+offset_right = 1905.0
+offset_bottom = 60.0
+text = "Pick Any Card"
 
 [node name="EventPanel" type="PanelContainer" parent="Winter"]
 visible = false
@@ -552,6 +560,7 @@ visible = false
 [connection signal="pressed" from="Winter/FarmUpgradeButton" to="." method="_on_farm_upgrade_button_pressed"]
 [connection signal="pressed" from="Winter/ExploreButton" to="." method="_on_explore_button_pressed"]
 [connection signal="pressed" from="Winter/CardButton" to="." method="_on_card_button_pressed"]
+[connection signal="pressed" from="Winter/AnyCardButton" to="." method="_on_any_card_button_pressed"]
 [connection signal="pressed" from="Winter/EventPanel/VB/EventButton" to="." method="_on_event_button_pressed"]
 [connection signal="on_event" from="Winter/Explore" to="." method="_on_explore_on_event"]
 [connection signal="on_structure_select" from="Winter/Explore" to="." method="_on_explore_on_structure_select"]

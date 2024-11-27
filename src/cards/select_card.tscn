@@ -25,7 +25,13 @@ layout_mode = 2
 size_flags_horizontal = 10
 text = "Cancel"
 
-[node name="CardContainer" type="FlowContainer" parent="SelectContainer"]
+[node name="Scroll" type="ScrollContainer" parent="SelectContainer"]
+custom_minimum_size = Vector2(1920, 1000)
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="CardContainer" type="FlowContainer" parent="SelectContainer/Scroll"]
+custom_minimum_size = Vector2(1920, 0)
 layout_mode = 2
 
 [node name="ConfirmContainer" type="CenterContainer" parent="."]

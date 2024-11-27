@@ -44,7 +44,7 @@ func do_card_pick(cards_input, prompt_text):
 		display_card.set_card_info(card)
 		if !display_only:
 			display_card.on_clicked.connect(on_card_selected)
-		$SelectContainer/CardContainer.add_child(display_card)
+		$SelectContainer/Scroll/CardContainer.add_child(display_card)
 		$ConfirmContainer/ConfirmVbox/EnhanceLabel.visible = enhance != null
 
 func do_enhance_pick(cards_input, p_enhance: Enhance, prompt_text):
@@ -66,7 +66,7 @@ func on_card_selected(card):
 		SelectState.Selecting:
 			state = SelectState.Confirming
 			card_selected_index = card.get_index()
-			$SelectContainer/CardContainer.remove_child(card)
+			$SelectContainer/Scroll/CardContainer.remove_child(card)
 			$SelectContainer.visible = false
 			$ConfirmContainer/ConfirmVbox/ConfirmCards.add_child(card)
 			$ConfirmContainer.visible = true
@@ -80,8 +80,8 @@ func on_card_selected(card):
 			pass
 
 func _on_confirm_button_pressed() -> void:
-	for child in $SelectContainer/CardContainer.get_children():
-		$SelectContainer/CardContainer.remove_child(child)
+	for child in $SelectContainer/Scroll/CardContainer.get_children():
+		$SelectContainer/Scroll/CardContainer.remove_child(child)
 		
 	var card = $ConfirmContainer/ConfirmVbox/ConfirmCards.get_child(0)
 	select_callback.call(card.card_info)
@@ -94,16 +94,16 @@ func _on_cancel_button_pressed() -> void:
 	var card = $ConfirmContainer/ConfirmVbox/ConfirmCards.get_child(0)
 	for child in $ConfirmContainer/ConfirmVbox/ConfirmCards.get_children():
 		$ConfirmContainer/ConfirmVbox/ConfirmCards.remove_child(child)
-	$SelectContainer/CardContainer.add_child(card)
-	$SelectContainer/CardContainer.move_child(card, card_selected_index)
+	$SelectContainer/Scroll/CardContainer.add_child(card)
+	$SelectContainer/Scroll/CardContainer.move_child(card, card_selected_index)
 	card.on_clicked.connect(on_card_selected)
 	$SelectContainer.visible = true
 	$ConfirmContainer.visible = false
 
 
 func _on_close_button_pressed() -> void:
-	for child in $SelectContainer/CardContainer.get_children():
-		$SelectContainer/CardContainer.remove_child(child)
+	for child in $SelectContainer/Scroll/CardContainer.get_children():
+		$SelectContainer/Scroll/CardContainer.remove_child(child)
 	select_cancelled.emit()
 	enhance = null
 
