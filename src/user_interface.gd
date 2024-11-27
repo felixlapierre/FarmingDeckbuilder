@@ -79,6 +79,7 @@ func setup(p_event_manager: EventManager, p_turn_manager: TurnManager, p_deck: A
 	register_tooltips()
 	$Tutorial.setup(p_event_manager)
 	$UI/AttackPreview.setup(turn_manager, mage_fortune, p_event_manager)
+	$Winter/Explore.setup(deck, tooltip)
 	event_manager.register_listener(EventManager.EventType.OnPickCard, func(args: EventArgs):
 		var options = args.specific.pick_args.options
 		var pick_option_ui = PickOption.instantiate()
@@ -99,6 +100,7 @@ func end_year():
 	$Shop.fill_shop()
 	$FortuneTeller.create_fortunes()
 	create_fortune_display()
+	$Winter/Explore.create_explore()
 	update()
 	$Tutorial.on_winter()
 	$Tutorial.position.x = 1234
@@ -536,6 +538,7 @@ func load_data(save_json: Dictionary):
 	$FortuneTeller.attack_pattern = attack
 	create_fortune_display()
 	$Shop.player_money = save_json.state.rerolls
+	$Winter/Explore.create_explore()
 	update()
 
 func register_tooltips():
@@ -659,3 +662,6 @@ func _on_help_button_pressed() -> void:
 	anatomy.setup(Global.selected_card)
 	anatomy.z_index = 1
 	anatomy.on_close.connect(func(): remove_child(anatomy))
+
+func _on_explore_button_pressed():
+	$Winter/Explore.visible = true

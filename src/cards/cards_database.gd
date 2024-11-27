@@ -88,7 +88,7 @@ static func get_all_fortunes() -> Array[Fortune]:
 	return fortunes
 
 # pass null rarity for random card
-static func get_random_cards(rarity: String, count: int):
+static func get_random_cards(rarity, count: int):
 	var result = []
 	var cards = get_all_cards_rarity(rarity)
 	cards.shuffle()
@@ -99,7 +99,7 @@ static func get_random_cards(rarity: String, count: int):
 			result.append(n_card)
 	return result
 
-static func get_random_action_cards(rarity: String, count: int):
+static func get_random_action_cards(rarity, count: int):
 	var result = []
 	var cards = get_all_cards_rarity(rarity)
 	cards.shuffle()
