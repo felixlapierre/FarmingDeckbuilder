@@ -849,4 +849,5 @@ explosiveness = 1.0
 [node name="Glow" parent="." instance=ExtResource("9_uq747")]
 modulate = Color(1, 0.988235, 0.25098, 1)
 z_index = 2
+position = Vector2(-50, 0)
 amount = 10000

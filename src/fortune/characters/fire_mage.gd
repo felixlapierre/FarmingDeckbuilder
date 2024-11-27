@@ -15,6 +15,7 @@ func register_fortune(event_manager: EventManager):
 	event_callable = func(args: EventArgs):
 		if Global.selected_card.name != "Scythe":
 			Global.selected_card.effects.append(burn_effect)
+			args.specific.play_args.card.effects.append(burn_effect)
 	event_manager.register_listener(event_type, event_callable)
 
 func unregister_fortune(event_manager: EventManager):

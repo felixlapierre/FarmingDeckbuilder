@@ -19,7 +19,7 @@ class SpecificArgs:
 	var destroy_args: DestroyArgs
 	var play_args: PlayArgs
 	var pick_args: PickArgs
-	func _init(p_tile: Tile):
+	func _init(p_tile: Tile = null):
 		tile = p_tile
 
 class HarvestArgs:

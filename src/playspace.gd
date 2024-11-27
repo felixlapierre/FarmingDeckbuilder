@@ -350,3 +350,10 @@ func _on_user_interface_on_skip() -> void:
 func _on_farm_tiles_after_card_played():
 	if victory == true:
 		end_year(false)
+
+
+func _on_cards_on_card_burned(card: CardData):
+	var play_args = EventArgs.PlayArgs.new(card)
+	var specific_args = EventArgs.SpecificArgs.new(null)
+	specific_args.play_args = play_args
+	event_manager.notify_specific_args(EventManager.EventType.OnCardBurned, specific_args)

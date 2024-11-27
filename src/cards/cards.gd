@@ -21,6 +21,7 @@ var discard_pile_cards: Array[CardData] = []
 @onready var HAND_CARDS = $Hand
 
 signal on_card_clicked
+signal on_card_burned
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -133,6 +134,7 @@ func play_card():
 	if playedcard.card_info.get_effect("burn") != null\
 		or playedcard.card_info.get_effect("fleeting") != null:
 		remove_hand_card(playedcard)
+		on_card_burned.emit(playedcard.card_info)
 	else:
 		discard_card(playedcard)
 	
@@ -173,6 +175,7 @@ func discard_hand():
 	for card in $Hand.get_children():
 		if card.card_info.get_effect("fleeting") != null:
 			remove_hand_card(card)
+			on_card_burned.emit(card.card_info)
 		elif card.card_info.get_effect("frozen") == null:
 			discard_card(card)
 	reorganize_hand()
@@ -182,6 +185,7 @@ func obliviate_rightmost():
 	if hand_count > 0:
 		var card = $Hand.get_child(hand_count - 1)
 		remove_hand_card(card)
+		on_card_burned.emit(card.card_info)
 
 func discard_card(card):
 	$Hand.remove_child(card)
@@ -251,6 +255,7 @@ func remove_fleeting():
 	for card in $Hand.get_children():
 		if card.card_info.get_effect("fleeting") != null:
 			remove_hand_card(card)
+			on_card_burned.emit(card.card_info)
 	reorganize_hand()
 
 func burn_hand():

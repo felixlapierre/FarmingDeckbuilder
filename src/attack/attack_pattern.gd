@@ -48,7 +48,7 @@ func compute_blight_pattern(year: int):
 		if Mastery.BlightAttack > 0:
 			charge += 0.4 * year * Mastery.BlightAttack
 		chance += 0.3
-		if i < 3: #(year < 4 and i < 3) or (year < 10 and i < 2):
+		if (year < 4 and i < 3) or (year < 10 and i < 2):
 			blight_pattern.append(0)
 		elif i == Global.FINAL_WEEK - 1:
 			blight_pattern.append(int(charge))
