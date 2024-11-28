@@ -534,6 +534,7 @@ visible = false
 
 [node name="Shop" parent="." instance=ExtResource("17_q7vph")]
 visible = false
+player_money = null
 
 [node name="UpgradeShop" parent="." instance=ExtResource("18_wm5tb")]
 visible = false

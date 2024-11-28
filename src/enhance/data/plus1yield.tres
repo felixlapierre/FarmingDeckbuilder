@@ -7,6 +7,6 @@
 script = ExtResource("1_hsqm4")
 name = "FlatYield"
 rarity = "common"
-strength = 1.0
+strength = 2.0
 targets = Array[String](["SEED"])
 texture = ExtResource("2_nhwer")

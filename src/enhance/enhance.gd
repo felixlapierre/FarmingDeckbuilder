@@ -72,7 +72,7 @@ func get_description():
 		"FlatYield":
 			return "Increase a seed's " + Helper.mana_icon() + " by " + str(strength)
 		"SpreadGrow":
-			return "Give a seed 50% chance to spread on grow"
+			return "Give a seed 50% chance to spread on grow" if strength == 0.5 else "Make a seed spread on grow"
 		"SpreadHarvest":
 			return "Give a seed 100% chance to spread on harvest"
 		"Frozen":
@@ -84,9 +84,9 @@ func get_description():
 		"RemoveBurn":
 			return "Remove Burn from a card"
 		"Strength":
-			return "Increase the strength of a card's special effects"
+			return "Increase the strength of a card's special effects" + (" twice" if strength == 2 else "")
 		"Regrow":
-			return "Add Regrow 3 and 1 week [img]res://assets/custom/Time.png[/img] of grow time to a card "
+			return "Add Regrow 3 to a card" + (" and 1 week [img]res://assets/custom/Time.png[/img] of grow time to a card " if strength == 1 else "")
 		"Echo":
 			return "Add Echo to a card (When played, add a non-zero-cost Fleeting copy of the card to your hand)"
 		_:

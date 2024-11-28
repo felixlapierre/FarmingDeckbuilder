@@ -65,7 +65,7 @@ func create_explore(p_explores):
 	# Enhance
 	create_point("Enhance Card", positions.pop_front(), func(pt):
 		use_explore(pt)
-		select_enhance())
+		select_enhance("common"))
 
 func use_explore(node):
 	node.disable()
@@ -121,12 +121,12 @@ func select_card_to_remove(pt):
 	add_sibling(select_card)
 	select_card.do_card_pick(player_deck, "Select a card to remove")
 
-func select_enhance():
+func select_enhance(rarity: String):
 	var enhances
 	if Global.FARM_TYPE == "WILDERNESS":
-		enhances = cards_database.get_random_enhance_noseed(3)
+		enhances = cards_database.get_random_enhance_noseed(rarity, 3)
 	else:
-		enhances = cards_database.get_random_enhance("", 3, false)
+		enhances = cards_database.get_random_enhance(rarity, 3, false)
 	var pick_option_ui = PickOption.instantiate()
 	add_sibling(pick_option_ui)
 	var prompt = "Pick an enhance to apply"
@@ -154,7 +154,7 @@ func select_card_to_enhance(enhance: Enhance):
 	select_card.do_enhance_pick(player_deck, enhance, "Select a card to enhance")
 	
 func add_structure():
-	var structures = cards_database.get_random_structures(3)
+	var structures = cards_database.get_random_structures(3, "common")
 	var pick_option_ui = PickOption.instantiate()
 	add_sibling(pick_option_ui)
 	var prompt = "Pick a structure to add to your farm"

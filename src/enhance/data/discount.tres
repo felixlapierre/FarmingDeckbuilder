@@ -6,7 +6,7 @@
 [resource]
 script = ExtResource("1_60crm")
 name = "Discount"
-rarity = "uncommon"
+rarity = "common"
 strength = 1.0
 targets = Array[String](["SEED", "ACTION"])
 texture = ExtResource("2_4gkxa")

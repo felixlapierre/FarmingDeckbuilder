@@ -56,14 +56,15 @@ static func get_all_enhance() -> Array[Enhance]:
 		enhances.append(enhance)
 	return enhances
 
-static func get_all_structure() -> Array[Structure]:
+static func get_all_structure(rarity: String) -> Array[Structure]:
 	var structures: Array[Structure] = []
 	var paths = get_all_file_paths("res://src/structure/data");
 	for path in paths:
 		var structure: Structure = load(path)
 		if structure == null:
 			print(path)
-		structures.append(structure)
+		if structure.rarity == rarity:
+			structures.append(structure)
 	return structures
 
 static func get_all_event() -> Array[GameEvent]:
@@ -71,6 +72,16 @@ static func get_all_event() -> Array[GameEvent]:
 	var paths = get_all_file_paths("res://src/event/data");
 	for path in paths:
 		var event: GameEvent = load(path)
+		if event == null:
+			print(path)
+		events.append(event)
+	return events
+
+static func get_custom_events() -> Array[CustomEvent]:
+	var events: Array[CustomEvent] = []
+	var paths = get_all_file_paths("res://src/event/script");
+	for path in paths:
+		var event: CustomEvent = load(path).new()
 		if event == null:
 			print(path)
 		events.append(event)
@@ -118,18 +129,18 @@ static func get_random_enhance(rarity: String, count: int, no_discount: bool):
 	for enh in enhances:
 		if result.size() >= count:
 			return result
-		if !no_discount or enh.name != "Discount":
+		if enh.rarity == rarity:
 			result.append(enh)
 	return result
 
-static func get_random_enhance_noseed(count):
-	return get_random_enhance("", count, false).filter(func(el):
+static func get_random_enhance_noseed(rarity, count):
+	return get_random_enhance(rarity, count, false).filter(func(el):
 				return ["Discount", "Echo", "Burn", "Frozen", "Size", "Springbound", "Strength"]\
 					.has(el.name))
 
-static func get_random_structures(count: int):
+static func get_random_structures(count: int, rarity: String):
 	var result = []
-	var structures = get_all_structure()
+	var structures = get_all_structure(rarity)
 	structures.shuffle()
 	for str in structures:
 		if result.size() >= count:

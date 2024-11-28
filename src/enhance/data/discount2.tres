@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="Enhance" load_steps=3 format=3 uid="uid://71n8jyaah3ft"]
 
 [ext_resource type="Script" path="res://src/enhance/enhance.gd" id="1_x1h83"]
-[ext_resource type="Texture2D" uid="uid://bf3yeyssc5h67" path="res://assets/enhance/Discount.png" id="2_hwr2u"]
+[ext_resource type="Texture2D" uid="uid://dp1l7ykedgxlt" path="res://assets/enhance/Discount2.png" id="2_xb62f"]
 
 [resource]
 script = ExtResource("1_x1h83")
@@ -9,4 +9,4 @@ name = "Discount"
 rarity = "rare"
 strength = 2.0
 targets = Array[String]([])
-texture = ExtResource("2_hwr2u")
+texture = ExtResource("2_xb62f")

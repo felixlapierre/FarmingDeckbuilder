@@ -97,7 +97,7 @@ func fill_row_one():
 	STOCK_ONE.add_child(create_scrap_option(1, 1))
 
 func fill_row_two():
-	var structures = card_database.get_all_structure()
+	var structures = card_database.get_all_structure("common")
 	var selected = []
 	for structure in structures:
 		selected.append(structure)

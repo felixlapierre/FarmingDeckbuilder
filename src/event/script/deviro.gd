@@ -36,4 +36,4 @@ func pick_element_cards_function(element: String):
 		user_interface.pick_cards_event(cards.slice(0, 3))
 
 func check_prerequisites():
-	return turn_manager.blight_damage == 0
+	return true# turn_manager.week > 6

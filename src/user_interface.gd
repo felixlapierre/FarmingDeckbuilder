@@ -263,7 +263,7 @@ func _on_game_event_dialog_on_upgrades_selected(upgrades: Array[Upgrade]) -> voi
 					func():
 						$Winter.remove_child(pick_option_ui))
 		elif upgrade.type == Upgrade.UpgradeType.AddStructure:
-			var structures = cards_database.get_random_structures(3)
+			var structures = cards_database.get_random_structures(3, "common")
 			var pick_option_ui = PickOption.instantiate()
 			GameEventDialog.add_sibling(pick_option_ui)
 			var prompt = "Pick a structure to add to your farm"
@@ -527,12 +527,14 @@ func load_data(save_json: Dictionary):
 		$UpgradeShop.lock = save_json.winter.upgrade_lock
 		$Winter/EventPanel/VB/EventButton.disabled = save_json.winter.event_disabled
 		GameEventDialog.current_event = load(save_json.events.current) if save_json.events.current != null else null
+		if GameEventDialog.current_event == null:
+			GameEventDialog.generate_random_event()
 		GameEventDialog.update_interface()
 		$Shop.load_data(save_json.winter.shop)
 		$Tutorial.on_winter()
 		$Tutorial.position.x = 1234
-	for event_path: String in save_json.events.completed:
-		GameEventDialog.completed_events.append(load(event_path))
+	for event_name: String in save_json.events.completed:
+		GameEventDialog.completed_events.append(event_name)
 	mage_fortune = load(save_json.state.mage.path).new()
 	mage_fortune.load_data(save_json.state.mage)
 	var attack: AttackPattern = load(save_json.attack.path).new()
@@ -578,7 +580,7 @@ func get_fortunes() -> Array[Fortune]:
 func get_completed_events() -> Array[String]:
 	var events: Array[String] = []
 	for event in GameEventDialog.completed_events:
-		events.append(event.save_data())
+		events.append(event)
 	return events
 	
 func display_cards(cards: Array[CardData], prompt: String):
@@ -712,3 +714,6 @@ func _on_any_card_button_pressed():
 
 func pick_cards_event(cards):
 	$Winter/Explore.pick_card_from(cards)
+
+func pick_enhance_event(rarity: String):
+	$Winter/Explore.select_enhance(rarity)

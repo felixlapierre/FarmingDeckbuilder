@@ -15,6 +15,7 @@
 [node name="Shop" type="Node2D"]
 z_index = 2
 script = ExtResource("1_xytou")
+player_money = null
 
 [node name="ClickOutButton" type="Button" parent="."]
 modulate = Color(1, 1, 1, 0)

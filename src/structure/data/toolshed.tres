@@ -6,7 +6,7 @@
 [resource]
 script = ExtResource("1_vmnur")
 name = "Toolshed"
-rarity = "uncommon"
+rarity = "common"
 cost = 1
 size = 0
 text = "Add a Rusty Scythe to your hand at the start of each turn"
