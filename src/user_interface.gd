@@ -47,6 +47,7 @@ var CARD_ANATOMY = preload("res://src/ui/menus/card_anatomy.tscn")
 @onready var FortuneTeller = $FortuneTeller
 @onready var EndScreen = $EndScreen
 @onready var AttackPreview = $UI/AttackPreview
+@onready var CancelStructure = $CancelStructure
 
 var end_year_alert_text = "Ritual Complete! Time to rest and prepare for the next year"
 var structure_place_text = "Click on the farm tile where you'd like to place the structure"
@@ -708,3 +709,6 @@ func _on_any_card_button_pressed():
 		remove_child(select_card))
 	add_child(select_card)
 	select_card.do_card_pick(all_cards, "Select a card to add to your deck")
+
+func pick_cards_event(cards):
+	$Winter/Explore.pick_card_from(cards)

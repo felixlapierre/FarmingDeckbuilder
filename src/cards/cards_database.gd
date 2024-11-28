@@ -144,3 +144,70 @@ static func get_element_cards(text: String):
 			load("res://src/cards/data/unique/bloodrite.tres"),
 			load("res://src/cards/data/unique/dark_visions.tres")
 		]
+	elif text.contains("Water"):
+		return [
+			load("res://src/cards/data/action/channeling.tres"),
+			load("res://src/cards/data/action/flow.tres"),
+			load("res://src/cards/data/action/raincloud.tres"),
+			load("res://src/cards/data/action/water_rite.tres"),
+			load("res://src/cards/data/action/water_ward.tres"),
+			load("res://src/cards/data/seed/watermelon.tres")
+		]
+	elif text.contains("Earth"):
+		return [
+			load("res://src/cards/data/action/catalyze.tres"),
+			load("res://src/cards/data/action/earth_ward.tres"),
+			load("res://src/cards/data/seed/dark_rose.tres"),
+			load("res://src/cards/data/action/earthrite.tres")
+		]
+	elif text.contains("Nature"):
+		return [
+			load("res://src/cards/data/action/abundance.tres"),
+			load("res://src/cards/data/action/leaf_ward.tres"),
+			load("res://src/cards/data/action/propagation.tres"),
+			load("res://src/cards/data/action/infuse.tres"),
+			load("res://src/cards/data/action/invigorate.tres"),
+			load("res://src/cards/data/action/ingrain.tres")
+		]
+	elif text.contains("Knowledge"):
+		return [
+			load("res://src/cards/data/action/inscribe.tres"),
+			load("res://src/cards/data/action/synthesize.tres"),
+			load("res://src/cards/data/action/inspiration.tres"),
+			load("res://src/cards/data/seed/papyrus.tres"),
+			load("res://src/cards/data/action/focus.tres"),
+			load("res://src/cards/data/action/gather.tres")
+		]
+	elif text.contains("Wind"):
+		return [
+			load("res://src/cards/data/action/rite_of_air.tres"),
+			load("res://src/cards/data/action/cycle.tres"),
+			load("res://src/cards/data/action/echo_scythe.tres"),
+			load("res://src/cards/data/action/little_friend.tres"),
+			load("res://src/cards/data/action/warding.tres"),
+			load("res://src/cards/data/action/dear_future.tres"),
+			load("res://src/cards/data/action/frostcut.tres"),
+			load("res://src/cards/data/action/gather.tres")
+		]
+	elif text.contains("Time"):
+		return [
+			load("res://src/cards/data/action/time_hop.tres"),
+			load("res://src/cards/data/action/chronoweave.tres"),
+			load("res://src/cards/data/action/time_bubble.tres"),
+			load("res://src/cards/data/action/flow.tres"),
+			load("res://src/cards/data/action/focus.tres")
+		]
+	elif text.contains("Fire"):
+		return [
+			load("res://src/cards/data/action/flamerite.tres"),
+			load("res://src/cards/data/action/flame_ward.tres"),
+			load("res://src/cards/data/seed/cranberry.tres"),
+			load("res://src/cards/data/seed/corn.tres")
+		]
+	elif text.contains("Lightning"):
+		return [
+			load("res://src/cards/data/seed/coffee.tres"),
+			load("res://src/cards/data/action/catalyze.tres"),
+			load("res://src/cards/data/action/infuse.tres"),
+			load("res://src/cards/data/seed/monstera.tres")
+		]

@@ -10,6 +10,8 @@ var card_database: DataFetcher
 var deck: Array[CardData] = []
 var turn_manager: TurnManager = null
 
+var custom_event: CustomEvent
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	$PanelContainer.position = Constants.VIEWPORT_SIZE / 2 - $PanelContainer.size / 2
@@ -20,6 +22,11 @@ func setup(p_deck: Array[CardData], p_turn_manager: TurnManager):
 	turn_manager = p_turn_manager
 
 func generate_random_event():
+	custom_event = load("res://src/event/script/deviro.gd").new()
+	custom_event.setup(turn_manager, $"../../", card_database)
+	update_interface()
+	return
+
 	if always_do_event != null and !completed_events.has(always_do_event):
 		current_event = always_do_event
 	else:
@@ -35,7 +42,20 @@ func generate_random_event():
 	completed_events.append(current_event)
 	update_interface()
 
-func update_interface():
+func update_interface():	
+	if custom_event != null:
+		$PanelContainer/Margin/VBox/HBox/Title.text = custom_event.name
+		$PanelContainer/Margin/VBox/Description.text = custom_event.text
+		
+		var options = custom_event.get_options()
+		$PanelContainer/Margin/VBox/Option1Button.text = options[0].name
+		if options.size() >= 2:
+			$PanelContainer/Margin/VBox/Option2Button.text = options[1].name
+		$PanelContainer/Margin/VBox/Option2Button.visible = options.size() >= 2
+		if options.size() >= 3:
+			$PanelContainer/Margin/VBox/Option3Button.text = options[2].name
+		$PanelContainer/Margin/VBox/Option3Button.visible = options.size() >= 3
+		return
 	if current_event == null:
 		return
 	$PanelContainer/Margin/VBox/HBox/Title.text = current_event.name
@@ -73,13 +93,25 @@ func _process(delta: float) -> void:
 
 
 func _on_option_1_button_pressed() -> void:
-	on_upgrades_selected.emit(current_event.option1)
+	if custom_event != null:
+		custom_event.get_options()[0].on_select.call()
+		visible = false
+	else:
+		on_upgrades_selected.emit(current_event.option1)
 
 func _on_option_2_button_pressed() -> void:
-	on_upgrades_selected.emit(current_event.option2)
+	if custom_event != null and custom_event.get_options().size() > 1:
+		custom_event.get_options()[1].on_select.call()
+		visible = false
+	else:
+		on_upgrades_selected.emit(current_event.option2)
 
 func _on_option_3_button_pressed() -> void:
-	on_upgrades_selected.emit(current_event.option3)
+	if custom_event != null and custom_event.get_options().size() > 1:
+		custom_event.get_options()[2].on_select.call()
+		visible = false
+	else:
+		on_upgrades_selected.emit(current_event.option3)
 
 
 func _on_click_out_button_pressed():

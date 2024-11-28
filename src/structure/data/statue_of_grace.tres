@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="StatueOfGrace" load_steps=3 format=3 uid="uid://dmvnkmwdn0a5q"]
+
+[ext_resource type="Script" path="res://src/structure/custom/statue.gd" id="1_hcrpe"]
+[ext_resource type="Texture2D" uid="uid://c46q76532nqk" path="res://assets/custom/Temp.png" id="2_g4dhn"]
+
+[resource]
+script = ExtResource("1_hcrpe")
+name = "Statue of Grace"
+rarity = "unique"
+cost = 0
+size = 0
+text = "+1 energy each turn if no damage has been taken"
+texture = ExtResource("2_g4dhn")
+effects = Array[Resource("res://src/effect/effect.gd")]([])
+tooltip = ""

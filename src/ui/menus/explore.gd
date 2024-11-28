@@ -85,12 +85,15 @@ func create_point(name: String, pos: Vector2, callback: Callable):
 	$Points.add_child(point)
 
 func add_card():
-	var pick_option_ui = PickOption.instantiate()
 	var cards;
 	if Global.FARM_TYPE == "WILDERNESS":
 		cards = cards_database.get_random_action_cards(null, 5 - Mastery.BlockShop)
 	else:
 		cards = cards_database.get_random_cards(null, 5 - Mastery.BlockShop)
+	pick_card_from(cards)
+
+func pick_card_from(cards):
+	var pick_option_ui = PickOption.instantiate()
 	add_sibling(pick_option_ui)
 	var prompt = "Pick a card to add to your deck"
 

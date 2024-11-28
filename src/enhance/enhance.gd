@@ -66,11 +66,11 @@ func get_description():
 		"Size":
 			return "Increase the size of the area affected by a card"
 		"Discount":
-			return "Reduce a card's Cost by 1"
+			return "Reduce a card's Cost by " + str(strength)
 		"GrowSpeed":
-			return "Make a seed grow 1 week faster"
+			return "Make a seed grow " + str(strength) + " week(s) faster"
 		"FlatYield":
-			return "Increase a seed's " + Helper.mana_icon() + " by 1"
+			return "Increase a seed's " + Helper.mana_icon() + " by " + str(strength)
 		"SpreadGrow":
 			return "Give a seed 50% chance to spread on grow"
 		"SpreadHarvest":
