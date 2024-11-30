@@ -8,10 +8,9 @@ var corpse_flower = load("res://src/fortune/unique/corpse_flower.tres")
 var flower_texture = preload("res://assets/fortune/CorpseFlowerFortune.png")
 
 var targeted_tiles = []
-var strength = 1
 
 func _init() -> void:
-	super("Gluttony", FortuneType.BadFortune, "Plant a Corpse Flower on your farm", 3, flower_texture)
+	super("Gluttony", FortuneType.BadFortune, "Plant a Corpse Flower on your farm", 3, flower_texture, 1.0)
 	if Mastery.Misfortune > 0:
 		strength += Mastery.Misfortune
 

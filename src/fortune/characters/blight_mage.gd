@@ -7,13 +7,23 @@ var event_type = EventManager.EventType.BeforeCardPlayed
 var event_callable: Callable
 
 func _init() -> void:
-	super(MAGE_NAME, Fortune.FortuneType.GoodFortune, "Start with 2 blight damage and 1 copy of 'Corruption' in your deck.", 4, icon)
+	super(MAGE_NAME, Fortune.FortuneType.GoodFortune, "Start with 2 blight damage and 1 copy of 'Corruption' in your deck.", 4, icon, 1.0)
 	modify_deck_callback = func(deck):
 		deck.append(load("res://src/cards/data/unique/corruption.tres"))
 
 func register_fortune(event_manager: EventManager):
 	super.register_fortune(event_manager)
-	event_manager.turn_manager.blight_damage = 2
+	text = "Start with 2 blight damage and 1 copy of 'Corruption' in your deck."
+	if strength >= 2.0:
+		text = "Start with 2 blight damage and 1 copy of 'Corruption' in your deck. Gain +1 [img]res://assets/custom/BlightEmpty.png[/img]"
+		Global.MAX_BLIGHT += 1
+	if event_manager.turn_manager.blight_damage == 0:
+		event_manager.turn_manager.blight_damage = 2
 
 func unregister_fortune(event_manager: EventManager):
 	pass
+	
+func upgrade_power():
+	strength += 1.0
+	text = "Start with 2 blight damage and 1 copy of 'Corruption' in your deck. Gain +1 [img]res://assets/custom/BlightEmpty.png[/img]"
+	Global.MAX_BLIGHT += 1

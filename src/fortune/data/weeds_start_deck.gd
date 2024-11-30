@@ -6,10 +6,8 @@ var event_type = EventManager.EventType.BeforeTurnStart
 var weeds = preload("res://src/fortune/unique/weed.tres")
 var weeds_texture = preload("res://assets/fortune/weed_card_fortune.png")
 
-var strength = 2
-
 func _init() -> void:
-	super("Cursed Scrolls", FortuneType.BadFortune, "Add Weeds to your deck for this year", 0, weeds_texture)
+	super("Cursed Scrolls", FortuneType.BadFortune, "Add Weeds to your deck for this year", 0, weeds_texture, 2.0)
 
 func register_fortune(event_manager: EventManager):
 	callback = add_daylily

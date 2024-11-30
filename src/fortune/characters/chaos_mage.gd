@@ -2,6 +2,7 @@ extends MageAbility
 class_name ChaosMageFortune
 
 var icon = preload("res://assets/card/wild-magic.png")
+var cards_database = preload("res://src/cards/cards_database.gd")
 static var MAGE_NAME = "Spawn of Chaos"
 
 var event_type = EventManager.EventType.BeforeCardPlayed
@@ -32,3 +33,20 @@ func _init() -> void:
 			new_deck.append(replacement_card)
 		deck.clear()
 		deck.append_array(new_deck)
+
+func register_fortune(event_manager: EventManager):
+	event_callable = func(args: EventArgs):
+		if strength >= 2.0:
+			var card: CardData = cards_database.get_random_cards(null, 1)
+			var copy = card.copy()
+			copy.effects.append(load("res://src/effect/data/fleeting.tres"))
+			args.cards.draw_specific_card(copy)
+			
+	event_manager.register_listener(event_type, event_callable)
+
+func unregister_fortune(event_manager: EventManager):
+	event_manager.unregister_listener(event_type, event_callable)
+
+func upgrade_power():
+	strength += 1.0
+	text = "Randomize starting deck. At the start of each turn, add a random Fleeting card to your hand."

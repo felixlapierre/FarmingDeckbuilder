@@ -2,7 +2,7 @@ extends Node2D
 
 var current_event: GameEvent
 var completed_events: Array[String] = []
-var always_do_event = null#preload("res://src/event/data/squirrel_seed_p2.tres")
+var always_do_event = load("res://src/event/script/mage_upgrade.gd").new()
 
 signal on_upgrades_selected
 
@@ -22,20 +22,21 @@ func setup(p_deck: Array[CardData], p_turn_manager: TurnManager):
 	turn_manager = p_turn_manager
 
 func generate_random_event():
-	if always_do_event != null and always_do_event is CustomEvent and !completed_events.has(always_do_event.name):
+	if always_do_event != null and !completed_events.has(always_do_event.name):
 		custom_event = always_do_event
-
-	# Prioritize custom events
-	var custom_events = card_database.get_custom_events()
-	var options = []
-	for event in custom_events:
-		event.setup(turn_manager, $"../../", card_database)
-		if event.check_prerequisites() and !completed_events.has(event.name):
-			options.append(event)
-	
-	if options.size() > 0:
-		options.shuffle()
-		custom_event = options[0]
+		custom_event.setup(turn_manager, $"../../", card_database)
+	else:
+		# Prioritize custom events
+		var custom_events = card_database.get_custom_events()
+		var options = []
+		for event in custom_events:
+			event.setup(turn_manager, $"../../", card_database)
+			if event.check_prerequisites() and !completed_events.has(event.name):
+				options.append(event)
+		
+		if options.size() > 0:
+			options.shuffle()
+			custom_event = options[0]
 
 	if custom_event != null:
 		completed_events.append(custom_event.name)

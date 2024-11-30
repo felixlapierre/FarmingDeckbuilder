@@ -54,7 +54,7 @@ var structure_place_text = "Click on the farm tile where you'd like to place the
 var no_energy_text = "[color=red]Not Enough Energy![/color]"
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	for i in Constants.MAX_BLIGHT:
+	for i in Global.MAX_BLIGHT:
 		var sprite = TextureRect.new()
 		sprite.texture = load("res://assets/custom/BlightEmpty.png")
 		sprite.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
@@ -380,6 +380,14 @@ func _on_end_turn_button_pressed() -> void:
 
 func update_damage():
 	$UI/DamagePanel.visible = turn_manager.blight_damage != 0
+	if $UI/DamagePanel/BlightDamage.get_child_count() != Global.MAX_BLIGHT:
+		for child in $UI/DamagePanel/BlightDamage.get_children():
+			$UI/DamagePanel/BlightDamage.remove_child(child)
+		for i in Global.MAX_BLIGHT:
+			var sprite = TextureRect.new()
+			sprite.texture = load("res://assets/custom/BlightEmpty.png")
+			sprite.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+			$UI/DamagePanel/BlightDamage.add_child(sprite)
 	for i in $UI/DamagePanel/BlightDamage.get_child_count():
 		var img = $UI/DamagePanel/BlightDamage.get_child(i)
 		if turn_manager.blight_damage > i:
@@ -521,6 +529,8 @@ func save_data(save_json):
 	save_json.attack = $FortuneTeller.attack_pattern.save_data()
 
 func load_data(save_json: Dictionary):
+	mage_fortune = load(save_json.state.mage.path).new()
+	mage_fortune.load_data(save_json.state.mage)
 	if save_json.state.winter == true:
 		$UI.visible = false
 		$Winter.visible = true
@@ -535,8 +545,6 @@ func load_data(save_json: Dictionary):
 		$Tutorial.position.x = 1234
 	for event_name: String in save_json.events.completed:
 		GameEventDialog.completed_events.append(event_name)
-	mage_fortune = load(save_json.state.mage.path).new()
-	mage_fortune.load_data(save_json.state.mage)
 	var attack: AttackPattern = load(save_json.attack.path).new()
 	attack.load_data(save_json.attack)
 	$UI/AttackPreview.mage_fortune = mage_fortune

@@ -19,6 +19,7 @@ static var BLIGHT_FLAG_THREATEN_GROWING = false
 static var BLIGHT_TARGET_MULTIPLIER: float = 1.0
 static var DESTROY_TILES_THIS_TURN: int = 1
 static var IRRIGATE_PROTECTED = false
+static var MAX_BLIGHT: int = 5
 
 static var MANA_TARGET_LOCATION_YELLOW: Vector2 = Vector2(628, 442)
 static var MANA_TARGET_LOCATION_PURPLE: Vector2 = Vector2(1461, 456)
@@ -77,6 +78,7 @@ static func reset():
 	click_callbacks = []
 	Constants.BASE_HAND_SIZE = 5
 	WILDERNESS_PLANT = null
+	MAX_BLIGHT = 5
 
 static func register_click_callback(obj):
 	click_callbacks.append(obj)

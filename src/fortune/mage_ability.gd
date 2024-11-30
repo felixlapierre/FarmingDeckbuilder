@@ -14,3 +14,6 @@ func _process(delta):
 
 func register_fortune(event_manager: EventManager):
 	Global.MAGE = name
+
+func upgrade_power():
+	pass
