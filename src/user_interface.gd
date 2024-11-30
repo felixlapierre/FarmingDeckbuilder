@@ -725,3 +725,16 @@ func pick_cards_event(cards):
 
 func pick_enhance_event(rarity: String):
 	$Winter/Explore.select_enhance(rarity)
+
+func pick_card_from_deck_event(prompt: String, callback: Callable):
+	var select_card = SELECT_CARD.instantiate()
+	select_card.tooltip = tooltip
+	select_card.size = Constants.VIEWPORT_SIZE
+	select_card.z_index = 2
+	select_card.theme = load("res://assets/theme_large.tres")
+	select_card.disable_cancel()
+	select_card.select_callback = func(card_data):
+		remove_child(select_card)
+		callback.call(card_data)
+	add_child(select_card)
+	select_card.do_card_pick(deck, prompt)
