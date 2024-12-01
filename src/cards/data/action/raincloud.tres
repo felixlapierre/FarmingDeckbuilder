@@ -30,3 +30,5 @@ targets = Array[String](["Empty", "Mature", "Growing"])
 effects = Array[ExtResource("1_ker15")]([SubResource("Resource_opdn5")])
 enhances = Array[String]([])
 strength = 0.0
+delay = 0.0
+anim_on = 0

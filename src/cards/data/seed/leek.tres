@@ -30,3 +30,5 @@ targets = Array[String]([])
 effects = Array[ExtResource("1_cp6s4")]([SubResource("Resource_8hdpx")])
 enhances = Array[String]([])
 strength = 0.0
+delay = 0.0
+anim_on = 0

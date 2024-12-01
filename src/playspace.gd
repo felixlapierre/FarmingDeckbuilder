@@ -91,11 +91,11 @@ func end_year(endless: bool):
 	
 	await get_tree().create_timer(Constants.MANA_MOVE_TIME).timeout
 	$Background.ritual_complete()
-	await get_tree().create_timer(2 if Settings.DEBUG else 2).timeout
+	await get_tree().create_timer(0.5 if Settings.DEBUG else 2).timeout
 	$Background.set_background_winter($TurnManager.week)
 	$Background.do_winter($TurnManager.week)
 
-	await get_tree().create_timer(2 if Settings.DEBUG else 2).timeout
+	await get_tree().create_timer(0.5 if Settings.DEBUG else 2).timeout
 
 	$Cards.set_cards_visible(false)
 	$FarmTiles.do_winter_clear()

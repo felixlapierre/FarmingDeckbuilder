@@ -7,7 +7,7 @@
 script = ExtResource("1_6vuq8")
 type = "SEED"
 name = "Iris"
-rarity = "rare"
+rarity = "common"
 cost = 0
 yld = 5
 time = 1
@@ -22,3 +22,5 @@ targets = Array[String]([])
 effects = Array[Resource("res://src/effect/effect.gd")]([])
 enhances = Array[String]([])
 strength = 1.0
+delay = 0.0
+anim_on = 0

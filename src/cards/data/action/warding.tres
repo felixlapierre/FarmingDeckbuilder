@@ -7,13 +7,13 @@
 [resource]
 script = ExtResource("1_nhi7g")
 type = "ACTION"
-name = "Warding"
-rarity = "uncommon"
+name = "Mirror Slash"
+rarity = "common"
 cost = 1
 yld = 0
 time = 0
 size = 9
-text = "Convert harvested {MANA} to {BLUE_MANA}"
+text = "Invert the color of harvested mana"
 strength_increment = 1.0
 size_increment = 1
 texture = ExtResource("3_2ti6x")
@@ -23,3 +23,5 @@ targets = Array[String](["Mature"])
 effects = Array[Resource("res://src/effect/effect.gd")]([ExtResource("1_fhx2n")])
 enhances = Array[String]([])
 strength = 0.0
+delay = 0.0
+anim_on = 0

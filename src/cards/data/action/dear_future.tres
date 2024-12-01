@@ -9,7 +9,7 @@
 script = ExtResource("1_2yp6d")
 type = "ACTION"
 name = "Temporal Rift"
-rarity = "uncommon"
+rarity = "common"
 cost = 1
 yld = null
 time = null

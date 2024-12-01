@@ -6,7 +6,7 @@
 script = ExtResource("1_72x0k")
 type = "SEED"
 name = "Tiger Lily"
-rarity = "rare"
+rarity = "common"
 cost = 1
 yld = 4
 time = 2
@@ -20,3 +20,5 @@ targets = Array[String]([])
 effects = Array[Resource("res://src/effect/effect.gd")]([])
 enhances = Array[String]([])
 strength = 1.0
+delay = 0.0
+anim_on = 0

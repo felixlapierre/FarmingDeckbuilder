@@ -7,7 +7,7 @@
 script = ExtResource("1_7wyoj")
 type = "ACTION"
 name = "Transmute"
-rarity = "rare"
+rarity = "common"
 cost = 1
 yld = 0
 time = 0
@@ -22,3 +22,5 @@ targets = Array[String](["Growing", "Mature"])
 effects = Array[Resource("res://src/effect/effect.gd")]([])
 enhances = Array[String]([])
 strength = 0.0
+delay = 0.0
+anim_on = 0

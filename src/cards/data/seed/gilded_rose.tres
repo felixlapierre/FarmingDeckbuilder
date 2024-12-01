@@ -7,7 +7,7 @@
 script = ExtResource("1_y2kdt")
 type = "SEED"
 name = "Gilded Rose"
-rarity = "rare"
+rarity = "common"
 cost = 1
 yld = 3
 time = 2
@@ -22,3 +22,5 @@ targets = Array[String]([])
 effects = Array[Resource("res://src/effect/effect.gd")]([])
 enhances = Array[String]([])
 strength = 1.0
+delay = 0.0
+anim_on = 0

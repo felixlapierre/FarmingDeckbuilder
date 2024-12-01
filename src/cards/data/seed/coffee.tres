@@ -7,7 +7,7 @@
 script = ExtResource("1_2yvfo")
 type = "SEED"
 name = "Coffee"
-rarity = "uncommon"
+rarity = "common"
 cost = 1
 yld = 6
 time = 2
@@ -21,3 +21,5 @@ targets = Array[String]([])
 effects = Array[Resource("res://src/effect/effect.gd")]([ExtResource("1_l1ngp")])
 enhances = Array[String]([])
 strength = 0.0
+delay = 0.0
+anim_on = 0

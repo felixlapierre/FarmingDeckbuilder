@@ -39,14 +39,18 @@ func create_explore(p_explores, turn_manager: TurnManager):
 	explores = p_explores
 	var DIST = 250
 	var positions = [
-		Vector2(0, -DIST - 70),
 		Vector2(0, DIST + 70),
 	]
 	positions.shuffle()
 	# Add card
 	create_point("Gain Card", Vector2(-DIST - 70, 0), func(pt):
 		use_explore(pt)
-		add_card())
+		add_card("common"))
+	
+	if turn_manager.year == 4 or turn_manager.year == 7 or turn_manager.year == 10:
+		create_point("Rare Card", Vector2(0, -DIST - 70), func(pt):
+			use_explore(pt)
+			add_card("rare"))
 	
 	# Event
 	create_point("Event", Vector2(-DIST, -DIST), func(pt):
@@ -58,19 +62,19 @@ func create_explore(p_explores, turn_manager: TurnManager):
 		create_point("Remove Card", Vector2(DIST, -DIST), func(pt):
 			select_card_to_remove(pt))
 	
-	# Structure
-	if structures <= turn_manager.week / 3:
-		create_point("Structure", Vector2(DIST, DIST), func(pt):
-			use_explore(pt)
-			structures += 1
-			add_structure())
-	
 	# Enhance
-	if enhances <= turn_manager.week / 2:
+	if enhances <= turn_manager.week / 2 and $Points.get_child_count() < 5:
 		create_point("Enhance Card", Vector2(DIST + 70, 0), func(pt):
 			use_explore(pt)
 			enhances += 1
 			select_enhance("common"))
+	
+	# Structure
+	if structures <= turn_manager.week / 3 and $Points.get_child_count() < 5:
+		create_point("Structure", Vector2(DIST, DIST), func(pt):
+			use_explore(pt)
+			structures += 1
+			add_structure())
 		
 	# Expand
 	if expands <= turn_manager.week / 3 and $Points.get_child_count() < 5:
@@ -96,12 +100,12 @@ func create_point(name: String, pos: Vector2, callback: Callable):
 		callback.call(point))
 	$Points.add_child(point)
 
-func add_card():
+func add_card(rarity: String):
 	var cards;
 	if Global.FARM_TYPE == "WILDERNESS":
-		cards = cards_database.get_random_action_cards(null, 5 - Mastery.BlockShop)
+		cards = cards_database.get_random_action_cards(rarity, 5 - Mastery.BlockShop)
 	else:
-		cards = cards_database.get_random_cards(null, 5 - Mastery.BlockShop)
+		cards = cards_database.get_random_cards(rarity, 5 - Mastery.BlockShop)
 	pick_card_from(cards)
 
 func pick_card_from(cards):
