@@ -10,9 +10,15 @@ var SelectCard = preload("res://src/cards/select_card.tscn")
 
 signal apply_upgrade
 signal on_structure_select
+signal on_expand
 signal on_event
 
 var explores = 0
+
+var expands = 0
+var enhances = 0
+var structures = 0
+var removals = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -27,45 +33,51 @@ func setup(deck, p_tooltip):
 	player_deck = deck
 	tooltip = p_tooltip
 
-func create_explore(p_explores):
+func create_explore(p_explores, turn_manager: TurnManager):
 	for point in $Points.get_children():
 		$Points.remove_child(point)
 	explores = p_explores
 	var DIST = 250
 	var positions = [
-		Vector2(-DIST, -DIST),
-		Vector2(-DIST - 70, 0),
-		Vector2(-DIST, DIST),
 		Vector2(0, -DIST - 70),
 		Vector2(0, DIST + 70),
-		Vector2(DIST, -DIST),
-		Vector2(DIST + 70, 0),
-		Vector2(DIST, DIST)
 	]
 	positions.shuffle()
 	# Add card
-	create_point("Gain Card", positions.pop_front(), func(pt):
+	create_point("Gain Card", Vector2(-DIST - 70, 0), func(pt):
 		use_explore(pt)
 		add_card())
 	
 	# Event
-	create_point("Event", positions.pop_front(), func(pt):
+	create_point("Event", Vector2(-DIST, -DIST), func(pt):
 		use_explore(pt)
 		on_event.emit())
 	
 	# Remove card
-	create_point("Remove Card", positions.pop_front(), func(pt):
-		select_card_to_remove(pt))
+	if removals <= turn_manager.week / 3:
+		create_point("Remove Card", Vector2(DIST, -DIST), func(pt):
+			select_card_to_remove(pt))
 	
 	# Structure
-	create_point("Structure", positions.pop_front(), func(pt):
-		use_explore(pt)
-		add_structure())
+	if structures <= turn_manager.week / 3:
+		create_point("Structure", Vector2(DIST, DIST), func(pt):
+			use_explore(pt)
+			structures += 1
+			add_structure())
 	
 	# Enhance
-	create_point("Enhance Card", positions.pop_front(), func(pt):
-		use_explore(pt)
-		select_enhance("common"))
+	if enhances <= turn_manager.week / 2:
+		create_point("Enhance Card", Vector2(DIST + 70, 0), func(pt):
+			use_explore(pt)
+			enhances += 1
+			select_enhance("common"))
+		
+	# Expand
+	if expands <= turn_manager.week / 3 and $Points.get_child_count() < 5:
+		create_point("Expand Farm", Vector2(-DIST, DIST), func(pt):
+			use_explore(pt)
+			expands += 1
+			expand_farm())
 
 func use_explore(node):
 	node.disable()
@@ -115,6 +127,7 @@ func select_card_to_remove(pt):
 		player_deck.erase(card_data)
 		visible = true
 		use_explore(pt)
+		removals += 1
 	select_card.select_cancelled.connect(func():
 		remove_sibling(select_card)
 		visible = true)
@@ -172,3 +185,20 @@ func remove_sibling(node):
 
 func _on_close_pressed():
 	visible = false
+
+func expand_farm():
+	$"../../".on_expand_farm()
+
+func save_data():
+	return {
+		"expands": expands,
+		"structures": structures,
+		"removals": removals,
+		"enhances": enhances
+	}
+
+func load_data(data):
+	expands = data.expands
+	structures = data.structures
+	removals = data.removals
+	enhances = data.enhances

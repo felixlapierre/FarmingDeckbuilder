@@ -2,7 +2,7 @@ extends Node2D
 
 var current_event: GameEvent
 var completed_events: Array[String] = []
-var always_do_event = load("res://src/event/script/chaos_surge.gd").new()
+var always_do_event = null#load("res://src/event/script/chaos_surge.gd").new()
 
 signal on_upgrades_selected
 

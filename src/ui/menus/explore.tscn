@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://d1p8rm8huvmt0"]
+[gd_scene load_steps=4 format=3 uid="uid://d1p8rm8huvmt0"]
 
 [ext_resource type="Script" path="res://src/ui/menus/explore.gd" id="1_r8lja"]
 [ext_resource type="Theme" uid="uid://bdodinwpnjkw8" path="res://assets/theme_huge.tres" id="2_vnlw6"]
+[ext_resource type="StyleBox" uid="uid://bhfo1noi80203" path="res://assets/panel_opaque.tres" id="3_uclm3"]
 
 [node name="Explore" type="Node2D"]
 script = ExtResource("1_r8lja")
@@ -15,6 +16,7 @@ theme = ExtResource("2_vnlw6")
 [node name="PanelContainer" type="PanelContainer" parent="CenterContainer"]
 custom_minimum_size = Vector2(900, 900)
 layout_mode = 2
+theme_override_styles/panel = ExtResource("3_uclm3")
 
 [node name="VBox" type="VBoxContainer" parent="CenterContainer/PanelContainer"]
 layout_mode = 2

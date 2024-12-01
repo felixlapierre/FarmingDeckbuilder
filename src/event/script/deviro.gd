@@ -36,4 +36,4 @@ func pick_element_cards_function(element: String):
 		user_interface.pick_cards_event(cards.slice(0, 3))
 
 func check_prerequisites():
-	return true# turn_manager.week > 6
+	return turn_manager.week > 4

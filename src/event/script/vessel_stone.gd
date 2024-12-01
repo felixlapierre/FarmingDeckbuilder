@@ -18,4 +18,4 @@ func get_options():
 	return [option1]
 
 func check_prerequisites():
-	return true# turn_manager.week > 6
+	return turn_manager.week > 7

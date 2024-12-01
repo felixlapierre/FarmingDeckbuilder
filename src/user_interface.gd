@@ -101,7 +101,7 @@ func end_year():
 	$Shop.fill_shop()
 	$FortuneTeller.create_fortunes()
 	create_fortune_display()
-	$Winter/Explore.create_explore(3)
+	$Winter/Explore.create_explore(3, turn_manager)
 	$Winter/CardButton.disabled = false
 	$Winter/AnyCardButton.visible = Settings.DEBUG
 	update()
@@ -527,6 +527,7 @@ func save_data(save_json):
 	save_json.state.rerolls = $Shop.player_money
 	save_json.state.mage = mage_fortune.save_data()
 	save_json.attack = $FortuneTeller.attack_pattern.save_data()
+	save_json.state.explore = $Winter/Explore.save_data()
 
 func load_data(save_json: Dictionary):
 	mage_fortune = load(save_json.state.mage.path).new()
@@ -551,7 +552,8 @@ func load_data(save_json: Dictionary):
 	$FortuneTeller.attack_pattern = attack
 	create_fortune_display()
 	$Shop.player_money = save_json.state.rerolls
-	$Winter/Explore.create_explore(3)
+	$Winter/Explore.load_data(save_json.state.explore)
+	$Winter/Explore.create_explore(3, turn_manager)
 	$Winter/AnyCardButton.visible = Settings.DEBUG
 	update()
 

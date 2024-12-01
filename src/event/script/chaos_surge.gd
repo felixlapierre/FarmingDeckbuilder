@@ -27,4 +27,4 @@ func get_options():
 	return options
 
 func check_prerequisites():
-	return user_interface.mage_fortune.name != "Pyromancer" and user_interface.mage_fortune.name != "Water Mage"
+	return turn_manager.week > 3
