@@ -14,7 +14,7 @@ range = "adjacent"
 [resource]
 script = ExtResource("1_36kls")
 name = "Sprinkler"
-rarity = "common"
+rarity = "rare"
 cost = 1
 size = 8
 text = "Waters 8 adjacent tiles"

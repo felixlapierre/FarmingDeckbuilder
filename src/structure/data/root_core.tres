@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="EnergyFullFarm" load_steps=3 format=3 uid="uid://bg1mkyy084338"]
+
+[ext_resource type="Script" path="res://src/structure/custom/energy_full_farm.gd" id="1_286pe"]
+[ext_resource type="Texture2D" uid="uid://c46q76532nqk" path="res://assets/custom/Temp.png" id="2_gc078"]
+
+[resource]
+script = ExtResource("1_286pe")
+name = "Root-Bound Core"
+rarity = "rare"
+cost = 0
+size = 0
+text = "At the start of your turn, gain +1 Energy if your farm is full"
+texture = ExtResource("2_gc078")
+effects = Array[Resource("res://src/effect/effect.gd")]([])
+tooltip = ""
