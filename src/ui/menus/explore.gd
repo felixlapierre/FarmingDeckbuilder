@@ -38,9 +38,7 @@ func create_explore(p_explores, turn_manager: TurnManager):
 		$Points.remove_child(point)
 	explores = p_explores
 	var DIST = 250
-	var positions = [
-		Vector2(0, DIST + 70),
-	]
+	var positions = []
 	positions.shuffle()
 	# Add card
 	create_point("Gain Card", Vector2(-DIST - 70, 0), func(pt):
@@ -51,17 +49,15 @@ func create_explore(p_explores, turn_manager: TurnManager):
 		create_point("Rare Card", Vector2(0, -DIST - 70), func(pt):
 			use_explore(pt)
 			add_card("rare"))
+		create_point("Rare Structure", Vector2(0, DIST + 70), func(pt):
+			use_explore(pt)
+			add_structure("rare"))
 	
 	# Event
 	create_point("Event", Vector2(-DIST, -DIST), func(pt):
 		use_explore(pt)
 		on_event.emit())
-	
-	# Remove card
-	if removals <= turn_manager.week / 3:
-		create_point("Remove Card", Vector2(DIST, -DIST), func(pt):
-			select_card_to_remove(pt))
-	
+		
 	# Enhance
 	if enhances <= turn_manager.week / 2 and $Points.get_child_count() < 5:
 		create_point("Enhance Card", Vector2(DIST + 70, 0), func(pt):
@@ -69,12 +65,17 @@ func create_explore(p_explores, turn_manager: TurnManager):
 			enhances += 1
 			select_enhance("common"))
 	
+	# Remove card
+	if removals <= turn_manager.week / 3 and $Points.get_child_count() < 5:
+		create_point("Remove Card", Vector2(DIST, -DIST), func(pt):
+			select_card_to_remove(pt))
+	
 	# Structure
 	if structures <= turn_manager.week / 3 and $Points.get_child_count() < 5:
 		create_point("Structure", Vector2(DIST, DIST), func(pt):
 			use_explore(pt)
 			structures += 1
-			add_structure())
+			add_structure("common"))
 		
 	# Expand
 	if expands <= turn_manager.week / 3 and $Points.get_child_count() < 5:
@@ -170,8 +171,8 @@ func select_card_to_enhance(enhance: Enhance):
 	add_sibling(select_card)
 	select_card.do_enhance_pick(player_deck, enhance, "Select a card to enhance")
 	
-func add_structure():
-	var structures = cards_database.get_random_structures(3, "common")
+func add_structure(rarity: String):
+	var structures = cards_database.get_random_structures(3, rarity)
 	var pick_option_ui = PickOption.instantiate()
 	add_sibling(pick_option_ui)
 	var prompt = "Pick a structure to add to your farm"

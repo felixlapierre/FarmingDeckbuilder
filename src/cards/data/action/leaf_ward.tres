@@ -1,7 +1,6 @@
-[gd_resource type="Resource" script_class="LeafWard" load_steps=5 format=3 uid="uid://j2xmpx0jsi"]
+[gd_resource type="Resource" script_class="LeafWard" load_steps=4 format=3 uid="uid://j2xmpx0jsi"]
 
 [ext_resource type="Script" path="res://src/cards/custom/leaf_ward.gd" id="1_6pnwr"]
-[ext_resource type="Resource" uid="uid://b71hdqvt7x0ao" path="res://src/effect/data/remembrance.tres" id="1_neer0"]
 [ext_resource type="SpriteFrames" uid="uid://dkemshvdl0cue" path="res://src/animation/frames/leaf_ward_sf.tres" id="1_udfl3"]
 [ext_resource type="Texture2D" uid="uid://blaspqexrly61" path="res://assets/card/leaf-ward.png" id="2_glxf2"]
 
@@ -21,7 +20,7 @@ texture = ExtResource("2_glxf2")
 seed_texture = 0
 texture_icon_offset = 16
 targets = Array[String](["Growing"])
-effects = Array[Resource("res://src/effect/effect.gd")]([ExtResource("1_neer0")])
+effects = Array[Resource("res://src/effect/effect.gd")]([])
 enhances = Array[String]([])
 strength = 3.0
 animation = ExtResource("1_udfl3")

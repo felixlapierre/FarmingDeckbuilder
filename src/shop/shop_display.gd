@@ -22,7 +22,7 @@ func update_display():
 	if Name == null:
 		return
 	if structure != null:
-		set_labels(structure.name, str(structure.cost), structure.text, "Structure",\
+		set_labels(structure.name, str(structure.cost), structure.get_description(), "Structure",\
 			structure.texture)
 		$VBox/HBoxContainer.tooltip_text = structure.tooltip
 	elif enhance != null:

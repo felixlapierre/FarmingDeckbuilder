@@ -56,7 +56,8 @@ func assign(s: Structure):
 	tooltip = s.tooltip
 
 func get_description():
-	return text
+	return text.replace("{MANA}", Helper.mana_icon())\
+		.replace("{BLUE_MANA}", Helper.blue_mana())
 
 # To be overridden by specific script structures
 func register_events(event_manager: EventManager, tile: Tile):

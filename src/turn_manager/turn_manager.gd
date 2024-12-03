@@ -77,7 +77,7 @@ func end_turn():
 	var blight_remaining = target_blight - purple_mana
 	blight_remaining = 0 if blight_remaining < 0 else blight_remaining
 	week += 1
-	if !flag_defer_excess:
+	if !flag_defer_excess or purple_mana < target_blight:
 		purple_mana = 0
 	else:
 		purple_mana -= target_blight

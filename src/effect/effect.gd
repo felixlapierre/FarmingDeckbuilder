@@ -97,9 +97,9 @@ func get_short_description(card: CardData):
 				return "Add " + get_strength_text() + " " + Helper.mana_icon() + " to " + get_size_target_plants(card)
 		"irrigate":
 			if card.type == "ACTION":
-				return "Water " + get_size(card) + " tiles for " + str(strength) + " weeks"
+				return "Water " + get_size(card) + " tiles"
 			else:
-				return "Water 9 adjacent tiles for " + str(strength) + " weeks " + get_on_text()
+				return "Water 9 adjacent tiles " + get_on_text()
 		"absorb":
 			return "Benefits " + str(strength*100) + "% more from being watered"
 		"destroy_tile":

@@ -272,8 +272,6 @@ func process_one_week(week: int):
 		effect_queue.append_array(tile.get_after_grow_effects())
 	process_effect_queue()
 	for tile in $Tiles.get_children():
-		tile.lose_irrigate()
-	for tile in $Tiles.get_children():
 		effect_queue.append_array(tile.get_turn_start_effects())
 	process_effect_queue()
 	effect_queue.append_array(next_turn_effects)
