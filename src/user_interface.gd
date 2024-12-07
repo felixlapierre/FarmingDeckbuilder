@@ -48,6 +48,7 @@ var CARD_ANATOMY = preload("res://src/ui/menus/card_anatomy.tscn")
 @onready var EndScreen = $EndScreen
 @onready var AttackPreview = $UI/AttackPreview
 @onready var CancelStructure = $CancelStructure
+@onready var blessings: Blessings = $Blessings
 
 var end_year_alert_text = "Ritual Complete! Time to rest and prepare for the next year"
 var structure_place_text = "Click on the farm tile where you'd like to place the structure"
@@ -123,7 +124,7 @@ func start_year():
 # Update UI display
 func update():
 	$UI/Stats/VBox/YearLabel.text = "Year: " + str(turn_manager.year) + " / " + str(Global.FINAL_YEAR)
-	$UI/Stats/VBox/TurnLabel.text = "Week: " + str(turn_manager.week) + " / 12"
+	$UI/Stats/VBox/TurnLabel.text = "Week: " + str(turn_manager.week) + " / " + str(Global.FINAL_WEEK - 1)
 	$UI/Stats/VBox/EnergyHbox/EnergyLabel.text = "Energy: " + str(turn_manager.energy) + " / " + str(Constants.MAX_ENERGY + int(float(Global.ENERGY_FRAGMENTS) / 3))
 	$UI/EnergyDisplay.set_energy(turn_manager.energy)
 	for child in $UI/Stats/VBox/EnergyHbox/Fragments.get_children():
@@ -508,6 +509,14 @@ func create_fortune_display():
 		$PassiveDisplay.add_child(card_fragments)
 		card_fragments.position += Vector2(50, 0) * ($PassiveDisplay.get_child_count() - 1)
 		card_fragments.setup_card_fragments()
+	for blessing in blessings.get_blessings():
+		var hover = FORTUNE_HOVER.instantiate()
+		$PassiveDisplay.add_child(hover)
+		hover.setup(blessing)
+	for curse in blessings.get_curses():
+		var hover = FORTUNE_HOVER.instantiate()
+		$PassiveDisplay.add_child(hover)
+		hover.setup(curse)
 	
 func save_data(save_json):
 	if save_json.state.winter:
@@ -528,6 +537,7 @@ func save_data(save_json):
 	save_json.state.mage = mage_fortune.save_data()
 	save_json.attack = $FortuneTeller.attack_pattern.save_data()
 	save_json.state.explore = $Winter/Explore.save_data()
+	save_json.blessings = blessings.save_data()
 
 func load_data(save_json: Dictionary):
 	mage_fortune = load(save_json.state.mage.path).new()
@@ -550,6 +560,7 @@ func load_data(save_json: Dictionary):
 	attack.load_data(save_json.attack)
 	$UI/AttackPreview.mage_fortune = mage_fortune
 	$FortuneTeller.attack_pattern = attack
+	blessings.load_data(save_json.blessings)
 	create_fortune_display()
 	$Shop.player_money = save_json.state.rerolls
 	$Winter/Explore.load_data(save_json.state.explore)

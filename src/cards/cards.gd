@@ -268,3 +268,7 @@ func burn_hand():
 func notify_card_burned(card_data):
 	on_card_burned.emit(card_data)
 	cards_burned += 1
+
+func update_hand_display():
+	for card: CardBase in $Hand.get_children():
+		card.set_card_info(card.card_info)

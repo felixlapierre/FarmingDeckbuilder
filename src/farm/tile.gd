@@ -414,6 +414,9 @@ func not_destroyed():
 func is_destroyed():
 	return destroyed or blighted
 
+func active_and_not_destroyed():
+	return Enums.TileState.Inactive != state and not_destroyed
+
 func card_can_target(card: CardData):
 	if state == Enums.TileState.Inactive:
 		return false

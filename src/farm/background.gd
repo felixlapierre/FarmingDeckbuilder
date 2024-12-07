@@ -105,21 +105,20 @@ func load_winter():
 
 func do_trees(week: int):
 	var animation = null
-	match week:
-		1:
-			animation = "spring1"
-		2:
-			animation = "spring2"
-		3:
-			animation = "summer"
-		9:
-			animation = "pre-fall"
-		10:
-			animation = "fall"
-		12:
-			animation = "pre-winter"
-		13:
-			animation = "winter"
+	if week == 1:
+		animation = "spring1"
+	elif week == 2:
+		animation = "spring2"
+	elif week == 3:
+		animation = "summer"
+	elif week == Global.FALL_WEEK - 1:
+		animation = "pre-fall"
+	elif week == Global.FALL_WEEK:
+		animation = "fall"
+	elif week == Global.WINTER_WEEK - 1:
+		animation = "pre-winter"
+	elif week == Global.WINTER_WEEK:
+		animation = "winter"
 	if animation != null:
 		for tree in trees:
 			tree.play(animation)
@@ -127,17 +126,16 @@ func do_trees(week: int):
 
 func do_ground(week: int):
 	var color = spring1
-	match week:
-		1:
-			color = spring1
-		2:
-			color = spring2
-		3, 4, 5, 6, 7, 8, 9:
-			color = summer
-		10, 11, 12:
-			color = fall
-		_:
-			color = winter
+	if week == 1:
+		color = spring1
+	elif week < Global.SUMMER_WEEK:
+		color = spring2
+	elif week < Global.FALL_WEEK:
+		color = summer
+	elif week < Global.WINTER_WEEK:
+		color = fall
+	else:
+		color = winter
 	var tween = create_tween()
 	tween.tween_property($Ground, "modulate", color, ground_tween_time)
 
@@ -153,21 +151,20 @@ func animate_blightroots(animation: String):
 func set_background_winter(week: int):
 	var sequence = [ts_spring1, ts_spring2, ts_summer, ts_summer_end, ts_fall_tr1, ts_fall_tr2, ts_fall, ts_winter_tr1, ts_winter_tr2, ts_winter_tr3, ts_winter_tr4, ts_winter]
 	var start
-	match week:
-		1:
-			start = 1
-		2:
-			start = 2
-		3, 4, 5, 6, 7:
-			start = 3
-		8:
-			start = 4
-		9, 10, 11:
-			start = 7
-		12:
-			start = 8
-		_:
-			start = 11
+	if week == 1:
+		start = 1
+	elif week == 2:
+		start = 2
+	elif week < Global.FALL_WEEK - 1:
+		start = 3
+	elif week < Global.FALL_WEEK:
+		start = 4
+	elif week < Global.WINTER_WEEK - 1:
+		start = 7
+	elif week < Global.WINTER_WEEK:
+		start = 8
+	else:
+		start = 11
 	for i in range(start, sequence.size()):
 		get_tree().create_timer(0.1 * i).timeout.connect(func():
 			set_background_texture(sequence[i]))
@@ -175,31 +172,30 @@ func set_background_winter(week: int):
 
 func set_background(week: int):
 	var texture
-	match week:
-		1:
-			texture = ts_spring1
-		2:
-			texture = ts_spring2
-		3:
-			texture = ts_summer
-		8:
-			texture = ts_summer_end
-		9:
-			texture = ts_fall_tr1
-			get_tree().create_timer(0.3).timeout.connect(func():
-				set_background_texture(ts_fall_tr2))
-			get_tree().create_timer(0.6).timeout.connect(func():
-				set_background_texture(ts_fall))
-		12:
-			texture = ts_winter_tr1
-		13:
-			texture = ts_winter_tr2
-			get_tree().create_timer(0.3).timeout.connect(func():
-				set_background_texture(ts_winter_tr3))
-			get_tree().create_timer(0.6).timeout.connect(func():
-				set_background_texture(ts_winter_tr4))
-			get_tree().create_timer(0.9).timeout.connect(func():
-				set_background_texture(winter))
+	if week == 1:
+		texture = ts_spring1
+	elif week == 2:
+		texture = ts_spring1
+	elif week < Global.FALL_WEEK - 1:
+		texture = ts_summer
+	elif week < Global.FALL_WEEK:
+		texture = ts_summer_end
+	elif week == Global.FALL_WEEK:
+		texture = ts_fall_tr1
+		get_tree().create_timer(0.3).timeout.connect(func():
+			set_background_texture(ts_fall_tr2))
+		get_tree().create_timer(0.6).timeout.connect(func():
+			set_background_texture(ts_fall))
+	elif week == Global.WINTER_WEEK - 1:
+		texture = ts_winter_tr1
+	elif week == Global.WINTER_WEEK:
+		texture = ts_winter_tr2
+		get_tree().create_timer(0.3).timeout.connect(func():
+			set_background_texture(ts_winter_tr3))
+		get_tree().create_timer(0.6).timeout.connect(func():
+			set_background_texture(ts_winter_tr4))
+		get_tree().create_timer(0.9).timeout.connect(func():
+			set_background_texture(winter))
 	do_week(week)
 	set_background_texture(texture)
 
