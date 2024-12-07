@@ -38,18 +38,19 @@ func create_explore(p_explores, turn_manager: TurnManager):
 	for point in $Points.get_children():
 		$Points.remove_child(point)
 	explores = p_explores
+	$CenterContainer/PanelContainer/VBox/HBox/Label.text = "Explorations Remaining: " + str(explores)
 	var DIST = 250
 	var positions = []
 	positions.shuffle()
 	# Add card
 	create_point("Gain Card", Vector2(-DIST - 70, 0), func(pt):
 		use_explore(pt)
-		add_card("common"))
+		add_card("common", 5 - Mastery.BlockShop))
 	
 	if turn_manager.year == 4 or turn_manager.year == 7 or turn_manager.year == 10:
 		create_point("Rare Card", Vector2(0, -DIST - 70), func(pt):
 			use_explore(pt)
-			add_card("rare"))
+			add_card("rare", 5 - Mastery.BlockShop))
 		create_point("Rare Structure", Vector2(0, DIST + 70), func(pt):
 			use_explore(pt)
 			add_structure("rare"))
@@ -86,12 +87,13 @@ func create_explore(p_explores, turn_manager: TurnManager):
 			expand_farm())
 
 func use_explore(node):
-	node.disable()
-	explores -= 1
-	if explores == 0:
-		for child in $Points.get_children():
-			child.disable()
-	$CenterContainer/PanelContainer/VBox/HBox/Label.text = "Explorations Remaining: " + str(explores)
+	if node != null:
+		node.disable()
+		explores -= 1
+		if explores == 0:
+			for child in $Points.get_children():
+				child.disable()
+		$CenterContainer/PanelContainer/VBox/HBox/Label.text = "Explorations Remaining: " + str(explores)
 
 func create_point(name: String, pos: Vector2, callback: Callable):
 	var point: ExplorePoint = ExplorePoint.instantiate()
@@ -102,12 +104,12 @@ func create_point(name: String, pos: Vector2, callback: Callable):
 		callback.call(point))
 	$Points.add_child(point)
 
-func add_card(rarity: String):
+func add_card(rarity: String, count: int):
 	var cards;
 	if Global.FARM_TYPE == "WILDERNESS":
-		cards = cards_database.get_random_action_cards(rarity, 5 - Mastery.BlockShop)
+		cards = cards_database.get_random_action_cards(rarity, count)
 	else:
-		cards = cards_database.get_random_cards(rarity, 5 - Mastery.BlockShop)
+		cards = cards_database.get_random_cards(rarity, count)
 	pick_card_from(cards)
 
 func pick_card_from(cards):

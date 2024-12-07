@@ -69,6 +69,7 @@ func _process(delta: float) -> void:
 		$UI/RTFPanel/VBox/ShapeLabel.text = "Shape: " + shape
 	$UI/HelpButton.visible = Global.selected_card != null
 	$UI/EndTurnButton.visible = Global.selected_card == null or !Settings.CLICK_MODE
+	$Winter/NextYearButton.disabled = !next_year_allowed()
 
 func setup(p_event_manager: EventManager, p_turn_manager: TurnManager, p_deck: Array[CardData], p_cards: Cards):
 	$FortuneTeller.setup(p_event_manager)
@@ -117,6 +118,7 @@ func start_year():
 	$Winter.visible = false
 	AlertDisplay.clear(end_year_alert_text)
 	$Tutorial.position.x = 1368
+	do_squirrel_seed()
 	create_fortune_display()
 	update_damage()
 	update()
@@ -175,8 +177,7 @@ func update():
 	$UI/RitualPanel/RitualCounter/Label.text = "[right]" + str(turn_manager.get_current_ritual()) + " /" + str(turn_manager.total_ritual)
 	$Shop.update_labels()
 	$Winter/FarmUpgradeButton.disabled = $UpgradeShop.lock or ![4, 7, 10].has(turn_manager.year)
-	# Temporarily disable this QOL for testing
-	$Winter/NextYearButton.disabled = !next_year_allowed()
+
 	if GameEventDialog.current_event != null:
 		$Winter/EventPanel/VB/EventNameLabel.text = GameEventDialog.current_event.name
 	register_tooltips()
@@ -450,13 +451,7 @@ func select_card_to_enhance(enhance: Enhance):
 	select_card.do_enhance_pick(deck, enhance, "Select a card to enhance")
 
 func next_year_allowed():
-	var choice1 = $Shop/PanelContainer/ShopContainer/ChoiceOne/Stock
-	var choice2 = $Shop/PanelContainer/ShopContainer/ChoiceTwo/Stock
-	var upgradebutton = $Winter/FarmUpgradeButton
-	var eventbutton = $Winter/EventPanel/VB/EventButton
-	return (upgradebutton.disabled && eventbutton.disabled\
-		&& !choice1.visible\
-		&& !choice2.visible)\
+	return ($Winter/Explore.explores == 0 and $Winter/CardButton.disabled)\
 		|| Settings.DEBUG
 
 func _on_shop_on_blight_removed() -> void:
@@ -532,7 +527,7 @@ func save_data(save_json):
 		save_json.fortunes.append(fortune.save_data())
 	
 	save_json.events = {
-		"current": GameEventDialog.current_event.save_data() if GameEventDialog.current_event != null else null,
+		#"current": GameEventDialog.current_event.save_data() if GameEventDialog.current_event != null else null,
 		"completed": get_completed_events()
 	}
 	save_json.state.rerolls = $Shop.player_money
@@ -544,20 +539,20 @@ func save_data(save_json):
 func load_data(save_json: Dictionary):
 	mage_fortune = load(save_json.state.mage.path).new()
 	mage_fortune.load_data(save_json.state.mage)
+	for event_name: String in save_json.events.completed:
+		GameEventDialog.completed_events.append(event_name)
 	if save_json.state.winter == true:
 		$UI.visible = false
 		$Winter.visible = true
 		$UpgradeShop.lock = save_json.winter.upgrade_lock
 		$Winter/EventPanel/VB/EventButton.disabled = save_json.winter.event_disabled
-		GameEventDialog.current_event = load(save_json.events.current) if save_json.events.current != null else null
+		#GameEventDialog.current_event = load(save_json.events.current) if save_json.events.current != null else null
 		if GameEventDialog.current_event == null:
 			GameEventDialog.generate_random_event()
 		GameEventDialog.update_interface()
 		$Shop.load_data(save_json.winter.shop)
 		$Tutorial.on_winter()
 		$Tutorial.position.x = 1234
-	for event_name: String in save_json.events.completed:
-		GameEventDialog.completed_events.append(event_name)
 	var attack: AttackPattern = load(save_json.attack.path).new()
 	attack.load_data(save_json.attack)
 	$UI/AttackPreview.mage_fortune = mage_fortune
@@ -745,6 +740,15 @@ func pick_enhance_event(rarity: String):
 func pick_blessing(prompt: String, blessings: Array[Fortune]):
 	$Winter/Explore.pick_fortune(prompt, blessings)
 
+func pick_cards_event_rarity(rarity: String):
+	$Winter/Explore.add_card(rarity, 3)
+
+func pick_structure_event(rarity: String):
+	$Winter/Explore.add_structure(rarity)
+
+func remove_card_event():
+	$Winter/Explore.select_card_to_remove(null)
+
 func pick_card_from_deck_event(prompt: String, callback: Callable):
 	var select_card = SELECT_CARD.instantiate()
 	select_card.tooltip = tooltip
@@ -766,3 +770,13 @@ func _on_explore_on_fortune(fortune: Fortune) -> void:
 		blessings.get_curses().append(fortune)
 	fortune.register_fortune(event_manager)
 	create_fortune_display()
+
+func do_squirrel_seed():
+	var seed = null
+	for card in deck:
+		if card.name == "Petrified Seed":
+			seed = card
+			break
+	if seed != null and randi_range(0, 100) <= 33:
+		deck.erase(seed)
+		deck.append(load("res://src/event/unique/sunflower.tres"))

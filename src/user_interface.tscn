@@ -437,6 +437,7 @@ theme = ExtResource("24_jal2o")
 text = "Fortune Teller"
 
 [node name="FarmUpgradeButton" type="Button" parent="Winter"]
+visible = false
 layout_mode = 0
 offset_left = 234.0
 offset_top = 434.0

@@ -27,4 +27,4 @@ func get_options():
 	return options
 
 func check_prerequisites():
-	return turn_manager.week > 3
+	return turn_manager.year > 3

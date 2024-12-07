@@ -12,7 +12,7 @@ class Option:
 	var name: String
 	var hover: Node
 	var on_select: Callable
-	func _init(p_name: String, p_hover: Node, p_select: Callable):
+	func _init(p_name: String, p_hover: Node, p_select: Callable = func(): pass):
 		name = p_name
 		hover = p_hover
 		on_select = p_select
@@ -31,11 +31,11 @@ func get_options():
 	# The text to display (string)
 	# What should I display on hover (unsure? callback?)
 	# What should I do when the option is selected (callback.)
-	pass
+	return []
 
 func check_prerequisites():
 	# Completed event
 	# Blight damage at certain level
 	# Based on year
 	# Based on card in deck?
-	pass
+	return true
