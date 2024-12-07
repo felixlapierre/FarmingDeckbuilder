@@ -3,7 +3,7 @@ class_name PurpleTrinket
 
 var icon = preload("res://assets/custom/PurpleMana16.png")
 var callback
-var event_type = EventManager.EventType.AfterTurnStart
+var event_type = EventManager.EventType.BeforeTurnStart
 
 func _init() -> void:
 	super("Purple Trinket", Fortune.FortuneType.GoodFortune, "[img]res://assets/custom/PurpleMana16.png[/img] is not lost at the end of the 1st and 2nd week", 0, icon, 1.0)

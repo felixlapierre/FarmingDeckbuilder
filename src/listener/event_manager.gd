@@ -15,7 +15,6 @@ enum EventType {
 	BeforeYearStart,
 	AfterYearStart,
 	BeforeTurnStart,
-	AfterTurnStart,
 	BeforeGrow,
 	AfterGrow,
 	OnTurnEnd,

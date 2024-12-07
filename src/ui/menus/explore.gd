@@ -12,6 +12,7 @@ signal apply_upgrade
 signal on_structure_select
 signal on_expand
 signal on_event
+signal on_fortune
 
 var explores = 0
 
@@ -184,6 +185,18 @@ func add_structure(rarity: String):
 		remove_sibling(pick_option_ui)
 		visible = true
 	pick_option_ui.setup(prompt, structures, on_pick, on_cancel)
+
+func pick_fortune(prompt: String, options: Array[Fortune]):
+	if options.size() == 0:
+		options = cards_database.get_all_blessings()
+		options.shuffle()
+		options = options.slice(0, 3)
+	var pick_option_ui = PickOption.instantiate()
+	add_sibling(pick_option_ui)
+	var on_pick = func(selected):
+		remove_sibling(pick_option_ui)
+		on_fortune.emit(selected)
+	pick_option_ui.setup(prompt, options, on_pick, null)
 
 func remove_sibling(node):
 	$'../'.remove_child(node)

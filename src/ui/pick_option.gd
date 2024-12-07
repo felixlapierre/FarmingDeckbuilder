@@ -2,6 +2,7 @@ extends Node2D
 
 var ShopCard = preload("res://src/shop/shop_card.tscn")
 var ShopDisplay = preload("res://src/shop/shop_display.tscn")
+var FortuneDisplay = preload("res://src/fortune/fortune.tscn")
 @onready var options_container = $Center/Panel/VBox/HBox
 @onready var prompt_label = $Center/Panel/VBox/PromptLabel
 
@@ -21,7 +22,13 @@ func setup(prompt: String, items, pick_callback: Callable, skip_callback):
 		on_skip = skip_callback
 	$Center/Panel/VBox/SkipButton.visible = skip_callback != null
 	for item in items:
-		if item.CLASS_NAME == "CardData":
+		if item is Fortune:
+			var new_node = FortuneDisplay.instantiate()
+			new_node.setup(item)
+			new_node.clicked.connect(func(): 
+				pick_callback.call(item))
+			options_container.add_child(new_node)
+		elif item.CLASS_NAME == "CardData":
 			var new_node = ShopCard.instantiate()
 			new_node.card_data = item
 			new_node.on_clicked.connect(func(option): pick_callback.call(option))
@@ -36,7 +43,6 @@ func setup(prompt: String, items, pick_callback: Callable, skip_callback):
 			new_node.set_data(item)
 			new_node.callback = func(option): pick_callback.call(option)
 			options_container.add_child(new_node)
-		#TODO: Else use a generic ShopButton instead
 
 
 func _on_skip_button_pressed():

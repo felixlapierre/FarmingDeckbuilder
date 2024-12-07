@@ -512,10 +512,12 @@ func create_fortune_display():
 	for blessing in blessings.get_blessings():
 		var hover = FORTUNE_HOVER.instantiate()
 		$PassiveDisplay.add_child(hover)
+		hover.position += Vector2(60, 0) * ($PassiveDisplay.get_child_count() - 1)
 		hover.setup(blessing)
 	for curse in blessings.get_curses():
 		var hover = FORTUNE_HOVER.instantiate()
 		$PassiveDisplay.add_child(hover)
+		hover.position += Vector2(60, 0) * ($PassiveDisplay.get_child_count() - 1)
 		hover.setup(curse)
 	
 func save_data(save_json):
@@ -561,6 +563,7 @@ func load_data(save_json: Dictionary):
 	$UI/AttackPreview.mage_fortune = mage_fortune
 	$FortuneTeller.attack_pattern = attack
 	blessings.load_data(save_json.blessings)
+	blessings.register_listeners(event_manager)
 	create_fortune_display()
 	$Shop.player_money = save_json.state.rerolls
 	$Winter/Explore.load_data(save_json.state.explore)
@@ -739,6 +742,9 @@ func pick_cards_event(cards):
 func pick_enhance_event(rarity: String):
 	$Winter/Explore.select_enhance(rarity)
 
+func pick_blessing(prompt: String, blessings: Array[Fortune]):
+	$Winter/Explore.pick_fortune(prompt, blessings)
+
 func pick_card_from_deck_event(prompt: String, callback: Callable):
 	var select_card = SELECT_CARD.instantiate()
 	select_card.tooltip = tooltip
@@ -751,3 +757,12 @@ func pick_card_from_deck_event(prompt: String, callback: Callable):
 		callback.call(card_data)
 	add_child(select_card)
 	select_card.do_card_pick(deck, prompt)
+
+
+func _on_explore_on_fortune(fortune: Fortune) -> void:
+	if fortune.type == Fortune.FortuneType.GoodFortune:
+		blessings.get_blessings().append(fortune)
+	else:
+		blessings.get_curses().append(fortune)
+	fortune.register_fortune(event_manager)
+	create_fortune_display()

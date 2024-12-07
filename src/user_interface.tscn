@@ -567,6 +567,7 @@ script = ExtResource("34_bvh0t")
 [connection signal="pressed" from="Winter/AnyCardButton" to="." method="_on_any_card_button_pressed"]
 [connection signal="pressed" from="Winter/EventPanel/VB/EventButton" to="." method="_on_event_button_pressed"]
 [connection signal="on_event" from="Winter/Explore" to="." method="_on_explore_on_event"]
+[connection signal="on_fortune" from="Winter/Explore" to="." method="_on_explore_on_fortune"]
 [connection signal="on_structure_select" from="Winter/Explore" to="." method="_on_explore_on_structure_select"]
 [connection signal="on_upgrades_selected" from="Winter/GameEventDialog" to="." method="_on_game_event_dialog_on_upgrades_selected"]
 [connection signal="pressed" from="Winter/ViewDeck" to="." method="_on_shop_view_deck"]

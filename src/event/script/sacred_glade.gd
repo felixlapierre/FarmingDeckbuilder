@@ -18,8 +18,8 @@ func get_options():
 		user_interface._on_shop_on_structure_place(statue, func(): pass)
 		user_interface.CancelStructure.visible = false
 	)
-	var option2 = CustomEvent.Option.new("Clean the statue and leave a gift basket (Gain 2 Favor)", null, func():
-		user_interface.shop.player_money += 2
+	var option2 = CustomEvent.Option.new("Clean the statue and leave a gift basket (Pick a Blessing)", null, func():
+		user_interface.pick_blessing("Pick a blessing to gain", [])
 	)
 	return [option1, option2]
 

@@ -99,6 +99,22 @@ static func get_all_fortunes() -> Array[Fortune]:
 			fortunes.append(fortune.new())
 	return fortunes
 
+static func get_all_blessings() -> Array[Fortune]:
+	var fortunes: Array[Fortune] = []
+	var paths = get_all_file_paths("res://src/fortune/blessings")
+	for path in paths:
+		var fortune = load(path)
+		fortunes.append(fortune.new())
+	return fortunes
+
+static func get_all_curses() -> Array[Fortune]:
+	var fortunes: Array[Fortune] = []
+	var paths = get_all_file_paths("res://src/fortune/curses")
+	for path in paths:
+		var fortune = load(path)
+		fortunes.append(fortune.new())
+	return fortunes
+
 # pass null rarity for random card
 static func get_random_cards(rarity, count: int):
 	var result = []

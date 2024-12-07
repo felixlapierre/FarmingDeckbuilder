@@ -3,7 +3,7 @@ class_name CardFragment
 
 var icon = preload("res://assets/custom/CardFragment.png")
 var callback
-var event_type = EventManager.EventType.AfterTurnStart
+var event_type = EventManager.EventType.BeforeTurnStart
 
 func _init() -> void:
 	super("Card Fragment", Fortune.FortuneType.GoodFortune, "Draw an extra card at the start of the first week", 0, icon, 1.0)

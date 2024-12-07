@@ -3,7 +3,7 @@ class_name EnergyFragment
 
 var icon = preload("res://assets/custom/EnergyFrag.png")
 var callback
-var event_type = EventManager.EventType.AfterTurnStart
+var event_type = EventManager.EventType.BeforeTurnStart
 
 func _init() -> void:
 	super("Energy Fragment", Fortune.FortuneType.GoodFortune, "Gain an extra energy at the start of the first week", 0, icon, 1.0)

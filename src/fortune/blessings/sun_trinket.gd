@@ -3,7 +3,7 @@ class_name SunflowerTrinket
 
 var icon = preload("res://assets/custom/YellowMana16.png")
 var callback
-var event_type = EventManager.EventType.AfterTurnStart
+var event_type = EventManager.EventType.BeforeTurnStart
 
 func _init() -> void:
 	super("Sunflower Trinket", Fortune.FortuneType.GoodFortune, "Protect the center 4 tiles of the farm from the Blight's attacks", 0, icon, 1.0)

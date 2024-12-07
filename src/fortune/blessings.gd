@@ -36,10 +36,10 @@ func save_data() -> Dictionary:
 	}
 
 func load_data(data: Dictionary):
-	blessings = data.blessings.map(func(blessing_data):
-			return load(blessing_data.path).new().load_data(blessing_data))
-	curses = data.curses.map(func(curse_data):
-			return load(curse_data.path).new().load_data(curse_data))
+	blessings.assign(data.blessings.map(func(blessing_data):
+			return load(blessing_data.path).new().load_data(blessing_data)))
+	curses.assign(data.curses.map(func(curse_data):
+			return load(curse_data.path).new().load_data(curse_data)))
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
