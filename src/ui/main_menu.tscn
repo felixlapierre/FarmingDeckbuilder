@@ -156,7 +156,7 @@ text = "Character: "
 [node name="CharOptions" type="OptionButton" parent="Root/HBox/Panel/Margin/VBox/HBox/Margin/VBox/CharacterBox"]
 layout_mode = 2
 alignment = 1
-item_count = 8
+item_count = 9
 selected = 0
 popup/item_0/text = "Novice"
 popup/item_0/id = 0
@@ -174,6 +174,8 @@ popup/item_6/text = "Lunar Mage"
 popup/item_6/id = 6
 popup/item_7/text = "Void Mage"
 popup/item_7/id = 7
+popup/item_8/text = "Time Mage"
+popup/item_8/id = 8
 
 [node name="MasteryCont" type="VBoxContainer" parent="Root/HBox/Panel/Margin/VBox/HBox/Margin/VBox"]
 layout_mode = 2

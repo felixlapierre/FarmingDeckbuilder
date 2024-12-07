@@ -136,7 +136,7 @@ func do_unlocks(turn_manager: TurnManager, deck: Array[CardData]):
 		mages.append(FireMageFortune.MAGE_NAME)
 	if !Unlocks.MAGES_UNLOCKED["7"] and win and deck.any(func(card: CardData): return card.name == "Dark Rose"):
 		Unlocks.MAGES_UNLOCKED["7"] = true
-		mages.append(VoidMageFortune.MAGE_NAME)
+		mages.append("Voidcaster")
 	
 	if difficulties.size() > 0:
 		for diff in difficulties:

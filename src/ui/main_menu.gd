@@ -59,7 +59,8 @@ func _ready():
 		load("res://src/fortune/characters/blight_mage.gd").new(),
 		load("res://src/fortune/characters/chaos_mage.gd").new(),
 		load("res://src/fortune/characters/fire_mage.gd").new(),
-		load("res://src/fortune/characters/void_mage.gd").new()]:
+		load("res://src/fortune/characters/void_mage.gd").new(),
+		load("res://src/fortune/characters/time_mage.gd").new()]:
 		mages_map[fortune.rank] = fortune
 		$Root/HBox/Panel/Margin/VBox/HBox/Margin/VBox/CharacterBox/CharOptions.add_icon_item(fortune.icon, fortune.name, fortune.rank)
 	populate_continue_preview()
@@ -289,7 +290,7 @@ func set_locked_options():
 		$Root/HBox/Panel/Margin/VBox/HBox/Margin/VBox/FarmTypeBox/TypeOptions.set_item_disabled(i, !Settings.DEBUG && !Unlocks.FARMS_UNLOCKED[str(i)])
 	for i in range(4):
 		$Root/HBox/Panel/Margin/VBox/HBox/Margin/VBox/DifficultyBox/DiffOptions.set_item_disabled(i, !Settings.DEBUG && !Unlocks.DIFFICULTIES_UNLOCKED[str(i)])
-	for i in range(8):
+	for i in range(9):
 		$Root/HBox/Panel/Margin/VBox/HBox/Margin/VBox/CharacterBox/CharOptions.set_item_disabled(i, !Settings.DEBUG && !Unlocks.MAGES_UNLOCKED[str(i)])
 
 

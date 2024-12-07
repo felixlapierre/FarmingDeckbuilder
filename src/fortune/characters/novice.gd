@@ -8,12 +8,12 @@ func _init() -> void:
 	text = "Draw " + str(strength) + " extra cards each turn"
 
 func register_fortune(event_manager: EventManager):
-	Constants.BASE_HAND_SIZE = 5 + int(strength)
+	Constants.BASE_HAND_SIZE += int(strength)
 
 func unregister_fortune(event_manager: EventManager):
-	Constants.BASE_HAND_SIZE = 5
+	Constants.BASE_HAND_SIZE -= int(strength)
 
 func upgrade_power():
 	strength += 1.0
-	Constants.BASE_HAND_SIZE = 5 + int(strength)
+	Constants.BASE_HAND_SIZE += 1
 	text = "Draw " + str(strength) + " extra cards each turn"
