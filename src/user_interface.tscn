@@ -575,6 +575,7 @@ script = ExtResource("34_bvh0t")
 [connection signal="on_close" from="Winter/ExpandFarm" to="." method="_on_expand_farm_on_close"]
 [connection signal="pressed" from="MenuButton" to="." method="_on_menu_button_pressed"]
 [connection signal="pressed" from="CancelStructure" to="." method="_on_cancel_structure_pressed"]
+[connection signal="on_main_menu" from="EndScreen" to="." method="_on_end_screen_on_main_menu"]
 [connection signal="on_close" from="FortuneTeller" to="." method="_on_fortune_teller_on_close"]
 [connection signal="on_blight_removed" from="Shop" to="." method="_on_shop_on_blight_removed"]
 [connection signal="on_card_removed" from="Shop" to="." method="_on_shop_on_card_removed"]
