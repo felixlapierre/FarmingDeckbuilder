@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="Onion" load_steps=2 format=3 uid="uid://cktb3fdj5s2ik"]
+
+[ext_resource type="Script" path="res://src/cards/custom/mana_cards_hand.gd" id="1_n2v1v"]
+
+[resource]
+script = ExtResource("1_n2v1v")
+type = "SEED"
+name = "Onion"
+rarity = "common"
+cost = 2
+yld = 18
+time = 3
+size = 2
+text = "On turn end: Gain {STRENGTH} {MANA} per card in hand"
+strength_increment = 1.0
+size_increment = 1
+seed_texture = 7
+texture_icon_offset = 16
+targets = Array[String]([])
+effects = Array[Resource("res://src/effect/effect.gd")]([])
+enhances = Array[String]([])
+strength = 1.0
+delay = 0.0
+anim_on = 0

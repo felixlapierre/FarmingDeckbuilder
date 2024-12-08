@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="Cactus" load_steps=3 format=3 uid="uid://vm4u14h3emeq"]
+
+[ext_resource type="Script" path="res://src/cards/custom/cactus.gd" id="1_m778i"]
+[ext_resource type="Texture2D" uid="uid://budddmtnr8xsu" path="res://assets/seed/cactus.png" id="2_glntj"]
+
+[resource]
+script = ExtResource("1_m778i")
+type = "SEED"
+name = "Cactus"
+rarity = "common"
+cost = 2
+yld = 20
+time = 3
+size = 1
+text = "On turn start, destroy 8 adjacent plants and gain {STRENGTH} {MANA} per plant destroyed."
+strength_increment = 5.0
+size_increment = 1
+texture = ExtResource("2_glntj")
+seed_texture = 0
+texture_icon_offset = 16
+targets = Array[String]([])
+effects = Array[Resource("res://src/effect/effect.gd")]([])
+enhances = Array[String]([])
+strength = 5.0
+delay = 0.0
+anim_on = 0
