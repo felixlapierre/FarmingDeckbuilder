@@ -53,11 +53,19 @@ func unregister_listener(event_type: EventType, callback: Callable):
 	listeners[event_type].erase(callback)
 
 func notify(event_type: EventType):
-	for listener in listeners[event_type]:
-		listener.call(get_event_args(null))
+	# Making a copy because some listeners will unregister themselves, which is
+	# problematic as removing an element from an array while iterating through
+	# it can cause elements to be skipped
+	var listeners_copy = []
+	listeners_copy.assign(listeners[event_type])
+	for listener in listeners_copy:
+		if !listener.is_null():
+			listener.call(get_event_args(null))
 
 func notify_specific_args(event_type: EventType, specific_args: EventArgs.SpecificArgs):
-	for listener in listeners[event_type]:
+	var listeners_copy = []
+	listeners_copy.assign(listeners[event_type])
+	for listener in listeners_copy:
 		if !listener.is_null():
 			listener.call(get_event_args(specific_args))
 

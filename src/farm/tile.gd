@@ -7,7 +7,7 @@ var TILE_SIZE = Vector2(56, 56);
 var FARM_DIMENSIONS = Vector2(6, 6);
 var objects_image = "res://assets/1616tinygarden/objects.png"
 
-var seed = null # To contain information about the seed being grown here
+var seed: CardData = null # To contain information about the seed being grown here
 var structure: Structure = null
 
 var seed_base_yield = 0.0

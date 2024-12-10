@@ -8,8 +8,9 @@ var callback: Callable
 func register_seed_events(event_manager: EventManager, p_tile: Tile):
 	tile = p_tile
 	callback = func(args: EventArgs):
-		if tile.state == Enums.TileState.Mature and randf() < strength:
-			args.farm.effect_queue.append_array(tile.harvest(false))
+		print("Trigger on tile " + str(p_tile.grid_location.x) + ", " + str(p_tile.grid_location.y))
+		if p_tile.state == Enums.TileState.Mature:
+			args.farm.effect_queue.append_array(p_tile.harvest(false))
 			args.farm.process_effect_queue()
 	event_manager.register_listener(EventManager.EventType.BeforeTurnStart, callback)
 
@@ -26,4 +27,4 @@ func copy():
 	return new
 
 func can_strengthen_custom_effect():
-	return true
+	return false
