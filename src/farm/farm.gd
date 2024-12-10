@@ -433,11 +433,14 @@ func on_expand_farm():
 
 func destroy_blighted_tiles():
 	for tile in $Tiles.get_children():
-		if tile.blight_targeted == true and !tile.is_protected():
-			tile.destroy()
+		if tile.destroy_targeted == true:
+			if !tile.is_protected():
+				tile.destroy_plant()
+			tile.set_destroy_targeted(false)
+		if tile.blight_targeted == true:
+			if !tile.is_protected():
+				tile.destroy()
 			tile.set_blight_targeted(false)
-		elif tile.destroy_targeted == true and !tile.is_protected():
-			tile.destroy()
 
 func use_card_random_tile(card: CardData, times: int):
 	var tiles = []

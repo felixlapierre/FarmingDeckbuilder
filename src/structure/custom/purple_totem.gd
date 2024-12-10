@@ -1,9 +1,12 @@
 extends Structure
 class_name PurpleTotem
 
-var callback: Callable
+var purple_mana = 0
 
-var event_type = EventManager.EventType.AfterYearStart
+var callback: Callable
+var callback2: Callable
+
+var event_type = EventManager.EventType.OnTurnEnd
 var event2 = EventManager.EventType.BeforeTurnStart
 
 func _init():
@@ -16,10 +19,16 @@ func copy():
 
 func register_events(event_manager: EventManager, tile: Tile):
 	callback = func(args: EventArgs):
-		args.turn_manager.flag_defer_excess = true
+		if args.turn_manager.flag_defer_excess:
+			purple_mana = 0
+		else:
+			purple_mana = args.turn_manager.purple_mana - args.turn_manager.target_blight
+			purple_mana = 0 if purple_mana < 0 else purple_mana
+	callback2 = func(args: EventArgs):
+		args.turn_manager.purple_mana += purple_mana * 0.80
 	event_manager.register_listener(event_type, callback)
-	event_manager.register_listener(event2, callback)
+	event_manager.register_listener(event2, callback2)
 
 func unregister_events(event_manager: EventManager):
 	event_manager.unregister_listener(event_type, callback)
-	event_manager.unregister_listener(event2, callback)
+	event_manager.unregister_listener(event2, callback2)

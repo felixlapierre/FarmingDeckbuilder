@@ -8,7 +8,6 @@ var callback: Callable
 func register_seed_events(event_manager: EventManager, p_tile: Tile):
 	tile = p_tile
 	callback = func(args: EventArgs):
-		print("Trigger on tile " + str(p_tile.grid_location.x) + ", " + str(p_tile.grid_location.y))
 		if p_tile.state == Enums.TileState.Mature:
 			args.farm.effect_queue.append_array(p_tile.harvest(false))
 			args.farm.process_effect_queue()
