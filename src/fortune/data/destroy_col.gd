@@ -5,10 +5,10 @@ var callback_turn_start: Callable
 var callback_after_grow: Callable
 var type_after_grow = EventManager.EventType.AfterGrow
 var type_turn_start = EventManager.EventType.BeforeTurnStart
-var fortune_texture = load("res://assets/custom/Temp.png")
+var fortune_texture = load("res://assets/fortune/BlastCol.png")
 
 func _init() -> void:
-	super("Blast Row", FortuneType.BadFortune, "Destroy one row of plants", 3, fortune_texture)
+	super("Blast Row", FortuneType.BadFortune, "Destroy one column of plants", 3, fortune_texture)
 
 func register_fortune(event_manager: EventManager):
 	callback_turn_start = func(args: EventArgs):

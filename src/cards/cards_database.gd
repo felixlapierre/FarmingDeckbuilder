@@ -154,9 +154,16 @@ static func get_random_enhance(rarity: String, count: int, no_discount: bool):
 	return result
 
 static func get_random_enhance_noseed(rarity, count):
-	return get_random_enhance(rarity, count, false).filter(func(el):
-				return ["Discount", "Echo", "Burn", "Frozen", "Size", "Springbound", "Strength"]\
-					.has(el.name))
+	var result = []
+	var enhances = get_all_enhance()
+	enhances.shuffle()
+	for enh in enhances:
+		if result.size() >= count:
+			return result
+		if enh.rarity == rarity and ["Discount", "Echo", "Burn", "Frozen", "Size", "Springbound", "Strength"]\
+					.has(enh.name):
+			result.append(enh)
+	return result
 
 static func get_random_structures(count: int, rarity: String):
 	var result = []
