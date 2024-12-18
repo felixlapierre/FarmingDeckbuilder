@@ -1,5 +1,23 @@
 # Changelog
 
+## Version 0.0.8
+
+Released Dec 17th
+
+- Reworked Shop system into Explore system. Removed rerolls.
+- Reworked card rarity. Cards are either Common on Rare, and Rare cards can only be obtained on year 4/7 or from events
+- Added new events. Added rare enhances and rare structures
+- Some mage powers can now be upgraded through an event
+- Added new cards (Flame Ward, Chronoweave, Cactus, Onion, Marigold). Added new structures. Puffshroom renamed to Dandelion, and fixed.
+- Added new mage: Lost in Time (Chronomancer)
+- Added "Blessings", that provide passive bonuses, and "Curses", that provide passive penalties, available from events only for now (includes the old Energy Fragment and Card Fragment, which only trigger on turn 1)
+- Blight can now attack on week 2/3 again in later years
+- Rebalanced many cards, including Ward cards, Corn, Propagation.
+- Reworked Blight Druid: now starts with Blightrose instead of Corruption and can find blight cards in card rewards.
+- Added sprites for Blast Row and Blast Column attacks
+- Fixed Wilderness farm getting enhances that only apply to seeds
+- Added debugging tool to add any card to your deck during winter
+
 ## Version 0.0.7
 
 Released Nov 24th

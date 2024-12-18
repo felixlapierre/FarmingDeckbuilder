@@ -48,7 +48,7 @@ static func load_deck(data):
 static func setup_farm(farm: Farm, event_manager: EventManager):
 	match Global.FARM_TYPE:
 		"RIVERLANDS":
-			pass
+			setup_riverlands_farm_callback(farm, event_manager)
 		"WILDERNESS":
 			if Global.WILDERNESS_PLANT == null:
 				# select random
