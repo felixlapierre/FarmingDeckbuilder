@@ -61,26 +61,26 @@ func create_explore(p_explores, turn_manager: TurnManager):
 		on_event.emit())
 		
 	# Enhance
-	if enhances <= turn_manager.week / 2 and $Points.get_child_count() < 5:
+	if enhances <= turn_manager.year / 2 and $Points.get_child_count() < 5:
 		create_point("Enhance Card", Vector2(DIST + 70, 0), func(pt):
 			use_explore(pt)
 			enhances += 1
 			select_enhance("common"))
 	
 	# Remove card
-	if removals <= turn_manager.week / 3 and $Points.get_child_count() < 5:
+	if removals <= turn_manager.year / 3 and $Points.get_child_count() < 5:
 		create_point("Remove Card", Vector2(DIST, -DIST), func(pt):
 			select_card_to_remove(pt))
 	
 	# Structure
-	if structures <= turn_manager.week / 3 and $Points.get_child_count() < 5:
+	if structures <= turn_manager.year / 3 and $Points.get_child_count() < 5:
 		create_point("Structure", Vector2(DIST, DIST), func(pt):
 			use_explore(pt)
 			structures += 1
 			add_structure("common"))
 		
 	# Expand
-	if expands <= turn_manager.week / 3 and $Points.get_child_count() < 5:
+	if expands <= turn_manager.year / 3 and $Points.get_child_count() < 5:
 		create_point("Expand Farm", Vector2(-DIST, DIST), func(pt):
 			use_explore(pt)
 			expands += 1

@@ -38,6 +38,8 @@ var tooltip: Tooltip
 var CARD_ICON
 var SIZE_LABEL
 
+var frozen = false
+
 @onready var COST_LABEL = $HBoxContainer/VBoxContainer/TopBar/CardCostLabel
 @onready var COST_TEXTURE = $HBoxContainer/VBoxContainer/TopBar/TextureRect
 @onready var SIZE_CONTAINER = $HBoxContainer/VBoxContainer/ImageMargin/ImageCont/SizeCont

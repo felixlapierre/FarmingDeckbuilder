@@ -133,10 +133,11 @@ func play_card():
 			drawcard()
 	
 	# If Obliviate, delete instead of discarding
-	if playedcard.card_info.get_effect("burn") != null\
-		or playedcard.card_info.get_effect("fleeting") != null:
+	if playedcard.card_info.get_effect("burn") != null:
 		remove_hand_card(playedcard)
 		notify_card_burned(playedcard.card_info)
+	elif playedcard.card_info.get_effect("fleeting") != null:
+		remove_hand_card(playedcard)
 	else:
 		discard_card(playedcard)
 	
@@ -146,6 +147,9 @@ func play_card():
 			copy.cost = 1
 		if copy.get_effect("fleeting") == null:
 			copy.effects.append(load("res://src/effect/data/fleeting.tres"))
+			var burn = copy.effects.filter(func(eff): return eff.name == "burn")
+			if burn.size() > 0:
+				copy.effects.erase(burn[0])
 		draw_specific_card_from(copy, get_global_mouse_position())
 	
 	# Remove it from selected_card global var
@@ -178,7 +182,7 @@ func discard_hand():
 		if card.card_info.get_effect("fleeting") != null:
 			remove_hand_card(card)
 			notify_card_burned(card.card_info)
-		elif card.card_info.get_effect("frozen") == null:
+		elif card.card_info.get_effect("frozen") == null and !card.frozen:
 			discard_card(card)
 	reorganize_hand()
 

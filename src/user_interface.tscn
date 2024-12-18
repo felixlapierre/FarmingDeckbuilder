@@ -310,12 +310,12 @@ text = "+12"
 
 [node name="SkipButton" type="Button" parent="UI"]
 layout_mode = 0
-offset_left = 283.0
-offset_top = 376.0
-offset_right = 354.0
-offset_bottom = 425.0
+offset_left = 1750.0
+offset_top = 20.0
+offset_right = 1910.0
+offset_bottom = 69.0
 theme = ExtResource("2_s7754")
-text = "Skip"
+text = "Skip Year"
 metadata/_edit_use_anchors_ = true
 
 [node name="TilePreview" parent="UI" instance=ExtResource("14_auyx1")]

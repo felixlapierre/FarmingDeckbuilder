@@ -14,7 +14,7 @@ func _init():
 	super()
 
 func copy():
-	var copy = Sprinkler.new()
+	var copy = KeepEnergy.new()
 	copy.assign(self)
 	return copy
 
@@ -24,6 +24,8 @@ func register_events(event_manager: EventManager, tile: Tile):
 	
 	callback2 = func(args: EventArgs):
 		args.turn_manager.energy += energy
+		if energy > 0:
+			tile.play_effect_particles()
 
 	callback3 = func(args: EventArgs):
 		energy = 0

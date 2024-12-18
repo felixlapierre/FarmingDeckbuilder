@@ -121,7 +121,7 @@ func plant_seed_animate(planted_seed) -> Array[Effect]:
 
 func plant_seed(planted_seed) -> Array[Effect]:
 	var effects: Array[Effect] = []
-	if state == Enums.TileState.Empty:
+	if card_can_target(planted_seed):
 		seed = planted_seed
 		seed.register_seed_events(event_manager, self)
 		effects.append_array(get_effects("plant"))
@@ -140,7 +140,7 @@ func plant_seed(planted_seed) -> Array[Effect]:
 			$PlantSprite.texture = load(objects_image)
 		$PlantSprite.region_enabled = true
 		update_plant_sprite()
-	event_manager.notify_specific_args(EventManager.EventType.OnPlantPlanted, EventArgs.SpecificArgs.new(self))
+		event_manager.notify_specific_args(EventManager.EventType.OnPlantPlanted, EventArgs.SpecificArgs.new(self))
 	return effects
 	
 func grow_one_week() -> Array[Effect]:

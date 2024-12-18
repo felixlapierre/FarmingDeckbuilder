@@ -4,6 +4,7 @@ class_name EventManager
 var farm: Farm
 var turn_manager: TurnManager
 var cards: Cards
+var user_interface: UserInterface
 
 var on_year_start_listeners: Array[Callable] = []
 var on_turn_end_listeners: Array[Callable] = []
@@ -37,10 +38,11 @@ func _ready() -> void:
 	for type in EventType.values():
 		listeners[type] = []
 
-func setup(p_farm: Farm, p_turn_manager: TurnManager, p_cards: Cards):
+func setup(p_farm: Farm, p_turn_manager: TurnManager, p_cards: Cards, p_user_interface: UserInterface):
 	farm = p_farm
 	turn_manager = p_turn_manager
 	cards = p_cards
+	user_interface = p_user_interface
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -70,4 +72,4 @@ func notify_specific_args(event_type: EventType, specific_args: EventArgs.Specif
 			listener.call(get_event_args(specific_args))
 
 func get_event_args(spec):
-	return EventArgs.new(farm, turn_manager, cards, spec)
+	return EventArgs.new(farm, turn_manager, cards, spec, user_interface)

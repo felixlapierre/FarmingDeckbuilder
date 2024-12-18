@@ -11,7 +11,7 @@ var event_callable: Callable
 func _init() -> void:
 	super(MAGE_NAME, Fortune.FortuneType.GoodFortune, "Randomize starting deck", 5, icon)
 	modify_deck_callback = func(deck: Array[CardData]):
-		randomize_deck(deck)
+		ChaosMageFortune.randomize_deck(deck)
 
 func register_fortune(event_manager: EventManager):
 	event_callable = func(args: EventArgs):

@@ -28,7 +28,7 @@ var winter_night_tileset = preload("res://assets/1616tinygarden/tileset-winter-n
 func _ready() -> void:
 	randomize()
 	card_database = preload("res://src/cards/cards_database.gd")
-	$EventManager.setup($FarmTiles, $TurnManager, $Cards)
+	$EventManager.setup($FarmTiles, $TurnManager, $Cards, $UserInterface)
 	$UserInterface.setup($EventManager, $TurnManager, deck, $Cards)
 	$UserInterface.update()
 	$FarmTiles.setup($EventManager)
@@ -210,8 +210,9 @@ func on_turn_end():
 	if $TurnManager.blight_damage >= Global.MAX_BLIGHT:
 		on_lose()
 	#$UserInterface.update()
-	#await get_tree().create_timer(1).timeout
-	$UserInterface.turn_ending = false
+	get_tree().create_timer(1.5).timeout.connect(func():
+		$UserInterface.turn_ending = false)
+
 	$Cards.draw_hand($TurnManager.get_cards_drawn(), $TurnManager.week)
 	$EventManager.notify(EventManager.EventType.BeforeTurnStart)
 	if victory == true:

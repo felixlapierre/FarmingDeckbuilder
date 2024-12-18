@@ -6,12 +6,14 @@ var farm: Farm
 var turn_manager: TurnManager
 var cards: Cards
 var specific: SpecificArgs
+var user_interface: UserInterface
 
-func _init(p_farm: Farm = null, p_turn_manager: TurnManager = null, p_cards: Cards = null, p_specific_args: SpecificArgs = null):
+func _init(p_farm: Farm = null, p_turn_manager: TurnManager = null, p_cards: Cards = null, p_specific_args: SpecificArgs = null, p_user_interface: UserInterface = null):
 	farm = p_farm
 	turn_manager = p_turn_manager
 	cards = p_cards
 	specific = p_specific_args
+	user_interface = p_user_interface
 
 class SpecificArgs:
 	var tile: Tile

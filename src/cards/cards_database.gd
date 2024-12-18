@@ -11,6 +11,8 @@ static func load_cards():
 		if card == null:
 			print(path)
 		all_cards.append(card)
+	if Global.MAGE == "Blight Druid":
+		all_cards.append(get_element_cards("Blight"))
 	
 static func get_all_cards() -> Array[CardData]:
 	return get_all_cards_rarity(null)
@@ -21,6 +23,8 @@ static func get_all_cards_rarity(rarity) -> Array[CardData]:
 	for card in all_cards:
 		if (rarity == null or rarity == card.rarity)\
 			and card.rarity != "unique" and card.rarity != "blight" and card.rarity != "basic":
+			cards.append(card)
+		if Global.MAGE == BlightMageFortune.MAGE_NAME and rarity == "common" and card.rarity == "blight":
 			cards.append(card)
 	return cards
 

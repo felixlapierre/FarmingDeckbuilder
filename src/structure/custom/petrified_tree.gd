@@ -18,9 +18,10 @@ func register_events(event_manager: EventManager, tile: Tile):
 		for i in range(0, Constants.FARM_DIMENSIONS.y):
 			var target_tile = args.farm.tiles[i][tile.grid_location.y]
 			if target_tile.grid_location.x != tile.grid_location.x and !target_tile.is_destroyed()\
-				and target_tile.state != Enums.TileState.Inactive:
+				and target_tile.state != Enums.TileState.Inactive and target_tile.structure == null:
 				target_tile.destroy()
 		args.turn_manager.energy += 1
+		tile.play_effect_particles()
 	event_manager.register_listener(event_type, callback)
 
 func unregister_events(event_manager: EventManager):

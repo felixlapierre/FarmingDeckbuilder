@@ -12,13 +12,11 @@ func register_seed_events(event_manager: EventManager, p_tile: Tile):
 	tile = p_tile
 	# On card played
 	callback = func(args: EventArgs):
-		var card = args.specific.play_args.card
-		cards_burned_count += 1
 		tile.play_effect_particles()
 	callback_harvest = func(args: EventArgs):
 		if tile == args.specific.tile:
-			args.farm.use_card_random_tile(popcorn, cards_burned_count)
-			
+			args.farm.use_card_random_tile(popcorn, args.cards.cards_burned)
+
 	# On harvest
 	event_manager.register_listener(EventManager.EventType.OnCardBurned, callback)
 	event_manager.register_listener(EventManager.EventType.OnPlantHarvest, callback_harvest)

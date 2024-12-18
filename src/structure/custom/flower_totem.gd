@@ -25,6 +25,7 @@ func register_events(event_manager: EventManager, tile: Tile):
 				var cantarget = target_tile.card_can_target(wildflower)
 				if cantarget:
 					target_tile.plant_seed_animate(wildflower)
+		tile.play_effect_particles()
 	event_manager.register_listener(event_type, callback)
 
 func unregister_events(event_manager: EventManager):
