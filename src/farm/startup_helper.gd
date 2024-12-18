@@ -48,12 +48,7 @@ static func load_deck(data):
 static func setup_farm(farm: Farm, event_manager: EventManager):
 	match Global.FARM_TYPE:
 		"RIVERLANDS":
-			for i in range(1, 3):
-				farm.tiles[1][i].build_structure(Water, 0)
-				farm.tiles[2][i].build_structure(Water, 0)
-			for i in range(5, 7):
-				farm.tiles[5][i].build_structure(Water, 0)
-				farm.tiles[6][i].build_structure(Water, 0)
+			pass
 		"WILDERNESS":
 			if Global.WILDERNESS_PLANT == null:
 				# select random
@@ -80,11 +75,22 @@ static func setup_farm(farm: Farm, event_manager: EventManager):
 static func load_farm(farm: Farm, event_manager: EventManager):
 	if Global.FARM_TYPE == "WILDERNESS":
 		setup_wilderness_farm_callback(farm, event_manager)
+	elif Global.FARM_TYPE == "RIVERLANDS":
+		setup_riverlands_farm_callback(farm, event_manager)
 	for tile in farm.get_all_tiles():
 		tile.do_active_check()
 
 static func setup_wilderness_farm_callback(farm: Farm, event_manager: EventManager):
 	event_manager.register_listener(EventManager.EventType.BeforeYearStart, wilderness_callable)
+
+static func setup_riverlands_farm_callback(farm: Farm, event_manager: EventManager):
+	event_manager.register_listener(EventManager.EventType.BeforeYearStart, func(args: EventArgs):
+		for i in range(2, 4):
+			farm.tiles[2][i].irrigate()
+			farm.tiles[3][i].irrigate()
+		for i in range(4, 6):
+			farm.tiles[4][i].irrigate()
+			farm.tiles[5][i].irrigate())
 
 static func teardown_wilderness_farm_callback(event_manager: EventManager):
 	event_manager.unregister_listener(EventManager.EventType.BeforeYearStart, wilderness_callable)
@@ -122,7 +128,7 @@ static var riverlands_deck = [
 		"count": 2
 	},
 	{
-		"name": "Pumpkin",
+		"name": "Water Lily",
 		"type": "seed",
 		"count": 3
 	},

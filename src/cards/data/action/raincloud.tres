@@ -7,7 +7,7 @@
 [sub_resource type="Resource" id="Resource_opdn5"]
 script = ExtResource("1_ker15")
 name = "irrigate"
-strength = 3.0
+strength = 0.0
 on = ""
 range = "self"
 
@@ -19,9 +19,9 @@ rarity = "common"
 cost = 1
 yld = 0
 time = 0
-size = 9
+size = 6
 text = ""
-strength_increment = 3.0
+strength_increment = 1.0
 size_increment = 1
 texture = ExtResource("2_0j7c6")
 seed_texture = 3

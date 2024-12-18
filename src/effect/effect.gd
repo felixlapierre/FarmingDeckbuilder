@@ -98,8 +98,10 @@ func get_short_description(card: CardData):
 		"irrigate":
 			if card.type == "ACTION":
 				return "Water " + get_size(card) + " tiles"
+			elif range == "adjacent":
+				return "Water 9 adjacent tiles" + get_on_text()
 			else:
-				return "Water 9 adjacent tiles " + get_on_text()
+				return "Water tile" + get_on_text()
 		"absorb":
 			return "Benefits " + str(strength*100) + "% more from being watered"
 		"destroy_tile":

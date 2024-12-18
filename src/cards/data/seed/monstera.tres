@@ -13,7 +13,7 @@ range = "self"
 [resource]
 script = ExtResource("1_bnskp")
 type = "SEED"
-name = "Water Lily"
+name = "Lotus"
 rarity = "common"
 cost = -1
 yld = 1

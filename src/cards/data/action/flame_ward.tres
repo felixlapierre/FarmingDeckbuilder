@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://src/cards/custom/flame_ward.gd" id="1_0up1s"]
 [ext_resource type="SpriteFrames" uid="uid://dfm0u4ub3seyl" path="res://src/animation/frames/flamerite_sf.tres" id="1_2s07d"]
-[ext_resource type="Texture2D" uid="uid://c46q76532nqk" path="res://assets/custom/Temp.png" id="2_f4fby"]
+[ext_resource type="Texture2D" uid="uid://y1x8kxuy6cm2" path="res://assets/card/flame-ward.png" id="3_71i37"]
 
 [resource]
 script = ExtResource("1_0up1s")
@@ -16,7 +16,7 @@ size = 0
 text = "Gain {STRENGTH} {BLUE_MANA} per card burned this year"
 strength_increment = 3.0
 size_increment = 1
-texture = ExtResource("2_f4fby")
+texture = ExtResource("3_71i37")
 seed_texture = 0
 texture_icon_offset = 16
 targets = Array[String]([])

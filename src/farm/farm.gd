@@ -302,9 +302,6 @@ func perform_effect(effect, tile: Tile):
 			effect_queue.append_array(tile.harvest(true))
 		"irrigate":
 			tile.irrigate()
-			if effect.strength > 1:
-				effect.strength -= 1
-				next_turn_effects.append(effect)
 		"grow":
 			for i in range(effect.strength):
 				effect_queue.append_array(tile.grow_one_week())
