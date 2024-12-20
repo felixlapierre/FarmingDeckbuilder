@@ -50,7 +50,7 @@ func create_explore(p_explores, turn_manager: TurnManager):
 	if turn_manager.year == 4 or turn_manager.year == 7 or turn_manager.year == 10:
 		create_point("Rare Card", Vector2(0, -DIST - 70), func(pt):
 			use_explore(pt)
-			add_card("rare", 5 - Mastery.BlockShop))
+			add_card("rare", 3))
 		create_point("Rare Structure", Vector2(0, DIST + 70), func(pt):
 			use_explore(pt)
 			add_structure("rare"))
