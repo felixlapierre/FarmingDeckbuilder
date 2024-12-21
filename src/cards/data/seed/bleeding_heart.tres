@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="BleedingHeart" load_steps=3 format=3 uid="uid://7s7fvt27q5sl"]
+
+[ext_resource type="Script" path="res://src/cards/custom/bleeding_heart.gd" id="1_j6260"]
+[ext_resource type="Texture2D" uid="uid://yhuqnrpbmq1f" path="res://assets/seed/bleeding-heart.png" id="2_r3knm"]
+
+[resource]
+script = ExtResource("1_j6260")
+type = "SEED"
+name = "Bleeding Heart"
+rarity = "common"
+cost = 1
+yld = 45
+time = 4
+size = 1
+text = "At the start of each turn, add {STRENGTH} {MANA} to all flowers on your farm"
+strength_increment = 1.0
+size_increment = 1
+texture = ExtResource("2_r3knm")
+seed_texture = 0
+texture_icon_offset = 16
+targets = Array[String]([])
+effects = Array[Resource("res://src/effect/effect.gd")]([])
+enhances = Array[String]([])
+strength = 1.0
+delay = 0.0
+anim_on = 0

@@ -195,7 +195,7 @@ func set_background(week: int):
 		get_tree().create_timer(0.6).timeout.connect(func():
 			set_background_texture(ts_winter_tr4))
 		get_tree().create_timer(0.9).timeout.connect(func():
-			set_background_texture(winter))
+			set_background_texture(ts_winter))
 	do_week(week)
 	set_background_texture(texture)
 

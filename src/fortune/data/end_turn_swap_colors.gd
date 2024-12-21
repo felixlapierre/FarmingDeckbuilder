@@ -13,9 +13,8 @@ func register_fortune(event_manager: EventManager):
 			return
 		farm_ref = args.farm
 		for tile: Tile in farm_ref.get_node("Tiles").get_children():
-			if !tile.is_protected():
-				tile.purple = !tile.purple
-				tile.update_purple_overlay()
+			tile.purple = !tile.purple
+			tile.update_purple_overlay()
 	event_manager.register_listener(EventManager.EventType.OnTurnEnd, callable)
 
 func unregister_fortune(event_manager: EventManager):
