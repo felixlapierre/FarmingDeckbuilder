@@ -99,15 +99,15 @@ func update_fortunes(fortunes: Array[Fortune]):
 
 
 func _on_next_turns_mouse_entered():
-	if !Settings.CLICK_MODE:
+	if false:#!Settings.CLICK_MODE:
 		show_full_preview()
 
 func _on_next_turns_mouse_exited():
-	if !Settings.CLICK_MODE:
+	if false:#!Settings.CLICK_MODE:
 		hide_full_preview()
 
 func _on_list_gui_input(event: InputEvent) -> void:
-	if event.is_action_pressed("leftclick") and Settings.CLICK_MODE:
+	if event.is_action_pressed("leftclick") and true:#Settings.CLICK_MODE:
 		show_full_preview()
 
 func on_other_clicked():
