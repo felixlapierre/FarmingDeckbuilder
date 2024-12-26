@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://cswinrop881oo"]
+[gd_scene load_steps=41 format=3 uid="uid://cswinrop881oo"]
 
 [ext_resource type="Script" path="res://src/user_interface.gd" id="1_j28fq"]
 [ext_resource type="Theme" uid="uid://c21dhy264y6ty" path="res://assets/theme_large.tres" id="2_s7754"]
@@ -56,6 +56,14 @@ orbit_velocity_max = 0.099
 gravity = Vector3(0, -98, 0)
 anim_speed_min = 1.0
 anim_speed_max = 1.0
+
+[sub_resource type="InputEventKey" id="InputEventKey_3fge0"]
+device = -1
+keycode = 69
+unicode = 101
+
+[sub_resource type="Shortcut" id="Shortcut_wpwor"]
+events = [SubResource("InputEventKey_3fge0")]
 
 [sub_resource type="InputEventKey" id="InputEventKey_1m5ts"]
 device = -1
@@ -394,6 +402,7 @@ offset_right = 1782.0
 offset_bottom = 806.0
 theme = ExtResource("2_s7754")
 theme_override_font_sizes/font_size = 70
+shortcut = SubResource("Shortcut_wpwor")
 text = "End Turn"
 
 [node name="AlertContainer" parent="." instance=ExtResource("18_ih37u")]

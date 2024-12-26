@@ -279,3 +279,33 @@ func notify_card_burned(card_data):
 func update_hand_display():
 	for card: CardBase in $Hand.get_children():
 		card.set_card_info(card.card_info)
+
+func _input(event: InputEvent):
+	if event is InputEventKey and event.pressed:
+		var i = 0
+		match event.keycode:
+			KEY_0:
+				i = 9
+			KEY_1:
+				i = 0
+			KEY_2:
+				i = 1
+			KEY_3:
+				i = 2
+			KEY_4:
+				i = 3
+			KEY_5:
+				i = 4
+			KEY_6:
+				i = 5
+			KEY_7:
+				i = 6
+			KEY_8:
+				i = 7
+			KEY_9:
+				i = 8
+			_:
+				return
+		if i < HAND_CARDS.get_child_count():
+			var card = HAND_CARDS.get_child(i)
+			card.on_card_clicked()
