@@ -259,3 +259,6 @@ func get_long_description():
 			description_tooltip += "\n"
 		description_tooltip += effect.get_long_description()
 	return description_tooltip
+
+func on_card_drawn(args: EventArgs):
+	pass

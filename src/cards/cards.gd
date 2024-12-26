@@ -23,6 +23,7 @@ var discard_pile_cards: Array[CardData] = []
 
 signal on_card_clicked
 signal on_card_burned
+signal on_card_drawn
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -107,6 +108,7 @@ func draw_specific_card_from(card_data: CardData, from: Vector2):
 	$Hand.add_child(new_card);
 	number_of_cards_in_hand += 1
 	reorganize_hand()
+	on_card_drawn.emit(card_data)
 
 func draw_springbound_cards(count: int):
 	var springbound_cards = []

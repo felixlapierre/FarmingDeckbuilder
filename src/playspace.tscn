@@ -35,6 +35,7 @@ script = ExtResource("1_hjvjc")
 [connection signal="try_move_structure" from="FarmTiles" to="." method="_on_farm_tiles_try_move_structure"]
 [connection signal="on_card_burned" from="Cards" to="." method="_on_cards_on_card_burned"]
 [connection signal="on_card_clicked" from="Cards" to="." method="_on_cards_on_card_clicked"]
+[connection signal="on_card_drawn" from="Cards" to="." method="_on_cards_on_card_drawn"]
 [connection signal="animate_blightroot" from="TurnManager" to="Background" method="animate_blightroots"]
 [connection signal="after_farm_expanded" from="UserInterface" to="FarmTiles" method="on_expand_farm"]
 [connection signal="apply_upgrade" from="UserInterface" to="." method="on_upgrade"]

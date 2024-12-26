@@ -358,3 +358,8 @@ func _on_cards_on_card_burned(card: CardData):
 	var specific_args = EventArgs.SpecificArgs.new(null)
 	specific_args.play_args = play_args
 	event_manager.notify_specific_args(EventManager.EventType.OnCardBurned, specific_args)
+
+
+func _on_cards_on_card_drawn(card: CardData):
+	var args: EventArgs = event_manager.get_event_args(null)
+	card.on_card_drawn(args)
