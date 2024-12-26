@@ -84,7 +84,10 @@ func get_description():
 		"RemoveBurn":
 			return "Remove Burn from a card"
 		"Strength":
-			return "Increase the strength of a card's special effects" + (" twice" if strength == 2 else "")
+			var text = "Increase the strength of a card's special effects" + (" twice" if strength == 2 else "")
+			if rarity == "common" and strength == 2:
+				text + ". Increase card's Cost by 1"
+			return text
 		"Regrow":
 			return "Add Regrow 3 to a card" + (" and 1 week [img]res://assets/custom/Time.png[/img] of grow time to a card " if strength == 1 else "")
 		"Echo":
