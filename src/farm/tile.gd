@@ -24,6 +24,7 @@ var destroy_targeted = false
 var destroyed = false
 var blighted = false
 var protected = false
+var rock = false
 
 signal tile_hovered
 signal on_event
@@ -56,6 +57,7 @@ func do_active_check():
 
 func update_display():
 	update_purple_overlay()
+	$Rock.visible = rock
 	if state == Enums.TileState.Inactive:
 		$PurpleOverlay.visible = false
 		$Farmland.visible = false
@@ -422,6 +424,8 @@ func card_can_target(card: CardData):
 		return false
 	var targets = []
 	targets.assign(card.targets)
+	if rock and !targets.has("Rock"):
+		return false
 	if card.type == "SEED" and targets.size() == 0:
 		targets.append("Empty");
 	if state == Enums.TileState.Empty and (targets.has("Destroyed") or targets.has("Blighted")):

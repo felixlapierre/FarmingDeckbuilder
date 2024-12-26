@@ -121,13 +121,13 @@ func _on_type_options_item_selected(index):
 			update_prompt("Farm Type: Forest", load("res://assets/mage/forest.png"), "Basic farm, with no special effects.")
 		1:
 			Global.FARM_TYPE = "RIVERLANDS"
-			update_prompt("Farm Type: Riverlands", load("res://assets/mage/riverlands.png"), "A farm with ponds that take up space but water nearby plants.")
+			update_prompt("Farm Type: Riverlands", load("res://assets/mage/riverlands.png"), "Only watered plants will grow on this farm.\nStart with 8 watered tiles on your farm and 3 'Water Lilies' in your deck.")
 		2:
 			Global.FARM_TYPE = "WILDERNESS"
 			update_prompt("Farm Type: Wilderness", load("res://assets/mage/wilderness.png"), "Start with seeds already planted on the farm. Starting deck has no Seed cards. You cannot add Seed cards to your deck.")
 		3:
 			Global.FARM_TYPE = "MOUNTAINS"
-			update_prompt("Farm Type: Mountains", load("res://assets/fortune/mountains.png"), "A very small farm. Good luck!")
+			update_prompt("Farm Type: Mountains", load("res://assets/fortune/mountains.png"), "This region is full of rocks that make farming difficult.")
 
 func get_index_of_farm_type(type):
 	match type:

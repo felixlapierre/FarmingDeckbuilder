@@ -66,8 +66,9 @@ static func setup_farm(farm: Farm, event_manager: EventManager):
 				Global.WILDERNESS_PLANT = selection
 			setup_wilderness_farm_callback(farm, event_manager)
 		"MOUNTAINS":
-			Global.FARM_TOPLEFT = Vector2(2, 2)
-			Global.FARM_BOTRIGHT = Vector2(5, 5)
+			setup_mountain_farm(farm)
+			#Global.FARM_TOPLEFT = Vector2(2, 2)
+			#Global.FARM_BOTRIGHT = Vector2(5, 5)
 			for tile in farm.get_all_tiles():
 				tile.do_active_check()
 			pass
@@ -77,6 +78,8 @@ static func load_farm(farm: Farm, event_manager: EventManager):
 		setup_wilderness_farm_callback(farm, event_manager)
 	elif Global.FARM_TYPE == "RIVERLANDS":
 		setup_riverlands_farm_callback(farm, event_manager)
+	elif Global.FARM_TYPE == "MOUNTAINS":
+		setup_mountain_farm(farm)
 	for tile in farm.get_all_tiles():
 		tile.do_active_check()
 
@@ -97,7 +100,17 @@ static func teardown_wilderness_farm_callback(event_manager: EventManager):
 
 static var wilderness_callable = func(event_args: EventArgs):
 	event_args.farm.use_card_random_tile(Global.WILDERNESS_PLANT.copy(), Global.WILDERNESS_PLANT.size)
-	
+
+static func setup_mountain_farm(farm: Farm):
+	var rocks = 36
+	seed(320950397590)
+	for tile: Tile in farm.get_all_tiles():
+		if rocks == 0:
+			return
+		if randi() % 2 == 0:
+			tile.rock = true
+			rocks -= 1
+
 static var forest_deck = [
 	{
 		"name": "Carrot",
