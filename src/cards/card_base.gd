@@ -112,6 +112,8 @@ func set_card_info(card_data):
 		$CardBorder.modulate = Color8(202, 255, 191)
 	elif card_info.type == "ACTION":
 		$CardBorder.modulate = Color8(255, 213, 186)
+	if card_data.get_effect("fleeting") != null:
+		$CardBorder.self_modulate.a = 0.8
 	$HBoxContainer/VBoxContainer/BottomBar/TypeLabel.text = card_info.type
 	$HBoxContainer/VBoxContainer/TopBar/CardNameLabel.text = card_info.name
 	$HBoxContainer/VBoxContainer/TopBar/CardCostLabel.text = str(card_info.cost if card_info.cost >= 0 else "X")

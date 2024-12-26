@@ -97,7 +97,6 @@ func update_fortunes(fortunes: Array[Fortune]):
 		Fortunes.add_child(hover)
 		hover.setup(fortune)
 
-
 func _on_next_turns_mouse_entered():
 	if false:#!Settings.CLICK_MODE:
 		show_full_preview()
