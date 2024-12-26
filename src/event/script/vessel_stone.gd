@@ -24,7 +24,12 @@ func get_options():
 		user_interface.pick_enhance_event("rare")
 		user_interface.deck.append(vessel_bound)
 	)
-	return [option1]
+	var option2 = CustomEvent.Option.new("TODO Draw a small amount of energy", text_preview("Add 'Strength' to a card in your deck"), func():
+		pass
+		)
+	var option3 = CustomEvent.Option.new("Leave", text_preview("Leave"), func():
+		pass)
+	return [option1, option2, option3]
 
 func check_prerequisites():
 	return turn_manager.year > 7

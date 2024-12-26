@@ -1,7 +1,5 @@
 extends CustomEvent
 
-var ShopCard = preload("res://src/shop/shop_card.tscn")
-
 func _init():
 	super._init("Blight Offering", "You see visions of a beautiful tapestry of purple thorns and blood-gorged roots. The Blight offers you some of its power in hopes that it may convince you to set aside your quest.\n\nIt's an obvious trap, but you could use the blight's power against it, if you dare.")
 

@@ -5,6 +5,7 @@ var ShopCard = preload("res://src/shop/shop_card.tscn")
 var OptionPreview = preload("res://src/event/option_preview.tscn")
 var FortuneDisplay = preload("res://src/fortune/fortune.tscn")
 var ShopDisplay = preload("res://src/shop/shop_display.tscn")
+var DisplayRect = preload("res://src/ui/display/display_rect.tscn")
 
 var name: String
 var text: String
@@ -50,3 +51,8 @@ func text_preview(text: String):
 	
 func nodes_preview(text: String, nodes: Array[Node]):
 	return OptionPreview.instantiate().nodes_preview(text, nodes)
+
+func display_rect(img: Texture2D):
+	var display = DisplayRect.instantiate()
+	display.texture = img
+	return display

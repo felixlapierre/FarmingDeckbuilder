@@ -1,5 +1,5 @@
 extends Control
-class_name OptionPreview
+class_name OptionPrevie
 
 var description: RichTextLabel
 
@@ -14,6 +14,7 @@ func _process(delta):
 func text_preview(text: String):
 	description = $VBox/Description
 	description.clear()
+	description.append_text("[center]")
 	description.append_text(text)
 	return self
 

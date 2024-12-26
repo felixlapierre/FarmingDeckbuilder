@@ -1,5 +1,7 @@
 extends CustomEvent
 
+var arrow = load("res://assets/ui/arrow.png")
+
 func _init():
 	super._init("Mastery", "Description")
 	#var option2 = CustomEvent.Option.new("Choose a new Mage Power", null,\
@@ -18,6 +20,8 @@ func get_options():
 	var node1 = FortuneDisplay.instantiate()
 	node1.setup(user_interface.mage_fortune)
 	nodes.append(node1)
+	
+	nodes.append(display_rect(arrow))
 	
 	var copy = load(user_interface.mage_fortune.get_script().get_path()).new()
 	copy.strength += copy.str_inc
