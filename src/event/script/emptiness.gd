@@ -12,10 +12,12 @@ func _process(delta: float) -> void:
 	pass
 
 func get_options():
-	var option1 = CustomEvent.Option.new("Offer a spell instead (Remove a card from your deck)", null, func():
+	var option1 = CustomEvent.Option.new("Offer a spell instead",
+	text_preview("Remove a card from your deck"), func():
 		user_interface.remove_card_event()
 	)
-	var option2 = CustomEvent.Option.new("Embrace emptiness (Remove three random cards from your deck)", null, func():
+	var option2 = CustomEvent.Option.new("Embrace emptiness",
+	text_preview("Remove three random cards from your deck"), func():
 		var deck = []
 		deck.assign(user_interface.deck)
 		deck.shuffle()

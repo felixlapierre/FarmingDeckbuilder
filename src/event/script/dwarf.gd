@@ -12,11 +12,13 @@ func _process(delta: float) -> void:
 	pass
 
 func get_options():
-	var option1 = CustomEvent.Option.new("I dig (Expand your farm)", null, func():
+	var option1 = CustomEvent.Option.new("I dig",\
+	OptionPreview.instantiate().text_preview("Expand your farm"), func():
 		user_interface.on_expand_farm()
 	)
-	var option2 = CustomEvent.Option.new("No dig (No dig)", null, func(): pass)
+	var option2 = CustomEvent.Option.new("No dig",\
+	OptionPreview.instantiate().text_preview("No dig"), func(): pass)
 	return [option1, option2]
 
 func check_prerequisites():
-	return true
+	return Helper.can_expand_farm()

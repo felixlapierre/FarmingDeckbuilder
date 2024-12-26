@@ -80,7 +80,7 @@ func create_explore(p_explores, turn_manager: TurnManager):
 			add_structure("common"))
 		
 	# Expand
-	if expands <= turn_manager.year / 3 and $Points.get_child_count() < 5:
+	if expands <= turn_manager.year / 3 and $Points.get_child_count() < 5 and Helper.can_expand_farm():
 		create_point("Expand Farm", Vector2(-DIST, DIST), func(pt):
 			use_explore(pt)
 			expands += 1

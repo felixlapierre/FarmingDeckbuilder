@@ -1,6 +1,11 @@
 extends Resource
 class_name CustomEvent
 
+var ShopCard = preload("res://src/shop/shop_card.tscn")
+var OptionPreview = preload("res://src/event/option_preview.tscn")
+var FortuneDisplay = preload("res://src/fortune/fortune.tscn")
+var ShopDisplay = preload("res://src/shop/shop_display.tscn")
+
 var name: String
 var text: String
 
@@ -39,3 +44,9 @@ func check_prerequisites():
 	# Based on year
 	# Based on card in deck?
 	return true
+
+func text_preview(text: String):
+	return OptionPreview.instantiate().text_preview(text)
+	
+func nodes_preview(text: String, nodes: Array[Node]):
+	return OptionPreview.instantiate().nodes_preview(text, nodes)

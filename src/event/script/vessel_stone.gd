@@ -14,7 +14,7 @@ func _process(delta: float) -> void:
 	pass
 
 func get_options():
-	var option1 = CustomEvent.Option.new("Draw the boundless energy of the Vessel Stone", null, func():
+	var option1 = CustomEvent.Option.new("Draw the boundless energy of the Vessel Stone", text_preview("Add a Rare enhance to a card in your deck"), func():
 		user_interface.pick_enhance_event("rare")
 	)
 	return [option1]

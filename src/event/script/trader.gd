@@ -12,11 +12,11 @@ func _process(delta: float) -> void:
 	pass
 
 func get_options():
-	var option1 = CustomEvent.Option.new("Trade for a Card", null, func():
+	var option1 = CustomEvent.Option.new("Trade for a Card", text_preview("Add a Card to your deck"), func():
 		user_interface.pick_cards_event_rarity("common"))
-	var option2 = CustomEvent.Option.new("Trade for an Enhance", null, func():
+	var option2 = CustomEvent.Option.new("Trade for an Enhance", text_preview("Enhance a card in your deck"), func():
 		user_interface.pick_enhance_event("common"))
-	var option3 = CustomEvent.Option.new("Trade for a Structure", null, func():
+	var option3 = CustomEvent.Option.new("Trade for a Structure", text_preview("Build a Structure on your farm"), func():
 		user_interface.pick_structure_event("common"))
 	return [option1, option2, option3]
 

@@ -14,11 +14,17 @@ func _process(delta: float) -> void:
 	pass
 
 func get_options():
-	var option1 = CustomEvent.Option.new("Bring the statue back to your farm (Gain Structure: Statue of Grace)", null, func():
+	var nodes: Array[Node] = []
+	var struct_display = ShopDisplay.instantiate()
+	struct_display.set_data(statue)
+	nodes.append(struct_display)
+	
+	var option1 = CustomEvent.Option.new("Bring the statue back to your farm",\
+	nodes_preview("Gain Structure: Statue of Grace", nodes), func():
 		user_interface._on_shop_on_structure_place(statue, func(): pass)
 		user_interface.CancelStructure.visible = false
 	)
-	var option2 = CustomEvent.Option.new("Clean the statue and leave a gift basket (Pick a Blessing)", null, func():
+	var option2 = CustomEvent.Option.new("Clean the statue and leave a gift basket", text_preview("Gain a Blessing"), func():
 		user_interface.pick_blessing("Pick a blessing to gain", [])
 	)
 	return [option1, option2]

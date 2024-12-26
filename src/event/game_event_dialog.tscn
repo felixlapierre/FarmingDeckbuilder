@@ -1,71 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://cg2lu7ivw8gms"]
+[gd_scene load_steps=3 format=3 uid="uid://cg2lu7ivw8gms"]
 
 [ext_resource type="Script" path="res://src/event/game_event_dialog.gd" id="1_t53rf"]
-[ext_resource type="StyleBox" uid="uid://bhfo1noi80203" path="res://assets/panel_opaque.tres" id="3_blmks"]
-[ext_resource type="Theme" uid="uid://c21dhy264y6ty" path="res://assets/theme_large.tres" id="3_f6b05"]
+[ext_resource type="PackedScene" uid="uid://d1coj81estuq0" path="res://src/ui/menus/event_dialog.tscn" id="2_uvl67"]
 
 [node name="GameEventDialog" type="Node2D"]
 z_index = 2
 script = ExtResource("1_t53rf")
 
-[node name="ClickOutButton" type="Button" parent="."]
-modulate = Color(1, 1, 1, 0)
-custom_minimum_size = Vector2(1920, 1080)
-offset_right = 8.0
-offset_bottom = 8.0
-
-[node name="PanelContainer" type="PanelContainer" parent="."]
-custom_minimum_size = Vector2(1000, 0)
-offset_right = 400.0
-offset_bottom = 424.0
-theme = ExtResource("3_f6b05")
-theme_override_styles/panel = ExtResource("3_blmks")
-
-[node name="Margin" type="MarginContainer" parent="PanelContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
-
-[node name="VBox" type="VBoxContainer" parent="PanelContainer/Margin"]
-layout_mode = 2
-
-[node name="HBox" type="HBoxContainer" parent="PanelContainer/Margin/VBox"]
-layout_mode = 2
-
-[node name="Title" type="Label" parent="PanelContainer/Margin/VBox/HBox"]
-layout_mode = 2
-size_flags_horizontal = 6
-theme = ExtResource("3_f6b05")
-text = "Title of event"
-horizontal_alignment = 1
-
-[node name="CloseButton" type="Button" parent="PanelContainer/Margin/VBox/HBox"]
-layout_mode = 2
-size_flags_horizontal = 8
-text = "Close"
-
-[node name="Description" type="RichTextLabel" parent="PanelContainer/Margin/VBox"]
-custom_minimum_size = Vector2(0, 200)
-layout_mode = 2
-text = "Description of event"
-fit_content = true
-
-[node name="Option1Button" type="Button" parent="PanelContainer/Margin/VBox"]
-layout_mode = 2
-text = "Option 1"
-
-[node name="Option2Button" type="Button" parent="PanelContainer/Margin/VBox"]
-layout_mode = 2
-text = "Option 2"
-
-[node name="Option3Button" type="Button" parent="PanelContainer/Margin/VBox"]
-layout_mode = 2
-text = "Option 3"
-
-[connection signal="pressed" from="ClickOutButton" to="." method="_on_click_out_button_pressed"]
-[connection signal="pressed" from="PanelContainer/Margin/VBox/HBox/CloseButton" to="." method="_on_click_out_button_pressed"]
-[connection signal="pressed" from="PanelContainer/Margin/VBox/Option1Button" to="." method="_on_option_1_button_pressed"]
-[connection signal="pressed" from="PanelContainer/Margin/VBox/Option2Button" to="." method="_on_option_2_button_pressed"]
-[connection signal="pressed" from="PanelContainer/Margin/VBox/Option3Button" to="." method="_on_option_3_button_pressed"]
+[node name="EventDialog" parent="." instance=ExtResource("2_uvl67")]
