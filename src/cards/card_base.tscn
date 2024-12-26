@@ -63,12 +63,14 @@ layout_mode = 2
 layout_mode = 2
 text = "CARD NAME"
 
-[node name="CardCostLabel" type="Label" parent="HBoxContainer/VBoxContainer/TopBar"]
+[node name="CardCostLabel" type="RichTextLabel" parent="HBoxContainer/VBoxContainer/TopBar"]
+custom_minimum_size = Vector2(12, 20)
 layout_mode = 2
 size_flags_horizontal = 10
-mouse_filter = 0
+bbcode_enabled = true
 text = "1
 "
+scroll_active = false
 
 [node name="TextureRect" type="TextureRect" parent="HBoxContainer/VBoxContainer/TopBar"]
 layout_mode = 2
@@ -104,10 +106,13 @@ layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 0
 
-[node name="SizeLabel" type="Label" parent="HBoxContainer/VBoxContainer/ImageMargin/ImageCont/SizeCont"]
+[node name="SizeLabel" type="RichTextLabel" parent="HBoxContainer/VBoxContainer/ImageMargin/ImageCont/SizeCont"]
+custom_minimum_size = Vector2(20, 45)
 layout_mode = 2
 theme = ExtResource("4_jm2oq")
+bbcode_enabled = true
 text = "9"
+scroll_active = false
 
 [node name="SizeIcon" type="TextureRect" parent="HBoxContainer/VBoxContainer/ImageMargin/ImageCont/SizeCont"]
 custom_minimum_size = Vector2(50, 50)
@@ -150,16 +155,17 @@ layout_mode = 2
 texture = ExtResource("8_md8ou")
 expand_mode = 3
 
-[node name="YieldLabel" type="Label" parent="HBoxContainer/VBoxContainer/BottomBar"]
+[node name="YieldLabel" type="RichTextLabel" parent="HBoxContainer/VBoxContainer/BottomBar"]
 layout_mode = 2
 size_flags_horizontal = 3
-mouse_filter = 0
+bbcode_enabled = true
 text = "3"
 
-[node name="TimeLabel" type="Label" parent="HBoxContainer/VBoxContainer/BottomBar"]
+[node name="TimeLabel" type="RichTextLabel" parent="HBoxContainer/VBoxContainer/BottomBar"]
+custom_minimum_size = Vector2(15, 25)
 layout_mode = 2
-mouse_filter = 0
-text = "/ 3"
+bbcode_enabled = true
+text = "3"
 
 [node name="TimeTexture" type="TextureRect" parent="HBoxContainer/VBoxContainer/BottomBar"]
 layout_mode = 2

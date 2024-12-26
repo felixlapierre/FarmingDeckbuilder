@@ -2,6 +2,7 @@ extends Structure
 class_name FairyHutch
 
 var callback: Callable
+var strength = load("res://src/enhance/data/strength.tres")
 
 var event_type = EventManager.EventType.BeforeTurnStart
 
@@ -25,8 +26,7 @@ func register_events(event_manager: EventManager, tile: Tile):
 			return
 		eligible.shuffle()
 		var chosen = eligible[0]
-		var copy: CardData = chosen.card_info.copy()
-		copy.strength += copy.strength_increment
+		var copy: CardData = chosen.card_info.apply_enhance(strength)
 		chosen.set_card_info(copy)
 		tile.play_effect_particles()
 	event_manager.register_listener(event_type, callback)

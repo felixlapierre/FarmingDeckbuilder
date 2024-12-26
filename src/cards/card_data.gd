@@ -124,7 +124,8 @@ func apply_enhance(enhance: Enhance):
 			n_card.effects.append(load("res://src/effect/data/regrow_3.tres"))
 			if enhance.strength == 1:
 				n_card.time += 1
-	n_card.enhances.append(enhance.name)
+	if !n_card.enhances.has(enhance.name):
+		n_card.enhances.append(enhance.name)
 	return n_card
 
 func apply_strength(enhance: Enhance):
@@ -144,10 +145,17 @@ func get_description() -> String:
 	var descr: String = text
 	for effect in effects:
 		var effect_text = effect.get_short_description(self)
+		if highlight_effect(effect):
+			effect_text = "[color=aqua]" + effect_text + "[/color]"
 		if effect_text.length() > 0:
 			if descr.length() > 0:
 				descr += ". "
 			descr += effect_text
+	
+	if enhances.has("Strength"):
+		descr = descr.replace("{STRENGTH}", "[color=aqua]" + str(strength) + "[/color]")
+	else:
+		descr = descr.replace("{STRENGTH}", str(strength))
 	return descr.replace("{STRENGTH}", str(strength))\
 		.replace("{MANA}", Helper.mana_icon())\
 		.replace("{BLUE_MANA}", Helper.blue_mana())
@@ -262,3 +270,12 @@ func get_long_description():
 
 func on_card_drawn(args: EventArgs):
 	pass
+	
+func highlight_effect(effect: Effect):
+	return enhances.has("Regrow") and effect.name == "plant"\
+		or enhances.has("Echo") and effect.name == "echo"\
+		or enhances.has("SpreadGrow") and effect.name == "spread"\
+		or enhances.has("Frozen") and effect.name == "frozen"\
+		or enhances.has("Burn") and effect.name == "burn"\
+		or enhances.has("Springbound") and effect.name == "springbound"\
+		or enhances.has("Strength") and !can_strengthen_custom_effect() and effect.strength > 1

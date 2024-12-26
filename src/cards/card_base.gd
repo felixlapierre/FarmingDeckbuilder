@@ -95,9 +95,15 @@ func set_card_info(card_data):
 			$HBoxContainer/VBoxContainer/BottomBar/TimeLabel.visible = card_info.time != 99
 			$HBoxContainer/VBoxContainer/BottomBar/TimeTexture.visible = card_info.time != 99
 			$HBoxContainer/VBoxContainer/BottomBar/TimeLabel.visible = card_info.time != 99
-			$HBoxContainer/VBoxContainer/BottomBar/YieldLabel.text = negative + str(card_info.yld)\
+			var yield_text = negative + str(card_info.yld)\
 				+ " (" + negative + str(card_info.yld * card_info.size) + ")"
-			$HBoxContainer/VBoxContainer/BottomBar/TimeLabel.text = str(card_info.time)
+			if card_info.enhances.has("FlatYield"):
+				yield_text = "[color=aqua]" + yield_text
+			$HBoxContainer/VBoxContainer/BottomBar/YieldLabel.text = yield_text
+			var time_text = str(card_info.time)
+			if card_info.enhances.has("GrowSpeed"):
+				time_text = "[color=aqua][right]" + time_text + "[/right][/color]"
+			$HBoxContainer/VBoxContainer/BottomBar/TimeLabel.text = time_text
 			if corrupted:
 				$HBoxContainer/VBoxContainer/BottomBar/YieldLabel.set("theme_override_colors/font_color", Color(1.0, 0.0, 0.0, 1.0))
 			else:
@@ -116,12 +122,18 @@ func set_card_info(card_data):
 		$CardBorder.self_modulate.a = 0.8
 	$HBoxContainer/VBoxContainer/BottomBar/TypeLabel.text = card_info.type
 	$HBoxContainer/VBoxContainer/TopBar/CardNameLabel.text = card_info.name
-	$HBoxContainer/VBoxContainer/TopBar/CardCostLabel.text = str(card_info.cost if card_info.cost >= 0 else "X")
+	var cost_label = str(card_info.cost if card_info.cost >= 0 else "X")
+	if card_data.enhances.has("Discount"):
+		cost_label = "[color=aqua]" + cost_label + "[/color]"
+	$HBoxContainer/VBoxContainer/TopBar/CardCostLabel.text = cost_label
 	$HBoxContainer/VBoxContainer/DescriptionLabel.text = card_info.get_description()
 	if card_info.size == 0:
 		$HBoxContainer/VBoxContainer/ImageMargin/ImageCont/SizeCont.visible = false
 	else:
-		SIZE_LABEL.text = str(card_info.size) if card_info.size != -1 else "All"
+		var size_text = str(card_info.size) if card_info.size != -1 else "All"
+		if card_info.enhances.has("Size"):
+			size_text = "[color=aqua]" + size_text
+		SIZE_LABEL.text = size_text
 	if card_info.type == "SEED" or card_info.type == "ACTION":
 		var chev1 = $HBoxContainer/VBoxContainer/ImageMargin/ImageCont/VBox/Chev1
 		var chev2 = $HBoxContainer/VBoxContainer/ImageMargin/ImageCont/VBox/Chev2

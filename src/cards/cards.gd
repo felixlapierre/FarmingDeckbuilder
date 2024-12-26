@@ -244,6 +244,7 @@ func make_random_card_free():
 		if info.cost > 0:
 			var copy = info.copy()
 			copy.cost = 0
+			copy.enhances.append("Discount")
 			card.set_card_info(copy)
 			return
 
