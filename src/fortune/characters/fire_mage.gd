@@ -20,3 +20,6 @@ func register_fortune(event_manager: EventManager):
 
 func unregister_fortune(event_manager: EventManager):
 	event_manager.unregister_listener(event_type, event_callable)
+
+func update_text():
+	text = "All cards except 'Scythe' are Burned when played\nBurned cards are removed from your deck until the end of the year"

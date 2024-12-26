@@ -11,9 +11,10 @@ var allblue_callable: Callable
 
 func _init() -> void:
 	super(MAGE_NAME, Fortune.FortuneType.GoodFortune, "Entire farm is blue. At the end of the turn, 70% of " + Helper.blue_mana() + "is converted to" + Helper.mana_icon(), 3, icon, 0.7)
+	str_inc = 0.15
 
 func register_fortune(event_manager: EventManager):
-	text = "Entire farm is blue. At the end of the turn, " + str(strength * 100) + "% of " + Helper.blue_mana() + "is converted to" + Helper.mana_icon()
+	update_text()
 	super.register_fortune(event_manager)
 	Global.LUNAR_FARM = true
 	allblue_callable = func(args: EventArgs):
@@ -34,5 +35,8 @@ func unregister_fortune(event_manager: EventManager):
 	event_manager.unregister_listener(event_type_allblue, allblue_callable)
 
 func upgrade_power():
-	strength = 0.85
+	strength += str_inc
+	update_text()
+
+func update_text():
 	text = "Entire farm is blue. At the end of the turn, " + str(strength * 100) + "% of " + Helper.blue_mana() + "is converted to" + Helper.mana_icon()

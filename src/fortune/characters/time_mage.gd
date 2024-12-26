@@ -7,12 +7,14 @@ var event_type = EventManager.EventType.AfterYearStart
 var event_callable: Callable
 
 func _init() -> void:
-	super(MAGE_NAME, Fortune.FortuneType.GoodFortune, "Add Regrow 3 and +1 [img]res://assets/custom/Time32.png[/img] week of grow time to all seeds. Add Time Bubble to your deck.", 8, icon, 2.0)
+	super(MAGE_NAME, Fortune.FortuneType.GoodFortune, "Add Regrow 3 and +1 [img]res://assets/custom/Time32.png[/img] week of grow time to all seeds. Add Time Bubble to your deck.", 8, icon, 3.0)
 	modify_deck_callback = func(deck: Array[CardData]):
 		deck.append(load("res://src/cards/data/action/time_bubble.tres"))
+	str_inc = 2.0
 
 func register_fortune(event_manager: EventManager):
 	super.register_fortune(event_manager)
+	update_text()
 	event_callable = func(args: EventArgs):
 		for card: CardData in args.cards.deck_cards:
 			apply_time(card)
@@ -32,10 +34,14 @@ func apply_time(card: CardData):
 	if card.type == "SEED":
 		var regrow = card.get_effect("plant")
 		if regrow == null:
-			card.effects.append(Effect.new("plant", 3, "harvest"))
+			card.effects.append(Effect.new("plant", int(strength), "harvest"))
 		else:
-			regrow.strength += 3
+			regrow.strength += int(strength)
 		card.time += 1
+
 func upgrade_power():
-	strength = 4.0
-	text = ""
+	strength += str_inc
+	update_text()
+
+func update_text():
+	text = "Add Regrow " + str(strength) + " and +1 [img]res://assets/custom/Time32.png[/img] week of grow time to all seeds. Add Time Bubble to your deck."

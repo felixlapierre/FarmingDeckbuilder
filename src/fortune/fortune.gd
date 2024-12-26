@@ -47,4 +47,5 @@ func load_data(data) -> Fortune:
 	text = data.text
 	rank = data.rank
 	texture = load(data.texture) if data.texture != null else null
+	strength = data.strength
 	return self

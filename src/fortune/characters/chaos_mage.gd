@@ -5,18 +5,18 @@ var icon = preload("res://assets/card/wild-magic.png")
 var cards_database = preload("res://src/cards/cards_database.gd")
 static var MAGE_NAME = "Spawn of Chaos"
 
-var event_type = EventManager.EventType.BeforeCardPlayed
+var event_type = EventManager.EventType.BeforeTurnStart
 var event_callable: Callable
 
 func _init() -> void:
-	super(MAGE_NAME, Fortune.FortuneType.GoodFortune, "Randomize starting deck", 5, icon)
+	super(MAGE_NAME, Fortune.FortuneType.GoodFortune, "Randomize starting deck", 5, icon, 1.0)
 	modify_deck_callback = func(deck: Array[CardData]):
 		ChaosMageFortune.randomize_deck(deck)
 
 func register_fortune(event_manager: EventManager):
 	event_callable = func(args: EventArgs):
 		if strength >= 2.0:
-			var card: CardData = cards_database.get_random_cards(null, 1)
+			var card: CardData = cards_database.get_random_cards(null, 1)[0]
 			var copy = card.copy()
 			copy.effects.append(load("res://src/effect/data/fleeting.tres"))
 			args.cards.draw_specific_card(copy)
@@ -28,7 +28,13 @@ func unregister_fortune(event_manager: EventManager):
 
 func upgrade_power():
 	strength += 1.0
-	text = "Randomize starting deck. At the start of each turn, add a random Fleeting card to your hand."
+	update_text()
+
+func update_text():
+	if strength >= 2.0:
+		text = "Randomize starting deck. At the start of each turn, add a random Fleeting card to your hand."
+	else:
+		text = "Randomize starting deck"
 
 static func randomize_deck(deck: Array[CardData]):
 	var scythes = []

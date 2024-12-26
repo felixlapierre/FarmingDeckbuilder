@@ -13,17 +13,22 @@ func _init() -> void:
 
 func register_fortune(event_manager: EventManager):
 	super.register_fortune(event_manager)
-	text = "Start with 2 blight damage and 1 copy of 'Blightrose' in your deck. Blight cards appear in card rewards."
 	if strength >= 2.0:
-		text = "Start with 2 blight damage and 1 copy of 'Blightrose' in your deck. Gain +1 [img]res://assets/custom/BlightEmpty.png[/img]. Blight cards appear in card rewards."
 		Global.MAX_BLIGHT += 1
 	if event_manager.turn_manager.blight_damage == 0:
 		event_manager.turn_manager.blight_damage = 2
+	update_text()
 
 func unregister_fortune(event_manager: EventManager):
 	pass
 	
 func upgrade_power():
 	strength += 1.0
-	text = "Start with 2 blight damage and 1 copy of 'Corruption' in your deck. Gain +1 [img]res://assets/custom/BlightEmpty.png[/img]"
+	update_text()
 	Global.MAX_BLIGHT += 1
+
+func update_text():
+	if strength >= 2.0:
+		text = "Start with 2 blight damage and 1 copy of 'Blightrose' in your deck. Gain +1 [img]res://assets/custom/BlightEmpty.png[/img]. Blight cards appear in card rewards."
+	else:
+		text = "Start with 2 blight damage and 1 copy of 'Blightrose' in your deck. Blight cards appear in card rewards."

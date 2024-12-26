@@ -12,3 +12,6 @@ func register_fortune(event_manager: EventManager):
 
 func unregister_fortune(event_manager: EventManager):
 	Global.IRRIGATE_PROTECTED = false
+
+func update_text():
+	text = "Watered tiles cannot be targeted by the Blight"
