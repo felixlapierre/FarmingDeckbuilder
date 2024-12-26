@@ -55,7 +55,7 @@ func _ready():
 		load("res://src/fortune/characters/novice.gd").new(),
 		load("res://src/fortune/characters/ice_mage.gd").new(),
 		load("res://src/fortune/characters/water_mage.gd").new(),
-		load("res://src/fortune/characters/lunar_mage.gd").new(),
+		#load("res://src/fortune/characters/lunar_mage.gd").new(),
 		load("res://src/fortune/characters/blight_mage.gd").new(),
 		load("res://src/fortune/characters/chaos_mage.gd").new(),
 		load("res://src/fortune/characters/fire_mage.gd").new(),
@@ -128,6 +128,12 @@ func _on_type_options_item_selected(index):
 		3:
 			Global.FARM_TYPE = "MOUNTAINS"
 			update_prompt("Farm Type: Mountains", load("res://assets/fortune/mountains.png"), "This region is full of rocks that make farming difficult.")
+		4:
+			Global.FARM_TYPE = "LUNARTEMPLE"
+			update_prompt("Farm Type: Lunar Temple", load("res://assets/card/temporal_rift.png"), "Entire farm is blue. At the end of the turn, 70% of " + Helper.blue_mana() + "is converted to" + Helper.mana_icon())
+		5:
+			Global.FARM_TYPE = "STORMVALE"
+			update_prompt("Farm Type: Storm Vale", load("res://assets/custom/Temp.png"), "NOT IMPLEMENTED")
 
 func get_index_of_farm_type(type):
 	match type:
@@ -139,6 +145,10 @@ func get_index_of_farm_type(type):
 			return 2
 		"MOUNTAINS":
 			return 3
+		"LUNARTEMPLE":
+			return 4
+		"STORMVALE":
+			return 5
 
 func populate_continue_preview():
 	if not FileAccess.file_exists("user://savegame.save"):
@@ -286,7 +296,7 @@ func _on_char_options_item_selected(index: int) -> void:
 
 func set_locked_options():
 	var farms = Unlocks.FARMS_UNLOCKED
-	for i in range(4):
+	for i in range(6):
 		$Root/HBox/Panel/Margin/VBox/HBox/Margin/VBox/FarmTypeBox/TypeOptions.set_item_disabled(i, !Settings.DEBUG && !Unlocks.FARMS_UNLOCKED[str(i)])
 	for i in range(4):
 		$Root/HBox/Panel/Margin/VBox/HBox/Margin/VBox/DifficultyBox/DiffOptions.set_item_disabled(i, !Settings.DEBUG && !Unlocks.DIFFICULTIES_UNLOCKED[str(i)])

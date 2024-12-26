@@ -12,7 +12,7 @@ func _init() -> void:
 
 func register_fortune(event_manager: EventManager):
 	callable = func(args):
-		if Global.LUNAR_FARM:
+		if Global.FARM_TYPE == "LUNARTEMPLE":
 			return
 		farm_ref = args.farm
 		for tile: Tile in farm_ref.get_node("Tiles").get_children():

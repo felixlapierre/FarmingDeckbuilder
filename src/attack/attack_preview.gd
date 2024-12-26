@@ -40,9 +40,9 @@ func update():
 		AttackImg.modulate = Color8(255, 255, 255)
 	elif turn_manager.purple_mana > turn_manager.target_blight and turn_manager.flag_defer_excess:
 		PromptLabel.text = "Defer: " + str(turn_manager.purple_mana - turn_manager.target_blight) + Helper.blue_mana()
-	elif turn_manager.purple_mana > turn_manager.target_blight and turn_manager.target_blight == 0 and mage_fortune.name != "Lunar Priest":
+	elif turn_manager.purple_mana > turn_manager.target_blight and turn_manager.target_blight == 0 and Global.FARM_TYPE != "LUNARTEMPLE":
 		PromptLabel.text = "Wasted"
-	elif turn_manager.purple_mana > turn_manager.target_blight and mage_fortune.name == "Lunar Priest":
+	elif turn_manager.purple_mana > turn_manager.target_blight and Global.FARM_TYPE == "LUNARTEMPLE":
 		PromptLabel.text = "Excess: " + str((turn_manager.purple_mana - turn_manager.target_blight) * mage_fortune.strength) + Helper.mana_icon()
 	else:
 		PromptLabel.text = "Safe!"

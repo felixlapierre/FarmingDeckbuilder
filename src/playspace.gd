@@ -230,12 +230,12 @@ func save_game():
 		save_json.deck.append(card.save_data())
 	
 	save_json.structures = []
-	save_json.blight_tiles = []
+	save_json.rock_tiles = []
 	for tile: Tile in $FarmTiles.get_all_tiles():
 		if tile.structure != null:
 			save_json.structures.append(tile.structure.save_data())
-		if tile.blighted:
-			save_json.blight_tiles.append({
+		if tile.rock:
+			save_json.rock_tiles.append({
 				"x": tile.grid_location.x,
 				"y": tile.grid_location.y
 			})
@@ -287,8 +287,8 @@ func load_game():
 		var structure = load(data.path).new()
 		structure.load_data(data)
 		$FarmTiles.tiles[data.x][data.y].build_structure(structure, structure.rotate)
-	for data in save_json.blight_tiles:
-		$FarmTiles.tiles[data.x][data.y].set_blighted()
+	for data in save_json.rock_tiles:
+		$FarmTiles.tiles[data.x][data.y].rock = true
 
 	turn_manager.year = int(save_json.state.year)
 	turn_manager.week = int(save_json.state.week)

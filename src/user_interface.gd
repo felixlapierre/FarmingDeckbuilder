@@ -322,7 +322,7 @@ func _on_farm_tiles_on_preview_yield(args) -> void:
 	
 	var blightamt = turn_manager.purple_mana + purple
 	if purple != 0:
-		if turn_manager.target_blight == 0 and mage_fortune.name != "Lunar Priest" and !args.defer and !turn_manager.flag_defer_excess:
+		if turn_manager.target_blight == 0 and Global.FARM_TYPE != "LUNARTEMPLE" and !args.defer and !turn_manager.flag_defer_excess:
 			AlertDisplay.set_text(warning_waste_purple_text)
 
 	if yellow != 0:

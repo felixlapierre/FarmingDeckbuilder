@@ -113,6 +113,14 @@ func do_unlocks(turn_manager: TurnManager, deck: Array[CardData]):
 	if !Unlocks.FARMS_UNLOCKED["3"] and win and Global.FARM_TYPE == "WILDERNESS":
 		Unlocks.FARMS_UNLOCKED["3"] = true
 		farms.append("Mountains")
+	# Lunar Temple
+	if !Unlocks.FARMS_UNLOCKED["4"] and win and Global.FARM_TYPE == "MOUNTAINS":
+		Unlocks.FARMS_UNLOCKED["4"] = true
+		farms.append("Lunar Temple")
+	# Storm Vale
+	if !Unlocks.FARMS_UNLOCKED["5"] and win and Global.FARM_TYPE == "LUNARTEMPLE":
+		Unlocks.FARMS_UNLOCKED["5"] = true
+		farms.append("Storm Vale")
 	
 	# Mages
 	if !Unlocks.MAGES_UNLOCKED["1"]:
@@ -121,9 +129,9 @@ func do_unlocks(turn_manager: TurnManager, deck: Array[CardData]):
 	if !Unlocks.MAGES_UNLOCKED["2"] and Global.FARM_TYPE == "RIVERLANDS":
 		Unlocks.MAGES_UNLOCKED["2"] = true
 		mages.append(WaterMage.MAGE_NAME)
-	if !Unlocks.MAGES_UNLOCKED["3"] and Global.MAGE == IceMageFortune.MAGE_NAME:
-		Unlocks.MAGES_UNLOCKED["3"] = true
-		mages.append(LunarMageFortune.MAGE_NAME)
+	#if !Unlocks.MAGES_UNLOCKED["3"] and Global.MAGE == IceMageFortune.MAGE_NAME:
+	#	Unlocks.MAGES_UNLOCKED["3"] = true
+	#	mages.append(LunarMageFortune.MAGE_NAME)
 	if !Unlocks.MAGES_UNLOCKED["4"] and win and deck.any(func(card: CardData):
 			return card.name == "Blightrose" or card.name == "Bloodrite" or card.name == "Dark Visions"):
 		Unlocks.MAGES_UNLOCKED["4"] = true

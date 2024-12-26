@@ -23,7 +23,7 @@ func _process(delta):
 static func get_starter_deck():
 	var data;
 	match Global.FARM_TYPE:
-		"FOREST":
+		"FOREST", "LUNARTEMPLE":
 			data = forest_deck
 		"RIVERLANDS":
 			data = riverlands_deck
@@ -71,15 +71,16 @@ static func setup_farm(farm: Farm, event_manager: EventManager):
 			#Global.FARM_BOTRIGHT = Vector2(5, 5)
 			for tile in farm.get_all_tiles():
 				tile.do_active_check()
-			pass
+		"LUNARTEMPLE":
+			setup_lunar_temple_callback(farm, event_manager)
 
 static func load_farm(farm: Farm, event_manager: EventManager):
 	if Global.FARM_TYPE == "WILDERNESS":
 		setup_wilderness_farm_callback(farm, event_manager)
 	elif Global.FARM_TYPE == "RIVERLANDS":
 		setup_riverlands_farm_callback(farm, event_manager)
-	elif Global.FARM_TYPE == "MOUNTAINS":
-		setup_mountain_farm(farm)
+	elif Global.FARM_TYPE == "LUNARTEMPLE":
+		setup_lunar_temple_callback(farm, event_manager)
 	for tile in farm.get_all_tiles():
 		tile.do_active_check()
 
@@ -95,6 +96,21 @@ static func setup_riverlands_farm_callback(farm: Farm, event_manager: EventManag
 			farm.tiles[4][i].irrigate()
 			farm.tiles[5][i].irrigate())
 
+static func setup_lunar_temple_callback(farm: Farm, event_manager: EventManager):
+	var event_type = EventManager.EventType.BeforeGrow
+	var event_type_allblue = EventManager.EventType.AfterYearStart
+	var allblue_callable = func(args: EventArgs):
+		for tile in args.farm.get_all_tiles():
+			tile.purple = true
+			tile.update_display()
+	var event_callable = func(args: EventArgs):
+		if !args.turn_manager.flag_defer_excess:
+			var excess = max(args.turn_manager.purple_mana - args.turn_manager.target_blight, 0)
+			args.farm.gain_yield(args.farm.tiles[4][4], EventArgs.HarvestArgs.new(excess * 0.70, false, false))
+	
+	event_manager.register_listener(event_type_allblue, allblue_callable)
+	event_manager.register_listener(event_type, event_callable)
+
 static func teardown_wilderness_farm_callback(event_manager: EventManager):
 	event_manager.unregister_listener(EventManager.EventType.BeforeYearStart, wilderness_callable)
 
@@ -103,7 +119,6 @@ static var wilderness_callable = func(event_args: EventArgs):
 
 static func setup_mountain_farm(farm: Farm):
 	var rocks = 36
-	seed(320950397590)
 	for tile: Tile in farm.get_all_tiles():
 		if rocks == 0:
 			return
