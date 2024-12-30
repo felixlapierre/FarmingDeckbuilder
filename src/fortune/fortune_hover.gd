@@ -27,9 +27,14 @@ func reposition():
 
 func setup(fortune: Fortune):
 	$Fortune/VBox/Name.text = fortune.name
-	$Fortune/VBox/Description.text = fortune.text
+	$Fortune/VBox/Description.text = fortune.get_description()
 	$Fortune/VBox/Texture.texture = fortune.texture
 	$Panel/Margin/Button.texture_normal = fortune.texture
+	if fortune.strength > 1.0:
+		$Label.text = str(fortune.strength)
+		$Label.visible = true
+	else:
+		$Label.visible = false
 
 func setup_custom(name: String, text: String, texture: Texture2D, count: int):
 	fortune_name.text = name

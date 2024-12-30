@@ -1,4 +1,5 @@
 extends Fortune
+class_name AddCorpseFlower
 
 var callback_start: Callable
 var callback_end: Callable
@@ -9,10 +10,8 @@ var flower_texture = preload("res://assets/fortune/CorpseFlowerFortune.png")
 
 var targeted_tiles = []
 
-func _init() -> void:
-	super("Gluttony", FortuneType.BadFortune, "Plant a Corpse Flower on your farm", 3, flower_texture, 1.0)
-	if Mastery.Misfortune > 0:
-		strength += Mastery.Misfortune
+func _init(strength: float = 1.0) -> void:
+	super("Gluttony", FortuneType.BadFortune, "On turn start: Plant {STRENGTH} Corpse Flower on your farm", 3, flower_texture, strength)
 
 func register_fortune(event_manager: EventManager):
 	callback_start = func(args: EventArgs):

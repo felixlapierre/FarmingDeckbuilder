@@ -33,6 +33,18 @@ func fortune_at(fortune: Fortune, week: int) -> SimpleAttackBuilder:
 	})
 	return self
 
+func fortune_every(fortune: Fortune, weeks: int) -> SimpleAttackBuilder:
+	if weeks == 1:
+		attack.fortune_every_turn(fortune)
+		return self
+	for i in range(12):
+		if (i + 1) % weeks == 0:
+			attack.fortunes_at.append({
+				"week": i,
+				"fortune": fortune
+			})
+	return self
+
 func rank(p_rank: int) -> SimpleAttackBuilder:
 	attack.rank = p_rank
 	return self
@@ -40,6 +52,8 @@ func rank(p_rank: int) -> SimpleAttackBuilder:
 func combine(other: SimpleAttackBuilder) -> SimpleAttackBuilder:
 	attack.fortunes_once.append_array(other.attack.fortunes_once)
 	attack.fortunes_every_turn.append_array(other.attack.fortunes_every_turn)
+	attack.fortunes_even.append_array(other.attack.fortunes_even)
+	attack.fortunes_odd.append_array(other.attack.fortunes_even)
 	return self
 
 func compatible(other: SimpleAttackBuilder) -> bool:
@@ -48,6 +62,22 @@ func compatible(other: SimpleAttackBuilder) -> bool:
 			return fortune.name.split(" ")[0] == current.name.split(" ")[0]):
 			return false
 	return true
+
+func easy(week: int):
+	attack.difficulty_map["easy"] = week
+	return self
+
+func normal(week: int):
+	attack.difficulty_map["normal"] = week
+	return self
+
+func hard(week: int):
+	attack.difficulty_map["hard"] = week
+	return self
+
+func mastery(week: int):
+	attack.difficulty_map["mastery"] = week
+	return self
 
 func build() -> AttackPattern:
 	attack.fortunes_random.shuffle()

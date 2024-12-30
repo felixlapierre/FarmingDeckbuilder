@@ -1,5 +1,5 @@
 extends Fortune
-class_name KaleidoscopeTwo
+class_name EndTurnRotateColors
 
 var callable
 var farm_ref: Farm

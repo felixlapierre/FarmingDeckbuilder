@@ -1,11 +1,12 @@
 extends Fortune
+class_name EndTurnRandomizeColors
 
 var callable
 var farm_ref: Farm
 
 var kaleidoscope_texture = preload("res://assets/fortune/kaleidoscope0.png")
 func _init() -> void:
-	super("Kaleidoscope", FortuneType.BadFortune, "Randomize blue and yellow zones at end of turn", 0, kaleidoscope_texture)
+	super("Kaleidoscope", FortuneType.BadFortune, "On turn start: Randomize color of tiles", 0, kaleidoscope_texture)
 
 func register_fortune(event_manager: EventManager):
 	callable = func(args):
@@ -21,7 +22,7 @@ func register_fortune(event_manager: EventManager):
 		for i in range(tiles_ordered.size()):
 			tiles_ordered[i].purple = tile_colors_randomized[i]
 			tiles_ordered[i].update_purple_overlay()
-	event_manager.register_listener(EventManager.EventType.OnTurnEnd, callable)
+	event_manager.register_listener(EventManager.EventType.BeforeTurnStart, callable)
 
 func unregister_fortune(event_manager: EventManager):
-	event_manager.unregister_listener(EventManager.EventType.OnTurnEnd, callable)
+	event_manager.unregister_listener(EventManager.EventType.BeforeTurnStart, callable)

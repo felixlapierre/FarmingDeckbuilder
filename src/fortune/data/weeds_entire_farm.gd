@@ -1,4 +1,5 @@
 extends Fortune
+class_name WeedsEntireFarm
 
 var callback: Callable
 var event_type = EventManager.EventType.BeforeTurnStart

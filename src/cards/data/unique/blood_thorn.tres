@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="BloodThorn" load_steps=3 format=3 uid="uid://b78wbrelxf2mc"]
+
+[ext_resource type="Script" path="res://src/cards/custom/unique/blood_thorn.gd" id="1_wsnej"]
+[ext_resource type="Texture2D" uid="uid://cd7tvbi3sdixx" path="res://assets/card/bloodrite.png" id="2_oiusi"]
+
+[resource]
+script = ExtResource("1_wsnej")
+type = "ACTION"
+name = "Blood Thorn"
+rarity = "blight"
+cost = 0
+yld = 0
+time = 0
+size = 0
+text = "+{STRENGTH} [img src=res://assets/custom/BlightAttack.png]"
+strength_increment = 1.0
+size_increment = 1
+texture = ExtResource("2_oiusi")
+seed_texture = 0
+texture_icon_offset = 16
+targets = Array[String]([])
+effects = Array[Resource("res://src/effect/effect.gd")]([])
+enhances = Array[String]([])
+strength = 10.0
+delay = 0.0
+anim_on = 0

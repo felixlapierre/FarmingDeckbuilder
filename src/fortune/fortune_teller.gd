@@ -2,10 +2,10 @@ extends Node2D
 class_name FortuneTeller
 
 var event_manager: EventManager
-var simple_attacks: SimpleAttacks
 var data_fetcher = preload("res://src/cards/cards_database.gd")
 var fortune_display_scene = preload("res://src/fortune/fortune.tscn")
-var attacks_advanced: AttacksAdvanced
+var attack_database: AttackDatabase
+
 var fortune_map = {}
 var size = 0
 
@@ -17,16 +17,11 @@ signal on_close
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	$CenterContainer.custom_minimum_size = Constants.VIEWPORT_SIZE
-	attacks_advanced = AttacksAdvanced.new()
+	attack_database = AttackDatabase.new()
+	attack_database.populate_database()
 
 func setup(p_event_manager: EventManager):
 	event_manager = p_event_manager
-	for fortune in data_fetcher.get_all_fortunes():
-		if !fortune_map.has(fortune.type):
-			fortune_map[fortune.type] = []
-		fortune_map[fortune.type].append(fortune)
-	simple_attacks = SimpleAttacks.new()
-	simple_attacks.create_simple_attacks()
 	attack_pattern = AttackPattern.new()
 
 func create_fortunes():
@@ -37,10 +32,21 @@ func create_fortunes():
 
 	var misfortune = Global.DIFFICULTY >= Constants.DIFFICULTY_MISFORTUNE
 	var year = event_manager.turn_manager.year
-	if Global.DIFFICULTY >= Constants.DIFFICULTY_HARD:
-		attack_pattern = attacks_advanced.get_advanced_attack_year(year)
-	else:
-		attack_pattern = simple_attacks.get_simple_attack_year(year, misfortune)
+	
+	var difficulty = "easy"
+	match Global.DIFFICULTY:
+		1:
+			difficulty = "normal"
+		2:
+			difficulty = "hard"
+		3:
+			difficulty = "master"
+	attack_pattern = Helper.pick_random(attack_database.get_attacks(difficulty, year))
+	
+	#if Global.DIFFICULTY >= Constants.DIFFICULTY_HARD:
+	#	attack_pattern = attacks_advanced.get_advanced_attack_year(year)
+	#else:
+	#	attack_pattern = simple_attacks.get_simple_attack_year(year, misfortune)
 	
 	#current_fortunes = attack_pattern.get_fortunes_at_week(0)
 	## Ensure we get a random fortune
@@ -153,6 +159,6 @@ func display_fortunes():
 	for fortune in attack_pattern.get_all_fortunes_display():
 		var display: Control = fortune_display_scene.instantiate()
 		display.find_child("Name").text = fortune.name
-		display.find_child("Description").text = fortune.text
+		display.find_child("Description").text = fortune.get_description()
 		display.find_child("Texture").texture = fortune.texture
 		$CenterContainer/PanelContainer/VBox/Fortunes.add_child(display)

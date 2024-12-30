@@ -27,7 +27,7 @@ static var MANA_TARGET_LOCATION_PURPLE: Vector2 = Vector2(1461, 456)
 static var GILDED_ROSE_TALLY: float = 0.0
 
 static var DIFFICULTY: int = 0
-static var FINAL_YEAR = 10
+static var FINAL_YEAR = 8
 static var SPRING_WEEK = 1
 static var SUMMER_WEEK = 5
 static var FALL_WEEK = 9
@@ -63,7 +63,7 @@ static func reset():
 	BLIGHT_FLAG_THREATEN_GROWING = false
 	BLIGHT_TARGET_MULTIPLIER = 1.0
 	DESTROY_TILES_THIS_TURN = 1
-	FINAL_YEAR = 10
+	FINAL_YEAR = 8
 	SPRING_WEEK = 1
 	SUMMER_WEEK = 5
 	FALL_WEEK = 9

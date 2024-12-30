@@ -442,7 +442,7 @@ func destroy_blighted_tiles():
 func use_card_random_tile(card: CardData, times: int):
 	var tiles = []
 	for tile: Tile in $Tiles.get_children():
-		if tile.state == Enums.TileState.Empty && tile.not_destroyed():
+		if tile.state == Enums.TileState.Empty && tile.not_destroyed() && !tile.rock:
 			tiles.append(tile)
 	tiles.shuffle()
 	var locations = []
@@ -456,7 +456,7 @@ func use_card_random_tile(card: CardData, times: int):
 func use_card_unprotected_tile(card: CardData, times: int):
 	var tiles = []
 	for tile: Tile in $Tiles.get_children():
-		if tile.state == Enums.TileState.Empty && !tile.is_protected() && tile.not_destroyed():
+		if tile.state == Enums.TileState.Empty && !tile.is_protected() && tile.not_destroyed() && !tile.rock:
 			tiles.append(tile)
 	tiles.shuffle()
 	var locations = []

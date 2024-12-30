@@ -12,7 +12,7 @@ func _process(delta: float) -> void:
 
 func setup(fortune: Fortune):
 	$VBox/Name.text = fortune.name
-	$VBox/Description.text = fortune.text
+	$VBox/Description.text = fortune.get_description()
 	$VBox/Texture.texture = fortune.texture
 
 func _on_list_gui_input(event: InputEvent) -> void:

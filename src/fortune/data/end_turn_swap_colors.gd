@@ -1,4 +1,5 @@
 extends Fortune
+class_name EndTurnSwapColors
 
 var callable
 var farm_ref: Farm

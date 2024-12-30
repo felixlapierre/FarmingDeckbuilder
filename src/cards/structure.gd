@@ -12,6 +12,7 @@ const CLASS_NAME = "Structure"
 @export var texture: Texture2D
 @export var effects: Array[Effect]
 @export var tooltip: String
+var enhances = []
 
 var grid_location: Vector2
 var type = "STRUCTURE"

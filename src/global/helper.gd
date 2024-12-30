@@ -144,3 +144,7 @@ static func can_expand_farm():
 	or Global.FARM_TOPLEFT.x > 0\
 	or Global.FARM_BOTRIGHT.x <= Constants.FARM_DIMENSIONS.x\
 	or Global.FARM_BOTRIGHT.y <= Constants.FARM_DIMENSIONS.y
+
+static func pick_random(array):
+	var index = randi_range(0, array.size() - 1)
+	return array[index]

@@ -1,12 +1,13 @@
 extends Fortune
+class_name AddWeeds
 
 var callback: Callable
 var event_type = EventManager.EventType.BeforeTurnStart
 var weeds = preload("res://src/fortune/unique/weed.tres")
 var weeds_texture = preload("res://assets/fortune/weed_fortune.png")
 
-func _init() -> void:
-	super("Weeds", FortuneType.BadFortune, "Start with weeds on your farm", 0, weeds_texture, 8.0)
+func _init(strength: float = 1.0) -> void:
+	super("Weeds", FortuneType.BadFortune, "Start with {STRENGTH} weeds on your farm", 0, weeds_texture, strength)
 
 func register_fortune(event_manager: EventManager):
 	callback = plant_weeds

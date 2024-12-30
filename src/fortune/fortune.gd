@@ -29,6 +29,10 @@ func register_fortune(_event_manager: EventManager):
 func unregister_fortune(_event_manager: EventManager):
 	pass
 
+func get_description():
+	return text.replace("{STRENGTH}", str(strength))\
+		.replace("{STR_PER}", str(strength * 100) + "%")
+
 func save_data() -> Dictionary:
 	var save_dict = {
 		"path": get_script().get_path(),

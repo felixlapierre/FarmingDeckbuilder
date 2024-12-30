@@ -6,6 +6,8 @@ var fortunes: = []
 var rank: int = 0
 var simple_attack_callback: Callable
 
+var difficulty_map = {}
+
 var current_fortunes = []
 
 func get_fortunes():
@@ -48,20 +50,20 @@ func compute_blight_pattern(year: int):
 		if Mastery.BlightAttack > 0:
 			charge += 0.4 * year * Mastery.BlightAttack
 		chance += 0.3
-		if (year < 4 and i < 3) or (year < 10 and i < 2):
+		if (year < 3 and i < 3) or (year < 8 and i < 2):
 			blight_pattern.append(0)
 		elif i == Global.FINAL_WEEK - 1:
 			blight_pattern.append(int(charge))
 			charge = 0.0
 		elif randf() < chance:
 			chance = 0.0
-			var amount = int(randf_range(0.4, 0.8) * charge)
+			var amount = int(randf_range(0.4, 1.0) * charge)
 			charge -= amount
 			blight_pattern.append(amount)
 		else:
 			blight_pattern.append(0)
 	# Winter
-	blight_pattern.append(40)
+	blight_pattern.append(30 + 10 * year)
 	for i in range(blight_pattern.size()):
 		blight_pattern[i] = int(blight_pattern[i] * get_multiplier(year))
 
