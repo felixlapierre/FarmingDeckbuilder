@@ -1,7 +1,7 @@
 extends Node
 class_name SimpleAttackBuilder
 
-var attack: SimpleAttack
+var attack: AttackPattern
 
 func _init():
 	attack = SimpleAttack.new()
@@ -81,7 +81,13 @@ func mastery(week: int):
 
 func damage_multiplier(strength: float):
 	attack.damage_multiplier = strength
+	return self
+
+func custom_attack(custom_attack: AttackPattern):
+	attack = custom_attack
+	return self
 
 func build() -> AttackPattern:
-	attack.fortunes_random.shuffle()
+	if attack is SimpleAttack:
+		attack.fortunes_random.shuffle()
 	return attack

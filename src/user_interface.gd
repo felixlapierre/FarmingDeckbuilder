@@ -92,6 +92,7 @@ func setup(p_event_manager: EventManager, p_turn_manager: TurnManager, p_deck: A
 			args.cards.draw_specific_card_from(selected.card_info, get_global_mouse_position())
 			remove_child(pick_option_ui), null)
 		)
+	$FortuneTeller.create_fortunes()
 
 # Start and end year
 func end_year():
