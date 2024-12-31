@@ -8,8 +8,11 @@ var fortunes_odd = []
 var fortunes_random = []
 var fortunes_at = []
 
+var damage_multiplier = 1.0
+
 func save_data():
 	var data = super.save_data()
+	data.damage_multiplier = damage_multiplier
 	data.path = get_script().get_path()
 	data.fortunes_once = []
 	data.fortunes_every_turn = []
@@ -36,6 +39,7 @@ func save_data():
 
 func load_data(data):
 	super.load_data(data)
+	damage_multiplier = data.damage_multiplier
 	for fortune_data in data.fortunes_once:
 		fortunes_once.append(load_fortune(fortune_data))
 	for fortune_data in data.fortunes_every_turn:
@@ -85,3 +89,8 @@ func get_all_fortunes_display():
 	for entry in fortunes_at:
 		result.append(entry.fortune)
 	return result
+
+func compute_blight_pattern(year: int):
+	super.compute_blight_pattern(year)
+	for i in range(blight_pattern.size()):
+		blight_pattern[i] = blight_pattern[i] * damage_multiplier

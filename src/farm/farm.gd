@@ -258,7 +258,7 @@ func process_one_week(week: int):
 		effect_queue.append_array(tile.get_before_grow_effects())
 	process_effect_queue()
 
-	if week < Global.WINTER_WEEK:
+	if week < Global.WINTER_WEEK and !Global.BLOCK_GROW:
 		var growing_tiles = []
 		for tile in $Tiles.get_children():
 			if tile.state == Enums.TileState.Growing and (Global.FARM_TYPE != "RIVERLANDS" or tile.irrigated):

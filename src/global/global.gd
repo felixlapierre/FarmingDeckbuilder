@@ -41,6 +41,7 @@ static var WILDERNESS_PLANT = null
 
 static var END_TURN_DISCARD = true
 static var BLOCK_RITUAL = false
+static var BLOCK_GROW = false
 
 static var pressed: bool = false
 static var pressed_time: float = 0.0
@@ -75,6 +76,7 @@ static func reset():
 	LUNAR_FARM = false
 	MAGE = ""
 	BLOCK_RITUAL = false
+	BLOCK_GROW = false
 	click_callbacks = []
 	Constants.BASE_HAND_SIZE = 5
 	WILDERNESS_PLANT = null

@@ -79,6 +79,9 @@ func mastery(week: int):
 	attack.difficulty_map["mastery"] = week
 	return self
 
+func damage_multiplier(strength: float):
+	attack.damage_multiplier = strength
+
 func build() -> AttackPattern:
 	attack.fortunes_random.shuffle()
 	return attack

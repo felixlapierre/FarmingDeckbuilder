@@ -41,7 +41,8 @@ func create_fortunes():
 			difficulty = "hard"
 		3:
 			difficulty = "master"
-	attack_pattern = Helper.pick_random(attack_database.get_attacks(difficulty, year))
+	var always_do_attack = SimpleAttackBuilder.new().fortune_every_turn(AddBloodThornsDeck.new(1)).build()
+	attack_pattern = always_do_attack if always_do_attack != null else Helper.pick_random(attack_database.get_attacks(difficulty, year))
 	
 	#if Global.DIFFICULTY >= Constants.DIFFICULTY_HARD:
 	#	attack_pattern = attacks_advanced.get_advanced_attack_year(year)
