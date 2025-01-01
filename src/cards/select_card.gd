@@ -113,3 +113,6 @@ func _input(event: InputEvent) -> void:
 			_on_cancel_button_pressed()
 		elif state == SelectState.Selecting:
 			_on_close_button_pressed()
+
+func set_close_button_text(text: String):
+	$SelectContainer/Header/CloseButton.text = text

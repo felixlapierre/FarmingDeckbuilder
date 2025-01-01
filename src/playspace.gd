@@ -140,6 +140,7 @@ func on_win():
 	$UserInterface/EndScreen.visible = true
 	$UserInterface/EndScreen.setup(turn_manager, deck, $FarmTiles)
 	$UserInterface/EndScreen.do_unlocks(turn_manager, deck)
+	Statistics.record_win(user_interface.mage_fortune.name, Global.FARM_TYPE, Global.DIFFICULTY)
 	$UserInterface/EndScreen.on_endless_mode.connect(func(): on_endless())
 	$UserInterface/UI/Deck.visible = false
 	$UserInterface/UI/RitualPanel.visible = false

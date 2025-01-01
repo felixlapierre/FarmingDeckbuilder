@@ -7,7 +7,7 @@ var event_type = EventManager.EventType.BeforeCardPlayed
 var event_callable: Callable
 
 func _init() -> void:
-	super(MAGE_NAME, Fortune.FortuneType.GoodFortune, "All cards except 'Scythe' are Burned when played\nBurned cards are removed from your deck until the end of the year", 6, icon)
+	super(MAGE_NAME, Fortune.FortuneType.GoodFortune, "All cards except 'Scythe' are Burned when played\nBurned cards are removed from your deck until the end of the year", 5, icon)
 
 func register_fortune(event_manager: EventManager):
 	super.register_fortune(event_manager)

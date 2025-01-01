@@ -145,6 +145,7 @@ func set_card_info(card_data):
 			chev1.texture.set_region(Rect2(16, 0, 16, 16))
 		else:
 			chev1.texture.set_region(Rect2(0, 0, 16, 16))
+		chev2.visible = Mastery.less_enhance() == 0
 		if card_info.enhances.size() > 1:
 			chev2.texture.set_region(Rect2(16, 0, 16, 16))
 		else:

@@ -16,10 +16,6 @@ func register_seed_events(event_manager: EventManager, p_tile: Tile):
 func unregister_seed_events(event_manager: EventManager):
 	event_manager.unregister_listener(EventManager.EventType.OnPlantDestroyed, callback)
 
-func get_description() -> String:
-	var descr: String = super.get_description()
-	return descr.replace("{STR_PER}", str(self.strength * 100))
-
 func copy():
 	var new = Mushroom.new();
 	new.assign(self)

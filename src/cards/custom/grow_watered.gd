@@ -17,7 +17,7 @@ func register_events(event_manager: EventManager, p_tile: Tile):
 
 func do_watered(args: EventArgs, call: Callable):
 	for tile in args.farm.get_all_tiles():
-		if tile.irrigated and tile.state == Enums.TileState.Growing:
+		if tile.is_watered() and tile.state == Enums.TileState.Growing:
 			for i in range(strength):
 				call.call(tile)
 

@@ -138,15 +138,15 @@ func get_ritual_requirements(year):
 	if year > 2:
 		amount += year * 10
 		if difficulty_up:
-			amount += year * 2
-	if year > 6 and difficulty_up:
-		amount += year * 5
-	if year >= 10 and difficulty_up:
+			amount += year * 3
+	if year > 5 and difficulty_up:
+		amount += year * 6
+	if year >= 8 and difficulty_up:
 		amount += 100
 	if Global.DIFFICULTY >= Constants.DIFFICULTY_HARD:
 		amount *= 1.3
-	if Mastery.RitualTarget > 0 and year >= 3:
-		amount += year * 10 * Mastery.RitualTarget
+	if Mastery.MasteryLevel > 0 and year >= 3:
+		amount += year * 3 * Mastery.MasteryLevel
 	return amount
 
 func get_blight_requirements(week, year):

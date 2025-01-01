@@ -36,10 +36,8 @@ func register_events(event_manager: EventManager, tile: Tile):
 
 func farm_is_full(args: EventArgs):
 	for t in args.farm.get_all_tiles():
-		if t.state == Enums.TileState.Empty and t.structure == null and !t.is_destroyed():
-			print("farm not full")
+		if t.state == Enums.TileState.Empty and t.structure == null and !t.is_destroyed() and !t.rock:
 			return false
-	print("farm full")
 	return true
 	
 func unregister_events(event_manager: EventManager):

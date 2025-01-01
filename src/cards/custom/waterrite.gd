@@ -13,7 +13,7 @@ func register_events(event_manager: EventManager, p_tile: Tile):
 		var card: CardData = args.specific.play_args.card
 		if card.type == "SEED":
 			for tile in args.farm.get_all_tiles():
-				if tile.irrigated and tile.state == Enums.TileState.Empty:
+				if tile.is_watered() and tile.state == Enums.TileState.Empty:
 					tile.plant_seed_animate(card.copy())
 	turn_end_callback = func(args: EventArgs):
 		event_manager.unregister_listener(event_type, callback)

@@ -45,6 +45,9 @@ static func load_unlocks():
 	for i in range(4):
 		if !DIFFICULTIES_UNLOCKED.has(str(i)):
 			DIFFICULTIES_UNLOCKED[str(i)] = false
+	for i in range(6):
+		if !FARMS_UNLOCKED.has(str(i)):
+			FARMS_UNLOCKED[str(i)] = false
 	fill(MAGES_UNLOCKED, 9)
 
 static func fill(dict: Dictionary, amt):
@@ -58,7 +61,9 @@ static func default_unlocks():
 		"0": true,
 		"1": false,
 		"2": false,
-		"3": false
+		"3": false,
+		"4": false,
+		"5": false
 	}
 	DIFFICULTIES_UNLOCKED = {
 		"0": true,

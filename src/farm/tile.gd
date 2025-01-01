@@ -151,7 +151,7 @@ func grow_one_week() -> Array[Effect]:
 		effects.append_array(get_effects("grow"))
 		current_grow_progress += 1.0
 		var multiplier = 1.0
-		if irrigated:
+		if is_watered():
 			multiplier += IRRIGATED_MULTIPLIER
 			var absorb = seed.get_effect("absorb")
 			if absorb != null:
@@ -226,6 +226,8 @@ func irrigate():
 		irrigated = true
 		if not_destroyed():
 			$Farmland.modulate = COLOR_IRRIGATE
+	elif Global.IRRIGATE_PROTECTED:
+		protected = true
 
 func lose_irrigate():
 	irrigated = false
@@ -394,7 +396,10 @@ func remove_structure():
 	state = Enums.TileState.Empty
 
 func is_protected():
-	return (Global.IRRIGATE_PROTECTED and irrigated) or protected
+	return protected
+
+func is_watered():
+	return irrigated or Global.ALL_WATERED
 
 func show_peek():
 	$PeekCont.visible = true

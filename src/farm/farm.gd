@@ -260,8 +260,8 @@ func process_one_week(week: int):
 
 	if week < Global.WINTER_WEEK and !Global.BLOCK_GROW:
 		var growing_tiles = []
-		for tile in $Tiles.get_children():
-			if tile.state == Enums.TileState.Growing and (Global.FARM_TYPE != "RIVERLANDS" or tile.irrigated):
+		for tile: Tile in $Tiles.get_children():
+			if tile.state == Enums.TileState.Growing and (Global.FARM_TYPE != "RIVERLANDS" or tile.is_watered()):
 				growing_tiles.append(tile)
 		growing_tiles.shuffle()
 		for tile in growing_tiles:

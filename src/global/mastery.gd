@@ -1,6 +1,8 @@
 extends Node
 class_name Mastery
 
+static var MasteryLevel = 0
+
 static var RitualTarget: int = 0
 static var BlightAttack: int = 0
 static var Misfortune: int = 0
@@ -19,6 +21,7 @@ func _process(delta):
 
 static func save_data():
 	var data = {}
+	data.mastery_level = MasteryLevel
 	data.RitualTarget = RitualTarget
 	data.BlightAttack = BlightAttack
 	data.Misfortune = Misfortune
@@ -28,6 +31,7 @@ static func save_data():
 	return data
 
 static func load_data(data):
+	MasteryLevel = data.mastery_level if data.has("mastery_level") else 0
 	RitualTarget = data.RitualTarget
 	BlightAttack = data.BlightAttack
 	Misfortune = data.Misfortune
@@ -36,7 +40,19 @@ static func load_data(data):
 	CardRemoveCost = data.CardRemoveCost
 
 static func get_total_mastery():
-	return RitualTarget + BlightAttack + Misfortune + HidePreview + BlockShop + CardRemoveCost
+	return MasteryLevel#RitualTarget + BlightAttack + Misfortune + HidePreview + BlockShop + CardRemoveCost
+
+static func hide_preview():
+	return MasteryLevel >= 2
+
+static func less_options():
+	return 1 if MasteryLevel >= 3 else 0
+
+static func less_explore():
+	return 1 if MasteryLevel >= 4 else 0
+
+static func less_enhance():
+	return 1 if MasteryLevel >= 5 else 0
 
 static func reset():
 	RitualTarget = 0
@@ -45,3 +61,16 @@ static func reset():
 	HidePreview = 0
 	BlockShop = 0
 	CardRemoveCost = 0
+	MasteryLevel = 0
+
+static func get_prompt_text():
+	var level = MasteryLevel
+	var prompt_text = "Ritual target & Blight strength "
+	for i in range(level):
+		prompt_text += "+"
+	prompt_text += "\nBlight is more dangerous"
+	prompt_text += "\nAttack preview will only show the next turn" if level >= 2 else ""
+	prompt_text += "\nFewer options available when selecting rewards" if level >= 3 else ""
+	prompt_text += "\n-1 explore point" if level >= 4 else ""
+	prompt_text += "\nMax 1 enhance per card" if level >= 5 else ""
+	return prompt_text

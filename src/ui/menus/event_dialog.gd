@@ -34,6 +34,10 @@ func set_event(event: CustomEvent):
 	flavor_text.append_text(event.text)
 	title.text = event.name
 	confirm_button.visible = false
+	flavor_text.visible = true
+	if hover_node != null:
+		flavor_cont.remove_child(hover_node)
+		hover_node = null
 	for i in range(option_buttons.size()):
 		if i < options.size():
 			var option = options[i]
@@ -44,6 +48,7 @@ func set_event(event: CustomEvent):
 				confirm_button.visible = true
 				if hover_node != null:
 					flavor_cont.remove_child(hover_node)
+					hover_node = null
 				if option.hover != null:
 					hover_node = option.hover
 					flavor_cont.add_child(hover_node)

@@ -42,6 +42,7 @@ static var WILDERNESS_PLANT = null
 static var END_TURN_DISCARD = true
 static var BLOCK_RITUAL = false
 static var BLOCK_GROW = false
+static var ALL_WATERED = true
 
 static var pressed: bool = false
 static var pressed_time: float = 0.0
@@ -79,8 +80,8 @@ static func reset():
 	BLOCK_GROW = false
 	click_callbacks = []
 	Constants.BASE_HAND_SIZE = 5
-	WILDERNESS_PLANT = null
 	MAX_BLIGHT = 5
+	ALL_WATERED = false
 
 static func register_click_callback(obj):
 	click_callbacks.append(obj)

@@ -54,6 +54,10 @@ func get_attacks(difficulty: String, week: int) -> Array[AttackPattern]:
 	result.assign(options)
 	return result
 
+func remove_attack(attack: AttackPattern, difficulty: String, week: int):
+	var options: Array = database[difficulty][week + 1]
+	options.erase(attack)
+
 func add(attack: AttackPattern):
 	for difficulty in attack.difficulty_map.keys():
 		if !database.has(difficulty):
@@ -87,13 +91,21 @@ func populate_database():
 	
 	# Easy year 4-5 / Normal first boss
 	add(simple_every(DestroyPlants.new(1)).fortune_once(EndTurnRandomizeColors.new())\
-		.easy(4).easy(5).normal(3).build())
+		.easy(4).normal(3).build())
 	add(SimpleAttackBuilder.new().fortune_once(weeds_entire_farm)\
-		.easy(4).easy(5).normal(3).build())
+		.easy(4).normal(3).build())
 	add(simple_every(add_blightroot).fortune_once(add_10_weeds)\
-		.easy(4).easy(5).normal(3).build())
+		.easy(4).normal(3).build())
 	add(simple_every(end_turn_swap).fortune_once(DestroyTiles.new(5))\
-		.easy(4).easy(5).normal(3).build())
+		.easy(4).normal(3).build())
+	add(simple_every(DestroyPlants.new(1)).fortune_once(EndTurnRandomizeColors.new())\
+		.easy(5).build())
+	add(SimpleAttackBuilder.new().fortune_once(weeds_entire_farm)\
+		.easy(5).build())
+	add(simple_every(add_blightroot).fortune_once(add_10_weeds)\
+		.easy(5).build())
+	add(simple_every(end_turn_swap).fortune_once(DestroyTiles.new(5))\
+		.easy(5).build())
 	#TODO One more at least
 	
 	# Easy 2nd boss

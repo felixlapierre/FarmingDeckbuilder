@@ -154,10 +154,11 @@ func get_description() -> String:
 	
 	if enhances.has("Strength"):
 		descr = descr.replace("{STRENGTH}", "[color=aqua]" + str(strength) + "[/color]")
+		descr = descr.replace("{STR_PER}", "[color=aqua]" + str(self.strength * 100) + "[/color]")
 	else:
 		descr = descr.replace("{STRENGTH}", str(strength))
-	return descr.replace("{STRENGTH}", str(strength))\
-		.replace("{MANA}", Helper.mana_icon())\
+		descr = descr.replace("{STR_PER}", str(self.strength * 100))
+	return descr.replace("{MANA}", Helper.mana_icon())\
 		.replace("{BLUE_MANA}", Helper.blue_mana())
 
 # To be overridden by specific code seeds

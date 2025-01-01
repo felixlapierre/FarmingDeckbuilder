@@ -1,5 +1,6 @@
-[gd_resource type="Resource" script_class="CardData" load_steps=5 format=3 uid="uid://ce4nrc1td87bv"]
+[gd_resource type="Resource" script_class="CardData" load_steps=6 format=3 uid="uid://ce4nrc1td87bv"]
 
+[ext_resource type="SpriteFrames" uid="uid://dx0io3vl5nc5k" path="res://src/animation/frames/downpour_sf.tres" id="1_0m17b"]
 [ext_resource type="Script" path="res://src/effect/effect.gd" id="1_ker15"]
 [ext_resource type="Script" path="res://src/cards/card_data.gd" id="1_ujlgw"]
 [ext_resource type="Texture2D" uid="uid://bn7pl6ij46nfp" path="res://assets/custom/Raincloud.png" id="2_0j7c6"]
@@ -30,5 +31,6 @@ targets = Array[String](["Empty", "Mature", "Growing", "Rock"])
 effects = Array[ExtResource("1_ker15")]([SubResource("Resource_opdn5")])
 enhances = Array[String]([])
 strength = 0.0
+animation = ExtResource("1_0m17b")
 delay = 0.0
-anim_on = 0
+anim_on = 1

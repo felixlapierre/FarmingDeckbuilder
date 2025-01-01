@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://cswinrop881oo"]
+[gd_scene load_steps=42 format=3 uid="uid://cswinrop881oo"]
 
 [ext_resource type="Script" path="res://src/user_interface.gd" id="1_j28fq"]
 [ext_resource type="Theme" uid="uid://c21dhy264y6ty" path="res://assets/theme_large.tres" id="2_s7754"]
@@ -28,6 +28,7 @@
 [ext_resource type="Texture2D" uid="uid://r85h2ey4h5ks" path="res://assets/custom/PreviewButton.png" id="21_tlcd4"]
 [ext_resource type="PackedScene" uid="uid://bb1j26ivcxqw6" path="res://src/ui/tutorial.tscn" id="22_4s3pk"]
 [ext_resource type="Texture2D" uid="uid://b1x8as1ltlxj0" path="res://assets/custom/PreviewButtonHover.png" id="22_oyub8"]
+[ext_resource type="PackedScene" uid="uid://28om5nbxx6qk" path="res://src/ui/display/weather_display.tscn" id="22_xo87j"]
 [ext_resource type="PackedScene" uid="uid://bks8p1urlqgax" path="res://src/attack/attack_preview.tscn" id="24_5346t"]
 [ext_resource type="Theme" uid="uid://bdodinwpnjkw8" path="res://assets/theme_huge.tres" id="24_jal2o"]
 [ext_resource type="PackedScene" uid="uid://d1p8rm8huvmt0" path="res://src/ui/menus/explore.tscn" id="25_julh2"]
@@ -404,6 +405,9 @@ theme = ExtResource("2_s7754")
 theme_override_font_sizes/font_size = 70
 shortcut = SubResource("Shortcut_wpwor")
 text = "End Turn"
+
+[node name="WeatherDisplay" parent="UI" instance=ExtResource("22_xo87j")]
+position = Vector2(1389, 219)
 
 [node name="AlertContainer" parent="." instance=ExtResource("18_ih37u")]
 visible = false

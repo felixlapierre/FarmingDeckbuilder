@@ -49,6 +49,7 @@ var CARD_ANATOMY = preload("res://src/ui/menus/card_anatomy.tscn")
 @onready var AttackPreview = $UI/AttackPreview
 @onready var CancelStructure = $CancelStructure
 @onready var blessings: Blessings = $Blessings
+@onready var weather_display = $UI/WeatherDisplay
 
 var end_year_alert_text = "Ritual Complete! Time to rest and prepare for the next year"
 var structure_place_text = "Click on the farm tile where you'd like to place the structure"
@@ -93,6 +94,9 @@ func setup(p_event_manager: EventManager, p_turn_manager: TurnManager, p_deck: A
 			remove_child(pick_option_ui), null)
 		)
 	$FortuneTeller.create_fortunes()
+	weather_display.setup(p_event_manager)
+	if Global.FARM_TYPE != "STORMVALE":
+		weather_display.visible = false
 
 # Start and end year
 func end_year():
@@ -104,7 +108,7 @@ func end_year():
 	$Shop.fill_shop()
 	$FortuneTeller.create_fortunes()
 	create_fortune_display()
-	$Winter/Explore.create_explore(3, turn_manager)
+	$Winter/Explore.create_explore(3 - Mastery.less_explore(), turn_manager)
 	$Winter/CardButton.disabled = false
 	$Winter/AnyCardButton.visible = Settings.DEBUG
 	update()
@@ -123,6 +127,7 @@ func start_year():
 	create_fortune_display()
 	update_damage()
 	update()
+	weather_display.start_year()
 
 # Update UI display
 func update():
@@ -188,6 +193,7 @@ func update():
 	$Obelisk.max_value = turn_manager.total_ritual
 	$Obelisk.value = turn_manager.ritual_counter	
 	$UpgradeShop.update()
+	weather_display.update()
 
 # Fortune Teller
 func _on_fortune_teller_button_pressed() -> void:
@@ -563,7 +569,7 @@ func load_data(save_json: Dictionary):
 	create_fortune_display()
 	$Shop.player_money = save_json.state.rerolls
 	$Winter/Explore.load_data(save_json.state.explore)
-	$Winter/Explore.create_explore(3, turn_manager)
+	$Winter/Explore.create_explore(3 - Mastery.less_explore(), turn_manager)
 	$Winter/AnyCardButton.visible = Settings.DEBUG
 	update()
 
@@ -704,9 +710,9 @@ func _on_card_button_pressed():
 	var pick_option_ui = PickOption.instantiate()
 	var cards;
 	if Global.FARM_TYPE == "WILDERNESS":
-		cards = cards_database.get_random_action_cards("common", 5 - Mastery.BlockShop)
+		cards = cards_database.get_random_action_cards("common", 5 - Mastery.less_options())
 	else:
-		cards = cards_database.get_random_cards("common", 5 - Mastery.BlockShop)
+		cards = cards_database.get_random_cards("common", 5 - Mastery.less_options())
 	$Winter/Explore.add_sibling(pick_option_ui)
 	var prompt = "Pick a card to add to your deck"
 

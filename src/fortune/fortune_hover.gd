@@ -1,4 +1,5 @@
 extends Control
+class_name FortuneHover
 
 var offset = Vector2(30, 30)
 @onready var fortune_display = $Fortune

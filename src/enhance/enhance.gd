@@ -27,7 +27,7 @@ func copy():
 func is_card_eligible(card: CardData):
 	if card.cost == 99:
 		return false
-	if card.enhances.size() > 1:
+	if card.enhances.size() > 1 - Mastery.less_enhance():
 		return false
 	if card.enhances.any(func(enh): 
 			return name == enh):

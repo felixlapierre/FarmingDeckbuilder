@@ -9,7 +9,7 @@ func register_events(event_manager: EventManager, p_tile: Tile):
 	callback = func(args: EventArgs):
 		var inc = 0
 		for tile in args.farm.get_all_tiles():
-			if tile.irrigated:
+			if tile.is_watered():
 				inc += strength
 		args.specific.tile.add_yield(inc)
 	event_manager.register_listener(event_type, callback)
@@ -30,7 +30,7 @@ func preview_yield(tile: Tile):
 	var farm: Farm = tile.get_parent().get_parent()
 	var inc = 0
 	for farm_tile in farm.get_all_tiles():
-		if farm_tile.irrigated:
+		if farm_tile.is_watered():
 			inc += strength
 	args.green = inc
 	return args

@@ -37,7 +37,7 @@ func setup(tile: Tile):
 		tags_label.append_text("[color=cornflowerblue]Color: Blue[/color]\n")
 	else:
 		tags_label.append_text("[color=gold]Color: Yellow[/color]\n")
-	if tile.irrigated:
+	if tile.is_watered():
 		tags_label.append_text("[color=deepskyblue]Watered[/color]\n")
 	if tile.is_destroyed():
 		tags_label.append_text("[color=crimson]Destroyed[/color]\n")

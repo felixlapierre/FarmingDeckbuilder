@@ -45,7 +45,7 @@ func create_explore(p_explores, turn_manager: TurnManager):
 	# Add card
 	create_point("Gain Card", Vector2(-DIST - 70, 0), func(pt):
 		use_explore(pt)
-		add_card("common", 5 - Mastery.BlockShop))
+		add_card("common", 5 - Mastery.less_options()))
 	
 	if turn_manager.year == 3 or turn_manager.year == 6 or turn_manager.year == 8:
 		create_point("Rare Card", Vector2(0, -DIST - 70), func(pt):

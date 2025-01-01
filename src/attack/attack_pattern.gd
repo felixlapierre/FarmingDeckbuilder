@@ -47,8 +47,8 @@ func compute_blight_pattern(year: int):
 			charge += 0.6 * year
 		if Global.DIFFICULTY >= Constants.DIFFICULTY_HARD:
 			charge += 1.0 * year
-		if Mastery.BlightAttack > 0:
-			charge += 0.5 * year * Mastery.BlightAttack
+		if Mastery.MasteryLevel > 0:
+			charge += 0.5 * year * Mastery.MasteryLevel
 		chance += 0.3
 		if (year < 3 and i < 3) or (year < 8 and i < 2):
 			blight_pattern.append(0)

@@ -9,7 +9,7 @@ func register_events(event_manager: EventManager, p_tile: Tile):
 	callback = func(args: EventArgs):
 		await args.farm.get_tree().create_timer(delay).timeout
 		for tile in args.farm.get_all_tiles():
-			if tile.irrigated and tile.state != Enums.TileState.Inactive:
+			if tile.is_watered() and tile.state != Enums.TileState.Inactive:
 				var harvest_args = EventArgs.HarvestArgs.new(self.strength, true, false)
 				args.farm.gain_yield(tile, harvest_args)
 				args.farm.do_animation(load("res://src/animation/frames/water_ward_sf.tres"), tile.grid_location)
@@ -28,6 +28,6 @@ func can_strengthen_custom_effect():
 
 func preview_yield(tile: Tile):
 	var purple = 0
-	if tile.irrigated and tile.state != Enums.TileState.Inactive:
+	if tile.is_watered() and tile.state != Enums.TileState.Inactive:
 		purple = self.strength
 	return EventArgs.HarvestArgs.new(purple, true, false)

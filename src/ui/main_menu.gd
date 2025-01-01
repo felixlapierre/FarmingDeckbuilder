@@ -1,6 +1,7 @@
 extends Node2D
 
 var PLAYSPACE = preload("res://src/playspace.tscn")
+var SelectCardScene = preload("res://src/cards/select_card.tscn")
 
 var playspace
 @onready var menu_root = $Root
@@ -66,6 +67,7 @@ func _ready():
 	populate_continue_preview()
 	Settings.load_settings()
 	Unlocks.load_unlocks()
+	Statistics.load_stats()
 	TutorialsCheck.button_pressed = Settings.TUTORIALS_ENABLED
 	DebugCheck.button_pressed = Settings.DEBUG
 	ClickModeCheck.button_pressed = Settings.CLICK_MODE
@@ -74,6 +76,7 @@ func _ready():
 		$Root.visible = false
 		$TutorialPrompt.visible = true
 	update_prompt("", null, "")
+	update_best_win()
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -90,6 +93,7 @@ func _on_diff_options_item_selected(index):
 			update_prompt("Difficulty: Hard", load("res://assets/ui/Hard.png"), "Ritual requires even more mana to complete. Blight is even more dangerous. Blight will use new attacks, and will change attacks from week to week.")
 		3:
 			update_prompt("Difficulty: Mastery", load("res://assets/ui/Mastery.png"), "Increase the difficulty as much as you can in order to reach new levels of mastery.")
+			Mastery.MasteryLevel = 1
 			MasteryContainer.visible = true
 	Global.DIFFICULTY = index
 	update_mastery()
@@ -97,6 +101,33 @@ func _on_diff_options_item_selected(index):
 func _on_start_button_pressed():
 	menu_root.visible = false
 	Global.reset()
+	if Global.FARM_TYPE == "WILDERNESS" and Global.WILDERNESS_PLANT == null:
+		var select_card = SelectCardScene.instantiate()
+		select_card.size = Constants.VIEWPORT_SIZE
+		select_card.z_index = 2
+		select_card.theme = load("res://assets/theme_large.tres")
+		var options = [
+			load("res://src/cards/data/seed/inky_cap.tres"),
+			load("res://src/fortune/unique/wildflower.tres"),
+			load("res://src/cards/data/seed/dark_rose.tres"),
+			load("res://src/cards/data/seed/gilded_rose.tres"),
+			load("res://src/cards/data/seed/corn.tres"),
+			load("res://src/cards/data/seed/watermelon.tres"),
+			load("res://src/cards/data/seed/mint.tres"),
+			load("res://src/cards/data/seed/puffshroom.tres")
+		]
+		add_child(select_card)
+		select_card.set_close_button_text("Pick Random Plant")
+		select_card.do_card_pick(options, "Select the native plant on the Wilderness Farm")
+		select_card.select_cancelled.connect(func():
+			remove_child(select_card)
+			Global.WILDERNESS_PLANT = Helper.pick_random(options)
+			_on_start_button_pressed())
+		select_card.select_callback = func(card: CardData):
+			remove_child(select_card)
+			Global.WILDERNESS_PLANT = card
+			_on_start_button_pressed()
+		return
 	playspace = PLAYSPACE.instantiate()
 	connect_main_menu_signal(playspace)
 	add_child(playspace)
@@ -118,22 +149,23 @@ func _on_type_options_item_selected(index):
 	match index:
 		0:
 			Global.FARM_TYPE = "FOREST"
-			update_prompt("Farm Type: Forest", load("res://assets/mage/forest.png"), "Basic farm, with no special effects.")
+			update_prompt("Farm: Forest", load("res://assets/mage/forest.png"), "Basic farm, with no special effects.")
 		1:
 			Global.FARM_TYPE = "RIVERLANDS"
-			update_prompt("Farm Type: Riverlands", load("res://assets/mage/riverlands.png"), "Only watered plants will grow on this farm.\nStart with 8 watered tiles on your farm and 3 'Water Lilies' in your deck.")
+			update_prompt("Farm: Riverlands", load("res://assets/mage/riverlands.png"), "Only watered plants will grow on this farm.\nStart with 8 watered tiles on your farm and 3 'Water Lilies' in your deck.")
 		2:
 			Global.FARM_TYPE = "WILDERNESS"
-			update_prompt("Farm Type: Wilderness", load("res://assets/mage/wilderness.png"), "Start with seeds already planted on the farm. Starting deck has no Seed cards. You cannot add Seed cards to your deck.")
+			update_prompt("Farm: Wilderness", load("res://assets/mage/wilderness.png"), "Start with the 'Native Seed' already planted on the farm.\nStarting deck has no Seed cards, and you cannot add Seed cards to your deck.")
 		3:
 			Global.FARM_TYPE = "MOUNTAINS"
-			update_prompt("Farm Type: Mountains", load("res://assets/fortune/mountains.png"), "This region is full of rocks that make farming difficult.")
+			update_prompt("Farm: Mountains", load("res://assets/fortune/mountains.png"), "This region is full of rocks that make farming difficult.")
 		4:
 			Global.FARM_TYPE = "LUNARTEMPLE"
-			update_prompt("Farm Type: Lunar Temple", load("res://assets/card/temporal_rift.png"), "Entire farm is blue. At the end of the turn, 70% of " + Helper.blue_mana() + "is converted to" + Helper.mana_icon())
+			update_prompt("Farm: Lunar Temple", load("res://assets/card/temporal_rift.png"), "Entire farm is blue. At the end of the turn, 70% of " + Helper.blue_mana() + "is converted to" + Helper.mana_icon())
 		5:
 			Global.FARM_TYPE = "STORMVALE"
-			update_prompt("Farm Type: Storm Vale", load("res://assets/custom/Temp.png"), "NOT IMPLEMENTED")
+			update_prompt("Farm: Storm Vale", load("res://assets/mage/Storm.png"), "Trigger a random weather effect every 2 weeks.")
+	update_best_win()
 
 func get_index_of_farm_type(type):
 	match type:
@@ -242,7 +274,7 @@ func populate_continue_preview():
 	LostPages.update_value()
 	Memoria.value = Mastery.CardRemoveCost
 	Memoria.update_value()
-	update_mastery()
+	update_mastery_2(Mastery.MasteryLevel)
 	
 func _on_tutorials_check_pressed() -> void:
 	Settings.TUTORIALS_ENABLED = TutorialsCheck.button_pressed
@@ -277,6 +309,7 @@ func connect_main_menu_signal(playspace):
 		remove_child(playspace)
 		menu_root.visible = true
 		var difficulty = Global.DIFFICULTY if Global.DIFFICULTY != -1 else 0
+		Global.WILDERNESS_PLANT = null
 		$Root/HBox/Panel/Margin/VBox/HBox/Margin/VBox/DifficultyBox/DiffOptions.selected = difficulty
 		_on_diff_options_item_selected(difficulty)
 		$Root/HBox/Panel/Margin/VBox/HBox/Margin/VBox/FarmTypeBox/TypeOptions.selected = get_index_of_farm_type(Global.FARM_TYPE)
@@ -293,8 +326,10 @@ func connect_main_menu_signal(playspace):
 func _on_char_options_item_selected(index: int) -> void:
 	mage_fortune = mages_map[index]
 	update_prompt(mage_fortune.name, mage_fortune.texture, mage_fortune.text)
+	update_best_win()
 
 func set_locked_options():
+	return
 	var farms = Unlocks.FARMS_UNLOCKED
 	for i in range(6):
 		$Root/HBox/Panel/Margin/VBox/HBox/Margin/VBox/FarmTypeBox/TypeOptions.set_item_disabled(i, !Settings.DEBUG && !Unlocks.FARMS_UNLOCKED[str(i)])
@@ -388,3 +423,35 @@ func _input(event: InputEvent):
 		Settings.save_settings()
 		Global.MOBILE = true
 		ClickModeCheck.visible = false
+
+
+func _on_mastery_minus_pressed():
+	Mastery.MasteryLevel -= 1
+	if Mastery.MasteryLevel == 1:
+		$Root/HBox/Panel/Margin/VBox/HBox/Margin/VBox/MasteryCont/LevelSelector/Minus.disabled = true
+	$Root/HBox/Panel/Margin/VBox/HBox/Margin/VBox/MasteryCont/LevelSelector/Plus.disabled = false
+	update_mastery_2(Mastery.MasteryLevel)
+
+func _on_mastery_plus_pressed():
+	Mastery.MasteryLevel += 1
+	if Mastery.MasteryLevel == 5:
+		$Root/HBox/Panel/Margin/VBox/HBox/Margin/VBox/MasteryCont/LevelSelector/Plus.disabled = true
+	$Root/HBox/Panel/Margin/VBox/HBox/Margin/VBox/MasteryCont/LevelSelector/Minus.disabled = false
+	update_mastery_2(Mastery.MasteryLevel)
+
+func update_mastery_2(level: int):
+	$Root/HBox/Panel/Margin/VBox/HBox/Margin/VBox/MasteryCont/LevelSelector/LevelLabel.text = str(level)
+	var prompt_title = "Mastery " + str(level)
+	var prompt_text = Mastery.get_prompt_text()
+	update_prompt(prompt_title, load("res://assets/ui/Mastery" + str(level) + ".png"), prompt_text)
+
+func update_best_win():
+	var farm = Global.FARM_TYPE
+	var mage = mage_fortune.name
+	var best = Statistics.get_best_win(mage, farm)
+	var record_label: RichTextLabel = $Root/HBox/Panel/Margin/VBox/RecordLabel
+	record_label.clear()
+	if best == null:
+		record_label.append_text("[center] Best Win: None [img]res://assets/ui/NoWin.png[/img]")
+	else:
+		record_label.append_text("[center] Best Win: " + best + " [img][img]res://assets/ui/" + best + ".png[/img]")

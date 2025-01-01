@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://c4gqastokl1qh"]
+[gd_scene load_steps=17 format=3 uid="uid://c4gqastokl1qh"]
 
 [ext_resource type="Script" path="res://src/ui/main_menu.gd" id="1_b0cyn"]
 [ext_resource type="Theme" uid="uid://c21dhy264y6ty" path="res://assets/theme_large.tres" id="1_l63em"]
@@ -10,10 +10,12 @@
 [ext_resource type="Texture2D" uid="uid://c46q76532nqk" path="res://assets/custom/Temp.png" id="7_p3r71"]
 [ext_resource type="Texture2D" uid="uid://dwb71kp62mh6" path="res://assets/card/temporal_rift.png" id="7_xd2a6"]
 [ext_resource type="Theme" uid="uid://cji2vba6wkk5e" path="res://assets/theme_med.tres" id="8_asg1i"]
+[ext_resource type="Texture2D" uid="uid://cp2f7fj80pq2i" path="res://assets/mage/Storm.png" id="8_hud22"]
 [ext_resource type="Texture2D" uid="uid://k0j5u0imo8k3" path="res://assets/ui/Normal.png" id="8_i7ta0"]
 [ext_resource type="Texture2D" uid="uid://c227lgcxce4ol" path="res://assets/ui/Hard.png" id="9_8e5gb"]
 [ext_resource type="Texture2D" uid="uid://bxn7jkap77xy2" path="res://assets/ui/Mastery.png" id="10_41bla"]
 [ext_resource type="PackedScene" uid="uid://duwe02c6s4kkq" path="res://src/ui/incrementer.tscn" id="11_ui556"]
+[ext_resource type="Theme" uid="uid://bdodinwpnjkw8" path="res://assets/theme_huge.tres" id="13_36j2h"]
 
 [node name="MainMenu" type="Node2D"]
 script = ExtResource("1_b0cyn")
@@ -119,6 +121,7 @@ popup/item_4/text = "Lunar Temple"
 popup/item_4/icon = ExtResource("7_xd2a6")
 popup/item_4/id = 4
 popup/item_5/text = "Storm Vale"
+popup/item_5/icon = ExtResource("8_hud22")
 popup/item_5/id = 5
 
 [node name="DifficultyBox" type="HBoxContainer" parent="Root/HBox/Panel/Margin/VBox/HBox/Margin/VBox"]
@@ -171,11 +174,11 @@ popup/item_1/id = 1
 popup/item_2/text = "Fire Mage"
 popup/item_2/id = 2
 popup/item_3/text = "Blight Mage"
-popup/item_3/id = 3
+popup/item_3/id = 4
 popup/item_4/text = "Water Mage"
-popup/item_4/id = 4
+popup/item_4/id = 5
 popup/item_5/text = "Chaos Mage"
-popup/item_5/id = 5
+popup/item_5/id = 6
 popup/item_6/text = "Void Mage"
 popup/item_6/id = 7
 popup/item_7/text = "Time Mage"
@@ -190,35 +193,64 @@ text = "Mastery"
 horizontal_alignment = 1
 
 [node name="RitualDisruption" parent="Root/HBox/Panel/Margin/VBox/HBox/Margin/VBox/MasteryCont" instance=ExtResource("11_ui556")]
+visible = false
 layout_mode = 2
 text = "Ritual Disruption"
 
 [node name="BlightAttack" parent="Root/HBox/Panel/Margin/VBox/HBox/Margin/VBox/MasteryCont" instance=ExtResource("11_ui556")]
+visible = false
 layout_mode = 2
 text = "Blight Attack"
 
 [node name="Misfortune" parent="Root/HBox/Panel/Margin/VBox/HBox/Margin/VBox/MasteryCont" instance=ExtResource("11_ui556")]
+visible = false
 layout_mode = 2
 text = "Misfortune"
 
 [node name="Blindness" parent="Root/HBox/Panel/Margin/VBox/HBox/Margin/VBox/MasteryCont" instance=ExtResource("11_ui556")]
+visible = false
 layout_mode = 2
 max_value = 1
 text = "Blindness"
 
 [node name="Lost Pages" parent="Root/HBox/Panel/Margin/VBox/HBox/Margin/VBox/MasteryCont" instance=ExtResource("11_ui556")]
+visible = false
 layout_mode = 2
 max_value = 2
 text = "Lost Pages"
 
 [node name="Memoria" parent="Root/HBox/Panel/Margin/VBox/HBox/Margin/VBox/MasteryCont" instance=ExtResource("11_ui556")]
+visible = false
 layout_mode = 2
 max_value = 1
 text = "Memoria"
 
 [node name="MasteryLevel" type="Label" parent="Root/HBox/Panel/Margin/VBox/HBox/Margin/VBox/MasteryCont"]
+visible = false
 layout_mode = 2
 text = "Mastery Level: 5"
+
+[node name="LevelSelector" type="HBoxContainer" parent="Root/HBox/Panel/Margin/VBox/HBox/Margin/VBox/MasteryCont"]
+layout_mode = 2
+theme = ExtResource("13_36j2h")
+alignment = 1
+
+[node name="Minus" type="Button" parent="Root/HBox/Panel/Margin/VBox/HBox/Margin/VBox/MasteryCont/LevelSelector"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+text = "-"
+
+[node name="LevelLabel" type="Label" parent="Root/HBox/Panel/Margin/VBox/HBox/Margin/VBox/MasteryCont/LevelSelector"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Plus" type="Button" parent="Root/HBox/Panel/Margin/VBox/HBox/Margin/VBox/MasteryCont/LevelSelector"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+text = "+"
 
 [node name="Details" type="MarginContainer" parent="Root/HBox/Panel/Margin/VBox/HBox"]
 layout_mode = 2
@@ -245,6 +277,12 @@ layout_mode = 2
 theme = ExtResource("8_asg1i")
 bbcode_enabled = true
 text = "Testing 123"
+fit_content = true
+
+[node name="RecordLabel" type="RichTextLabel" parent="Root/HBox/Panel/Margin/VBox"]
+layout_mode = 2
+bbcode_enabled = true
+text = "Best Win:"
 fit_content = true
 
 [node name="StartButton" type="Button" parent="Root/HBox/Panel/Margin/VBox"]
@@ -440,6 +478,8 @@ text = "Skip Tutorial"
 [connection signal="on_value_updated" from="Root/HBox/Panel/Margin/VBox/HBox/Margin/VBox/MasteryCont/Blindness" to="." method="_on_blindness_on_value_updated"]
 [connection signal="on_value_updated" from="Root/HBox/Panel/Margin/VBox/HBox/Margin/VBox/MasteryCont/Lost Pages" to="." method="_on_lost_pages_on_value_updated"]
 [connection signal="on_value_updated" from="Root/HBox/Panel/Margin/VBox/HBox/Margin/VBox/MasteryCont/Memoria" to="." method="_on_memoria_on_value_updated"]
+[connection signal="pressed" from="Root/HBox/Panel/Margin/VBox/HBox/Margin/VBox/MasteryCont/LevelSelector/Minus" to="." method="_on_mastery_minus_pressed"]
+[connection signal="pressed" from="Root/HBox/Panel/Margin/VBox/HBox/Margin/VBox/MasteryCont/LevelSelector/Plus" to="." method="_on_mastery_plus_pressed"]
 [connection signal="pressed" from="Root/HBox/Panel/Margin/VBox/StartButton" to="." method="_on_start_button_pressed"]
 [connection signal="pressed" from="Root/HBox/Panel/Margin/VBox/TutorialButton" to="." method="_on_tutorial_button_pressed"]
 [connection signal="pressed" from="Root/HBox/ContPanel/VBox/Margin/VBox/ContinueButton" to="." method="_on_continue_button_pressed"]

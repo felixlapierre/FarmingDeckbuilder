@@ -25,6 +25,13 @@ static func get_starter_deck():
 	match Global.FARM_TYPE:
 		"FOREST", "LUNARTEMPLE":
 			data = forest_deck
+		"STORMVALE":
+			data = forest_deck
+			data.append({
+				"name": "Control Weather",
+				"type": "action",
+				"count": 1
+			})
 		"RIVERLANDS":
 			data = riverlands_deck
 		"WILDERNESS":
@@ -50,20 +57,6 @@ static func setup_farm(farm: Farm, event_manager: EventManager):
 		"RIVERLANDS":
 			setup_riverlands_farm_callback(farm, event_manager)
 		"WILDERNESS":
-			if Global.WILDERNESS_PLANT == null:
-				# select random
-				var options = [
-					load("res://src/cards/data/seed/inky_cap.tres"),
-					load("res://src/fortune/unique/wildflower.tres"),
-					load("res://src/cards/data/seed/dark_rose.tres"),
-					load("res://src/cards/data/seed/gilded_rose.tres"),
-					load("res://src/cards/data/seed/corn.tres"),
-					load("res://src/cards/data/seed/watermelon.tres"),
-					load("res://src/cards/data/seed/mint.tres"),
-					load("res://src/cards/data/seed/puffshroom.tres")
-				]
-				var selection = options[randi_range(0, options.size() - 1)]
-				Global.WILDERNESS_PLANT = selection
 			setup_wilderness_farm_callback(farm, event_manager)
 		"MOUNTAINS":
 			setup_mountain_farm(farm)
