@@ -165,6 +165,9 @@ func _on_type_options_item_selected(index):
 		5:
 			Global.FARM_TYPE = "STORMVALE"
 			update_prompt("Farm: Storm Vale", load("res://assets/mage/Storm.png"), "Trigger a random weather effect every 2 weeks.")
+	var best = Statistics.get_best_win_farm(Global.FARM_TYPE)
+	if best != null:
+		$Root/HBox/Panel/Margin/VBox/HBox/Details/VBox/DetailsDescr.append_text("\nBest Win: " + best + " [img][img]res://assets/ui/" + best + ".png[/img]")
 	update_best_win()
 
 func get_index_of_farm_type(type):
@@ -326,6 +329,10 @@ func connect_main_menu_signal(playspace):
 func _on_char_options_item_selected(index: int) -> void:
 	mage_fortune = mages_map[index]
 	update_prompt(mage_fortune.name, mage_fortune.texture, mage_fortune.text)
+	var best = Statistics.get_best_win_mage(mage_fortune.name)
+	if best != null:
+		$Root/HBox/Panel/Margin/VBox/HBox/Details/VBox/DetailsDescr.append_text("\nBest Win: " + best + " [img][img]res://assets/ui/" + best + ".png[/img]")
+
 	update_best_win()
 
 func set_locked_options():
@@ -452,6 +459,6 @@ func update_best_win():
 	var record_label: RichTextLabel = $Root/HBox/Panel/Margin/VBox/RecordLabel
 	record_label.clear()
 	if best == null:
-		record_label.append_text("[center] Best Win: None [img]res://assets/ui/NoWin.png[/img]")
+		record_label.append_text("[center] Best Win (" + mage + ", " + farm.to_lower() + "): None [img]res://assets/ui/NoWin.png[/img]")
 	else:
-		record_label.append_text("[center] Best Win: " + best + " [img][img]res://assets/ui/" + best + ".png[/img]")
+		record_label.append_text("[center] Best Win (" + mage + ", " + farm.to_lower() + "): " + best + " [img][img]res://assets/ui/" + best + ".png[/img]")

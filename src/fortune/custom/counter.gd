@@ -11,6 +11,7 @@ func _init(strength: float = 1.0) -> void:
 func register_fortune(event_manager: EventManager):
 	callback_card_played = func(args: EventArgs):
 		args.turn_manager.target_blight += strength
+		args.user_interface.update()
 	
 	event_manager.register_listener(event_type_card_played, callback_card_played)
 

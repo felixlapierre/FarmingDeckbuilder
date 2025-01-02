@@ -12,6 +12,26 @@ static func get_best_win(mage: String, farm: String):
 			return int_to_result(record)
 	return null
 
+static func get_best_win_mage(mage: String):
+	if records_map.has(mage):
+		var mage_map: Dictionary = records_map[mage]
+		var best = -1
+		for key in mage_map.keys():
+			var value = mage_map[key]
+			if int(value) > best:
+				best = int(value)
+		return int_to_result(str(best)) if best >= 0 else null
+	return null
+
+static func get_best_win_farm(farm: String):
+	var best = -1
+	for key in records_map.keys():
+		if records_map[key].has(farm):
+			var value = records_map[key][farm]
+			if int(value) > best:
+				best = int(value)
+	return int_to_result(str(best)) if best >= 0 else null
+
 static func record_win(mage: String, farm: String, difficulty: int):
 	if difficulty == -1:
 		return
@@ -21,7 +41,7 @@ static func record_win(mage: String, farm: String, difficulty: int):
 		var mage_map = records_map[mage]
 		if mage_map.has(farm):
 			var previous_record = mage_map[farm]
-			if previous_record < str(difficulty_int):
+			if int(previous_record) < difficulty_int:
 				mage_map[farm] = str(difficulty_int)
 		else:
 			mage_map[farm] = {}
