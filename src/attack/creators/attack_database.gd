@@ -24,7 +24,7 @@ var end_turn_swap = EndTurnSwapColors.new()
 var end_turn_rotate = EndTurnRotateColors.new()
 var end_turn_randomize = EndTurnRandomizeColors.new()
 
-var increase_ritual_10 = IncreaseRitualTarget.new(0.1)
+var increase_ritual_10 = IncreaseRitualTarget.new(10.0)
 var block_ritual = BlockRitual.new(1.0)
 var cold_snap = ColdSnap.new()
 var counter3 = Counter.new(3)
@@ -86,7 +86,7 @@ func populate_database():
 		.easy(3).normal(2).hard(2).mastery(2).build())
 	add(simple_every(DestroyTiles.new(1))
 		.easy(3).normal(2).hard(2).mastery(2).build())
-	add(simple_every(IncreaseRitualTarget.new(0.1))\
+	add(simple_every(IncreaseRitualTarget.new(10.0))\
 		.easy(3).normal(2).hard(2).mastery(2).build())
 	
 	# Easy year 4-5 / Normal first boss
@@ -186,7 +186,7 @@ func populate_database():
 	add(simple_every_list([add_corpse_flower, add_blightroot])\
 		.normal(8).mastery(6).build())
 	add(simple_every_list([IncreaseBlightStrength.new(1.0), increase_ritual_10]).damage_multiplier(2.0)\
-		.normal(8).mastery(6).build())
+		.normal(8).hard(8).mastery(7).build())
 	add(simple_every_list([destroy_two_tiles, add_10_weeds])\
 		.normal(8).mastery(6).build())
 	add(simple_every(burn_rightmost).fortune_random(add_deathcap).fortune_random(end_turn_swap).fortune_at(weeds_entire_farm, 4)\
@@ -228,19 +228,32 @@ func populate_database():
 
 	# Hard final boss
 	add(simple_every_list([Helper.pick_random([destroy_row, destroy_col]), weeds_entire_farm])\
-		.hard(8).mastery(7).mastery(8).build())
+		.hard(8).mastery(7).build())
 	add(SimpleAttackBuilder.new().fortune_every_turn(Helper.pick_random([destroy_row, destroy_col, AddCorpseFlower.new()]))\
 		.fortune_even(Helper.pick_random([EndTurnBurn.new(), BlockRitual.new(1.0), Counter.new(3)]))\
-		.hard(8).mastery(7).mastery(8).build())
+		.hard(8).mastery(7).build())
 	add(SimpleAttackBuilder.new().custom_attack(CounterAttackPattern.new())\
-		.hard(8).mastery(7).mastery(8).build())
+		.hard(8).mastery(7).build())
 	add(simple_every_list([burn_rightmost, Helper.pick_random([one_blood_thorn, one_dark_thorn])])\
-		.hard(8).mastery(7).mastery(8).build())
+		.hard(8).mastery(7).build())
 	add(SimpleAttackBuilder.new().fortune_even(cold_snap)\
-		.hard(8).mastery(7).mastery(8).build())
+		.hard(8).mastery(7).build())
 	add(simple_every_list([destroy_two_tiles, increase_ritual_10])\
-		.hard(8).mastery(7).mastery(8).build())
-	add(simple_every(IncreaseBlightStrength.new(2.0)).damage_multiplier(3.0)\
-		.hard(8).mastery(7).mastery(8).build())
+		.hard(8).mastery(7).build())
 	
-	#TODO: Mastery 8
+	#TODO: Mastery 8 (just a copy of above for now)
+	add(simple_every_list([Helper.pick_random([destroy_row, destroy_col]), weeds_entire_farm])\
+		.mastery(8).build())
+	add(SimpleAttackBuilder.new().fortune_every_turn(Helper.pick_random([destroy_row, destroy_col, AddCorpseFlower.new()]))\
+		.fortune_even(Helper.pick_random([EndTurnBurn.new(), BlockRitual.new(1.0), Counter.new(3)]))\
+		.mastery(8).build())
+	add(SimpleAttackBuilder.new().custom_attack(CounterAttackPattern.new())\
+		.mastery(8).build())
+	add(simple_every_list([burn_rightmost, Helper.pick_random([one_blood_thorn, one_dark_thorn])])\
+		.mastery(8).build())
+	add(SimpleAttackBuilder.new().fortune_even(cold_snap)\
+		.mastery(8).build())
+	add(simple_every_list([destroy_two_tiles, increase_ritual_10])\
+		.mastery(8).build())
+	add(simple_every(IncreaseBlightStrength.new(1.5)).damage_multiplier(2.5)\
+		.mastery(8).build())

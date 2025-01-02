@@ -30,4 +30,4 @@ func get_options():
 	return [option1, option2]
 
 func check_prerequisites():
-	return turn_manager.blight_damage == 0 and turn_manager.year > 3
+	return turn_manager.blight_damage == 0 and turn_manager.year > 2

@@ -214,7 +214,8 @@ static func get_element_cards(text: String):
 			load("res://src/cards/data/action/inspiration.tres"),
 			load("res://src/cards/data/seed/papyrus.tres"),
 			load("res://src/cards/data/action/focus.tres"),
-			load("res://src/cards/data/action/gather.tres")
+			load("res://src/cards/data/action/gather.tres"),
+			load("res://src/cards/data/seed/marigold.tres")
 		]
 	elif text.contains("Wind"):
 		return [

@@ -8,7 +8,7 @@
 script = ExtResource("1_wsnej")
 type = "ACTION"
 name = "Blood Thorn"
-rarity = "blight"
+rarity = "unique"
 cost = 0
 yld = 0
 time = 0

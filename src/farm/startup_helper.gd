@@ -26,7 +26,8 @@ static func get_starter_deck():
 		"FOREST", "LUNARTEMPLE":
 			data = forest_deck
 		"STORMVALE":
-			data = forest_deck
+			data = []
+			data.assign(forest_deck)
 			data.append({
 				"name": "Control Weather",
 				"type": "action",

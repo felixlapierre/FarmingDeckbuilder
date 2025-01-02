@@ -5,6 +5,7 @@ var blight_pattern: Array[int] = []
 var fortunes: = []
 var rank: int = 0
 var simple_attack_callback: Callable
+var damage_multiplier = 1.0
 
 var difficulty_map = {}
 
@@ -70,15 +71,16 @@ func compute_blight_pattern(year: int):
 func get_multiplier(year: int):
 	var year_multiplier = 1.0 + (year - 1) * 0.1
 	var difficulty_multiplier = Global.BLIGHT_TARGET_MULTIPLIER
-	return year_multiplier * difficulty_multiplier
+	return year_multiplier * difficulty_multiplier * damage_multiplier
 
 func save_data():
 	var data = {}
 	data.path = get_script().get_path()
+	data.damage_multiplier = damage_multiplier
 	return data
 
-func load_data(_data):
-	pass
+func load_data(data):
+	damage_multiplier = data.damage_multiplier
 
 func get_all_fortunes_display():
 	return []

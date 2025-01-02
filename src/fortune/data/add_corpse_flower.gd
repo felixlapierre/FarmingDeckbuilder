@@ -27,11 +27,13 @@ func register_fortune(event_manager: EventManager):
 			targeted_tiles.append(options[i])
 	callback_end = func(args: EventArgs):
 		for tile: Tile in targeted_tiles:
-			if tile.destroy_targeted and !tile.is_protected():
-				if tile.seed != null:
-					tile.destroy_plant()
+			if tile.destroy_targeted:
 				tile.set_destroy_targeted(false)
-				tile.plant_seed_animate(corpse_flower.copy())
+				if !tile.is_protected():
+					if tile.seed != null:
+						tile.destroy_plant()
+					tile.plant_seed_animate(corpse_flower.copy())
+
 	event_manager.register_listener(event_start, callback_start)
 	event_manager.register_listener(event_end, callback_end)
 

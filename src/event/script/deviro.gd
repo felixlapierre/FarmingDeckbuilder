@@ -46,8 +46,10 @@ func get_options():
 func pick_element_cards_function(element: String):
 	return func():
 		var cards: Array = cards_database.get_element_cards(element)
+		cards = cards.filter(func(card):
+			return Global.FARM_TYPE != "WILDERNESS" or card.type == "ACTION")
 		cards.shuffle()
 		user_interface.pick_cards_event(cards.slice(0, 3))
 
 func check_prerequisites():
-	return turn_manager.year > 4
+	return true

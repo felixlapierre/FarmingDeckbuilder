@@ -43,7 +43,7 @@ func update():
 	elif turn_manager.purple_mana > turn_manager.target_blight and turn_manager.target_blight == 0 and Global.FARM_TYPE != "LUNARTEMPLE":
 		PromptLabel.text = "Wasted"
 	elif turn_manager.purple_mana > turn_manager.target_blight and Global.FARM_TYPE == "LUNARTEMPLE":
-		PromptLabel.text = "Excess: " + str((turn_manager.purple_mana - turn_manager.target_blight) * mage_fortune.strength) + Helper.mana_icon()
+		PromptLabel.text = "Excess: " + str(ceil((turn_manager.purple_mana - turn_manager.target_blight) * 0.7)) + Helper.mana_icon()
 	else:
 		PromptLabel.text = "Safe!"
 

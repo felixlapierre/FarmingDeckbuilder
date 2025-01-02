@@ -32,4 +32,4 @@ func get_options():
 	return [option1, option2, option3]
 
 func check_prerequisites():
-	return turn_manager.year > 7
+	return turn_manager.year > 3

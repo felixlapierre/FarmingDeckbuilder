@@ -70,7 +70,10 @@ func get_short_description(card: CardData):
 		"energy":
 			return "Gain " + str(strength) + " [img]res://assets/custom/Energy.png[/img]" + get_on_text()
 		"draw":
-			return "Draw " + str(strength) + " card" + ("s" if strength > 1 else "") + get_on_text()
+			if self.card != null:
+				return "Add " + str(strength) + " copy of '" + self.card.name + "' to your hand" + get_on_text() 
+			else:
+				return "Draw " + str(strength) + " card" + ("s" if strength > 1 else "") + get_on_text()
 		"spread":
 			if on == "grow" or on == "harvest":
 				if strength >= 1:

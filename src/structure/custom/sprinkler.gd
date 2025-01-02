@@ -20,8 +20,8 @@ func register_events(event_manager: EventManager, tile: Tile):
 			if Helper.is_adjacent(target_tile.grid_location, tile.grid_location):
 				target_tile.irrigate()
 	event_manager.register_listener(event_type, callback)
-	event_manager.register_listener(event2, callback)
+	#event_manager.register_listener(event2, callback)
 
 func unregister_events(event_manager: EventManager):
 	event_manager.unregister_listener(event_type, callback)
-	event_manager.unregister_listener(event2, callback)
+	#event_manager.unregister_listener(event2, callback)

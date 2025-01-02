@@ -21,7 +21,7 @@ static func record_win(mage: String, farm: String, difficulty: int):
 		var mage_map = records_map[mage]
 		if mage_map.has(farm):
 			var previous_record = mage_map[farm]
-			if previous_record < difficulty_int:
+			if previous_record < str(difficulty_int):
 				mage_map[farm] = str(difficulty_int)
 		else:
 			mage_map[farm] = {}

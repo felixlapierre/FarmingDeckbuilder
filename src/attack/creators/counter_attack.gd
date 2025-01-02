@@ -6,9 +6,12 @@ var counter = Counter.new(5.0)
 
 func get_fortunes_at_week(week: int) -> Array[Fortune]:
 	if blight_pattern[week] == 0:
-		return block_ritual
+		return [block_ritual]
 	else:
-		return counter
+		return [counter]
+
+func get_all_fortunes_display():
+	return [block_ritual, counter]
 
 func save_data():
 	var data = {}

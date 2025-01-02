@@ -325,13 +325,14 @@ func perform_effect(effect, tile: Tile):
 			on_energy_gained.emit(effect.strength)
 		"draw":
 			if effect.on != "play":
-				on_card_draw.emit(effect.strength, null)
+				on_card_draw.emit(effect.strength, effect.card)
 		"destroy_tile":
 			tile.destroy()
 		"destroy_plant":
 			tile.destroy_plant()
 		"replant":
-			effect_queue.append(Effect.new("plant", 0, "", "self", tile.grid_location, tile.seed.copy()))
+			if tile.seed.get_effect("plant") == null:
+				effect_queue.append(Effect.new("plant", 0, "", "self", tile.grid_location, tile.seed.copy()))
 		"add_recurring":
 			if tile.seed.get_effect("plant") == null:
 				var new_seed = tile.seed.copy()
