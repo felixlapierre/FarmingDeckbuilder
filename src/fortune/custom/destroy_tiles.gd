@@ -5,7 +5,7 @@ var callback_turn_start: Callable
 var callback_after_grow: Callable
 var type_turn_start = EventManager.EventType.BeforeTurnStart
 
-var fortune_texture = preload("res://assets/custom/Temp.png")
+var fortune_texture = preload("res://assets/fortune/destroy-tiles.png")
 
 func _init(strength: float = 1.0) -> void:
 	super("Decay", Fortune.FortuneType.BadFortune, "Turn start: Destroy {STRENGTH} tiles on your farm", 0, fortune_texture, strength)

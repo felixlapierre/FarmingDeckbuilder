@@ -5,7 +5,7 @@ var dark_thorn = preload("res://src/cards/data/unique/dark_thorn.tres")
 var callback_turn_start: Callable
 var type_turn_start = EventManager.EventType.BeforeTurnStart
 
-var fortune_texture = preload("res://assets/custom/Temp.png")
+var fortune_texture = preload("res://assets/fortune/dark-thorn.png")
 
 func _init(strength: float = 1.0) -> void:
 	super("Thorns", Fortune.FortuneType.BadFortune, "Turn start: Add {STRENGTH} Dark Thorn to your deck", 0, fortune_texture, strength)

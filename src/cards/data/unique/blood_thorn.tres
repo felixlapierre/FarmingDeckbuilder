@@ -2,7 +2,7 @@
 
 [ext_resource type="Resource" uid="uid://cijtg3ddxitn3" path="res://src/effect/data/obliviate.tres" id="1_4omjv"]
 [ext_resource type="Script" path="res://src/cards/custom/unique/blood_thorn.gd" id="1_wsnej"]
-[ext_resource type="Texture2D" uid="uid://cd7tvbi3sdixx" path="res://assets/card/bloodrite.png" id="2_oiusi"]
+[ext_resource type="Texture2D" uid="uid://bypj4u51bmh2b" path="res://assets/fortune/blood-thorn.png" id="3_sng1w"]
 
 [resource]
 script = ExtResource("1_wsnej")
@@ -16,7 +16,7 @@ size = 0
 text = "On play, +{STRENGTH} [img]res://assets/custom/BlightAttack.png[/img]"
 strength_increment = 1.0
 size_increment = 1
-texture = ExtResource("2_oiusi")
+texture = ExtResource("3_sng1w")
 seed_texture = 0
 texture_icon_offset = 16
 targets = Array[String]([])

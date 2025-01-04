@@ -4,7 +4,7 @@ class_name DestroyPlantOnCard
 var callback_card_played: Callable
 var event_type_card_played = EventManager.EventType.AfterCardPlayed
 
-var texture_display = load("res://assets/custom/Temp.png")
+var texture_display = load("res://assets/fortune/destroy-on-play.png")
 
 func _init(strength: float = 1.0) -> void:
 	super("Spell Breaker", FortuneType.BadFortune, "Destroy {STRENGTH} plant(s) whenever you play a card", -1, texture_display, strength)

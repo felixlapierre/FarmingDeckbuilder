@@ -106,16 +106,7 @@ func _on_start_button_pressed():
 		select_card.size = Constants.VIEWPORT_SIZE
 		select_card.z_index = 2
 		select_card.theme = load("res://assets/theme_large.tres")
-		var options = [
-			load("res://src/cards/data/seed/inky_cap.tres"),
-			load("res://src/fortune/unique/wildflower.tres"),
-			load("res://src/cards/data/seed/dark_rose.tres"),
-			load("res://src/cards/data/seed/gilded_rose.tres"),
-			load("res://src/cards/data/seed/corn.tres"),
-			load("res://src/cards/data/seed/watermelon.tres"),
-			load("res://src/cards/data/seed/mint.tres"),
-			load("res://src/cards/data/seed/puffshroom.tres")
-		]
+		var options = StartupHelper.get_wilderness_seed_options()
 		add_child(select_card)
 		select_card.set_close_button_text("Pick Random Plant")
 		select_card.do_card_pick(options, "Select the native plant on the Wilderness Farm")
