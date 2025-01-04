@@ -1,6 +1,6 @@
 extends MarginContainer
 signal clicked
-
+var fortune: Fortune
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
@@ -10,11 +10,12 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	pass
 
-func setup(fortune: Fortune):
+func setup(p_fortune: Fortune):
+	fortune = p_fortune
 	$VBox/Name.text = fortune.name
 	$VBox/Description.text = fortune.get_description()
 	$VBox/Texture.texture = fortune.texture
 
 func _on_list_gui_input(event: InputEvent) -> void:
 	if event.is_action_pressed("leftclick"):
-		clicked.emit()
+		clicked.emit(fortune)

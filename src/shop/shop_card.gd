@@ -34,7 +34,7 @@ func _process(delta: float) -> void:
 
 func on_card_clicked(card):
 	if !disabled:
-		on_clicked.emit(card)
+		on_clicked.emit(card.card_info)
 
 func get_data():
 	return card_data

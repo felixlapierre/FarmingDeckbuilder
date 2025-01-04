@@ -125,7 +125,7 @@ func pick_card_from(cards):
 	var prompt = "Pick a card to add to your deck"
 
 	pick_option_ui.setup(prompt, cards, func(selected):
-		player_deck.append(selected.card_info)
+		player_deck.append(selected)
 		remove_sibling(pick_option_ui)
 		visible = true, func():
 			remove_sibling(pick_option_ui)

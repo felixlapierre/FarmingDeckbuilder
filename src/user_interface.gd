@@ -26,6 +26,7 @@ var cards_database = preload("res://src/cards/cards_database.gd")
 var PickOption = preload("res://src/ui/pick_option.tscn")
 var FORTUNE_HOVER = preload("res://src/fortune/fortune_hover.tscn")
 var CARD_ANATOMY = preload("res://src/ui/menus/card_anatomy.tscn")
+var debug_menu = preload("res://src/ui/menus/debug_menu.tscn")
 
 @onready var shop: Shop = $Shop
 @onready var tooltip: Tooltip = $Tooltip
@@ -90,7 +91,7 @@ func setup(p_event_manager: EventManager, p_turn_manager: TurnManager, p_deck: A
 		add_child(pick_option_ui)
 		var prompt = "Pick a card to add to your hand"
 		pick_option_ui.setup(prompt, options, func(selected):
-			args.cards.draw_specific_card_from(selected.card_info, get_global_mouse_position())
+			args.cards.draw_specific_card_from(selected, get_global_mouse_position())
 			remove_child(pick_option_ui), null)
 		)
 	$FortuneTeller.create_fortunes()
@@ -227,7 +228,7 @@ func _on_game_event_dialog_on_upgrades_selected(upgrades: Array[Upgrade]) -> voi
 			pick_option_ui.setup(prompt, cards, func(selected):
 				var add_card_upgrade = Upgrade.new()
 				add_card_upgrade.type = Upgrade.UpgradeType.AddSpecificCard
-				add_card_upgrade.card = selected.card_info
+				add_card_upgrade.card = selected
 				apply_upgrade.emit(add_card_upgrade)
 				$Winter.remove_child(pick_option_ui), func():
 					$Winter.remove_child(pick_option_ui))
@@ -291,7 +292,7 @@ func _on_game_event_dialog_on_upgrades_selected(upgrades: Array[Upgrade]) -> voi
 			pick_option_ui.setup(prompt, options, func(selected):
 				var add_card_upgrade = Upgrade.new()
 				add_card_upgrade.type = Upgrade.UpgradeType.AddSpecificCard
-				add_card_upgrade.card = selected.card_info
+				add_card_upgrade.card = selected
 				apply_upgrade.emit(add_card_upgrade)
 				$Winter.remove_child(pick_option_ui), func():
 					$Winter.remove_child(pick_option_ui))
@@ -718,26 +719,16 @@ func _on_card_button_pressed():
 	var prompt = "Pick a card to add to your deck"
 
 	pick_option_ui.setup(prompt, cards, func(selected):
-		deck.append(selected.card_info)
+		deck.append(selected)
 		$Winter.remove_child(pick_option_ui), func():
 			$Winter.remove_child(pick_option_ui))
 
 
 func _on_any_card_button_pressed():
-	var all_cards = cards_database.get_all_cards()
-	var select_card = SELECT_CARD.instantiate()
-	select_card.tooltip = tooltip
-	select_card.size = Constants.VIEWPORT_SIZE
-	select_card.z_index = 2
-	select_card.theme = load("res://assets/theme_large.tres")
-	select_card.select_callback = func(card_data):
-		remove_child(select_card)
-		deck.append(card_data)
-		$Shop.setup(deck, turn_manager)
-	select_card.select_cancelled.connect(func():
-		remove_child(select_card))
-	add_child(select_card)
-	select_card.do_card_pick(all_cards, "Select a card to add to your deck")
+	var debug = debug_menu.instantiate()
+	debug.setup(self, turn_manager, func():
+		self.remove_child(debug))
+	self.add_child(debug)
 
 func pick_cards_event(cards):
 	$Winter/Explore.pick_card_from(cards)

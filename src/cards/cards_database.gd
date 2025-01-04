@@ -60,14 +60,14 @@ static func get_all_enhance() -> Array[Enhance]:
 		enhances.append(enhance)
 	return enhances
 
-static func get_all_structure(rarity: String) -> Array[Structure]:
+static func get_all_structure(rarity: Variant) -> Array[Structure]:
 	var structures: Array[Structure] = []
 	var paths = get_all_file_paths("res://src/structure/data");
 	for path in paths:
 		var structure: Structure = load(path)
 		if structure == null:
 			print(path)
-		if structure.rarity == rarity:
+		if rarity == null or structure.rarity == rarity:
 			structures.append(structure)
 	return structures
 

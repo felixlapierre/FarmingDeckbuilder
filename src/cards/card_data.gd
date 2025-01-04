@@ -98,7 +98,7 @@ func apply_enhance(enhance: Enhance):
 		"FlatYield":
 			n_card.yld += int(enhance.strength)
 		"SpreadGrow":
-			n_card.effects.append(load("res://src/effect/data/spread_on_grow.tres"))
+			n_card.effects.append(load("res://src/effect/data/spread_on_grow_1.tres"))
 		"SpreadHarvest":
 			n_card.effects.append(load("res://src/effect/data/spread_on_harvest.tres"))
 		"Burn":

@@ -484,7 +484,7 @@ offset_left = 1675.0
 offset_top = 11.0
 offset_right = 1905.0
 offset_bottom = 60.0
-text = "Pick Any Card"
+text = "Debug Menu"
 
 [node name="EventPanel" type="PanelContainer" parent="Winter"]
 visible = false

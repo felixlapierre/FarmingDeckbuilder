@@ -13,7 +13,7 @@ func register_events(event_manager: EventManager, p_tile: Tile):
 		var prompt = "Pick a card to Burn"
 
 		pick_option_ui.setup(prompt, args.cards.get_hand_info(), func(selected):
-			args.cards.remove_card_with_info(selected.card_info)
+			args.cards.remove_card_with_info(selected)
 			args.cards.notify_card_burned(selected)
 			args.user_interface.remove_child(pick_option_ui), null)
 	event_manager.register_listener(event_type, callback)
