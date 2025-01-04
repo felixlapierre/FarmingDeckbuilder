@@ -9,7 +9,7 @@ var wildflower = load("res://src/fortune/unique/wildflower.tres")
 func register_events(event_manager: EventManager, p_tile: Tile):
 	callback = func(args: EventArgs):
 		args.specific.tile.remove_seed()
-		args.specific.tile.plant_seed(wildflower)
+		args.specific.tile.plant_seed(wildflower.copy())
 		args.specific.tile.grow_one_week()
 		args.specific.tile.play_effect_particles()
 	event_manager.register_listener(event_type, callback)

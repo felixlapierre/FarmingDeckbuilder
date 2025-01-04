@@ -15,7 +15,6 @@ var seed_grow_time = 0.0
 var current_yield = 0.0
 var current_grow_progress = 0.0
 var irrigated = false
-var IRRIGATED_MULTIPLIER = 0.4
 var purple = false
 var structure_rotate = 0
 var blight_targeted = false
@@ -152,10 +151,10 @@ func grow_one_week() -> Array[Effect]:
 		current_grow_progress += 1.0
 		var multiplier = 1.0
 		if is_watered():
-			multiplier += IRRIGATED_MULTIPLIER
+			multiplier += Global.WATERED_MULTIPLIER
 			var absorb = seed.get_effect("absorb")
 			if absorb != null:
-				multiplier += IRRIGATED_MULTIPLIER * absorb.strength
+				multiplier += Global.WATERED_MULTIPLIER * absorb.strength
 		current_yield += seed_base_yield / seed_grow_time * multiplier
 		update_plant_sprite()
 		grow_animation()

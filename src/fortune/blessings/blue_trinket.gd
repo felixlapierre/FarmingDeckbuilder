@@ -6,7 +6,7 @@ var callback
 var event_type = EventManager.EventType.BeforeTurnStart
 
 func _init() -> void:
-	super("Sapphire Amulet", Fortune.FortuneType.GoodFortune, "Water 1 random unwatered tile at the start of each turn", 0, icon, 2.0)
+	super("Everflowing Chalice", Fortune.FortuneType.GoodFortune, "Water 1 random unwatered tile at the start of each turn", 0, icon, 1.0)
 
 func register_fortune(event_manager: EventManager):
 	callback = func(args: EventArgs):
