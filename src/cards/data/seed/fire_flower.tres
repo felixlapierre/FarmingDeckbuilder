@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="FireFlower" load_steps=2 format=3 uid="uid://ctoc75rrwxoy6"]
+
+[ext_resource type="Script" path="res://src/cards/custom/fire_flower.gd" id="1_tyhed"]
+
+[resource]
+script = ExtResource("1_tyhed")
+type = "SEED"
+name = "Fire Flower"
+rarity = "common"
+cost = 1
+yld = 25
+time = 3
+size = 1
+text = "On play, pick a card in your hand to Burn"
+strength_increment = 1.0
+size_increment = 1
+seed_texture = 1
+texture_icon_offset = 16
+targets = Array[String]([])
+effects = Array[Resource("res://src/effect/effect.gd")]([])
+enhances = Array[String]([])
+strength = 0.0
+delay = 0.0
+anim_on = 0

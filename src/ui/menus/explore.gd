@@ -1,4 +1,5 @@
 extends Node2D
+class_name Explore
 
 var player_deck
 var tooltip
@@ -14,7 +15,7 @@ signal on_expand
 signal on_event
 signal on_fortune
 
-var explores = 0
+static var explores = 0
 
 var expands = 0
 var enhances = 0
@@ -33,11 +34,12 @@ func _process(delta):
 func setup(deck, p_tooltip):
 	player_deck = deck
 	tooltip = p_tooltip
+	explores = 0
 
 func create_explore(p_explores, turn_manager: TurnManager):
 	for point in $Points.get_children():
 		$Points.remove_child(point)
-	explores = p_explores
+	explores += p_explores
 	$CenterContainer/PanelContainer/VBox/HBox/Label.text = "Explorations Remaining: " + str(explores)
 	var DIST = 250
 	var positions = []
@@ -85,6 +87,11 @@ func create_explore(p_explores, turn_manager: TurnManager):
 			use_explore(pt)
 			expands += 1
 			expand_farm())
+	
+	if $Points.get_child_count() < explores:
+		create_point("Event", Vector2(0, 0), func(pt):
+			use_explore(pt)
+			on_event.emit())
 
 func use_explore(node):
 	if node != null:

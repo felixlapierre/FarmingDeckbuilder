@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="SparkShroom" load_steps=3 format=3 uid="uid://o5cn0c8xe032"]
+
+[ext_resource type="Script" path="res://src/structure/custom/spark_shroom.gd" id="1_j0t0j"]
+[ext_resource type="Texture2D" uid="uid://c46q76532nqk" path="res://assets/custom/Temp.png" id="2_xaykp"]
+
+[resource]
+script = ExtResource("1_j0t0j")
+name = "Sparkshroom"
+rarity = "rare"
+cost = 0
+size = 0
+text = "+1 energy per turn. Plant 5 Deathcaps nearby at the start of the year"
+texture = ExtResource("2_xaykp")
+effects = Array[Resource("res://src/effect/effect.gd")]([])
+tooltip = ""

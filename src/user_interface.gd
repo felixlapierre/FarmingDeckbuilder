@@ -123,6 +123,7 @@ func start_year():
 	$Winter.visible = false
 	AlertDisplay.clear(end_year_alert_text)
 	$Tutorial.position.x = 1368
+	$Winter/Explore.explores = 0
 	do_squirrel_seed()
 	create_fortune_display()
 	update_damage()

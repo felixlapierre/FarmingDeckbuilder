@@ -1,5 +1,5 @@
 extends CardData
-class_name Cactus
+class_name RainbowCactus
 
 var tile: Tile
 var callback: Callable
@@ -15,13 +15,14 @@ func register_seed_events(event_manager: EventManager, p_tile: Tile):
 			var target_tile: Tile = args.farm.tiles[tile.grid_location.x + entry.x][tile.grid_location.y + entry.y]
 			if (target_tile.state == Enums.TileState.Growing or target_tile.state == Enums.TileState.Mature):
 				target_tile.destroy_plant()
+				tile.add_yield(strength)
 	event_manager.register_listener(event_type, callback)
 
 func unregister_seed_events(event_manager: EventManager):
 	event_manager.unregister_listener(event_type, callback)
 
 func copy():
-	var new = Cactus.new();
+	var new = RainbowCactus.new();
 	new.assign(self)
 	return new
 

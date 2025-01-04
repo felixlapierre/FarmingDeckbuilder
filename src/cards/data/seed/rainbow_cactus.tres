@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="RainbowCactus" load_steps=2 format=3 uid="uid://b1q2nkvd02duu"]
+
+[ext_resource type="Script" path="res://src/cards/custom/rainbow_cactus.gd" id="1_4cd45"]
+
+[resource]
+script = ExtResource("1_4cd45")
+type = "SEED"
+name = "Rainbow Cactus"
+rarity = "rare"
+cost = 2
+yld = 20
+time = 3
+size = 1
+text = "When a plant is planted on an adjacent tile, destroy it and gain {STRENGTH} {MANA}"
+strength_increment = 5.0
+size_increment = 1
+seed_texture = 0
+texture_icon_offset = 16
+targets = Array[String]([])
+effects = Array[Resource("res://src/effect/effect.gd")]([])
+enhances = Array[String]([])
+strength = 5.0
+delay = 0.0
+anim_on = 0

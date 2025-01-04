@@ -389,6 +389,9 @@ func use_card_on_targets(card, targets, only_first):
 			continue
 		if card.type == "SEED":
 			effect_queue.append_array(target_tile.plant_seed_animate(card.copy()))
+			var args = EventArgs.SpecificArgs.new(target_tile)
+			args.play_args = EventArgs.PlayArgs.new(card)
+			event_manager.notify_specific_args(EventManager.EventType.OnActionCardUsed, args)
 		elif card.type == "ACTION":
 			use_action_card(card, Vector2(target.x, target.y))
 		if only_first:
