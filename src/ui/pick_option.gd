@@ -25,8 +25,8 @@ func setup(prompt: String, items, pick_callback: Callable, skip_callback):
 		if item is Fortune:
 			var new_node = FortuneDisplay.instantiate()
 			new_node.setup(item)
-			new_node.clicked.connect(func(): 
-				pick_callback.call(item))
+			new_node.clicked.connect(func(data): 
+				pick_callback.call(data))
 			options_container.add_child(new_node)
 		elif item.CLASS_NAME == "CardData":
 			var new_node = ShopCard.instantiate()
