@@ -33,7 +33,9 @@ func get_options():
 		var prompt = "Pick the Native Seed"
 
 		pick_option_ui.setup(prompt, cards.slice(0, 3), func(selected):
-			user_interface._on_explore_on_fortune(empty_native_seed_fortune.new(selected.card_info))
+			var fortune = empty_native_seed_fortune.new()
+			fortune.seed = selected.card_info
+			user_interface._on_explore_on_fortune(fortune)
 			user_interface.remove_child(pick_option_ui), func():
 				user_interface.remove_child(pick_option_ui))
 	)
