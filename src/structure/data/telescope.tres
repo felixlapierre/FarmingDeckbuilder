@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="Telescope" load_steps=3 format=3 uid="uid://dkixenoktql7d"]
 
 [ext_resource type="Script" path="res://src/structure/custom/telescope.gd" id="1_6nvsx"]
-[ext_resource type="Texture2D" uid="uid://c46q76532nqk" path="res://assets/custom/Temp.png" id="2_dixv6"]
+[ext_resource type="Texture2D" uid="uid://d2i4uyikyc1xy" path="res://assets/structure/telescope.png" id="2_vm13s"]
 
 [resource]
 script = ExtResource("1_6nvsx")
@@ -10,6 +10,6 @@ rarity = "rare"
 cost = 0
 size = 0
 text = "+1 explore point per winter"
-texture = ExtResource("2_dixv6")
+texture = ExtResource("2_vm13s")
 effects = Array[Resource("res://src/effect/effect.gd")]([])
 tooltip = ""

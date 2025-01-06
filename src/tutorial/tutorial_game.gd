@@ -103,13 +103,15 @@ func year_one_end_year():
 	user_interface.shop.CHOICE_TWO_LABEL.visible = false
 	shop_explanation = ExplanationScene.instantiate()
 	shop_explanation.set_text("[color=aquamarine]Shop[/color]: Choose one of the above cards to add to your deck. You can also skip this choice to get a reroll, which can be used later to refresh your options.\n\n[color=green]Seed cards (Green)[/color]: Plant a seed on your farm that generates " + Helper.mana_icon() + " after some amount of weeks.\n\n[color=red]Action Card (Red)[/color]: Perform special effects that can manipulate your plants or give you other benefits")
-	shop_explanation.set_exp_size(1400, 250)
-	shop_explanation.position = Vector2(270, 530)
-	user_interface.shop.add_child(shop_explanation)
+	shop_explanation.set_exp_size(500, 400)
+	shop_explanation.position = Vector2(700, 10)
+	user_interface.explore.add_child(shop_explanation)
 	winter_explanation = ExplanationScene.instantiate()
-	winter_explanation.set_text("You've completed the [color=gold]Cleansing Ritual[/color] for Year 1 by generating 40" + Helper.mana_icon() + ".\n\nAt the end of each year, go to the Shop to make your deck stronger by adding new cards.\n\nWhen you're ready, click the Next Year button to continue")
+	winter_explanation.set_text("You've completed the [color=gold]Cleansing Ritual[/color] for Year 1 by generating 40" + Helper.mana_icon() + ".\n\nAt the end of each year, make your deck stronger by adding a card to it. You can also view your current deck by clicking the 'View Deck' button on the bottom left.\n\nWhen you're done, click the Continue button")
 	winter_explanation.set_exp_size(500, 400)
-	winter_explanation.position = Vector2(1250, 10)
+	winter_explanation.position = Vector2(700, 10)
+	user_interface.explore_button.visible = false
+	user_interface.explore.explores = 0
 	user_interface.WinterUi.add_child(winter_explanation)
 	user_interface.WinterUi.move_child(winter_explanation, 0)
 	user_interface.update()
@@ -164,9 +166,16 @@ func year_two_end_turn():
 func year_two_end_year():
 	user_interface.shop.CHOICE_TWO.visible = true
 	user_interface.shop.CHOICE_TWO_LABEL.visible = true
-	winter_explanation.set_text("From now on, the Shop will have two choices instead of one. Make sure to fully empty the shop before going to the next year.")
-	shop_explanation.set_text("Now you can also select one Structure or Enhance from the shop\n\n[color=lightcyan]Structure (Grey)[/color]: Occuppies one tile on your farm and grants a permanent bonus effect.\n\n[color=aqua]Enhance (blue)[/color]: Makes one card in your deck stronger")
-	shop_explanation.position = Vector2(270, 875)
+	user_interface.explore_button.visible = true
+	user_interface.explore.explores = 2
+	var points = user_interface.explore.points
+	points.remove_child(points.get_children()[3])
+	points.remove_child(points.get_children()[1])
+	points.remove_child(points.get_children()[0])
+	winter_explanation.set_text("You can now 'Explore' the areas around your farm and find more ways to get stronger.")
+	winter_explanation.set_exp_size(500, 200)
+	shop_explanation.set_text("\n\n[color=lightcyan]Structure (Grey)[/color]: Occuppies one tile on your farm and grants a permanent bonus effect.\n\n[color=aqua]Enhance (blue)[/color]: Makes one card in your deck stronger")
+	shop_explanation.position = Vector2(520, 260)
 	user_interface.shop.STOCK_ONE.get_child(0).set_data(load("res://src/cards/data/action/leaf_ward.tres"))
 	user_interface.shop.STOCK_ONE.get_child(1).set_data(load("res://src/cards/data/action/focus.tres"))
 	user_interface.shop.STOCK_ONE.get_child(2).set_data(load("res://src/cards/data/seed/coffee.tres"))
@@ -176,7 +185,7 @@ func year_two_end_year():
 	user_interface.shop.STOCK_TWO.get_child(1).set_data(load("res://src/enhance/data/discount.tres"))
 	user_interface.shop.STOCK_TWO.get_child(2).set_data(load("res://src/enhance/data/growspeed.tres"))
 	user_interface.FortuneTeller.current_fortunes.clear()
-	var fortunes: Array[Fortune] = [load("res://src/fortune/data/daylily_fortune.gd").new(), load("res://src/fortune/data/blightroot_once.gd").new()]
+	var fortunes: Array[Fortune] = [load("res://src/fortune/data/add_blightroot.gd").new()]
 	user_interface.FortuneTeller.attack_pattern = dummy_attack_pattern([0, 0, 10, 0, 10, 5, 0, 15, 10, 0, 10, 0, 10, 10, 0, 10], fortunes)
 	user_interface.create_fortune_display()
 
@@ -185,7 +194,7 @@ func year_three():
 	turn_manager.total_ritual = 60
 	turn_manager.blight_pattern = [0, 0, 10, 0, 10, 5, 0, 15, 10, 0, 10, 0, 10, 10, 0, 10]
 	farming_explanation.set_exp_size(650, 350)
-	farming_explanation.set_text("Each year, various positive and negative Fortunes will help or hinder your progress.\n\nHover over the icons underneath this text to see the details of this year's Fortunes.\n\nMake sure to adapt your strategy in order to complete this year's Ritual safely!")
+	farming_explanation.set_text("Each year, the Blight will unleash various attacks to hinder your progress.\n\nHover over the icons underneath this text to see the details of this year's attacks.\n\nMake sure to adapt your strategy in order to complete this year's Ritual safely!")
 	user_interface.EndScreen.hide_send_pics()
 	user_interface.update()
 
@@ -194,7 +203,7 @@ func year_three_end_year():
 	winter_explanation.visible = false
 	winter_explanation.set_text("At the end of the year, an Event will occur that will give you something useful. Click on the Event button.")
 	winter_explanation.set_exp_size(500, 300)
-	user_interface.shop.remove_child(shop_explanation)
+	user_interface.explore.remove_child(shop_explanation)
 	user_interface.FortuneTeller.current_fortunes.clear()
 	user_interface.FortuneTeller.current_fortunes.append(load("res://src/fortune/data/wildflowers.gd").new())
 	user_interface.FortuneTeller.current_fortunes.append(load("res://src/fortune/data/weeds_on_farm.gd").new())

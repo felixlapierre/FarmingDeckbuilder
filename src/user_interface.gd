@@ -51,6 +51,8 @@ var debug_menu = preload("res://src/ui/menus/debug_menu.tscn")
 @onready var CancelStructure = $CancelStructure
 @onready var blessings: Blessings = $Blessings
 @onready var weather_display = $UI/WeatherDisplay
+@onready var explore = $Winter/Explore
+@onready var explore_button = $Winter/ExploreButton
 
 var end_year_alert_text = "Ritual Complete! Time to rest and prepare for the next year"
 var structure_place_text = "Click on the farm tile where you'd like to place the structure"

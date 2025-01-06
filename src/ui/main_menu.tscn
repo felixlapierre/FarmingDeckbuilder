@@ -100,6 +100,7 @@ size_flags_horizontal = 3
 text = "Farm Type:"
 
 [node name="TypeOptions" type="OptionButton" parent="Root/HBox/Panel/Margin/VBox/HBox/Margin/VBox/FarmTypeBox"]
+custom_minimum_size = Vector2(300, 80)
 layout_mode = 2
 alignment = 1
 item_count = 6
@@ -137,6 +138,7 @@ size_flags_horizontal = 3
 text = "Difficulty"
 
 [node name="DiffOptions" type="OptionButton" parent="Root/HBox/Panel/Margin/VBox/HBox/Margin/VBox/DifficultyBox"]
+custom_minimum_size = Vector2(300, 80)
 layout_mode = 2
 alignment = 1
 item_count = 4
@@ -163,6 +165,7 @@ size_flags_horizontal = 3
 text = "Character: "
 
 [node name="CharOptions" type="OptionButton" parent="Root/HBox/Panel/Margin/VBox/HBox/Margin/VBox/CharacterBox"]
+custom_minimum_size = Vector2(300, 80)
 layout_mode = 2
 alignment = 1
 item_count = 8
@@ -286,11 +289,13 @@ text = "Best Win:"
 fit_content = true
 
 [node name="StartButton" type="Button" parent="Root/HBox/Panel/Margin/VBox"]
+custom_minimum_size = Vector2(0, 80)
 layout_mode = 2
 text = "Start New Game
 "
 
 [node name="TutorialButton" type="Button" parent="Root/HBox/Panel/Margin/VBox"]
+custom_minimum_size = Vector2(0, 80)
 layout_mode = 2
 text = "Play Tutorial"
 
@@ -335,6 +340,7 @@ size_flags_horizontal = 3
 bbcode_enabled = true
 
 [node name="ContinueButton" type="Button" parent="Root/HBox/ContPanel/VBox/Margin/VBox"]
+custom_minimum_size = Vector2(0, 80)
 layout_mode = 2
 size_flags_vertical = 10
 text = "No save data found"

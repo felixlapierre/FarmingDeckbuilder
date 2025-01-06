@@ -9,6 +9,8 @@ var PickOption = preload("res://src/ui/pick_option.tscn")
 var cards_database = preload("res://src/cards/cards_database.gd")
 var SelectCard = preload("res://src/cards/select_card.tscn")
 
+@onready var points = $Points
+
 signal apply_upgrade
 signal on_structure_select
 signal on_expand
