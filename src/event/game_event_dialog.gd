@@ -38,7 +38,6 @@ func generate_random_event():
 			custom_event = options[0]
 
 	if custom_event != null:
-		completed_events.append(custom_event.name)
 		update_interface()
 		return
 
@@ -61,4 +60,10 @@ func update_interface():
 	$EventDialog.set_event(custom_event)
 
 func _on_click_out_button_pressed():
+	visible = false
+
+func _on_event_dialog_on_confirm() -> void:
+	completed_events.append(custom_event.name)
+	generate_random_event()
+	update_interface()
 	visible = false

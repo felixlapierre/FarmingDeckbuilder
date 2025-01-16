@@ -8,6 +8,7 @@ var flavor_cont: MarginContainer
 var hover_node: Node
 
 var confirm_callback: Callable
+signal on_confirm
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -61,5 +62,5 @@ func set_event(event: CustomEvent):
 
 
 func _on_confirm_pressed():
-	$"../".visible = false
+	on_confirm.emit()
 	confirm_callback.call()
