@@ -95,8 +95,10 @@ func _on_diff_options_item_selected(index):
 			update_prompt("Difficulty: Mastery", load("res://assets/ui/Mastery.png"), "Increase the difficulty as much as you can in order to reach new levels of mastery.")
 			Mastery.MasteryLevel = 1
 			MasteryContainer.visible = true
+			update_mastery_2(Mastery.MasteryLevel)
 	Global.DIFFICULTY = index
 	update_mastery()
+	
 
 func _on_start_button_pressed():
 	menu_root.visible = false
@@ -439,6 +441,9 @@ func _on_mastery_plus_pressed():
 
 func update_mastery_2(level: int):
 	$Root/HBox/Panel/Margin/VBox/HBox/Margin/VBox/MasteryCont/LevelSelector/LevelLabel.text = str(level)
+	if Mastery.MasteryLevel == 1:
+		$Root/HBox/Panel/Margin/VBox/HBox/Margin/VBox/MasteryCont/LevelSelector/Minus.disabled = true
+		$Root/HBox/Panel/Margin/VBox/HBox/Margin/VBox/MasteryCont/LevelSelector/Plus.disabled = false
 	var prompt_title = "Mastery " + str(level)
 	var prompt_text = Mastery.get_prompt_text()
 	update_prompt(prompt_title, load("res://assets/ui/Mastery" + str(level) + ".png"), prompt_text)
