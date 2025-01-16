@@ -7,9 +7,20 @@ var event_type = EventManager.EventType.OnActionCardUsed
 # To be overridden by specific code seeds
 func register_events(event_manager: EventManager, p_tile: Tile):
 	callback = func(args: EventArgs):
-		var effect = Effect.new("spread", args.specific.tile.seed.size + strength)
-		effect.card = args.specific.tile.seed
-		args.farm.perform_effect(effect, args.specific.tile)
+		var options: Array[Tile] = []
+		var target_tile: Tile = args.specific.tile
+		for loc in Helper.get_tile_shape(8, Enums.CursorShape.Elbow):
+			var target = target_tile.grid_location + loc
+			if Helper.in_bounds(target):
+				var tile: Tile = args.farm.tiles[target.x][target.y]
+				if tile.card_can_target(target_tile.seed):
+					options.append(tile)
+		options.shuffle()
+		var amount = target_tile.seed.size + strength
+		for i in range(min(amount, options.size())):
+			var target: Tile = options[i]
+			target.plant_seed_animate(target_tile.seed.copy())
+			args.farm.do_animation(load("res://src/animation/spread.tres"), target.grid_location)
 	event_manager.register_listener(event_type, callback)
 
 func unregister_events(event_manager: EventManager):

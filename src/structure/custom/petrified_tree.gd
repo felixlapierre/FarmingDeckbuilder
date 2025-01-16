@@ -2,8 +2,9 @@ extends Structure
 class_name PetrifiedTree
 
 var callback: Callable
-
+var callback2: Callable
 var event_type = EventManager.EventType.BeforeTurnStart
+var event_type_yearstart = EventManager.EventType.BeforeYearStart
 
 func _init():
 	super()
@@ -15,6 +16,10 @@ func copy():
 
 func register_events(event_manager: EventManager, tile: Tile):
 	callback = func(args: EventArgs):
+		args.turn_manager.energy += 1
+		tile.play_effect_particles()
+
+	var callback2 = func(args: EventArgs):
 		var destroy_count = Global.FARM_BOTRIGHT.x - Global.FARM_TOPLEFT.x
 		var candidates: Array[Tile] = []
 		for target_tile in args.farm.get_all_tiles():
@@ -30,9 +35,9 @@ func register_events(event_manager: EventManager, tile: Tile):
 			return adist < bdist)
 		for i in range(min(destroy_count, candidates.size())):
 			candidates[i].destroy()
-		args.turn_manager.energy += 1
-		tile.play_effect_particles()
 	event_manager.register_listener(event_type, callback)
+	event_manager.register_listener(event_type_yearstart, callback2)
 
 func unregister_events(event_manager: EventManager):
 	event_manager.unregister_listener(event_type, callback)
+	event_manager.unregister_listener(event_type_yearstart, callback2)

@@ -4,6 +4,7 @@ class_name SparkShroom
 var callback: Callable
 
 var event_type = EventManager.EventType.BeforeTurnStart
+
 var deathcap = preload("res://src/fortune/unique/deathcap.tres")
 
 func _init():
@@ -15,7 +16,7 @@ func copy():
 	return copy
 
 func register_events(event_manager: EventManager, tile: Tile):
-	var shrooms_count = 5
+	var shrooms_count = 1
 	callback = func(args: EventArgs):
 		var candidates: Array[Tile] = []
 		for target_tile in args.farm.get_all_tiles():

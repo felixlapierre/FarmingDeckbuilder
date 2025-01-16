@@ -79,7 +79,7 @@ static func load_farm(farm: Farm, event_manager: EventManager):
 		tile.do_active_check()
 
 static func setup_wilderness_farm_callback(farm: Farm, event_manager: EventManager):
-	event_manager.register_listener(EventManager.EventType.BeforeYearStart, wilderness_callable)
+	event_manager.register_listener(EventManager.EventType.AfterYearStart, wilderness_callable)
 
 static func setup_riverlands_farm_callback(farm: Farm, event_manager: EventManager):
 	event_manager.register_listener(EventManager.EventType.BeforeYearStart, func(args: EventArgs):
