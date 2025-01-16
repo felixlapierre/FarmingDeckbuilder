@@ -1,5 +1,35 @@
 # Changelog
 
+## Version 0.0.9
+
+Released Jan 15th
+
+New Features
+- Web Release allows playing the game as a Progressive Web App in the browser. This allows the game to be played on iOS, but it's still buggy and unreliable.
+- Added new cards (Bleeding Heart, Fire Flower, Copper Flower, Rainbow Cactus, Sparkflower, Coneflower, Lavender)
+- Added new events (Zodiac Vault, Guardian of the Fields) and a new UI for Events. Vessel Stone event reworked.
+- Added new enhances (+2Strength/+1Cost, +2 Size)
+- Added new structures (Telescope, Imperfect Tourmaline, Spark Shroom)
+- Reworked Riverland farm and Mountain farm. Replaced Lunar Mage with Lunar Temple farm. Added Stormlands farm. Wilderness farm can now select the native seed before starting
+- Display best win on a given mage, farm, or mage-farm combo in the new game screen
+- New blight attacks (Cold Snap, Dark Thorn, Bloodthorn, Spell Breaker, Decay). Reworked how blight attacks scale with difficulty.
+- Added more Blessings (Nature's Bounty, Tourmaline Fragment, Water Crown, Winter's Blessing)
+
+Balance
+- Pyromancer now has +1 energy per turn
+- Reworked Iris. Now keeps the stored plant if replanted or spreaded. Reworked Cactus.
+- Reworked Mastery mode into 5 difficulty settings
+- Rooted Core and Geode are now common structures
+- Game lasts 8 years instead of 10
+- Pick from 3 rare cards in the explore menu instead of 5
+
+QoL
+- Keyboard shortcuts. Number keys select cards in hand, E ends the turn.
+- A card's features are now highlighted in blue when they are enhanced. Fleeting cards are now semitransparent.
+- Added a Debug Menu in winter when debug mode is enabled that lets you add cards/enhances/structures/blessings, trigger events, trigger blight attacks, change year.
+- Fixed bugs (Fairy Hutch)
+
+
 ## Version 0.0.8
 
 Released Dec 17th

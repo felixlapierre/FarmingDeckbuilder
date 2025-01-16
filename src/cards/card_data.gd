@@ -113,6 +113,8 @@ func apply_enhance(enhance: Enhance):
 			n_card.apply_strength(enhance)
 		"Size":
 			n_card.size += enhance.strength * size_increment
+			if n_card.size > 9:
+				n_card.size = 9
 		"Springbound":
 			n_card.effects.append(load("res://src/effect/data/springbound.tres"))
 		"Regrow":

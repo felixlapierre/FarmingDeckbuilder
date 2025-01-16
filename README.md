@@ -1,22 +1,44 @@
-## Earthrite
+# Earthrite
 
 by Felix Lapierre
 
-Version 0.0.8 released on Dec 17th ([Changelog](docs/CHANGELOG.md))
+Version 0.0.9 released on January 15th ([Changelog](docs/CHANGELOG.md))
 
-### Download
+[Download](#download)
 
-[Download for Windows](https://drive.google.com/file/d/1leb7dkDjaplnB0dKa3hauKQunD9kOC0a/view?usp=sharing)
+- [Download for Windows](#Windows)
 
-[Download for Linux](https://drive.google.com/file/d/1Kd9oHDe_nLvkda3v8JInBhzVMozS0jbM/view?usp=sharing)
+- [Download for Mac](#Mac)
 
-[Download for MacOS](https://drive.google.com/file/d/1aqqyLbR_wiAv9_s52ZxXlQZF8X8-7ngb/view?usp=sharing)
+- [Download for Android](#android)
 
-[Download for Android](https://drive.google.com/file/d/1u8tIv5_YUiwHJMcnDsD9VrZoobeyw-x6/view?usp=sharing)
+- [Download for Linux](#linux)
 
-<details><summary>Running on MacOS</summary>
+- [Download for iOS](#ios-experimental)
 
-Download Earthrite.zip from the above link, unzip the folder, and move the application file to the Applications folder.
+- [Play in a Web Browser](#web-browser)
+
+[How to Play](#how-to-play)
+
+[Screenshots](#screenshots)
+
+[Credits](#credits)
+
+## Download
+
+### Windows
+
+Simply [download Earthrite.exe from this link.](https://drive.google.com/file/d/1leb7dkDjaplnB0dKa3hauKQunD9kOC0a/view?usp=sharing)
+
+Double click on the executable to run it. You may get an antivirus warning because downloading an executable file on the internet is risky, but I assure you the game contains no viruses.
+
+### MacOS
+
+[Download Earthrite.zip](https://drive.google.com/file/d/1aqqyLbR_wiAv9_s52ZxXlQZF8X8-7ngb/view?usp=sharing)
+
+Just open on the link and then click the "Download" icon on the top right. Google Drive will display a file folder, just ignore that.
+
+Once you've downloaded Earthrite.zip, unzip the folder, and move the application file to the Applications folder.
 
 When you run the app for the first time, the following dialog is displayed:
 
@@ -28,15 +50,34 @@ To run the app, you can temporarily override Gatekeeper: Open System Preferences
 
 - On MacOS Sonoma: click System Settings then Privacy & Security, then scroll down to the Security section, then click Open Anyways 
 
-</details>
+### Android
 
-### Feedback
 
-If you have any feedback after playing the game I would love to hear it!
+[Download Earthrite.apk from this link](https://drive.google.com/file/d/1u8tIv5_YUiwHJMcnDsD9VrZoobeyw-x6/view?usp=sharing)
 
-[Feedback Form](https://forms.gle/JMJbESQnqYpCbsV97)
+Your phone may ask you to enable downloading APKs from Google Chrome. You can disable this setting once the installation is complete.
 
-### How to Play
+Alternatively, you can play the game as a Progressive Web App directly in your browser at [https://felixlapierre.github.io/earthrite/](https://felixlapierre.github.io/earthrite/). You can open the More menu and select Add to Home Screne to install the app. However, the APK method above is recommended as the game will have better performance, work offline, and be fullscreen.
+
+### Linux
+
+[Download Earthrite.x86_64](https://drive.google.com/file/d/1Kd9oHDe_nLvkda3v8JInBhzVMozS0jbM/view?usp=sharing)
+
+I've never actually tested the game on Linux, so let me know if this works.
+
+### iOS [EXPERIMENTAL]
+
+Open Safari and copy-paste this link into the web browser: [https://felixlapierre.github.io/earthrite/](https://felixlapierre.github.io/earthrite/)
+
+The game may take a while to load. If you see an error, try refreshing the page. You can play the game directly in the web browser, but it's recommended to install the app as a "Progressive Web App". Simply press the "Share" button and select "Add to Home Screen" from the popup. Lastly, tap "Add" in the top right corner to finish installing the app.
+
+iOS support is still unstable: the app will crash or fail to run on some devices.
+
+### Web Browser
+
+To play directly in the browser, go to  [https://felixlapierre.github.io/earthrite/](https://felixlapierre.github.io/earthrite/). The game may take a while to load. If you see an error, try refreshing the page. You will lose your save data if you clear your browsing data, and some visuals may not look as nice, so it is recommended to download and install the game for the platform of your choice instead.
+
+## How to Play
 
 You are a mage tasked with cleansing the Blighted Forest from the evil that corrupts it.
 

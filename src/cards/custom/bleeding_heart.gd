@@ -10,7 +10,7 @@ var event_type = EventManager.EventType.BeforeTurnStart
 func register_seed_events(event_manager: EventManager, p_tile: Tile):
 	callback = func(args: EventArgs):
 		for tile in args.farm.get_all_tiles():
-			if tile.seed != null and ["Dark Rose", "Daylily", "Sunflower", "Marigold", "Hyacinth", "Gilded Rose", "Blightrose", "Iris", "Lotus", "Water Lily"].has(tile.seed.name):
+			if tile.seed != null and tile.get_effects("corrupted") != null:
 				tile.add_yield(strength)
 	event_manager.register_listener(event_type, callback)
 

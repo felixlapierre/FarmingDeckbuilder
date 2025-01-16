@@ -64,7 +64,7 @@ func is_card_eligible(card: CardData):
 func get_description():
 	match name:
 		"Size":
-			return "Increase the size of the area affected by a card"
+			return "Increase the size of the area affected by a card" + (" twice" if strength == 2 else "")
 		"Discount":
 			return "Reduce a card's Cost by " + str(strength)
 		"GrowSpeed":
