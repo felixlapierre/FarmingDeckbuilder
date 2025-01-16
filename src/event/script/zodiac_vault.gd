@@ -3,7 +3,7 @@ extends CustomEvent
 var curse = load("res://src/fortune/curses/dissociation.gd").new()
 
 func _init():
-	super._init("Zodiac Vault", "Description")
+	super._init("Zodiac Vault", "This description is blank for now, sorry!")
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

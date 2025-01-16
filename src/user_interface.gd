@@ -749,6 +749,9 @@ func pick_structure_event(rarity: String):
 
 func remove_card_event():
 	$Winter/Explore.select_card_to_remove(null)
+	
+func apply_enhance_event(enhance: Enhance):
+	$Winter/Explore.select_card_to_enhance(enhance)
 
 func pick_card_from_deck_event(prompt: String, callback: Callable):
 	var select_card = SELECT_CARD.instantiate()

@@ -1,6 +1,7 @@
 extends CustomEvent
 
 var vessel_bound = load("res://src/cards/data/unique/vessel_bound.tres")
+var strength = preload("res://src/enhance/data/strength.tres")
 
 func _init():
 	super._init("Vessel Stone", "You come across a small abandoned town built around plaza with a cracked stone fountain. There are no dead; clearly, the residents had time to escape before the Blight spread this far.\n
@@ -20,12 +21,18 @@ func get_options():
 	var card1 = ShopCard.instantiate()
 	card1.card_data = vessel_bound
 	cards.append(card1)
+	
+	var display2: Array[Node] = []
+	var new_node = ShopDisplay.instantiate()
+	new_node.set_data(strength)
+	display2.append(new_node)
+	
 	var option1 = CustomEvent.Option.new("Draw the boundless energy of the Vessel Stone", nodes_preview("Add a Rare enhance to a card in your deck. Add 'Vessel Bound' to your deck", cards), func():
 		user_interface.pick_enhance_event("rare")
 		user_interface.deck.append(vessel_bound)
 	)
-	var option2 = CustomEvent.Option.new("TODO Draw a small amount of energy", text_preview("Add 'Strength' to a card in your deck"), func():
-		pass
+	var option2 = CustomEvent.Option.new("Draw a small amount of energy", nodes_preview("Add 'Strength' to a card in your deck", display2), func():
+		user_interface.apply_enhance_event(strength)
 		)
 	var option3 = CustomEvent.Option.new("Leave", text_preview("Leave"), func():
 		pass)

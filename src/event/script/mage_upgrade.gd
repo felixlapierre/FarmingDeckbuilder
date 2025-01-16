@@ -3,7 +3,7 @@ extends CustomEvent
 var arrow = load("res://assets/ui/arrow.png")
 
 func _init():
-	super._init("Mastery", "Description")
+	super._init("Mastery", "This description is blank for now, sorry!")
 	#var option2 = CustomEvent.Option.new("Choose a new Mage Power", null,\
 	#	func(): pass)
 

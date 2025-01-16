@@ -13,13 +13,20 @@ var event3 = EventManager.EventType.BeforeYearStart
 
 func _init():
 	super()
+	if Global.LUNAR_FARM or Global.FARM_TYPE == "LUNARTEMPLE":
+		text = text.replace("80%", "30%")
 
 func copy():
 	var copy = PurpleTotem.new()
 	copy.assign(self)
+	if Global.LUNAR_FARM or Global.FARM_TYPE == "LUNARTEMPLE":
+		text = text.replace("80%", "30%")
 	return copy
 
 func register_events(event_manager: EventManager, tile: Tile):
+	var strength = 0.80 if Global.LUNAR_FARM else 0.30
+	if Global.LUNAR_FARM or Global.FARM_TYPE == "LUNARTEMPLE":
+		text = text.replace("80%", "30%")
 	callback = func(args: EventArgs):
 		if args.turn_manager.flag_defer_excess:
 			purple_mana = 0
@@ -27,7 +34,7 @@ func register_events(event_manager: EventManager, tile: Tile):
 			purple_mana = args.turn_manager.purple_mana - args.turn_manager.target_blight
 			purple_mana = 0 if purple_mana < 0 else purple_mana
 	callback2 = func(args: EventArgs):
-		args.turn_manager.purple_mana += purple_mana * 0.80
+		args.turn_manager.purple_mana += purple_mana * strength
 		if purple_mana > 0:
 			tile.play_effect_particles()
 	callback3 = func(args: EventArgs):

@@ -34,7 +34,7 @@ func copy():
 func get_description() -> String:
 	var desc: String = super.get_description()
 	if self.strength > 0:
-		return desc.replace("Size", "Size, plus " + str(self.strength))
+		return desc.replace("Size", "Size, [color=aqua]plus " + str(self.strength) + "[/color]")
 	return desc
 
 func can_strengthen_custom_effect():

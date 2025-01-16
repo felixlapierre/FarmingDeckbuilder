@@ -111,8 +111,10 @@ custom_minimum_size = Vector2(20, 45)
 layout_mode = 2
 theme = ExtResource("4_jm2oq")
 bbcode_enabled = true
-text = "9"
+text = "1"
+fit_content = true
 scroll_active = false
+autowrap_mode = 0
 
 [node name="SizeIcon" type="TextureRect" parent="HBoxContainer/VBoxContainer/ImageMargin/ImageCont/SizeCont"]
 custom_minimum_size = Vector2(50, 50)
@@ -134,8 +136,9 @@ texture = SubResource("AtlasTexture_02cf5")
 
 [node name="DescriptionLabel" type="RichTextLabel" parent="HBoxContainer/VBoxContainer"]
 texture_filter = 2
-custom_minimum_size = Vector2(184, 135)
+custom_minimum_size = Vector2(175, 135)
 layout_mode = 2
+size_flags_horizontal = 4
 bbcode_enabled = true
 text = "description"
 scroll_active = false
@@ -166,6 +169,8 @@ custom_minimum_size = Vector2(15, 25)
 layout_mode = 2
 bbcode_enabled = true
 text = "3"
+fit_content = true
+autowrap_mode = 0
 
 [node name="TimeTexture" type="TextureRect" parent="HBoxContainer/VBoxContainer/BottomBar"]
 layout_mode = 2

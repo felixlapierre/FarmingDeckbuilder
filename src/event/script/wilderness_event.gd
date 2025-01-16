@@ -4,7 +4,7 @@ var PickOption = preload("res://src/ui/pick_option.tscn")
 var empty_native_seed_fortune = preload("res://src/fortune/unique/native_seed.gd")
 
 func _init():
-	super._init("Guardian of the Fields", "Description")
+	super._init("Guardian of the Fields", "This description is blank for now, sorry!")
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

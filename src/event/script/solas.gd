@@ -7,7 +7,7 @@ var fall_blessing = preload("res://src/fortune/unique/fall_blessing.gd").new()
 var solas_curse = preload("res://src/fortune/curses/solar_curse.gd").new()
 
 func _init():
-	super._init("God of Seasons", "Description")
+	super._init("God of Seasons", "This description is blank for now, sorry!")
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

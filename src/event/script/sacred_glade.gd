@@ -3,7 +3,7 @@ extends CustomEvent
 var statue = load("res://src/structure/data/statue_of_grace.tres")
 
 func _init():
-	super._init("Sacred Glade", "Description")
+	super._init("Sacred Glade", "This description is blank for now, sorry!")
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
