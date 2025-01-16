@@ -13,20 +13,21 @@ var event3 = EventManager.EventType.BeforeYearStart
 
 func _init():
 	super()
+	call_deferred("update_text")
+
+func update_text():
 	if Global.LUNAR_FARM or Global.FARM_TYPE == "LUNARTEMPLE":
 		text = text.replace("80%", "30%")
 
 func copy():
 	var copy = PurpleTotem.new()
 	copy.assign(self)
-	if Global.LUNAR_FARM or Global.FARM_TYPE == "LUNARTEMPLE":
-		text = text.replace("80%", "30%")
+	update_text()
 	return copy
 
 func register_events(event_manager: EventManager, tile: Tile):
-	var strength = 0.80 if Global.LUNAR_FARM else 0.30
-	if Global.LUNAR_FARM or Global.FARM_TYPE == "LUNARTEMPLE":
-		text = text.replace("80%", "30%")
+	var strength = 0.30 if Global.LUNAR_FARM else 0.80
+	update_text()
 	callback = func(args: EventArgs):
 		if args.turn_manager.flag_defer_excess:
 			purple_mana = 0

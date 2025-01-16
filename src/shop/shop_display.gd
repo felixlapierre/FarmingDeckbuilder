@@ -17,6 +17,10 @@ var tooltip: Tooltip
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	update_display()
+	
+func _process(_delta: float) -> void:
+	#TODO is this really necessary? to make lunar totem text work
+	update_display()
 
 func update_display():
 	if Name == null:
