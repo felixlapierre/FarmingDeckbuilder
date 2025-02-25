@@ -37,12 +37,19 @@ var COLOR_DESTROYED = Color8(45, 45, 45)
 var COLOR_BLIGHTED = Color8(110, 41, 110)
 
 var yield_particles
+var shader = load("res://src/farm/tile/tile.gdshader")
+
+var push_vector: Vector2 = Vector2.ZERO
+var push_tween = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	Global.register_click_callback(self)
 	do_active_check()
 	yield_particles = $AddYieldParticles
+	var material = ShaderMaterial.new()
+	material.shader = shader
+	$PlantSprite.material = material
 
 func do_active_check():
 	if grid_location.x < Global.FARM_TOPLEFT.x\
@@ -81,11 +88,12 @@ func update_display():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	pass
+	$PlantSprite.material.set_shader_parameter("push", push_vector)
 
 func _on_tile_button_mouse_entered() -> void:
 	if !Settings.CLICK_MODE:
 		tile_hovered.emit(self)
+	push_animate(Vector2(-3 * randf(), -3 * randf()))
 
 func _on_tile_button_mouse_exited() -> void:
 	if !Settings.CLICK_MODE:
@@ -443,3 +451,13 @@ func structure_can_target():
 
 func play_effect_particles():
 	$EffectParticles.emitting = true
+
+func push_animate(vector: Vector2):
+	push_vector = vector
+	if push_tween != null:
+		push_tween.kill()
+		push_tween = null
+	push_tween = create_tween()
+	push_tween.set_ease(Tween.EASE_OUT)\
+		.set_trans(Tween.TRANS_CUBIC)\
+		.tween_property(self, "push_vector", Vector2.ZERO, 0.4)

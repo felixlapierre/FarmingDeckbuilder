@@ -99,20 +99,22 @@ func use_card(grid_position):
 	elif card.get_effect("harvest") != null:
 		spriteframes = load("res://src/animation/scythe_frames.tres")
 		delay = 0.2
+	var animation_position = Vector2.ZERO
 	if spriteframes != null:
 		if on == Enums.AnimOn.Mouse:
 			var location = grid_position if card.size == 9 else targets[0]
-			do_animation(spriteframes, location)
+			animation_position = do_animation(spriteframes, location)
 		elif on == Enums.AnimOn.Tiles:
 			for target in targets:
 				var inbounds = Helper.in_bounds(target)
 				var cantarget = tiles[target.x][target.y].card_can_target(card)
 				if inbounds and cantarget:
-					do_animation(spriteframes, target)
+					animation_position = do_animation(spriteframes, target)
 		elif on == Enums.AnimOn.Center:
-			do_animation(spriteframes, null)
+			animation_position = do_animation(spriteframes, null)
 	card_played.emit(Global.selected_card)
 	await get_tree().create_timer(delay).timeout
+	do_plant_shearing_animation(animation_position, card.size)
 	use_card_on_targets(card, targets, false)
 	clear_overlay()
 	process_effect_queue()
@@ -541,3 +543,13 @@ func do_animation(spriteframes, grid_location):
 	anim.play("default")
 	anim.animation_finished.connect(func():
 		remove_child(anim))
+	return anim.position
+
+func do_plant_shearing_animation(origin: Vector2, size: int):
+	if origin == Vector2.ZERO:
+		return
+	for tile: Tile in get_all_tiles():
+		var decay = 6 if size == -1 else size / 2
+		var push_direction = tile.position.direction_to(origin)
+		var push_intensity = max(0, 12 * (1 - (origin.distance_to(tile.position) / TILE_SIZE.x / decay)))
+		tile.push_animate(push_direction * push_intensity)
