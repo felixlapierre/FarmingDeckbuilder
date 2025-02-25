@@ -93,13 +93,14 @@ func _process(delta: float) -> void:
 func _on_tile_button_mouse_entered() -> void:
 	if !Settings.CLICK_MODE:
 		tile_hovered.emit(self)
-	push_animate(Vector2(-3 * randf(), -3 * randf()))
 
 func _on_tile_button_mouse_exited() -> void:
 	if !Settings.CLICK_MODE:
 		tile_hovered.emit(null)
 
 func _on_tile_button_gui_input(event: InputEvent) -> void:
+	if event.is_action_pressed("leftclick"):
+		nudge()
 	if event is InputEventScreenTouch and !Settings.CLICK_MODE:
 		Global.MOBILE = true
 		Global.pressed = event.pressed
@@ -451,6 +452,9 @@ func structure_can_target():
 
 func play_effect_particles():
 	$EffectParticles.emitting = true
+
+func nudge():
+	push_animate(Vector2(-3 * randf(), -3 * randf()))
 
 func push_animate(vector: Vector2):
 	push_vector = vector

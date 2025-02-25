@@ -109,12 +109,16 @@ func use_card(grid_position):
 				var inbounds = Helper.in_bounds(target)
 				var cantarget = tiles[target.x][target.y].card_can_target(card)
 				if inbounds and cantarget:
-					animation_position = do_animation(spriteframes, target)
+					do_animation(spriteframes, target)
 		elif on == Enums.AnimOn.Center:
 			animation_position = do_animation(spriteframes, null)
 	card_played.emit(Global.selected_card)
 	await get_tree().create_timer(delay).timeout
 	do_plant_shearing_animation(animation_position, card.size)
+	if on == Enums.AnimOn.Tiles:
+		for target in targets:
+			if tiles[target.x][target.y].card_can_target(card):
+				tiles[target.x][target.y].nudge()
 	use_card_on_targets(card, targets, false)
 	clear_overlay()
 	process_effect_queue()
